@@ -46,6 +46,7 @@ angular.module('starter', ['ionic', 'starter.services', 'accountController', 'ca
       'tab-camera': {
         templateUrl: 'templates/tab-camera.html'
         ,controller: 'cameraCtrl'
+
       }
     }
   })
@@ -76,6 +77,7 @@ angular.module('starter', ['ionic', 'starter.services', 'accountController', 'ca
       'tab-upload': {
         templateUrl: 'templates/tab-upload.html',
         controller: 'uploadCtrl'
+        // ,controllerAs: 'upload'
       }
     }
   });

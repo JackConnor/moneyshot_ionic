@@ -1,6 +1,12 @@
 <ion-view view-title="Upload">
   <ion-content>
     <h2>Upload a Photo</h2>
+    <p>
+      {{test}}
+    </p>
+    <div class="photoHolder" collection-repeat='photo in allPhotos'>
+      <img src="{{photo}}" alt="" style='width:200px; height:auto; display:block'/>
+    </div>
     <!-- <ion-list>
     <ion-toggle  ng-model="settings.enableFriends">
         Enable Friends
