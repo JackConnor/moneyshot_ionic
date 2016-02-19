@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
+angular.module('starter', ['ionic', 'starter.services', 'accountController', 'cameraController', 'uploadController', 'allPhotosFactory'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -44,8 +44,8 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
     url: '/camera',
     views: {
       'tab-camera': {
-        templateUrl: 'templates/tab-camera.html',
-        controller: 'DashCtrl'
+        templateUrl: 'templates/tab-camera.html'
+        ,controller: 'cameraCtrl'
       }
     }
   })
@@ -54,8 +54,8 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
       url: '/account',
       views: {
         'tab-account': {
-          templateUrl: 'templates/tab-account.html',
-          controller: 'ChatsCtrl'
+          templateUrl: 'templates/tab-account.html'
+          // ,controller: 'ChatsCtrl'
         }
       }
     })
@@ -63,23 +63,24 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
       url: '/chats/:chatId',
       views: {
         'tab-chats': {
-          templateUrl: 'templates/chat-detail.html',
-          controller: 'ChatDetailCtrl'
+          templateUrl: 'templates/chat-detail.html'
+          // ,controller: 'ChatDetailCtrl'
         }
       }
     })
 
+  /////upload from camera roll///////
   .state('tab.upload', {
     url: '/upload',
     views: {
       'tab-upload': {
         templateUrl: 'templates/tab-upload.html',
-        controller: 'AccountCtrl'
+        controller: 'uploadCtrl'
       }
     }
   });
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/tab/dash');
+  $urlRouterProvider.otherwise('/tab/camera');
 
 });
