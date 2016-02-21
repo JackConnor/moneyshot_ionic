@@ -4,7 +4,9 @@ angular.module('cameraController', [])
 
   cameraCtrl.$inject = ['$http', '$scope', 'Camera'];
   function cameraCtrl($http, $scope, Camera){
-    var self = this;
+    var self = $scope;
+    console.log(Camera);
+    console.log(Camera);
     console.log(Camera);
     Camera.getPicture()
       .then(function(imageUrl){
