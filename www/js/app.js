@@ -41,8 +41,9 @@ angular.module('starter', ['ionic', 'ngCordova', 'starter.services', 'accountCon
   // Each tab has its own nav history stack:
 
   .state('tab.camera', {
-    url: '/camera',
-    views: {
+    url: '/camera'
+    ,cache: false
+    ,views: {
       'tab-camera': {
         templateUrl: 'templates/tab-camera.html'
         ,controller: 'cameraCtrl'
@@ -52,8 +53,9 @@ angular.module('starter', ['ionic', 'ngCordova', 'starter.services', 'accountCon
   })
 
   .state('tab.account', {
-      url: '/account',
-      views: {
+      url: '/account'
+      ,cache: false
+      ,views: {
         'tab-account': {
           templateUrl: 'templates/tab-account.html'
           ,controller: 'accountCtrl'
@@ -61,8 +63,9 @@ angular.module('starter', ['ionic', 'ngCordova', 'starter.services', 'accountCon
       }
     })
     .state('tab.chat-detail', {
-      url: '/chats/:chatId',
-      views: {
+      url: '/chats/:chatId'
+      ,cache: false
+      ,views: {
         'tab-chats': {
           templateUrl: 'templates/chat-detail.html'
           // ,controller: 'ChatDetailCtrl'
@@ -72,8 +75,9 @@ angular.module('starter', ['ionic', 'ngCordova', 'starter.services', 'accountCon
 
   /////upload from camera roll///////
   .state('tab.upload', {
-    url: '/upload',
-    views: {
+    url: '/upload'
+    ,cache: false
+    ,views: {
       'tab-upload': {
         templateUrl: 'templates/tab-upload.html',
         controller: 'uploadCtrl'
