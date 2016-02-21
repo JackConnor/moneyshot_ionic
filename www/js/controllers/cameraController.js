@@ -11,4 +11,23 @@ angular.module('cameraController', [])
         console.log(imageUrl);
       })
     console.log('camera baby');
+    console.log('camera baby');
+    console.log('camera baby');
+    console.log('camera baby');
+    console.log('camera baby');
+    console.log('camera baby');
+    console.log('camera baby');
+    console.log('camera baby');
+    console.log('camera baby');
+    console.log('camera baby');
+    console.log('camera baby');
+    console.log('camera baby');
+    console.log('camera baby');
+    console.log('camera baby');
+    console.log('camera baby');
+    console.log('camera baby');
+    console.log('camera baby');
+    console.log('camera baby');
+    console.log('camera baby');
+    console.log('camera baby');
   }
