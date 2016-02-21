@@ -19,7 +19,7 @@ angular.module('cameraController', [])
     testApi();
     navigator.camera.getPicture(function(imageURI){
       console.log(imageURI);
-      var filename: 'testfile'
+      var filename =  'testfile';
       var options = {
          fileKey: "file",
          fileName: filename,
