@@ -17,14 +17,14 @@ angular.module('cameraController', [])
       })
     }
     testApi();
-    // navigator.camera.getPicture(function(imageURI){
-    //   console.log(imageURI);
-    //   var options = {}
-    //   $cordovaFileTransfer.upload('http://localhost:5555/api/newimage', imageURI, options)
-    //   .then(function(uploadResult){
-    //     console.log(uploadResult);
-    //   })
-    // })
+    navigator.camera.getPicture(function(imageURI){
+      console.log(imageURI);
+      var options = {}
+      $cordovaFileTransfer.upload('https://moneyshotapi.herokuapp.com/:5555/api/newimage', imageURI, options)
+      .then(function(uploadResult){
+        console.log(uploadResult);
+      })
+    })
     // Camera.getPicture()
     //   .then(function(imageUrl){
     //     console.log(imageUrl);
