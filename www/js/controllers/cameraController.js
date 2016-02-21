@@ -5,31 +5,8 @@ angular.module('cameraController', [])
   cameraCtrl.$inject = ['$http', '$scope', 'Camera'];
   function cameraCtrl($http, $scope, Camera){
     var self = $scope;
-    console.log(Camera);
-    console.log(Camera);
-    console.log(Camera);
     Camera.getPicture()
       .then(function(imageUrl){
         console.log(imageUrl);
       })
-    console.log('camera baby');
-    console.log('camera baby');
-    console.log('camera baby');
-    console.log('camera baby');
-    console.log('camera baby');
-    console.log('camera baby');
-    console.log('camera baby');
-    console.log('camera baby');
-    console.log('camera baby');
-    console.log('camera baby');
-    console.log('camera baby');
-    console.log('camera baby');
-    console.log('camera baby');
-    console.log('camera baby');
-    console.log('camera baby');
-    console.log('camera baby');
-    console.log('camera baby');
-    console.log('camera baby');
-    console.log('camera baby');
-    console.log('camera baby');
   }

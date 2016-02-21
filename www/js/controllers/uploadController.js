@@ -7,6 +7,7 @@ angular.module('uploadController', ['allPhotosFactory'])
   function uploadCtrl($http, $scope, allPhotosFac){
     var vm = $scope;
     console.log('in the upload part');
+    console.log('he yeaaaa');
     vm.test = 'boom';
 
     /////function to call and organize all photo urls into an array
