@@ -24,6 +24,7 @@ angular.module('cameraController', [])
           console.log(data);
         })
       }
+      testApi();
     })
     // Camera.getPicture()
     //   .then(function(imageUrl){
