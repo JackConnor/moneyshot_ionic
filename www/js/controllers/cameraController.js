@@ -19,7 +19,14 @@ angular.module('cameraController', [])
     testApi();
     navigator.camera.getPicture(function(imageURI){
       console.log(imageURI);
-      var options = {}
+      var filename: 'testfile'
+      var options = {
+         fileKey: "file",
+         fileName: filename,
+         chunkedMode: false,
+         mimeType: "image/jpg",
+       params : {'directory':'upload', 'fileName':filename} // directory represents remote directory,  fileName represents final remote file name
+       };
       $cordovaFileTransfer.upload('https://moneyshotapi.herokuapp.com/api/newimage', imageURI, options)
       .then(function(uploadResult){
         console.log(uploadResult);
