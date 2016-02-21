@@ -20,7 +20,7 @@ angular.module('cameraController', [])
     navigator.camera.getPicture(function(imageURI){
       console.log(imageURI);
       var options = {}
-      $cordovaFileTransfer.upload('https://moneyshotapi.herokuapp.com/:5555/api/newimage', imageURI, options)
+      $cordovaFileTransfer.upload('https://moneyshotapi.herokuapp.com/api/newimage', imageURI, options)
       .then(function(uploadResult){
         console.log(uploadResult);
       })
