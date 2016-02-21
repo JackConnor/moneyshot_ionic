@@ -9,7 +9,7 @@ angular.module('cameraController', [])
     navigator.camera.getPicture(function(imageURI){
       console.log(imageURI);
       var options = {}
-      $cordovaFileTransfer.upload('http://localhost:5555/api/newimage', imageURI, options, true)
+      $cordovaFileTransfer.upload('http://localhost:5555/api/newimage', imageURI, options)
       .then(function(uploadResult){
         console.log(uploadResult);
       })
