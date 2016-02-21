@@ -56,7 +56,7 @@ angular.module('starter', ['ionic', 'ngCordova', 'starter.services', 'accountCon
       views: {
         'tab-account': {
           templateUrl: 'templates/tab-account.html'
-          // ,controller: 'ChatsCtrl'
+          ,controller: 'accountCtrl'
         }
       }
     })
