@@ -6,8 +6,11 @@ angular.module('cameraController', [])
   function cameraCtrl($http, $scope, Camera){
     var self = $scope;
     console.log('yoyoyyoyo');
-    Camera.getPicture()
-      .then(function(imageUrl){
-        console.log(imageUrl);
-      })
+    navigator.camera.getPicture(function(imageURI){
+      console.log(imageURI);
+    })
+    // Camera.getPicture()
+    //   .then(function(imageUrl){
+    //     console.log(imageUrl);
+    //   })
   }
