@@ -9,6 +9,7 @@ angular.module('uploadController', ['allPhotosFactory'])
     console.log('in the upload part');
     console.log('he yeaaaa');
     vm.test = 'boom';
+    $('.uploadTitle').css("color", "red");
 
     /////function to call and organize all photo urls into an array
     function loadPhotos(){
