@@ -17,7 +17,7 @@ angular.module('cameraController', [])
       function testApi(){
         $http({
           method: "GET"
-          url: "http://localhost:5555/api/test"
+          ,url: "http://localhost:5555/api/test"
         })
         .then(function(data){
           console.log(data.data);
