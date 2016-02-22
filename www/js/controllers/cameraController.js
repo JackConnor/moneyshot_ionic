@@ -23,7 +23,10 @@ angular.module('cameraController', ['singlePhotoFactory'])
     /////functions to upload photos////
     navigator.camera.getPicture(function(result){
       console.log(result);
-      singlePhoto(result);
+      singlePhoto(result)
+      .then(function(response){
+        console.log(response);
+      })
     })
 
     //////////////end upload photos////
