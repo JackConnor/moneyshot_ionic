@@ -10,7 +10,7 @@ angular.module('singlePhotoFactory', ['ngFileUpload'])
     function uploadPhoto(photoFile){
       return $http({
         method: "POST"
-        ,url: "https://moneyshotapi.herokuapp.com/api/newimage"
+        ,url: "http://localhost:5555/api/newimage"
         ,data: {file: photoFile, info: "we doing it?"}
       })
     }
