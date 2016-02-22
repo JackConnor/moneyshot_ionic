@@ -27,9 +27,9 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload'])
       $cordovaFileTransfer.upload('http://192.168.0.11:5555/api/newimage', result, {})
       .then(function(callbackImage){
         console.log('in the callback');
-        console.log(callbackImage.url);
-        // $scope.newPhoto = callbackImage.secure_url;
-        $('.testPhoto').attr('src', callbackImage.secure_url);
+        console.log(callbackImage);
+        console.log(callbackImage.response);
+        $('.testPhoto').html(callbackImage.secure_url);
       })
     })
     ///////////////////////////////////
