@@ -8,6 +8,7 @@
     "gulp-minify-css": "^0.3.0",
     "gulp-rename": "^1.2.0",
     "gulp-sass": "^2.0.4",
+    "multer": "^1.1.0",
     "ng-file-upload": "^12.0.1"
   },
   "devDependencies": {

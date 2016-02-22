@@ -10,7 +10,7 @@ angular.module('cameraController', ['singlePhotoFactory'])
     function testApi(){
       $http({
         method: "GET"
-        ,url: "http://localhost:5555/api/test"
+        ,url: "http://192.168.0.11:5555/api/test"
       })
       .then(function(data){
         console.log(data.data);
