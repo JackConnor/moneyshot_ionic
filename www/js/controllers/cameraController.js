@@ -10,7 +10,7 @@ angular.module('cameraController', ['singlePhotoFactory'])
     function testApi(){
       $http({
         method: "GET"
-        ,url: "https://moneyshotapi.herokuapp.com/api/test"
+        ,url: "http://localhost:5555/api/test"
       })
       .then(function(data){
         console.log(data.data);
