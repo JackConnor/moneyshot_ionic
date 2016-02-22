@@ -11,7 +11,7 @@ angular.module('singlePhotoFactory', ['ngFileUpload'])
       return $http({
         method: "POST"
         ,url: "http://192.168.0.11:5555/api/newimage"
-        ,data: {file: photoFile, info: "we doing it?"}
+        ,data: photoFile
       })
     }
     return uploadPhoto
