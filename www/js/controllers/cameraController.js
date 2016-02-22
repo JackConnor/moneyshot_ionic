@@ -1,10 +1,11 @@
-angular.module('cameraController', [])
+angular.module('cameraController', ['singlePhotoFactory'])
 
   .controller('cameraCtrl', cameraCtrl);
 
-  cameraCtrl.$inject = ['$http', '$scope'];
-  function cameraCtrl($http, $scope){
+  cameraCtrl.$inject = ['$http', '$scope', 'singlePhoto'];
+  function cameraCtrl($http, $scope, singlePhoto){
     var self = $scope;
+    console.log(singlePhoto);
     console.log('yoyoyyoyo');
     function testApi(){
       $http({
@@ -17,23 +18,13 @@ angular.module('cameraController', [])
       })
     }
     testApi();
-    navigator.camera.getPicture(function(imageURI){
-      console.log(imageURI);
-      var filename =  'testfile';
-      var options = {
-         fileKey: "file",
-         fileName: filename,
-         chunkedMode: false,
-         mimeType: "image/jpg",
-       params : {'directory':'upload', 'fileName':filename} // directory represents remote directory,  fileName represents final remote file name
-       };
-      $cordovaFileTransfer.upload('https://moneyshotapi.herokuapp.com/api/newimage', imageURI, {})
-      .then(function(uploadResult){
-        console.log(uploadResult);
-      })
+
+    ///////////////////////////////////
+    /////functions to upload photos////
+    navigator.camera.getPicture(function(result){
+      console.log(result);
     })
-    // Camera.getPicture()
-    //   .then(function(imageUrl){
-    //     console.log(imageUrl);
-    //   })
+
+    //////////////end upload photos////
+    ///////////////////////////////////
   }

@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'ngCordova', 'starter.services', 'accountController', 'cameraController', 'uploadController', 'allPhotosFactory', 'Camera'])
+angular.module('starter', ['ionic', 'ngCordova', 'ngFileUpload', 'starter.services', 'accountController', 'cameraController', 'uploadController', 'allPhotosFactory', 'singlePhotoFactory'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
