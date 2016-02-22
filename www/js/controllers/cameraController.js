@@ -2,8 +2,8 @@ angular.module('cameraController', [])
 
   .controller('cameraCtrl', cameraCtrl);
 
-  cameraCtrl.$inject = ['$http', '$scope', '$cordovaFileTransfer', 'Camera'];
-  function cameraCtrl($http, $scope, $cordovaFileTransfer, Camera){
+  cameraCtrl.$inject = ['$http', '$scope'];
+  function cameraCtrl($http, $scope){
     var self = $scope;
     console.log('yoyoyyoyo');
     function testApi(){
