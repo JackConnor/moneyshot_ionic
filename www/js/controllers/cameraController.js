@@ -39,14 +39,15 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload'])
       $cordovaCamera.getPicture({})
       .then(function(result){
         console.log(result);
-        $cordovaFileTransfer.upload('http://192.168.0.11:5555/api/newimage', result, {})
+        $cordovaFileTransfer.upload('https://moneyshotapi.herokuapp.com/api/newimage', result, {})
         .then(function(callbackImage){
           console.log('in the callback');
           console.log(callbackImage);
           console.log("_--------------------");
+
           $http({
             method: "GET"
-            ,url: "http://192.168.0.11:5555/api/all/photos"
+            ,url: "https://moneyshotapi.herokuapp.com/api/all/photos"
           })
           .then(function(photos){
             console.log('in the callback');
