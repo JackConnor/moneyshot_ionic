@@ -3,10 +3,25 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload'])
   .controller('cameraCtrl', cameraCtrl);
 
   cameraCtrl.$inject = ['$http', '$scope', 'singlePhoto', 'Upload', '$q', '$cordovaCamera', '$cordovaFile', '$cordovaFileTransfer'];
-  function cameraCtrl($http, $scope, singlePhoto, Upload, $q, $cordovaCamera, $cordovaFile,
+  function cameraCtrl($http, $scope, singlePhoto, Upload, $q, $cordovaCamera, $cordovaFile, $cordovaFileTransfer){
     ///////////////////////////////////
     /////functions to upload photos////
-    $cordovaFileTransfer){
+      $http({
+        method: "GET"
+        ,url: "http://192.168.0.11:5555/api/all/photos"
+      })
+      .then(function(photos){
+        console.log('in the callback');
+        console.log(photos);
+        var allPhotos = photos.data.reverse();
+        var allUrls = [];
+        for (var i = 0; i < allPhotos.length; i++) {
+          allUrls.push(allPhotos[i].url);
+        }
+        console.log(allUrls);
+        // $scope.testImage = allUrls[0];
+        $('.testing').attr('src', allUrls[0])
+      })
       console.log($cordovaFileTransfer);
       console.log(singlePhoto);
       console.log('yoyoyyoyo');
@@ -29,21 +44,6 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload'])
           console.log('in the callback');
           console.log(callbackImage);
           console.log("_--------------------");
-          $http({
-            method: "GET"
-            ,url: "http://192.168.0.11:5555/api/all/photos"
-          })
-          .then(function(photos){
-            console.log('in the callback');
-            console.log(photos);
-            var allPhotos = photos.data.reverse();
-            var allUrls = [];
-            for (var i = 0; i < allPhotos.length; i++) {
-              allUrls.push(allPhotos[i].url);
-              console.log(allUrls);
-              $scope.testImage = allUrls[0];
-            }
-          })
           // $scope.imageSrc = callbackImage.response;
         })
       })
