@@ -7,7 +7,6 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload'])
     ///////////////////////////////////
     /////functions to upload photos////
     $cordovaFileTransfer){
-      $scope.testImg =  "https://res.cloudinary.com/drjseeoep/image/upload/v1456184597/syqevxdxykanrgrda27b.jpg";
       console.log($cordovaFileTransfer);
       console.log(singlePhoto);
       console.log('yoyoyyoyo');
@@ -42,6 +41,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload'])
             for (var i = 0; i < allPhotos.length; i++) {
               allUrls.push(allPhotos[i].url);
               console.log(allUrls);
+              $scope.testImage = allUrls[0];
             }
           })
           // $scope.imageSrc = callbackImage.response;
