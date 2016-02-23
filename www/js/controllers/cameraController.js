@@ -11,25 +11,40 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload'])
       console.log($cordovaFileTransfer);
       console.log(singlePhoto);
       console.log('yoyoyyoyo');
-      // var options = {
-      //     quality : 80,
-      //     destinationType : Camera.DestinationType.FILE_URI,
-      //     sourceType : Camera.PictureSourceType.Camera ,
-      //     allowEdit : true,
-      //     encodingType: Camera.EncodingType.JPEG,
-      //     targetWidth: 266,
-      //     targetHeight: 266,
-      //     popoverOptions: CameraPopoverOptions,
-      //     saveToPhotoAlbum: false
-      // };
+      var options = {
+          quality : 80,
+          destinationType : Camera.DestinationType.FILE_URI,
+          sourceType : Camera.PictureSourceType.Camera ,
+          allowEdit : true,
+          encodingType: Camera.EncodingType.JPEG,
+          targetWidth: 100,
+          targetHeight: 100,
+          popoverOptions: CameraPopoverOptions,
+          saveToPhotoAlbum: false
+      };
       $cordovaCamera.getPicture({})
       .then(function(result){
         console.log(result);
         $cordovaFileTransfer.upload('http://192.168.0.11:5555/api/newimage', result, {})
         .then(function(callbackImage){
           console.log('in the callback');
-          console.log(callbackImage.response);
-          $scope.imageSrc = callbackImage.response;
+          console.log(callbackImage);
+          console.log("_--------------------");
+          $http({
+            method: "GET"
+            ,url: "http://192.168.0.11:5555/api/all/photos"
+          })
+          .then(function(photos){
+            console.log('in the callback');
+            console.log(photos);
+            var allPhotos = photos.data.reverse();
+            var allUrls = [];
+            for (var i = 0; i < allPhotos.length; i++) {
+              allUrls.push(allPhotos[i].url);
+              console.log(allUrls);
+            }
+          })
+          // $scope.imageSrc = callbackImage.response;
         })
       })
 
