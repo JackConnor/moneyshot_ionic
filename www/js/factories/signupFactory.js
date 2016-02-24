@@ -7,9 +7,10 @@ angular.module('signupFactory', [])
   function signup($http){
     function signingUp(email, password){
       console.log(email, password);
+      console.log('factory');
       return $http({
           method: "POST"
-          ,url: "http://localhost:5555/api/signup"
+          ,url: "https://moneyshotapi.herokuapp.com/api/signup"
           ,data: {email: email, password: password}
         })
     }
