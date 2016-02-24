@@ -56,16 +56,33 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload'])
     }
     // function to signup users who are new to the site
     function signupUser(){
-      var email = $('.signupEmail');
+      var email = $('.signupEmail').val();
+      var password = $('.signupPassword').val();
+      var repassword = $('.signupConfirmPassword').val();
+      console.log(email);
+      console.log(password);
+      console.log(repassword);
+      if(password == repassword){
+        signup(email, password)
+        .then(function(newUser){
+          console.log(newUser);
+          removeSignupModal();
+          takePicture();
+        })
+      }
+      else {
+        alert('passwords dont match');
+      }
     }
-    
-    $scope.signupUser = signupUser;
 
-    $scope.removeSignupModal = function(){
+    $scope.submitSignup = signupUser;
+
+    function removeSignupModal(){
       console.log('removing');
       console.log('yo');
       $scope.signupModalVar = false;
     }
+    $scope.removeSignupModal = removeSignupModal;
     //////////////end upload photos////
     ///////////////////////////////////
   }
