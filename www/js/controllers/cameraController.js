@@ -2,8 +2,8 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload'])
 
   .controller('cameraCtrl', cameraCtrl);
 
-  cameraCtrl.$inject = ['$http', '$scope', 'singlePhoto', 'Upload', '$q', '$cordovaCamera', '$cordovaFile', '$cordovaFileTransfer', 'signup'];
-  function cameraCtrl($http, $scope, singlePhoto, Upload, $q, $cordovaCamera, $cordovaFile, $cordovaFileTransfer, signup){
+  cameraCtrl.$inject = ['$http', '$scope', 'singlePhoto', 'Upload', '$q', '$cordovaCamera', '$cordovaFile', '$cordovaFileTransfer', 'signup', 'signin'];
+  function cameraCtrl($http, $scope, singlePhoto, Upload, $q, $cordovaCamera, $cordovaFile, $cordovaFileTransfer, signup, signin){
     ////////////////////////////
     /////////global variables///
     var self = this;
@@ -11,7 +11,11 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload'])
 
     /////////global variables///
     ////////////////////////////
-
+    console.log(signin);
+    signin('jack@mail.com, P')
+    .then(function(signedInUser){
+      console.log(signedInUser);
+    })
     ///////////////////////////////////
     /////functions to upload photos////
     function takePicture(){
@@ -62,21 +66,17 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload'])
       console.log(email);
       console.log(password);
       console.log(repassword);
-      signup(email, password)
-      .then(function(newUser){
-        console.log(newUser);
-        removeSignupModal();
-      // if(password == repassword){
-      //   signup(email, password)
-      //   .then(function(newUser){
-      //     console.log(newUser);
-      //     removeSignupModal();
-      //     // takePicture();
-      //   })
-      })
-      // else {
-      //   alert('passwords dont match');
-      // }
+      if(password == repassword){
+        signup(email, password)
+        .then(function(newUser){
+          console.log(newUser);
+          removeSignupModal();
+          takePicture();
+        })
+      }
+      else {
+        alert('passwords dont match');
+      }
     }
 
     $scope.submitSignup = signupUser;
