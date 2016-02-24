@@ -81,8 +81,20 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload'])
         alert('passwords dont match');
       }
     }
-
     $scope.submitSignup = signupUser;
+
+    /////function to sign in a user
+    function signinUser(){
+      var email = $('.signupEmail').val();
+      var password = $('.signupPassword').val();
+      signin(email, password)
+      .then(function(signedInUser){
+        console.log(signedInUser);
+        removeSignupModal();
+        takePicture();
+      })
+    }
+    $scope.signinUser = signinUser;
 
     function removeSignupModal(){
       console.log('removing');
