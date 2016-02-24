@@ -80,6 +80,8 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload'])
             console.log(token);
             window.localStorage.webToken = token;
             $scope.signupModalTabs = false;
+            console.log('localStroge');
+            console.log(window.localStorage);
             ///////final callback, which opens up the camera
             removeSignupModal();
             takePicture();
