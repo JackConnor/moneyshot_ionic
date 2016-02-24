@@ -2,8 +2,8 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload'])
 
   .controller('cameraCtrl', cameraCtrl);
 
-  cameraCtrl.$inject = ['$http', '$scope', 'singlePhoto', 'Upload', '$q', '$cordovaCamera', '$cordovaFile', '$cordovaFileTransfer', 'signup', 'signin'];
-  function cameraCtrl($http, $scope, singlePhoto, Upload, $q, $cordovaCamera, $cordovaFile, $cordovaFileTransfer, signup, signin){
+  cameraCtrl.$inject = ['$http', '$scope', 'singlePhoto', 'Upload', '$q', '$cordovaCamera', '$cordovaFile', '$cordovaFileTransfer', 'signup', 'signin', 'newToken'];
+  function cameraCtrl($http, $scope, singlePhoto, Upload, $q, $cordovaCamera, $cordovaFile, $cordovaFileTransfer, signup, signin, newToken){
     ////////////////////////////
     /////////global variables///
     var self = this;
@@ -74,9 +74,16 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload'])
         signup(email, password)
         .then(function(newUser){
           console.log(newUser);
-          removeSignupModal();
-          $scope.signupModalTabs = false;
-          takePicture();
+          newToken(signedInUser.data._id)
+          .then(function(ourToken){
+            var token = ourToken.data;
+            console.log(token);
+            window.localStorage.webToken = token;
+            $scope.signupModalTabs = false;
+            ///////final callback, which opens up the camera
+            removeSignupModal();
+            takePicture();
+          })
         })
       }
       else {
@@ -93,9 +100,17 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload'])
       signin(email, password)
       .then(function(signedInUser){
         console.log(signedInUser);
-        removeSignupModal();
         $scope.signupModalTabs = false;
-        takePicture();
+        console.log(newToken);
+        newToken(signedInUser.data._id)
+        .then(function(ourToken){
+          var token = ourToken.data;
+          console.log(token);
+          window.localStorage.webToken = token;
+          ///////final callback, which opens up the camera
+          removeSignupModal();
+          takePicture();
+        })
       })
     }
     $scope.signinUser = signinUser;
