@@ -62,17 +62,21 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload'])
       console.log(email);
       console.log(password);
       console.log(repassword);
-      if(password == repassword){
-        signup(email, password)
-        .then(function(newUser){
-          console.log(newUser);
-          removeSignupModal();
-          takePicture();
-        })
-      }
-      else {
-        alert('passwords dont match');
-      }
+      signup(email, password)
+      .then(function(newUser){
+        console.log(newUser);
+        removeSignupModal();
+      // if(password == repassword){
+      //   signup(email, password)
+      //   .then(function(newUser){
+      //     console.log(newUser);
+      //     removeSignupModal();
+      //     // takePicture();
+      //   })
+      })
+      // else {
+      //   alert('passwords dont match');
+      // }
     }
 
     $scope.submitSignup = signupUser;
