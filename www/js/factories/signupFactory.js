@@ -6,12 +6,12 @@ angular.module('signupFactory', [])
 
   function signup($http){
     function signingUp(email, password){
-      return
-        $http({
+      console.log(email, password);
+      return $http({
           method: "POST"
-          ,url: "/api/signup"
-          ,data
+          ,url: "http://localhost:5555/api/signup"
+          ,data: {email: email, password: password}
         })
     }
-    return "function goes here";
+    return signingUp;
   }
