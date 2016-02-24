@@ -2,13 +2,19 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload'])
 
   .controller('cameraCtrl', cameraCtrl);
 
-  cameraCtrl.$inject = ['$http', '$scope', 'singlePhoto', 'Upload', '$q', '$cordovaCamera', '$cordovaFile', '$cordovaFileTransfer'];
-  function cameraCtrl($http, $scope, singlePhoto, Upload, $q, $cordovaCamera, $cordovaFile, $cordovaFileTransfer){
+  cameraCtrl.$inject = ['$http', '$scope', 'singlePhoto', 'Upload', '$q', '$cordovaCamera', '$cordovaFile', '$cordovaFileTransfer', 'signup'];
+  function cameraCtrl($http, $scope, singlePhoto, Upload, $q, $cordovaCamera, $cordovaFile, $cordovaFileTransfer, signup){
+    ////////////////////////////
+    /////////global variables///
+    var self = this;
+    $scope.signupModalVar = true
+
+    /////////global variables///
+    ////////////////////////////
+
     ///////////////////////////////////
     /////functions to upload photos////
-      console.log($cordovaFileTransfer);
-      console.log(singlePhoto);
-      console.log('yoyoyyoyo');
+    function takePicture(){
       var options = {
           quality : 80,
           destinationType : Camera.DestinationType.FILE_URI,
@@ -47,7 +53,19 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload'])
           })
         })
       })
+    }
+    // function to signup users who are new to the site
+    function signupUser(){
+      var email = $('.signupEmail');
+    }
+    
+    $scope.signupUser = signupUser;
 
+    $scope.removeSignupModal = function(){
+      console.log('removing');
+      console.log('yo');
+      $scope.signupModalVar = false;
+    }
     //////////////end upload photos////
     ///////////////////////////////////
   }

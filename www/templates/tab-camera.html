@@ -1,13 +1,16 @@
 <ion-view view-title="Camera">
   <ion-content class="padding">
+    <div class="signupModal" ng-if='signupModalVar'>
+      <div class="xOutSignup" ng-click='removeSignupModal()'>
+        Xxxxxxxxx
+      </div>
+      lksajdflkadsjflkasjdflkajsdlfj
+      {{2+2}}
+      <button type="button" name="button" ng-click='submitSignin()'></button>
+    </div>
     <br>
     <h2>Camera</h2>
-    <!-- <input type='file' ngf-select ng-model='testFile' name='file' id='uploadedFile'><br>
-    <button class='submitFile'>Submit</button> -->
-    <p class='testPhoto'></p>
-    <img class='testing' alt="" />
-    <p>
-
-    </p>
+    {{signupModalVar}}
+    {{2+2}}
   </ion-content>
 </ion-view>
