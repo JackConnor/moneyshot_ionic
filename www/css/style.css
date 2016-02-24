@@ -1,5 +1,38 @@
 /* Empty. Add your own CSS if you like */
 
+.signin {
+  width: 49%;
+  height: 100%;
+  background-color: blue;
+  display: inline-block;
+  font-size: 30px;
+  text-align: center;
+  color: white;
+}
+
+.signinTabs {
+  height: 40px;
+  width: 100%;
+}
+
+.signinModal {
+  position: absolute;
+  width: 100%;
+  height: 1000px;
+  background-color: black;
+  color: white;
+}
+
+.signup {
+  width: 49%;
+  height: 100%;
+  background-color: green;
+  display: inline-block;
+  font-size: 30px;
+  text-align: center;
+  color: white;
+}
+
 .signupInputHolder {
   margin-top: 55px;
   width: 80%;

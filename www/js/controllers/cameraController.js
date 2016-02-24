@@ -7,16 +7,13 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload'])
     ////////////////////////////
     /////////global variables///
     var self = this;
-    $scope.signupModalVar = true
+    $scope.signupModalVar = false;
+    $scope.signinModalVar = true;
 
     /////////global variables///
     ////////////////////////////
-    console.log(signin);
-    signin('jack@mail.com, P')
-    .then(function(signedInUser){
-      console.log(signedInUser);
-    })
-    ///////////////////////////////////
+
+    /////////////////////////////
     /////functions to upload photos////
     function takePicture(){
       var options = {
@@ -58,6 +55,12 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload'])
         })
       })
     }
+    //////////////end upload photos////
+    ///////////////////////////////////
+
+    //////////////////////////////////////
+    ///////////sign in and sign up////////
+
     // function to signup users who are new to the site
     function signupUser(){
       var email = $('.signupEmail').val();
@@ -85,8 +88,25 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload'])
       console.log('removing');
       console.log('yo');
       $scope.signupModalVar = false;
+      $scope.signinModalVar = false;
     }
     $scope.removeSignupModal = removeSignupModal;
-    //////////////end upload photos////
-    ///////////////////////////////////
+
+    // function to toggle between signin and signup tabs
+    function toggleSigns(evt){
+      if($(evt.currentTarget).hasClass('signin')){
+        console.log('signin tab');
+        $scope.signupModalVar = false;
+        $scope.signinModalVar = true;
+      }
+      else if($(evt.currentTarget).hasClass('signup')){
+        console.log('signup tab');
+        $scope.signinModalVar = false;
+        $scope.signupModalVar = true;
+      }
+    }
+    $scope.toggleSigns = toggleSigns;
+    ///////////sign in and sign up////////
+    //////////////////////////////////////
+
   }

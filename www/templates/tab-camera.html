@@ -1,5 +1,13 @@
 <ion-view view-title="Camera">
   <ion-content class="padding">
+    <div class="signinTabs">
+      <div class="signin" ng-click='toggleSigns($event)'>
+        sign in
+      </div>
+      <div class="signup" ng-click='toggleSigns($event)'>
+        sign up
+      </div>
+    </div>
     <div class="signupModal" ng-if='signupModalVar'>
       <div class="xOutSignup">
         <p ng-click='removeSignupModal()'>
@@ -11,6 +19,18 @@
         <input type="text" class='signupPassword splashInput' placeholder='Password'>
         <input type="text" class='signupConfirmPassword splashInput' placeholder='Confirm Password'>
         <button type="button" class='submitSignup' ng-click='submitSignup()'>Sign Up</button>
+      </div>
+    </div>
+    <div class="signinModal" ng-if='signinModalVar'>
+      <div class="xOutSignup">
+        <p ng-click='removeSigninModal()'>
+          X
+        </p>
+      </div>
+      <div class="signupInputHolder">
+        <input type="text" class='signupEmail splashInput' placeholder='Email'>
+        <input type="text" class='signupPassword splashInput' placeholder='Password'>
+        <button type="button" class='submitSignup' ng-click='submitSignup()'>Sign In</button>
       </div>
     </div>
     <br>
