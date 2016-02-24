@@ -9,6 +9,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload'])
     var self = this;
     $scope.signupModalVar = false;
     $scope.signinModalVar = true;
+    $scope.signupModalTabs = true;
 
     /////////global variables///
     ////////////////////////////
@@ -74,6 +75,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload'])
         .then(function(newUser){
           console.log(newUser);
           removeSignupModal();
+          $scope.signupModalTabs = false;
           takePicture();
         })
       }
@@ -91,6 +93,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload'])
       .then(function(signedInUser){
         console.log(signedInUser);
         removeSignupModal();
+        $scope.signupModalTabs = false;
         takePicture();
       })
     }
@@ -101,6 +104,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload'])
       console.log('yo');
       $scope.signupModalVar = false;
       $scope.signinModalVar = false;
+      $scope.signupModalTabs = false;
     }
     $scope.removeSignupModal = removeSignupModal;
 
@@ -110,11 +114,13 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload'])
         console.log('signin tab');
         $scope.signupModalVar = false;
         $scope.signinModalVar = true;
+        $scope.signupModalTabs = true;
       }
       else if($(evt.currentTarget).hasClass('signup')){
         console.log('signup tab');
         $scope.signinModalVar = false;
         $scope.signupModalVar = true;
+        $scope.signupModalTabs = true;
       }
     }
     $scope.toggleSigns = toggleSigns;
