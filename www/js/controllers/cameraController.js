@@ -87,6 +87,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload'])
 
     /////function to sign in a user
     function signinUser(){
+      console.log('signing in baby');
       var email = $('.signupEmail').val();
       var password = $('.signupPassword').val();
       signin(email, password)
