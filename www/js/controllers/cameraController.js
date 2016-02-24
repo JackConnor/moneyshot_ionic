@@ -6,6 +6,11 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload'])
   function cameraCtrl($http, $scope, singlePhoto, Upload, $q, $cordovaCamera, $cordovaFile, $cordovaFileTransfer, signup, signin, newToken){
     ////////////////////////////
     /////////global variables///
+    console.log('cammmmmmmerrerereraaaa');
+    console.log(window.location.hash);
+    setTimeout(function(){
+      console.log(window.location.hash)
+    }, 1);
     var self = this;
     $scope.signupModalVar = false;
     $scope.signinModalVar = true;
@@ -17,6 +22,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload'])
     /////////////////////////////
     /////functions to upload photos////
     function takePicture(){
+      console.log('taking a picture');
       var options = {
           quality : 80,
           destinationType : Camera.DestinationType.FILE_URI,
@@ -30,12 +36,21 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload'])
       };
       $cordovaCamera.getPicture({})
       .then(function(result){
-        $cordovaFileTransfer.upload('https://moneyshotapi.herokuapp.com/api/newimage', result, {})
+        $cordovaFileTransfer.upload('https://moneyshotapi.herokuapp.com/api/newimage', result, {userId: '123456789'})
         .then(function(callbackImage){
           takePicture();
         })
       })
     }
+
+    //////function to open the camera on the controller's load if there are no modals open
+    // function loadCameraIfSigned(){
+    //   console.log('camera coming');
+    //   if($scope.signupModalVar == false && $scope.signinModalVar == false && $scope.signupModalTabs == false){
+    //     takePicture();
+    //   }
+    // }
+    // loadCameraIfSigned();
     //////////////end upload photos////
     ///////////////////////////////////
 
@@ -124,6 +139,8 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload'])
         $scope.signupModalVar = false;
         $scope.signinModalVar = false;
         $scope.signupModalTabs = false;
+        console.log('signed in already');
+        takePicture();
       }
     }
     checkToken();

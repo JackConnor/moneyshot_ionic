@@ -32,61 +32,62 @@ angular.module('starter', ['ionic', 'ngCordova', 'ngFileUpload', 'starter.servic
   $stateProvider
 
   // setup an abstract state for the tabs directive
+
     .state('tab', {
-    url: '/tab',
-    abstract: true,
-    templateUrl: 'templates/tabs.html'
-  })
-
-  // Each tab has its own nav history stack:
-
-  .state('tab.camera', {
-    url: '/camera'
-    ,cache: false
-    ,views: {
-      'tab-camera': {
-        templateUrl: 'templates/tab-camera.html'
-        ,controller: 'cameraCtrl'
-
-      }
-    }
-  })
-
-  .state('tab.account', {
-      url: '/account'
-      ,cache: false
-      ,views: {
-        'tab-account': {
-          templateUrl: 'templates/tab-account.html'
-          ,controller: 'accountCtrl'
-        }
-      }
+      url: '/tab',
+      abstract: true,
+      cache: false,
+      templateUrl: 'templates/tabs.html'
     })
-    .state('tab.chat-detail', {
-      url: '/chats/:chatId'
+
+    // Each tab has its own nav history stack:
+
+    .state('tab.camera', {
+      url: '/camera'
       ,cache: false
       ,views: {
-        'tab-chats': {
-          templateUrl: 'templates/chat-detail.html'
-          // ,controller: 'ChatDetailCtrl'
+        'tab-camera': {
+          templateUrl: 'templates/tab-camera.html'
+          ,controller: 'cameraCtrl'
         }
       }
     })
 
-  /////upload from camera roll///////
-  .state('tab.upload', {
-    url: '/upload'
-    ,cache: false
-    ,views: {
-      'tab-upload': {
-        templateUrl: 'templates/tab-upload.html',
-        controller: 'uploadCtrl'
-        // ,controllerAs: 'upload'
+    .state('tab.account', {
+        url: '/account'
+        ,cache: false
+        ,views: {
+          'tab-account': {
+            templateUrl: 'templates/tab-account.html'
+            ,controller: 'accountCtrl'
+          }
+        }
+      })
+      .state('tab.chat-detail', {
+        url: '/chats/:chatId'
+        ,cache: false
+        ,views: {
+          'tab-chats': {
+            templateUrl: 'templates/chat-detail.html'
+            // ,controller: 'ChatDetailCtrl'
+          }
+        }
+      })
+
+    /////upload from camera roll///////
+    .state('tab.upload', {
+      url: '/upload'
+      ,cache: false
+      ,views: {
+        'tab-upload': {
+          templateUrl: 'templates/tab-upload.html',
+          controller: 'uploadCtrl'
+          // ,controllerAs: 'upload'
+        }
       }
-    }
+    });
+
+    // if none of the above states are matched, use this as the fallback
+    $urlRouterProvider.otherwise('/tab/camera');
+
   });
-
-  // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/tab/camera');
-
-});
