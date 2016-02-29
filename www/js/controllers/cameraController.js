@@ -35,10 +35,22 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload'])
         .then(function(callbackImage){
           console.log('cloudinary callback');
           console.log(callbackImage);
+          console.log('123');
+          console.log('123');
+          console.log('123');
+          console.log('123');
+          console.log(callbackImage.response)
+          console.log(JSON.parse(callbackImage.response));
+          var parsedPhoto = JSON.parse(callbackImage.response);
+          // alert(callbackImage.response)
+          console.log('url');
+          console.log('url');
+          console.log('url');
+          console.log(parsedPhoto.secure_url)
           $http({
             method: "POST"
             ,url: "https://moneyshotapi.herokuapp.com/api/createphotos"
-            ,data: {url: callbackImage.data.secureUrl, userId: "56ce0c448fe05711002da6d6"}
+            ,data: {url: parsedPhoto.secure_url, userId: "56ce0c448fe05711002da6d6"}
           })
           .then(function(newPhoto){
             console.log('the photo object');
