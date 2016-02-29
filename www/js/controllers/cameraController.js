@@ -6,15 +6,11 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload'])
   function cameraCtrl($http, $scope, singlePhoto, Upload, $q, $cordovaCamera, $cordovaFile, $cordovaFileTransfer, signup, signin, newToken){
     ////////////////////////////
     /////////global variables///
-    console.log('cammmmmmmerrerereraaaa');
-    console.log(window.location.hash);
-    setTimeout(function(){
-      console.log(window.location.hash)
-    }, 1);
     var self = this;
     $scope.signupModalVar = false;
     $scope.signinModalVar = true;
     $scope.signupModalTabs = true;
+    window.localStorage.webToken = "";
 
     /////////global variables///
     ////////////////////////////
@@ -22,7 +18,6 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload'])
     /////////////////////////////
     /////functions to upload photos////
     function takePicture(){
-      console.log('taking a picture');
       var options = {
           quality : 80,
           destinationType : Camera.DestinationType.FILE_URI,
@@ -32,15 +27,18 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload'])
           targetWidth: 100,
           targetHeight: 100,
           popoverOptions: CameraPopoverOptions,
-          saveToPhotoAlbum: false
+          saveToPhotoAlbum: false,
+          headers: {
+            userId: '12345'
+          }
       };
-      $cordovaCamera.getPicture({})
-      .then(function(result){
-        $cordovaFileTransfer.upload('https://moneyshotapi.herokuapp.com/api/newimage', result, {userId: '123456789'})
-        .then(function(callbackImage){
-          takePicture();
-        })
-      })
+      // $cordovaCamera.getPicture({})
+      // .then(function(result){
+      //   $cordovaFileTransfer.upload('https://moneyshotapi.herokuapp.com/api/newimage', result, options)
+      //   .then(function(callbackImage){
+      //     takePicture();
+      //   })
+      // })
     }
 
     //////function to open the camera on the controller's load if there are no modals open
@@ -62,9 +60,6 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload'])
       var email = $('.signupEmail').val();
       var password = $('.signupPassword').val();
       var repassword = $('.signupConfirmPassword').val();
-      console.log(email);
-      console.log(password);
-      console.log(repassword);
       if(password == repassword){
         signup(email, password)
         .then(function(newUser){
@@ -75,8 +70,6 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload'])
             console.log(token);
             window.localStorage.webToken = token;
             $scope.signupModalTabs = false;
-            console.log('localStroge');
-            console.log(window.localStorage);
             ///////final callback, which opens up the camera
             removeSignupModal();
             takePicture();
@@ -91,7 +84,6 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload'])
 
     /////function to sign in a user
     function signinUser(){
-      console.log('signing in baby');
       var email = $('.signupEmail').val();
       var password = $('.signupPassword').val();
       signin(email, password)
@@ -134,13 +126,17 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload'])
     // function to check for a signed in user via their token
     function checkToken(){
       var maybeToken = window.localStorage.webToken;
-      console.log(maybeToken);
       if(maybeToken && maybeToken.length > 2){
         $scope.signupModalVar = false;
         $scope.signinModalVar = false;
         $scope.signupModalTabs = false;
         console.log('signed in already');
-        takePicture();
+        // takePicture();
+      }
+      else {
+        console.log('no token');
+        $scope.signinModalVar = true;
+        $scope.signupModalTabs = true;
       }
     }
     checkToken();
