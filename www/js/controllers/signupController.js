@@ -11,10 +11,12 @@ angular.module('signupController', [])
     $scope.signinModalVar = true;
     $scope.signupModalTabs = true;
 
-    checkToken();///this is a hoisted function to check the token and show the signin modal if a token is not found
+    setTimeout(function(){
+      checkToken();
+    }, 500);///this is a hoisted function to check the token and show the signin modal if a token is not found
 
     function signoutUser(){
-      window.sessionStorage.webToken = "";
+      window.localStorage.webToken = "";
       window.location.hash = "#/";
     }
     $scope.signoutUser = signoutUser;
@@ -28,16 +30,28 @@ angular.module('signupController', [])
         signup(email, password)
         .then(function(newUser){
           console.log(newUser);
-          newToken(signedInUser.data._id)
-          .then(function(ourToken){
-            var token = ourToken.data;
-            console.log(token);
-            window.sessionStorage.webToken = token;
-            $scope.signupModalTabs = false;
-            ///////final callback, which opens up the camera
-            removeSignupModal();
-            takePicture();
-          })
+          if(newUser.data == 'email already in use'){
+            alert('that email is already in the system, please try another one or login using your password');
+            window.location.reload();
+          }
+          else if(newUser.data == 'please send a password'){
+            alert('you forgot your password');
+            window.location.reload();
+          }
+          else {
+            newToken(newUser.data._id)
+            .then(function(ourToken){
+              var token = ourToken.data;
+              console.log(token);
+              $scope.signupModalVar = false;
+              $scope.signinModalVar = false;
+              $scope.signupModalTabs = false;
+              ///////final callback, which opens up the camera
+              // removeSignupModal();
+              window.localStorage.webToken = token;
+              takePicture();
+            })
+          }
         })
       }
       else {
@@ -52,21 +66,33 @@ angular.module('signupController', [])
       var password = $('.signupPassword').val();
       signin(email, password)
       .then(function(signedInUser){
-        $scope.signupModalTabs = false;
-        newToken(signedInUser.data._id)
-        .then(function(ourToken){
-          var token = ourToken.data;
-          window.sessionStorage.webToken = token;
-          ///////final callback, which opens up the camera
-          removeSignupModal();
-        })
+        console.log(signedInUser);
+        if(signedInUser.data == 'no user found with that email address'){
+          alert('we could not find your email address')
+          window.location.reload();
+        }
+        else if(signedInUser.data == 'incorrect password'){
+          alert('wrong password, please try again');
+          window.location.reload();
+        }
+        else {
+          $scope.signupModalTabs = false;
+          newToken(signedInUser.data._id)
+          .then(function(ourToken){
+            var token = ourToken.data;
+            $scope.signupModalVar = false;
+            $scope.signinModalVar = false;
+            $scope.signupModalTabs = false;
+            window.localStorage.webToken = token;
+          })
+        }
       })
     }
     $scope.signinUser = signinUser;
 
     function signoutUser(){
       console.log('yoyoy');
-      window.sessionStorage.webToken = "";
+      window.localStorage.webToken = "";
       window.location.hash = "#/";
       window.location.reload();
     }
@@ -96,7 +122,7 @@ angular.module('signupController', [])
 
     // function to check for a signed in user via their token
     function checkToken(){
-      var maybeToken = window.sessionStorage.webToken;
+      var maybeToken = window.localStorage.webToken;
       if(maybeToken != ""){
         $scope.signupModalVar = false;
         $scope.signinModalVar = false;

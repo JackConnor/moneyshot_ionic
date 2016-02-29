@@ -30,31 +30,26 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload'])
       $cordovaCamera.getPicture({})
       .then(function(result){
         console.log('raw result from camera');
+        console.log(window.localStorage.webToken);
         console.log(result);
         $cordovaFileTransfer.upload('https://moneyshotapi.herokuapp.com/api/newimage', result, options)
         .then(function(callbackImage){
-          console.log('cloudinary callback');
-          console.log(callbackImage);
-          console.log('123');
-          console.log('123');
-          console.log('123');
-          console.log('123');
-          console.log(callbackImage.response)
-          console.log(JSON.parse(callbackImage.response));
-          var parsedPhoto = JSON.parse(callbackImage.response);
-          // alert(callbackImage.response)
-          console.log('url');
-          console.log('url');
-          console.log('url');
-          console.log(parsedPhoto.secure_url)
           $http({
-            method: "POST"
-            ,url: "https://moneyshotapi.herokuapp.com/api/createphotos"
-            ,data: {url: parsedPhoto.secure_url, userId: "56ce0c448fe05711002da6d6"}
+            method: "GET"
+            ,url: "https://moneyshotapi.herokuapp.com/api/decodetoken/"+window.localStorage.webToken
           })
-          .then(function(newPhoto){
-            console.log('the photo object');
-            console.log(newPhoto);
+          .then(function(decodedToken){
+            console.log(decodedToken);
+            var parsedPhoto = JSON.parse(callbackImage.response);
+            $http({
+              method: "POST"
+              ,url: "https://moneyshotapi.herokuapp.com/api/createphotos"
+              ,data: {url: parsedPhoto.secure_url, userId: decodedToken.data.userId}
+            })
+            .then(function(newPhoto){
+              console.log('the photo object');
+              console.log(newPhoto);
+            })
           })
           // takePicture();
         })
@@ -63,7 +58,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload'])
 
     //////function to check for an active user and launch the camera
     function launchCamera(){
-      if(window.sessionStorage.webToken != ""){
+      if(window.localStorage.webToken != ""){
         console.log('we got a token');
         takePicture();
       }
