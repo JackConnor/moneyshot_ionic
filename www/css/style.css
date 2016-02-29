@@ -1,4 +1,8 @@
 /* Empty. Add your own CSS if you like */
+/*.ion-content {
+  /*margin: 0px;
+  padding: 0px;
+}*/
 
 .navBar {
   width: 100%;
@@ -32,7 +36,6 @@
 }
 
 .signoutButton {
-  width: 100%;
   height: 100%;
   /*position: absolute;*/
   text-align: center;

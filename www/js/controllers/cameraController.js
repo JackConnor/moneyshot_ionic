@@ -6,7 +6,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload'])
   function cameraCtrl($http, $scope, singlePhoto, Upload, $q, $cordovaCamera, $cordovaFile, $cordovaFileTransfer, signup, signin, newToken){
     ////////////////////////////
     /////////global variables///
-    
+
     /////////global variables///
     ////////////////////////////
 
@@ -29,7 +29,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload'])
       };
       $cordovaCamera.getPicture({})
       .then(function(result){
-        $cordovaFileTransfer.upload('https://moneyshotapi.herokuapp.com/api/newimage', result, options)
+        $cordovaFileTransfer.upload('https://localhost:5555/api/newimage', result, options)
         .then(function(callbackImage){
           takePicture();
         })
