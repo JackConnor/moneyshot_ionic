@@ -2,9 +2,10 @@ angular.module('accountController', [])
 
   .controller('accountCtrl', acctCtrl);
 
-  acctCtrl.$inject = ['$http', 'signup'];
+  acctCtrl.$inject = ['$http'];
 
-  function acctCtrl($http, signup){
+  function acctCtrl($http){
+
 
 
   }

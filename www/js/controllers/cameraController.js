@@ -10,7 +10,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload'])
     $scope.signupModalVar = false;
     $scope.signinModalVar = true;
     $scope.signupModalTabs = true;
-    window.localStorage.webToken = "";
+
 
     /////////global variables///
     ////////////////////////////
@@ -68,7 +68,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload'])
           .then(function(ourToken){
             var token = ourToken.data;
             console.log(token);
-            window.localStorage.webToken = token;
+            window.sessionStorage.webToken = token;
             $scope.signupModalTabs = false;
             ///////final callback, which opens up the camera
             removeSignupModal();
@@ -92,7 +92,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload'])
         newToken(signedInUser.data._id)
         .then(function(ourToken){
           var token = ourToken.data;
-          window.localStorage.webToken = token;
+          window.sessionStorage.webToken = token;
           ///////final callback, which opens up the camera
           removeSignupModal();
           takePicture();
@@ -100,6 +100,12 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload'])
       })
     }
     $scope.signinUser = signinUser;
+
+    function signoutUser(){
+      window.sessionStorage.webToken = "";
+      window.location.hash = "#/";
+    }
+    $scope.signoutUser = signoutUser;
 
     function removeSignupModal(){
       $scope.signupModalVar = false;
@@ -125,7 +131,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload'])
 
     // function to check for a signed in user via their token
     function checkToken(){
-      var maybeToken = window.localStorage.webToken;
+      var maybeToken = window.sessionStorage.webToken;
       if(maybeToken && maybeToken.length > 2){
         $scope.signupModalVar = false;
         $scope.signinModalVar = false;

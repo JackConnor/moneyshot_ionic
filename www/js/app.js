@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'ngCordova', 'ngFileUpload', 'starter.services', 'accountController', 'cameraController', 'uploadController', 'allPhotosFactory', 'singlePhotoFactory', 'signupFactory', 'signinFactory', 'newTokenFactory'])
+angular.module('starter', ['ionic', 'ngCordova', 'ngFileUpload', 'starter.services', 'accountController', 'cameraController', 'uploadController', 'signupController', 'allPhotosFactory', 'singlePhotoFactory', 'signupFactory', 'signinFactory', 'newTokenFactory'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -38,6 +38,7 @@ angular.module('starter', ['ionic', 'ngCordova', 'ngFileUpload', 'starter.servic
       abstract: true,
       cache: false,
       templateUrl: 'templates/tabs.html'
+      ,controller: 'signupCtrl'
     })
 
     // Each tab has its own nav history stack:
