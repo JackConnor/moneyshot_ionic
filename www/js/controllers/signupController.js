@@ -97,7 +97,7 @@ angular.module('signupController', [])
     // function to check for a signed in user via their token
     function checkToken(){
       var maybeToken = window.sessionStorage.webToken;
-      if(maybeToken && maybeToken.length > 2){
+      if(maybeToken != ""){
         $scope.signupModalVar = false;
         $scope.signinModalVar = false;
         $scope.signupModalTabs = false;

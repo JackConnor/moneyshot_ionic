@@ -29,12 +29,38 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload'])
       };
       $cordovaCamera.getPicture({})
       .then(function(result){
-        $cordovaFileTransfer.upload('https://localhost:5555/api/newimage', result, options)
+        console.log('raw result from camera');
+        console.log(result);
+        $cordovaFileTransfer.upload('https://moneyshotapi.herokuapp.com/api/newimage', result, options)
         .then(function(callbackImage){
-          takePicture();
+          console.log('cloudinary callback');
+          console.log(callbackImage);
+          $http({
+            method: "POST"
+            ,url: "https://moneyshotapi.herokuapp.com/api/createphotos"
+            ,data: {url: callbackImage.data.secureUrl, userId: "56ce0c448fe05711002da6d6"}
+          })
+          .then(function(newPhoto){
+            console.log('the photo object');
+            console.log(newPhoto);
+          })
+          // takePicture();
         })
       })
     }
+
+    //////function to check for an active user and launch the camera
+    function launchCamera(){
+      if(window.sessionStorage.webToken != ""){
+        console.log('we got a token');
+        takePicture();
+      }
+      else {
+        console.log('need a token');
+      }
+    }
+
+    launchCamera();
 
     //////function to open the camera on the controller's load if there are no modals open
     // function loadCameraIfSigned(){
