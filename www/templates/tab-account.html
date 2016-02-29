@@ -1,5 +1,13 @@
 <ion-view view-title="Account">
   <ion-content>
+    <div class="navBar">
+      <div class="col-xs-8 col-xs-offset-2 nameTag">
+        MoPho<p>get money for your photo</p>
+      </div>
+      <div class="col-xs-2">
+        <button type="button" ng-click="signoutUser()">Signout</button>
+      </div>
+    </div>
     <ion-list>
       <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="chat in chats" type="item-text-wrap" href="#/tab/chats/{{chat.id}}">
         <img ng-src="{{chat.face}}">
