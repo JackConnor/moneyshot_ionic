@@ -35,18 +35,18 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload'])
       };
       $cordovaCamera.getPicture({})
       .then(function(result){
-        $cordovaFileTransfer.upload('https://moneyshotapi.herokuapp.com/api/newimage', result, options)
+        $cordovaFileTransfer.upload('http://192.168.0.3:5555/api/newimage', result, options)
         .then(function(callbackImage){
           $http({
             method: "GET"
-            ,url: "https://moneyshotapi.herokuapp.com/api/decodetoken/"+window.localStorage.webToken
+            ,url: "http://192.168.0.3:5555/api/decodetoken/"+window.localStorage.webToken
           })
           .then(function(decodedToken){
             console.log(decodedToken);
             var parsedPhoto = JSON.parse(callbackImage.response);
             $http({
               method: "POST"
-              ,url: "https://moneyshotapi.herokuapp.com/api/createphotos"
+              ,url: "http://192.168.0.3:5555/api/createphotos"
               ,data: {url: parsedPhoto.secure_url, userId: decodedToken.data.userId}
             })
             .then(function(newPhoto){

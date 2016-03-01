@@ -10,7 +10,7 @@ angular.module('newTokenFactory', [])
       console.log(userId);
       return $http({
         method: "POST"
-        ,url: "http://moneyshotapi.herokuapp.com/api/gettoken"
+        ,url: "http://192.168.0.3:5555/api/gettoken"
         ,data: {userId: userId}
       })
     }

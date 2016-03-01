@@ -21,7 +21,7 @@ angular.module('accountController', [])
           $scope.userInfo = userInfo.data;
           console.log($scope.userInfo);
           var userPhotos = userInfo.data.photos;////this is all of a signed-in user's
-          $scope.userPhotos = userPhotos;
+          $scope.userPhotos = userPhotos.reverse();
           $scope.totalEarned = 0;
           function mapPhotos(){
             var soldPhotos = [];
@@ -33,7 +33,7 @@ angular.module('accountController', [])
                 console.log($scope.totalEarned);
               }
             }
-            $scope.soldPhotos = soldPhotos;
+            $scope.soldPhotos = soldPhotos.reverse();
           }
           mapPhotos();
           console.log($scope.soldPhotos);
