@@ -15,7 +15,20 @@ angular.module('accountController', [])
         .then(function(userInfo){
           $scope.userInfo = userInfo.data;
           console.log($scope.userInfo);
-          $scope.userPhotos = userInfo.data.photos;
+          var userPhotos = userInfo.data.photos;////this is all of a signed-in user's
+          function mapPhotos(){
+            var soldPhotos = [];
+            for (var i = 0; i < userPhotos.length; i++) {
+              if(userPhotos[i].status === 'sold'){
+                console.log('sold one');
+                soldPhotos.push(userPhotos[i]);
+              }
+            }
+            return soldPhotos;
+          }
+          $scope.soldPhotos = mapPhotos();
+          console.log($scope.soldPhotos);
+
         })
       })
     }
