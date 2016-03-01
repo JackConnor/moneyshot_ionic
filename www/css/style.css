@@ -160,6 +160,14 @@
   padding: 0px;
 }
 
+.soldSign {
+  color: red;
+  border: white;
+  border-radius: 4px;
+  font-size: 40px;
+  margin-top: 20px;
+}
+
 .splashInput {
   width: 100%;
   height: 50px;
