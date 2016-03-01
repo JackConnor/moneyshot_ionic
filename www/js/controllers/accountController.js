@@ -6,6 +6,11 @@ angular.module('accountController', [])
 
   function acctCtrl($http, $state, $scope, navbar, userPhotos, decodeToken){
 
+    /////global variables
+    $scope.showSold      = true;
+    $scope.showSubmitted = false;
+    $scope.showFinance   = false;
+
     var userToken = window.localStorage.webToken;
     function getUserPhotos(token){
       decodeToken(token)
@@ -33,6 +38,7 @@ angular.module('accountController', [])
       })
     }
     getUserPhotos(userToken);
+
     function checkToken(){
       var maybeToken = window.localStorage.webToken;
       if(maybeToken.length > 4){
@@ -45,14 +51,27 @@ angular.module('accountController', [])
       }
     }
 
-    // checkToken();
-
-    function signoutUser(){
-      console.log('yoyoy');
-      window.localStorage.webToken = "";
-      window.location.hash = "#/tab/upload";
-      window.location.reload();
+    function showSoldFunc(){
+      $scope.showSold      = true;
+      $scope.showSubmitted = false;
+      $scope.showFinance   = false;
     }
-    $scope.signoutUser = signoutUser;
+    $scope.showSoldFunc = showSoldFunc;
+
+    function showSubmittedFunc(){
+      $scope.showSold      = false;
+      $scope.showSubmitted = true;
+      $scope.showFinance   = false;
+    }
+    $scope.showSubmittedFunc = showSubmittedFunc;
+
+    function showFinanceFunc(){
+      $scope.showSold      = false;
+      $scope.showSubmitted = false;
+      $scope.showFinance   = true;
+    }
+    $scope.showFinanceFunc = showFinanceFunc;
+
+    // checkToken();
 
   }
