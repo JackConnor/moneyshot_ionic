@@ -14,27 +14,49 @@
         Money
       </div>
     </div>
-    <div class="" ng-if='showSold'>
-      <div class="soldPhotosRepeat col-sm-4 col-xs-6" ng-repeat='soldPhoto in soldPhotos'>
-        <div class="priceLayer">
+    <div class="singleImageModal col-xs-12">
+      <div class="backButton" ng-click='backToRepeat()'>
+        go back
+      </div>
+      <div class="singleImageHolder col-sm-8 col-sm-offset-2 col-xs-12 col-xs-offset-0" >
+        <img class='singleImage' src="{{singlePhotoData.url}}" alt="" />
+        <div class="singleInfoHolder col-xs-12">
+          <h2>Photo Data</h2>
+          <div class="singleWho">
+            Who: {{singlePhotoData.photosubjects[0]}}, {{singlePhotoData.photosubjects[1]}}, {{singlePhotoData.photosubjects[2]}}
+          </div>
+          <div class="singleWho">
+            When: {{singlePhotoData.date | date}}
+          </div>
+          <div class="singlePrice" ng-if='singlePhotoData.price'>
+            You earned: {{singlePhotoData.price | currency}}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="repeatContainer">
+      <div class="" ng-if='showSold'>
+        <div class="soldPhotosRepeat col-sm-4 col-xs-6" ng-repeat='soldPhoto in soldPhotos'>
+          <div class="priceLayer" ng-click='openSingle(soldPhoto)'>
+            {{soldPhoto.price | currency}}
+          </div>
+          <img class='allPhotosRepeat' ng-src="{{soldPhoto.url}}" alt="" />
+        </div>
+      </div>
+      <div class="" ng-if='showSubmitted'>
+        <div class="soldPhotosRepeat col-sm-4 col-xs-6" ng-repeat='submittedPhoto in userPhotos'>
+          <div class="priceLayer" ng-click='openSingle()'>
+            submitted: {{submittedPhoto.date | date}}
+          </div>
+          <img class='allPhotosRepeat col-sm-4 col-xs-6' ng-src="{{submittedPhoto.url}}" alt="" />
+        </div>
+      </div>
+      <div class="" ng-if='showFinance'>
+        the Money Stuff
+        Total Earned: {{totalEarned | currency}}
+        <div class="" ng-repeat='soldPhoto in soldPhotos'>
           {{soldPhoto.price | currency}}
         </div>
-        <img class='allPhotosRepeat' ng-src="{{soldPhoto.url}}" alt="" />
-      </div>
-    </div>
-    <div class="" ng-if='showSubmitted'>
-      <div class="soldPhotosRepeat col-sm-4 col-xs-6" ng-repeat='submittedPhoto in userPhotos'>
-        <div class="priceLayer">
-          submitted: {{submittedPhoto.date | date}}
-        </div>
-        <img class='allPhotosRepeat col-sm-4 col-xs-6' ng-src="{{submittedPhoto.url}}" alt="" />
-      </div>
-    </div>
-    <div class="" ng-if='showFinance'>
-      the Money Stuff
-      Total Earned: {{totalEarned | currency}}
-      <div class="" ng-repeat='soldPhoto in soldPhotos'>
-        {{soldPhoto.price | currency}}
       </div>
     </div>
     <!-- <div class="" ng-repeat='photo in userPhotos'>

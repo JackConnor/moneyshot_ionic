@@ -75,6 +75,27 @@ angular.module('accountController', [])
     }
     $scope.showFinanceFunc = showFinanceFunc;
 
-    // checkToken();
+    function openSingle(photoData){
+      console.log(photoData);
+      $scope.singlePhotoData = photoData;
+      $('.repeatContainer').css({
+        marginRight: "100%"
+      });
+      $('.singleImageModal').css({
+        marginLeft: 0
+      })
+      $('window').scrollTop(0);
+    }
+    $scope.openSingle = openSingle;
+
+    function backToRepeat(){
+      $('.repeatContainer').css({
+        marginRight: 0
+      });
+      $('.singleImageModal').css({
+        marginLeft: "100%"
+      })
+    }
+    $scope.backToRepeat = backToRepeat;
 
   }
