@@ -8,17 +8,8 @@
         Sign Out
       </div>
     </div>
-    <ion-list>
-      <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="chat in chats" type="item-text-wrap" href="#/tab/chats/{{chat.id}}">
-        <img ng-src="{{chat.face}}">
-        <h2>{{chat.name}}</h2>
-        <p>{{chat.lastText}}</p>
-        <i class="icon ion-chevron-right icon-accessory"></i>
-
-        <ion-option-button class="button-assertive" ng-click="remove(chat)">
-          Delete
-        </ion-option-button>
-      </ion-item>
-    </ion-list>
+    <div class="" ng-repeat='photo in userPhotos'>
+      <img class='allPhotosRepeat col-sm-3 col-xs-2' src="{{photo.url}}" alt="" />
+    </div>
   </ion-content>
 </ion-view>

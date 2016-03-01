@@ -2,13 +2,24 @@ angular.module('accountController', [])
 
   .controller('accountCtrl', acctCtrl);
 
-  acctCtrl.$inject = ['$http', '$state', '$scope', 'navbar'];
+  acctCtrl.$inject = ['$http', '$state', '$scope', 'navbar', 'userPhotos', 'decodeToken'];
 
-  function acctCtrl($http, $state, $scope, navbar){
-    console.log('acountttts');
-    // alert('yooooooooo');
-    console.log(navbar);
-    $scope.navbar = navbar;
+  function acctCtrl($http, $state, $scope, navbar, userPhotos, decodeToken){
+
+    var userToken = window.localStorage.webToken;
+    function getUserPhotos(token){
+      decodeToken(token)
+      .then(function(decToken){
+        console.log(decToken);
+        userPhotos(decToken.data.userId)
+        .then(function(userInfo){
+          $scope.userInfo = userInfo.data;
+          console.log($scope.userInfo);
+          $scope.userPhotos = userInfo.data.photos;
+        })
+      })
+    }
+    getUserPhotos(userToken);
     function checkToken(){
       var maybeToken = window.localStorage.webToken;
       if(maybeToken.length > 4){
@@ -20,6 +31,7 @@ angular.module('accountController', [])
         window.location.hash = "#/";
       }
     }
+
     // checkToken();
 
     function signoutUser(){
