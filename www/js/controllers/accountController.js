@@ -21,19 +21,22 @@ angular.module('accountController', [])
           $scope.userInfo = userInfo.data;
           console.log($scope.userInfo);
           var userPhotos = userInfo.data.photos;////this is all of a signed-in user's
+          $scope.userPhotos = userPhotos;
+          $scope.totalEarned = 0;
           function mapPhotos(){
             var soldPhotos = [];
             for (var i = 0; i < userPhotos.length; i++) {
               if(userPhotos[i].status === 'sold'){
                 console.log('sold one');
                 soldPhotos.push(userPhotos[i]);
+                $scope.totalEarned += userPhotos[i].price;
+                console.log($scope.totalEarned);
               }
             }
-            return soldPhotos;
+            $scope.soldPhotos = soldPhotos;
           }
-          $scope.soldPhotos = mapPhotos();
+          mapPhotos();
           console.log($scope.soldPhotos);
-
         })
       })
     }
