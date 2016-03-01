@@ -22,4 +22,12 @@ angular.module('accountController', [])
     }
     // checkToken();
 
+    function signoutUser(){
+      console.log('yoyoy');
+      window.localStorage.webToken = "";
+      window.location.hash = "#/tab/upload";
+      window.location.reload();
+    }
+    $scope.signoutUser = signoutUser;
+
   }
