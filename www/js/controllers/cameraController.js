@@ -2,8 +2,8 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload'])
 
   .controller('cameraCtrl', cameraCtrl);
 
-  cameraCtrl.$inject = ['$http', '$scope', 'singlePhoto', 'Upload', '$q', '$cordovaCamera', '$cordovaFile', '$cordovaFileTransfer', 'signup', 'signin', 'newToken'];
-  function cameraCtrl($http, $scope, singlePhoto, Upload, $q, $cordovaCamera, $cordovaFile, $cordovaFileTransfer, signup, signin, newToken){
+  cameraCtrl.$inject = ['$http', '$state', '$scope', 'singlePhoto', 'Upload', '$q', '$cordovaCamera', '$cordovaFile', '$cordovaFileTransfer', 'signup', 'signin', 'newToken'];
+  function cameraCtrl($http, $state, $scope, singlePhoto, Upload, $q, $cordovaCamera, $cordovaFile, $cordovaFileTransfer, signup, signin, newToken){
     ////////////////////////////
     /////////global variables///
 
@@ -29,9 +29,6 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload'])
       };
       $cordovaCamera.getPicture({})
       .then(function(result){
-        console.log('raw result from camera');
-        console.log(window.localStorage.webToken);
-        console.log(result);
         $cordovaFileTransfer.upload('https://moneyshotapi.herokuapp.com/api/newimage', result, options)
         .then(function(callbackImage){
           $http({
@@ -58,7 +55,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload'])
 
     //////function to check for an active user and launch the camera
     function launchCamera(){
-      if(window.localStorage.webToken != ""){
+      if(window.localStorage.webToken.length > 4){
         console.log('we got a token');
         takePicture();
       }

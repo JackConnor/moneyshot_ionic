@@ -2,25 +2,16 @@ angular.module('signupController', [])
 
   .controller('signupCtrl', signupCtrl);
 
-  signupCtrl.$inject = ['$scope', 'signup', 'signin', 'newToken']
+  signupCtrl.$inject = ['$scope', '$state', 'signup', 'signin', 'newToken']
 
-  function signupCtrl($scope, signup, signin, newToken){
-    console.log('in the signin controller');
+  function signupCtrl($scope, $state, signup, signin, newToken){
     ///////////////global variables//////
     $scope.signupModalVar = false;
     $scope.signinModalVar = true;
     $scope.signupModalTabs = true;
 
-    setTimeout(function(){
-      checkToken();
-    }, 500);///this is a hoisted function to check the token and show the signin modal if a token is not found
-
-    function signoutUser(){
-      window.localStorage.webToken = "";
-      window.location.hash = "#/";
-    }
-    $scope.signoutUser = signoutUser;
-
+    console.log('yoyoyo');
+    console.log(window.localStorage.webToken);
     // function to signup users who are new to the site
     function signupUser(){
       var email = $('.signupEmail').val();
@@ -49,7 +40,6 @@ angular.module('signupController', [])
               ///////final callback, which opens up the camera
               // removeSignupModal();
               window.localStorage.webToken = token;
-              takePicture();
             })
           }
         })
@@ -84,6 +74,7 @@ angular.module('signupController', [])
             $scope.signinModalVar = false;
             $scope.signupModalTabs = false;
             window.localStorage.webToken = token;
+            $state.go('tab.camera');
           })
         }
       })
@@ -123,12 +114,11 @@ angular.module('signupController', [])
     // function to check for a signed in user via their token
     function checkToken(){
       var maybeToken = window.localStorage.webToken;
-      if(maybeToken != ""){
+      if(maybeToken.length > 4){
         $scope.signupModalVar = false;
         $scope.signinModalVar = false;
         $scope.signupModalTabs = false;
         console.log('signed in already');
-        // takePicture();
       }
       else {
         console.log('no token');

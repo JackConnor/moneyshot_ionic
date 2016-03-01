@@ -1,0 +1,28 @@
+<ion-view view-title="Upload">
+  <ion-content>
+    <div class="signinTabs" ng-if="signupModalTabs">
+      <div class="signin" ng-click='toggleSigns($event)'>
+        sign in
+      </div>
+      <div class="signup" ng-click='toggleSigns($event)'>
+        sign up
+      </div>
+    </div>
+    <div class="signupModal" ng-if='signupModalVar'>
+      <div class="signupInputHolder">
+        <input type="text" class='signupEmail splashInput' placeholder='Email'>
+        <input type="text" class='signupPassword splashInput' placeholder='Password'>
+        <input type="text" class='signupConfirmPassword splashInput' placeholder='Confirm Password'>
+        <button type="button" class='submitSignup' ng-click='submitSignup()'>Sign Up</button>
+      </div>
+    </div>
+    <div class="signinModal" ng-if='signinModalVar'>
+      <div class="signupInputHolder">
+        <input type="text" class='signupEmail splashInput' placeholder='Email'>
+        <input type="text" class='signupPassword splashInput' placeholder='Password'>
+        <button type="button" class='submitSignup' ng-click='signinUser()'>Sign In</button>
+      </div>
+    </div>
+    </div>
+  </ion-content>
+</ion-view>

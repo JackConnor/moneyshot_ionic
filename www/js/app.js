@@ -38,7 +38,6 @@ angular.module('starter', ['ionic', 'ngCordova', 'ngFileUpload', 'starter.servic
       abstract: true,
       cache: false,
       templateUrl: 'templates/tabs.html'
-      ,controller: 'signupCtrl'
     })
 
     // Each tab has its own nav history stack:
@@ -81,12 +80,18 @@ angular.module('starter', ['ionic', 'ngCordova', 'ngFileUpload', 'starter.servic
       ,cache: false
       ,views: {
         'tab-upload': {
-          templateUrl: 'templates/tab-upload.html',
-          controller: 'uploadCtrl'
-          // ,controllerAs: 'upload'
+          templateUrl: 'templates/signin.html',
+          controller: 'signupCtrl'
         }
       }
-    });
+    })
+    /////upload from camera roll///////
+    // .state('signin', {
+    //   url: '/signin'
+    //   ,cache: false
+    //   ,templateUrl: 'templates/signin.html'
+    //   ,controller: 'signupCtrl'
+    // });
 
     // if none of the above states are matched, use this as the fallback
     $urlRouterProvider.otherwise('/tab/camera');
