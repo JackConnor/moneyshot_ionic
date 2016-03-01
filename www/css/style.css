@@ -18,7 +18,6 @@
 }
 
 .signin {
-  width: 49%;
   height: 100%;
   background-color: blue;
   display: inline-block;
@@ -41,6 +40,16 @@
   color: white;
 }
 
+.signout {
+  height: 100%;
+  background-color: purple;
+  display: inline-block;
+  font-size: 30px;
+  text-align: center;
+  padding-top: 15px;
+  color: white;
+}
+
 .signoutButton {
   height: 100%;
   /*position: absolute;*/
@@ -51,7 +60,6 @@
 }
 
 .signup {
-  width: 49%;
   height: 100%;
   background-color: green;
   display: inline-block;

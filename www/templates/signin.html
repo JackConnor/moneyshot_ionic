@@ -1,11 +1,14 @@
 <ion-view view-title="Upload">
   <ion-content>
     <div class="signinTabs" ng-if="signupModalTabs">
-      <div class="signin" ng-click='toggleSigns($event)'>
+      <div class="signin col-xs-4" ng-click='toggleSigns($event)'>
         sign in
       </div>
-      <div class="signup" ng-click='toggleSigns($event)'>
+      <div class="signup col-xs-4" ng-click='toggleSigns($event)'>
         sign up
+      </div>
+      <div class="signout col-xs-4" ng-click="signoutUser()">
+        sign out
       </div>
     </div>
     <div class="signupModal" ng-if='signupModalVar'>
