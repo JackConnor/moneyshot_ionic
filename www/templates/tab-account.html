@@ -1,11 +1,17 @@
 <ion-view view-title="Account">
   <ion-content>
     <div class="navBar">
-      <div class="col-sm-8 col-sm-offset-2 col-xs-6 col-xs-offset-0 nameTag">
+      <div class="col-xs-8 col-xs-offset-2 nameTag">
         MoPho
       </div>
-      <div class="col-sm-2 col-xs-6 signoutButton" ng-click="signoutUser()">
-        Sign Out
+      <div class="col-xs-4 accountTab soldTab">
+        Sold
+      </div>
+      <div class="col-xs-4 accountTab submittedTab">
+        Submitted
+      </div>
+      <div class="col-xs-4 accountTab moneyTab">
+        Money
       </div>
     </div>
     <div class="" ng-repeat='photo in userPhotos'>

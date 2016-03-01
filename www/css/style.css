@@ -1,5 +1,14 @@
 /* Empty. Add your own CSS if you like */
 
+.accountTab {
+  height: 100%;
+  border-right: 1px solid beige;
+  color: white;
+  font-size: 16px;
+  padding-top: 15px;
+  background-color: gray;
+}
+
 .allPhotosRepeat {
   padding: 0px;
 }
@@ -7,6 +16,11 @@
 .ion-content {
   margin: 0px;
   padding: 0px;
+}
+
+.nameTag {
+  height: 45px;
+  padding-top: 10px;
 }
 
 .navBar {
@@ -48,15 +62,6 @@
   text-align: center;
   padding-top: 15px;
   color: white;
-}
-
-.signoutButton {
-  height: 100%;
-  /*position: absolute;*/
-  text-align: center;
-  padding-top: 5px;
-  color: white;
-  outline: 2px solid gray;
 }
 
 .signup {
