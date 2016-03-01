@@ -6,7 +6,13 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload'])
   function cameraCtrl($http, $state, $scope, singlePhoto, Upload, $q, $cordovaCamera, $cordovaFile, $cordovaFileTransfer, signup, signin, newToken){
     ////////////////////////////
     /////////global variables///
-
+    console.log('yoyoyoy');
+    // setTimeout(function(){
+    //   console.log('hey yoooo');
+    //   if(window.localStorage.webToken.length > 10){
+    //     takePicture();
+    //   }
+    // }, 2000);
     /////////global variables///
     ////////////////////////////
 
@@ -53,18 +59,20 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload'])
       })
     }
 
-    //////function to check for an active user and launch the camera
-    function launchCamera(){
-      if(window.localStorage.webToken.length > 4){
-        console.log('we got a token');
-        takePicture();
-      }
-      else {
-        console.log('need a token');
-      }
-    }
+    takePicture();
 
-    launchCamera();
+    //////function to check for an active user and launch the camera
+    // function launchCamera(){
+    //   if(window.localStorage.webToken.length > 4){
+    //     console.log('we got a token');
+    //     takePicture();
+    //   }
+    //   else {
+    //     console.log('need a token');
+    //   }
+    // }
+
+    // launchCamera();
 
     //////function to open the camera on the controller's load if there are no modals open
     // function loadCameraIfSigned(){

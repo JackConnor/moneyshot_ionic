@@ -94,6 +94,6 @@ angular.module('starter', ['ionic', 'ngCordova', 'ngFileUpload', 'starter.servic
     // });
 
     // if none of the above states are matched, use this as the fallback
-    $urlRouterProvider.otherwise('/tab/camera');
+    $urlRouterProvider.otherwise('/tab/upload');
 
   });

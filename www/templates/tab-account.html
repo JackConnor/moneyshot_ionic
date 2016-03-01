@@ -15,15 +15,19 @@
       </div>
     </div>
     <div class="" ng-if='showSold'>
-      yoooooooo SOLD
-      <div class="" ng-repeat='soldPhoto in soldPhotos'>
-        <img class='allPhotosRepeat col-sm-4 col-xs-6' src="{{soldPhoto.url}}" alt="" />
+      <div class="soldPhotosRepeat col-sm-4 col-xs-6" ng-repeat='soldPhoto in soldPhotos'>
+        <div class="priceLayer">
+          {{soldPhoto.price | currency}}
+        </div>
+        <img class='allPhotosRepeat' ng-src="{{soldPhoto.url}}" alt="" />
       </div>
     </div>
     <div class="" ng-if='showSubmitted'>
-      Sub sub subbbbbb
-      <div class="" ng-repeat='submittedPhoto in userPhotos'>
-        <img class='allPhotosRepeat col-sm-4 col-xs-6' src="{{submittedPhoto.url}}" alt="" />
+      <div class="soldPhotosRepeat col-sm-4 col-xs-6" ng-repeat='submittedPhoto in userPhotos'>
+        <div class="priceLayer">
+          submitted: {{submittedPhoto.date | date}}
+        </div>
+        <img class='allPhotosRepeat col-sm-4 col-xs-6' ng-src="{{submittedPhoto.url}}" alt="" />
       </div>
     </div>
     <div class="" ng-if='showFinance'>
