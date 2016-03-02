@@ -22,6 +22,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     /////////////////////////////
     /////functions to upload photos////
     function takePicture(){
+      console.log('opening camera');
       var options = {
           quality : 80,
           destinationType : Camera.DestinationType.FILE_URI,
@@ -38,30 +39,30 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       };
       $cordovaCamera.getPicture({})
       .then(function(result){
-        $cordovaFileTransfer.upload('http://192.168.0.3:5555/api/newimage', result, options)
+        $cordovaFileTransfer.upload('http://192.168.0.4:5555/api/newimage', result, options)
         .then(function(callbackImage){
           $http({
             method: "GET"
-            ,url: "http://192.168.0.3:5555/api/decodetoken/"+window.localStorage.webToken
+            ,url: "http://192.168.0.4:5555/api/decodetoken/"+window.localStorage.webToken
           })
           .then(function(decodedToken){
             console.log(decodedToken);
             var parsedPhoto = JSON.parse(callbackImage.response);
             $http({
               method: "POST"
-              ,url: "http://192.168.0.3:5555/api/createphotos"
+              ,url: "http://192.168.0.4:5555/api/createphotos"
               ,data: {url: parsedPhoto.secure_url, userId: decodedToken.data.userId}
             })
             .then(function(newPhoto){
               console.log('the photo object');
               console.log(newPhoto);
+              // takePicture();
             })
           })
-          // takePicture();
         })
       })
     }
-
+    $scope.takePicture = takePicture;
     // takePicture();
     function getPic(){
       console.log('camera baby');
@@ -77,7 +78,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       })
     }
     $scope.getPic = getPic;
-    getPic();
+    // getPic();
 
     /////test video stuff
     // function launchVideo(){

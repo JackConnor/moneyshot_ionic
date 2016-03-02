@@ -1,8 +1,11 @@
 <ion-view view-title="Camera" ng-controller='cameraCtrl'>
   <ion-content class="">
     <div class="cameraBackground">
-      <div class="shootButton" ng-click='getPic()'>
+      <div class="shootButton" ng-click='takePicture()'>
         Shoot<br>some<br>MoPhos
+      </div>
+      <div class="shootButton" ng-click='getPic()'>
+        Film<br>some<br>MoPhos
       </div>
       <div class="submitButton" ng-click='submitAllPhotos(sessionSet)'>
         Submit Your Photos
