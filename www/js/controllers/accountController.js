@@ -12,6 +12,7 @@ angular.module('accountController', [])
     $scope.showFinance   = false;
 
     var userToken = window.localStorage.webToken;
+    console.log(userToken);
     function getUserPhotos(token){
       decodeToken(token)
       .then(function(decToken){

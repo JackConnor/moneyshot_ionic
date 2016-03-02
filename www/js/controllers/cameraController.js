@@ -1,13 +1,15 @@
-angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload'])
+angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCordova'])
 
   .controller('cameraCtrl', cameraCtrl);
 
-  cameraCtrl.$inject = ['$http', '$state', '$scope', 'singlePhoto', 'Upload', '$q', '$cordovaCamera', '$cordovaFile', '$cordovaFileTransfer', 'signup', 'signin', 'newToken'];
-  function cameraCtrl($http, $state, $scope, singlePhoto, Upload, $q, $cordovaCamera, $cordovaFile, $cordovaFileTransfer, signup, signin, newToken){
+  cameraCtrl.$inject = ['$http', '$state', '$scope', 'singlePhoto', 'Upload', '$q', '$cordovaCamera', '$cordovaFile', '$cordovaFileTransfer', 'signup', 'signin', 'newToken', '$cordovaCapture'];
+  function cameraCtrl($http, $state, $scope, singlePhoto, Upload, $q, $cordovaCamera, $cordovaFile, $cordovaFileTransfer, signup, signin, newToken, $cordovaCapture){
     ////////////////////////////
     /////////global variables///
     var sessionSet = [];
     $scope.sessionSet = sessionSet;
+    console.log();
+    console.log($cordovaCapture);
     // setTimeout(function(){
     //   console.log('hey yoooo');
     //   if(window.localStorage.webToken.length > 10){
@@ -63,7 +65,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload'])
     // takePicture();
     function getPic(){
       console.log('camera baby');
-      $cordovaCamera.getPicture({})
+      $cordovaCapture.captureVideo({})
       .then(function(result){
         console.log(result);
         $scope.sessionSet.push(result);
@@ -74,15 +76,67 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload'])
         }
       })
     }
-    setInterval(function(){
-      console.log($scope.sessionSet);
-    }, 1000);
     $scope.getPic = getPic;
     getPic();
+
+    /////test video stuff
+    // function launchVideo(){
+    //   var options = { limit: 3, duration: 15 };
+    //   $cordovaCamera.captureVideo(options)
+    //   .then(function(videoResult){
+    //     console.log(videoResult);
+    //   })
+    // }
+    // launchVideo();
+    // $cordovaCamera.captureVideo({})
+    // .then(function(videoResult){
+    //   console.log(videoResult);
+    // })
+    //////end test video stuff
+
     function submitAllPhotos(set){
       console.log('submitting');
       console.log(set);
-      alert(set);
+      console.log(set.length);
+      // alert(set);
+      for (var i = 0; i < set.length; i++) {
+        var options = {
+            quality : 80,
+            destinationType : Camera.DestinationType.FILE_URI,
+            sourceType : Camera.PictureSourceType.Camera ,
+            allowEdit : true,
+            encodingType: Camera.EncodingType.JPEG,
+            targetWidth: 100,
+            targetHeight: 100,
+            popoverOptions: CameraPopoverOptions,
+            saveToPhotoAlbum: false,
+            headers: {
+              userId: '12345'
+            }
+        };
+        $cordovaFileTransfer.upload('http://192.168.0.4:5555/api/newimage', set[0], options)
+        .then(function(callbackImage){
+          console.log(callbackImage);
+          $http({
+            method: "GET"
+            ,url: "http://192.168.0.4:5555/api/decodetoken/"+window.localStorage.webToken
+          })
+          .then(function(decodedToken){
+            console.log(decodedToken);
+            var parsedPhoto = JSON.parse(callbackImage.response);
+            $http({
+              method: "POST"
+              ,url: "http://192.168.0.4:5555/api/createphotos"
+              ,data: {url: parsedPhoto.secure_url, userId: decodedToken.data.userId}
+            })
+            .then(function(newPhoto){
+              console.log('the photo object');
+              console.log(newPhoto);
+            })
+          })
+          // takePicture();
+        })
+      }
     }
     $scope.submitAllPhotos = submitAllPhotos;
 
