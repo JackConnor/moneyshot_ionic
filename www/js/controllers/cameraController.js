@@ -1,12 +1,20 @@
-angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCordova'])
+angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCordova', 'ngFileUpload'])
 
   .controller('cameraCtrl', cameraCtrl);
 
-  cameraCtrl.$inject = ['$http', '$state', '$scope', 'singlePhoto', 'Upload', '$q', '$cordovaCamera', '$cordovaFile', '$cordovaFileTransfer', 'signup', 'signin', 'newToken', '$cordovaCapture'];
+  cameraCtrl.$inject = ['$http', '$state', '$scope', 'singlePhoto', 'Upload', '$q', '$cordovaCamera', '$cordovaFile', '$cordovaFileTransfer', 'signup', 'signin', 'newToken', '$cordovaCapture', 'Upload'];
   function cameraCtrl($http, $state, $scope, singlePhoto, Upload, $q, $cordovaCamera, $cordovaFile, $cordovaFileTransfer, signup, signin, newToken, $cordovaCapture){
+
     ////////////////////////////
     /////////global variables///
     var sessionSet = [];
+    console.log(Upload);
+    //////testing cloudinary direct upload
+    //
+    // $.cloudinary.config({ cloud_name: 'drjseeoep', api_key: '632163526492235'})
+    //
+    // console.log($.cloudinary);
+    // console.log($.cloudinary);
     $scope.sessionSet = sessionSet;
     console.log();
     console.log($cordovaCapture);
@@ -33,9 +41,6 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
           targetHeight: 100,
           popoverOptions: CameraPopoverOptions,
           saveToPhotoAlbum: false,
-          headers: {
-            userId: '12345'
-          }
       };
       $cordovaCamera.getPicture({})
       .then(function(result){
@@ -65,16 +70,44 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     $scope.takePicture = takePicture;
     // takePicture();
     function getPic(){
-      console.log('camera baby');
+      console.log('video baby');
       $cordovaCapture.captureVideo({})
       .then(function(result){
-        console.log(result);
-        $scope.sessionSet.push(result);
-        console.log('set coming');
-        console.log($scope.sessionSet);
-        if(result != null){
-          getPic();
-        }
+        console.log(result[0].fullPath);
+        var pathFull = result[0].fullPath;
+        console.log('again again again');
+        console.log(pathFull);
+        console.log(JSON.stringify(pathFull));
+        // $http({
+        //   method: "POST"
+        //   ,url: 'http://192.168.0.4:5555/api/upload/video'
+        //   ,data: {file: pathFull}
+        // })
+        // .then(function(result){
+        //   console.log(result);
+        // })
+        // Upload.upload({
+        //   url: 'http://192.168.0.4:5555/api/upload/video'
+        //   ,data: {file: pathFull}
+        // })
+        // .then(function(videoBack){
+        //   console.log(videoBack);
+        // })
+
+
+        $cordovaFileTransfer.upload('http://192.168.0.4:5555/api/upload/video', pathFull, {})
+        .then(function(callbackImage){
+          if(err){console.log(err)}
+          console.log('yoyoyyoyoyoyoyoyoyoy');
+          console.log(callbackImage);
+        })
+        //ERROR: Wrong type for parameter "filePath" of FileTransfer.upload: Expected String, but got Array.
+      //   $scope.sessionSet.push(result);
+      //   console.log('set coming');
+      //   console.log($scope.sessionSet);
+      //   if(result != null){
+      //     getPic();
+      //   }
       })
     }
     $scope.getPic = getPic;
