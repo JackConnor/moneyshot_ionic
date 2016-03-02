@@ -22,6 +22,8 @@ angular.module('accountController', [])
           console.log($scope.userInfo);
           var userPhotos = userInfo.data.photos;////this is all of a signed-in user's
           $scope.userPhotos = userPhotos.reverse();
+          $scope.userSubmissions = userInfo.data.submissions.reverse();
+          console.log($scope.userSubmissions);
           $scope.totalEarned = 0;
           function mapPhotos(){
             var soldPhotos = [];
@@ -77,7 +79,7 @@ angular.module('accountController', [])
 
     function openSingle(photoData){
       console.log(photoData);
-      $scope.singlePhotoData = photoData;
+      $scope.singlePhotoData = photoData.photos[0];
       $('.repeatContainer').css({
         marginRight: "100%"
       });

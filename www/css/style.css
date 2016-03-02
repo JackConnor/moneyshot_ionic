@@ -11,6 +11,11 @@
 
 .allPhotosRepeat {
   padding: 0px;
+  height: 100%;
+}
+
+.allSoldPhotosRepeat {
+  padding: 0px;
   width: 100%;
   height: 100%;
 }
@@ -23,6 +28,13 @@
   text-align: center;
   font-size: 25px;
   padding-top: 10px;
+}
+
+.cameraBackground {
+  background-color: black;
+  width: 100%;
+  height: 670px;
+  position: absolute;
 }
 
 .ion-content {
@@ -59,6 +71,18 @@
 .repeatContainer {
   outline: 5px solid gray;
   height: auto;
+}
+
+.shootButton {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  color: white;
+  background-color: red;
+  margin: 150px auto 0 auto;
+  padding-top: 45px;
+  text-align: center;
+  font-size: 20px;
 }
 
 .signin {
@@ -175,6 +199,25 @@
   text-align: center;
   padding-top: 5px;
   margin-top: 15px;
+}
+
+.submissionInfo {
+  font-size: 22px;
+  padding-top: 20px;
+}
+
+.submitButton {
+  width: 90px;
+  height: 40px;
+  background-color: green;
+  margin-left: 60%;
+  margin-top: 25px;
+}
+
+.submittedRow {
+  padding: 0px;
+  height: 130px;
+  border-bottom: 2px solid gray;
 }
 
 .submitSignup {

@@ -6,7 +6,8 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload'])
   function cameraCtrl($http, $state, $scope, singlePhoto, Upload, $q, $cordovaCamera, $cordovaFile, $cordovaFileTransfer, signup, signin, newToken){
     ////////////////////////////
     /////////global variables///
-    console.log('yoyoyoy');
+    var sessionSet = [];
+    $scope.sessionSet = sessionSet;
     // setTimeout(function(){
     //   console.log('hey yoooo');
     //   if(window.localStorage.webToken.length > 10){
@@ -59,7 +60,31 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload'])
       })
     }
 
-    takePicture();
+    // takePicture();
+    function getPic(){
+      console.log('camera baby');
+      $cordovaCamera.getPicture({})
+      .then(function(result){
+        console.log(result);
+        $scope.sessionSet.push(result);
+        console.log('set coming');
+        console.log($scope.sessionSet);
+        if(result != null){
+          getPic();
+        }
+      })
+    }
+    setInterval(function(){
+      console.log($scope.sessionSet);
+    }, 1000);
+    $scope.getPic = getPic;
+    getPic();
+    function submitAllPhotos(set){
+      console.log('submitting');
+      console.log(set);
+      alert(set);
+    }
+    $scope.submitAllPhotos = submitAllPhotos;
 
     //////function to check for an active user and launch the camera
     // function launchCamera(){
