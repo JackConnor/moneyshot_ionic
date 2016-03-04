@@ -7,24 +7,8 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
     ////////////////////////////
     /////////global variables///
-    var sessionSet = [];
-    console.log(Upload);
-    //////testing cloudinary direct upload
-    //
-    // $.cloudinary.config({ cloud_name: 'drjseeoep', api_key: '632163526492235'})
-    //
-    // console.log($.cloudinary);
-    // console.log($.cloudinary);
-    $scope.sessionSet = sessionSet;
-    console.log();
-    console.log($cordovaCapture);
-    // setTimeout(function(){
-    //   console.log('hey yoooo');
-    //   if(window.localStorage.webToken.length > 10){
-    //     takePicture();
-    //   }
-    // }, 2000);
-    /////////global variables///
+    $scope.mediaCache = []
+    /////end global variables///
     ////////////////////////////
 
     /////////////////////////////
@@ -44,27 +28,34 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       };
       $cordovaCamera.getPicture({})
       .then(function(result){
-        $cordovaFileTransfer.upload('http://192.168.0.4:5555/api/newimage', result, options)
-        .then(function(callbackImage){
-          $http({
-            method: "GET"
-            ,url: "http://192.168.0.4:5555/api/decodetoken/"+window.localStorage.webToken
-          })
-          .then(function(decodedToken){
-            console.log(decodedToken);
-            var parsedPhoto = JSON.parse(callbackImage.response);
-            $http({
-              method: "POST"
-              ,url: "http://192.168.0.4:5555/api/createphotos"
-              ,data: {url: parsedPhoto.secure_url, userId: decodedToken.data.userId}
-            })
-            .then(function(newPhoto){
-              console.log('the photo object');
-              console.log(newPhoto);
-              // takePicture();
-            })
-          })
+        $scope.mediaCache.push({
+          type: "photo"
+          ,link: result
+          ,date: new Date()
         })
+        console.log($scope.mediaCache);
+        //
+        // $cordovaFileTransfer.upload('http://192.168.0.4:5555/api/newimage', result, options)
+        // .then(function(callbackImage){
+        //   $http({
+        //     method: "GET"
+        //     ,url: "http://192.168.0.4:5555/api/decodetoken/"+window.localStorage.webToken
+        //   })
+        //   .then(function(decodedToken){
+        //     console.log(decodedToken);
+        //     var parsedPhoto = JSON.parse(callbackImage.response);
+        //     $http({
+        //       method: "POST"
+        //       ,url: "http://192.168.0.4:5555/api/createphotos"
+        //       ,data: {url: parsedPhoto.secure_url, userId: decodedToken.data.userId, isVid: false}
+        //     })
+        //     .then(function(newPhoto){
+        //       console.log('the photo object');
+        //       console.log(newPhoto);
+        //       // takePicture();
+        //     })
+        //   })
+        // })
       })
     }
     $scope.takePicture = takePicture;
@@ -73,104 +64,186 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       console.log('video baby');
       $cordovaCapture.captureVideo({})
       .then(function(result){
-        console.log(result[0].fullPath);
-        var pathFull = result[0].fullPath;
-        console.log('again again again');
+        var pathFull = result[0].fullPath;///////this is what we need to add to our cache
         console.log(pathFull);
-        console.log(JSON.stringify(pathFull));
-        // $http({
-        //   method: "POST"
-        //   ,url: 'http://192.168.0.4:5555/api/upload/video'
-        //   ,data: {file: pathFull}
-        // })
-        // .then(function(result){
-        //   console.log(result);
-        // })
-        // Upload.upload({
-        //   url: 'http://192.168.0.4:5555/api/upload/video'
-        //   ,data: {file: pathFull}
-        // })
-        // .then(function(videoBack){
-        //   console.log(videoBack);
-        // })
-
-
-        $cordovaFileTransfer.upload('http://192.168.0.4:5555/api/upload/video', pathFull, {})
-        .then(function(callbackImage){
-          if(err){console.log(err)}
-          console.log('yoyoyyoyoyoyoyoyoyoy');
-          console.log(callbackImage);
+        /////next, we push the video plus some extra data to the media cache, where it waits to be submitted
+        $scope.mediaCache.push({
+          type: "video"
+          ,link: pathFull
+          ,date: new Date()
         })
-        //ERROR: Wrong type for parameter "filePath" of FileTransfer.upload: Expected String, but got Array.
-      //   $scope.sessionSet.push(result);
-      //   console.log('set coming');
-      //   console.log($scope.sessionSet);
-      //   if(result != null){
-      //     getPic();
-      //   }
+        console.log($scope.mediaCache);
+        //
+        //
+        //
+        // console.log('again again again');
+        //
+        // $cordovaFileTransfer.upload('http://192.168.0.4:5555/api/upload/video', pathFull, {})
+        // .then(function(callbackImage){
+        //   var splitUrl = callbackImage.response.split('');
+        //   console.log(splitUrl);
+        //   var sliced = splitUrl.slice(1, callbackImage.response.split('').length - 1);
+        //   console.log(sliced);
+        //   console.log('yoyoyyoyoyoyoyoyoyoy');
+        //   $http({
+        //     method: "GET"
+        //     ,url: "http://192.168.0.4:5555/api/decodetoken/"+window.localStorage.webToken
+        //   })
+        //   .then(function(decodedToken){
+        //     $http({
+        //       method: "POST"
+        //       ,url: "http://192.168.0.4:5555/api/createphotos"
+        //       ,data: {url: sliced.join(''), userId: decodedToken.data.userId, isVid: true}
+        //     })
+        //     .then(function(newVid){
+        //       console.log('the photo object');
+        //       console.log(newVid);
+        //       // takePicture();
+        //     })
+        //   })
+        // })
       })
     }
     $scope.getPic = getPic;
     // getPic();
 
-    /////test video stuff
-    // function launchVideo(){
-    //   var options = { limit: 3, duration: 15 };
-    //   $cordovaCamera.captureVideo(options)
-    //   .then(function(videoResult){
-    //     console.log(videoResult);
-    //   })
-    // }
-    // launchVideo();
-    // $cordovaCamera.captureVideo({})
-    // .then(function(videoResult){
-    //   console.log(videoResult);
-    // })
-    //////end test video stuff
-
     function submitAllPhotos(set){
-      console.log('submitting');
-      console.log(set);
-      console.log(set.length);
-      // alert(set);
-      for (var i = 0; i < set.length; i++) {
-        var options = {
-            quality : 80,
-            destinationType : Camera.DestinationType.FILE_URI,
-            sourceType : Camera.PictureSourceType.Camera ,
-            allowEdit : true,
-            encodingType: Camera.EncodingType.JPEG,
-            targetWidth: 100,
-            targetHeight: 100,
-            popoverOptions: CameraPopoverOptions,
-            saveToPhotoAlbum: false,
-            headers: {
-              userId: '12345'
-            }
-        };
-        $cordovaFileTransfer.upload('http://192.168.0.4:5555/api/newimage', set[0], options)
-        .then(function(callbackImage){
-          console.log(callbackImage);
-          $http({
-            method: "GET"
-            ,url: "http://192.168.0.4:5555/api/decodetoken/"+window.localStorage.webToken
-          })
-          .then(function(decodedToken){
-            console.log(decodedToken);
-            var parsedPhoto = JSON.parse(callbackImage.response);
-            $http({
-              method: "POST"
-              ,url: "http://192.168.0.4:5555/api/createphotos"
-              ,data: {url: parsedPhoto.secure_url, userId: decodedToken.data.userId}
-            })
-            .then(function(newPhoto){
-              console.log('the photo object');
-              console.log(newPhoto);
-            })
-          })
-          // takePicture();
-        })
+      //////through our if-statement below, we'll need to add different options so that photos and videos get processed correctly
+      var photoOptions = {
+          quality : 80,
+          destinationType : Camera.DestinationType.FILE_URI,
+          sourceType : Camera.PictureSourceType.Camera ,
+          allowEdit : true,
+          encodingType: Camera.EncodingType.JPEG,
+          targetWidth: 100,
+          targetHeight: 100,
+          popoverOptions: CameraPopoverOptions,
+          saveToPhotoAlbum: false,
+      };
+      var videoOptions = {
+
       }
+      var submissionData = {photos: [], videos: [], userId: ''};
+      //////first we need to find the users ID, so we can use it to make the post requests
+      $http({
+        method: "GET"
+        ,url: "http://192.168.0.2:5555/api/decodetoken/"+window.localStorage.webToken
+      })
+      .then(function(decodedToken){
+        var userFullId = decodedToken.data.userId;
+        submissionData.userId = userFullId;
+
+        ////now iterate through to submit to backend
+        for (var i = 0; i <= set.length; i++) {
+          if(set[i].type == "video"){
+            $cordovaFileTransfer.upload('http://192.168.0.2:5555/api/upload/video', set[i].link, {})
+            .then(function(callbackImage){
+              var splitUrl = callbackImage.response.split('');
+              var sliced = splitUrl.slice(1, callbackImage.response.split('').length - 1);
+              ////////this is where we're having data problems, you need to figure out why our string result doesnt work to call the video
+              $http({
+                method: "POST"
+                ,url: "http://192.168.0.2:5555/api/createphotos"
+                ,data: {url: sliced.join(''), userId: userFullId, isVid: true}
+              })
+              .then(function(newVid){
+                submissionData.videos.push(newVid.data.url);
+                console.log('submission data');
+                console.log(submissionData);
+                var vids = submissionData.videos.length;
+                var phots = submissionData.photos.length;
+                console.log(vids);
+                console.log(phots);
+                console.log(vids + phots);
+                console.log(set.length);
+                if(amalgam == set.length){
+                  console.log('yooooooooo');
+                  $http({
+                    method: "POST"
+                    ,url: "http://192.168.0.2:5555/api/new/submission"
+                    ,data: submissionData
+                  })
+                  .then(function(newSubmission){
+                    console.log('new subbbbbbbs');
+                    console.log(newSubmission);
+                    console.log('drillilng');
+                    console.log(newSubmission.data);
+                    console.log(newSubmission.data.videos[0]);
+                    console.log(newSubmission.data.videos[0]);
+                    console.log(newSubmission.data.videos[0]);
+                    console.log(newSubmission.data.videos[0]);
+                    console.log(newSubmission.data.videos[0]);
+                    console.log(newSubmission.data.videos[0]);
+                    console.log(newSubmission.data.videos[0]);
+                    console.log(newSubmission.data.videos[0]);
+                    console.log(newSubmission.data.videos[0]);
+                    console.log(newSubmission.data.videos[0]);
+                    console.log(newSubmission.data.videos[0]);
+                    console.log(newSubmission.data.videos[0]);
+                    console.log(newSubmission.data.videos[0]);
+                    console.log(newSubmission.data.videos[0]);
+                    console.log(newSubmission.data.videos[0]);
+                    console.log(newSubmission.data.videos[0]);
+                  })
+                }
+              })
+            })
+          }
+          else if(set[i].type == "photo"){
+            $cordovaFileTransfer.upload('http://192.168.0.2:5555/api/newimage', set[i].link, photoOptions)
+            .then(function(callbackImage){
+              var parsedPhoto = JSON.parse(callbackImage.response);
+              $http({
+                method: "POST"
+                ,url: "http://192.168.0.2:5555/api/createphotos"
+                ,data: {url: parsedPhoto.secure_url, userId: userFullId, isVid: false}
+              })
+              .then(function(newPhoto){
+                submissionData.photos.push(newPhoto.data.url);
+                console.log('submitting data');
+                console.log(submissionData);
+                var vids = submissionData.videos.length;
+                var phots = submissionData.photos.length;
+                var amalgam = vids + phots;
+                console.log(vids);
+                console.log(phots);
+                console.log(vids + phots);
+                console.log(set.length);
+                if(amalgam == set.length){
+                  console.log('yooooooooo');
+                  $http({
+                    method: "POST"
+                    ,url: "http://192.168.0.2:5555/api/new/submission"
+                    ,data: submissionData
+                  })
+                  .then(function(newSubmission){
+                    console.log('new subbbbbbbs');
+                    console.log(newSubmission);
+                    console.log('drillilng');
+                    console.log(newSubmission.data);
+                    console.log(newSubmission.data.videos[0]);
+                    console.log(newSubmission.data.videos[0]);
+                    console.log(newSubmission.data.videos[0]);
+                    console.log(newSubmission.data.videos[0]);
+                    console.log(newSubmission.data.videos[0]);
+                    console.log(newSubmission.data.videos[0]);
+                    console.log(newSubmission.data.videos[0]);
+                    console.log(newSubmission.data.videos[0]);
+                    console.log(newSubmission.data.videos[0]);
+                    console.log(newSubmission.data.videos[0]);
+                    console.log(newSubmission.data.videos[0]);
+                    console.log(newSubmission.data.videos[0]);
+                    console.log(newSubmission.data.videos[0]);
+                    console.log(newSubmission.data.videos[0]);
+                    console.log(newSubmission.data.videos[0]);
+                    console.log(newSubmission.data.videos[0]);
+                  })
+                }
+              })
+            })
+          }
+        }
+      })
     }
     $scope.submitAllPhotos = submitAllPhotos;
 

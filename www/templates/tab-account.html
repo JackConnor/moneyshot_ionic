@@ -42,12 +42,17 @@
           </div>
           <img class='allSoldPhotosRepeat' ng-src="{{soldPhoto.url}}" alt="" />
         </div>
+        <div class="col-sm-4 col-xs-6" style='padding:0px; margin: 0px'>
+          <video class='allSoldPhotosRepeat' ng-src="http://res.cloudinary.com/drjseeoep/video/upload/v1457050812/bactvkknhclvgvshlbtu.mov" controls></video>
+        </div>
       </div>
       <div class="" ng-if='showSubmitted'>
         <div class="submittedRow col-xs-12" ng-repeat='submission in userSubmissions'>
-          <img class='allPhotosRepeat col-xs-6' ng-src="{{submission.photos[0].url}}" alt="" ng-click='openSingle(submission)'/>
+          <!-- <video class='allPhotosRepeat col-xs-6' ng-src="{{submission.photos[0].url}}"controls></video> -->
+          <video class='allPhotosRepeat col-xs-6' ng-src="submission.photos[0].url.toString" controls></video>
           <div class="submissionInfo col-xs-6">
-            Date submitted: {{submission.date | date}}
+            <!-- Date submitted: {{submission.date | date}} -->
+            {{submission.photos[0].url.toString()}}
           </div>
         </div>
       </div>
