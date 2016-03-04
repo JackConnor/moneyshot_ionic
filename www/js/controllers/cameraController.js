@@ -147,7 +147,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                 ,data: {url: sliced.join(''), userId: userFullId, isVid: true}
               })
               .then(function(newVid){
-                submissionData.videos.push(newVid.data.url);
+                submissionData.videos.push(newVid.data._id);
                 console.log('submission data');
                 console.log(submissionData);
                 var vids = submissionData.videos.length;
@@ -199,7 +199,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                 ,data: {url: parsedPhoto.secure_url, userId: userFullId, isVid: false}
               })
               .then(function(newPhoto){
-                submissionData.photos.push(newPhoto.data.url);
+                submissionData.photos.push(newPhoto.data._id);
                 console.log('submitting data');
                 console.log(submissionData);
                 var vids = submissionData.videos.length;
