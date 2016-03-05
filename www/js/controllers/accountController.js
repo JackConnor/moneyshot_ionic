@@ -1,6 +1,12 @@
 angular.module('accountController', [])
 
-  .controller('accountCtrl', acctCtrl);
+  .controller('accountCtrl', acctCtrl)
+
+  .filter('trustUrl', function ($sce) {
+    return function(url) {
+      return $sce.trustAsResourceUrl(url);
+    };
+  })
 
   acctCtrl.$inject = ['$http', '$state', '$scope', 'navbar', 'userPhotos', 'decodeToken'];
 
@@ -92,11 +98,23 @@ angular.module('accountController', [])
     }
     $scope.openSingle = openSingle;
 
-    function backToRepeat(){
+    function openSubmission(subInfo){
+      console.log(subInfo);
+      $scope.singleSubmission = subInfo;
       $('.repeatContainer').css({
-        marginRight: 0
+        marginRight: "100%"
       });
-      $('.singleImageModal').css({
+      $('.singleSubmissionModal').css({
+        marginLeft: 0
+      })
+      $('window').scrollTop(0);
+    }
+    $scope.openSubmission = openSubmission;
+
+    function backToRepeat(){
+      var x = document.getElementById("repeatContainer");
+      x.style.marginRight = 0;
+      $('.singleSubmissionModal').css({
         marginLeft: "100%"
       })
     }
