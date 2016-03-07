@@ -9,6 +9,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     /////////global variables///
     $scope.mediaCache = [];
     $scope.submitModalVar = false;
+    var eraseSubmitArr = [];
     /////end global variables///
     ////////////////////////////
 
@@ -70,7 +71,8 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       $(evt.currentTarget).css({
         color: "blue"
       })
-      $scope.mediaCache.splice(index, 1);
+      eraseSubmitArr.push(index);
+      // $scope.mediaCache.splice(index, 1);
     }
     $scope.selectSubmitted = selectSubmitted;
 
@@ -92,6 +94,11 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
       }
       var submissionData = {photos: [], videos: [], userId: ''};
+      for (var i = 0; i < eraseSubmitArr.length; i++) {
+        $scope.mediaCache.splice(eraseSubmitArr[i], 1);
+        console.log($scope.mediaCache);
+        console.log(eraseSubmitArr[i]);
+      }
       //////first we need to find the users ID, so we can use it to make the post requests
       $http({
         method: "GET"
