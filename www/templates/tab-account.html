@@ -60,7 +60,7 @@
       </div>
       <div class="" ng-if='showSubmitted'>
         <div class="submittedRow col-xs-12" ng-repeat='submission in userSubmissions'>
-          <video class='allPhotosRepeat col-xs-6' ng-src="{{submission.photos[0].url | trustUrl}}" controls ng-if='submission.photos[0].isVideo'></video>
+          <video class='allPhotosRepeat col-xs-6' ng-src="{{submission.photos[0].url | trustUrl}}" controls ng-if='submission.photos[0].isVideo' ng-click='openSubmission(submission)'></video>
           <img class='allPhotosRepeat col-xs-6' ng-click='openSubmission(submission)' ng-src="{{submission.photos[0].url}}" ng-if='!submission.photos[0].isVideo'/>
           <div class="submissionInfo col-xs-6">
             Date submitted: {{submission.date | date}}

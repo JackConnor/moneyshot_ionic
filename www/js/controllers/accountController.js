@@ -91,6 +91,9 @@ angular.module('accountController', [])
       $('.repeatContainer').css({
         marginRight: "100%"
       });
+      $('.singleSubmissionModal').css({
+        marginRight: "100%"
+      });
       $('.singleImageModal').css({
         marginLeft: 0
       })
