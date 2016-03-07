@@ -7,7 +7,8 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
     ////////////////////////////
     /////////global variables///
-    $scope.mediaCache = []
+    $scope.mediaCache = [];
+    $scope.submitModalVar = false;
     /////end global variables///
     ////////////////////////////
 
@@ -56,6 +57,24 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     $scope.getPic = getPic;
     // getPic();
 
+    //////function to open the submit modal
+    function openSubmitModal(){
+      console.log('opening');
+      $scope.submitModalVar = true;
+    }
+    $scope.openSubmitModal = openSubmitModal;
+
+    function selectSubmitted(evt, index){
+      console.log(evt);
+      console.log(index);
+      $(evt.currentTarget).css({
+        color: "blue"
+      })
+      $scope.mediaCache.splice(index, 1);
+    }
+    $scope.selectSubmitted = selectSubmitted;
+
+    //////function to submit all cached photos from your session to the db
     function submitAllPhotos(set){
       //////through our if-statement below, we'll need to add different options so that photos and videos get processed correctly
       var photoOptions = {
