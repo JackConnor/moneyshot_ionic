@@ -87,7 +87,7 @@ angular.module('accountController', [])
 
     function openSingle(photoData){
       console.log(photoData);
-      $scope.singlePhotoData = photoData.photos[0];
+      $scope.singlePhotoData = photoData;
       $('.repeatContainer').css({
         marginRight: "100%"
       });
@@ -115,6 +115,9 @@ angular.module('accountController', [])
       var x = document.getElementById("repeatContainer");
       x.style.marginRight = 0;
       $('.singleSubmissionModal').css({
+        marginLeft: "100%"
+      })
+      $('.singleImageModal').css({
         marginLeft: "100%"
       })
     }
