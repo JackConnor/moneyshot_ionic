@@ -19,7 +19,8 @@
         go back
       </div>
       <div class="singleImageHolder col-sm-8 col-sm-offset-2 col-xs-12 col-xs-offset-0" >
-        <img class='singleImage' src="{{singlePhotoData.url}}" alt="" />
+        <img class='singleImage' ng-src="{{singlePhotoData.url}}" ng-if="!singlePhotoData.isVideo" />
+        <video ng-src="{{singlePhotoData.url | trustUrl}}" class="singleImage col-xs-12" controls ng-if="singlePhotoData.isVideo"></video>
         <div class="singleInfoHolder col-xs-12">
           <h2>Photo Data</h2>
           <div class="singleWho">
@@ -40,8 +41,8 @@
       </div>
       <div class="submissionRepeatContainer">
         <div class="col-sm-4 col-xs-6 subRepeat" ng-repeat="photo in singleSubmission.photos">
-          <video ng-src="{{photo.url | trustUrl}}" class="col-xs-12" controls ng-if="photo.isVideo"></video>
-          <img ng-src="{{photo.url | trustUrl}}" ng-if="!photo.isVideo" class="col-xs-12" />
+          <video ng-src="{{photo.url | trustUrl}}" class="col-xs-12" controls ng-if="photo.isVideo" ng-click='openSingle(photo)'></video>
+          <img ng-src="{{photo.url | trustUrl}}" ng-if="!photo.isVideo" class="col-xs-12" ng-click='openSingle(photo)'/>
         </div>
       </div>
     </div>
@@ -51,15 +52,16 @@
           <div class="priceLayer" ng-click='openSingle(soldPhoto)'>
             {{soldPhoto.price | currency}}
           </div>
-          <img class='allSoldPhotosRepeat' ng-src="{{soldPhoto.url}}" alt="" />
+          <img class='allSoldPhotosRepeat' ng-src="{{soldPhoto.url}}" ng-if='!soldPhoto.isVideo' />
+          <video ng-src="{{soldPhoto.url | trustUrl}}" class="col-xs-12" controls ng-if="soldPhoto.isVideo"></video>
         </div>
         <div class="col-sm-4 col-xs-6" style='padding:0px; margin: 0px'>
         </div>
       </div>
       <div class="" ng-if='showSubmitted'>
         <div class="submittedRow col-xs-12" ng-repeat='submission in userSubmissions'>
-          <!-- <video class='allPhotosRepeat col-xs-6' ng-src="{{submission.photos[0].url}}"controls></video> -->
-          <img class='allPhotosRepeat col-xs-6' ng-click='openSubmission(submission)' ng-src="{{submission.photos[0].url}}" controls/>
+          <video class='allPhotosRepeat col-xs-6' ng-src="{{submission.photos[0].url | trustUrl}}" controls ng-if='submission.photos[0].isVideo'></video>
+          <img class='allPhotosRepeat col-xs-6' ng-click='openSubmission(submission)' ng-src="{{submission.photos[0].url}}" ng-if='!submission.photos[0].isVideo'/>
           <div class="submissionInfo col-xs-6">
             Date submitted: {{submission.date | date}}
           </div>

@@ -164,15 +164,6 @@
   z-index: 5;
 }
 
-.singleSubmissionModal {
-  position: fixed;
-  height: 667px;
-  margin-left: 100%;
-  outline: 5px solid red;
-  background-color: gray;
-  z-index: 5;
-}
-
 .singleInfoHolder {
   margin-top: 25px;
 }
@@ -184,7 +175,12 @@
 }
 
 .singleSubmissionModal {
-  height: 10000px;
+  position: fixed;
+  height: 667px;
+  margin-left: 100%;
+  outline: 5px solid red;
+  background-color: gray;
+  z-index: 5;
 }
 
 .singleWho {
