@@ -2,12 +2,14 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
   .controller('cameraCtrl', cameraCtrl);
 
-  cameraCtrl.$inject = ['$http', '$state', '$scope', 'singlePhoto', 'Upload', '$q', '$cordovaCamera', '$cordovaFile', '$cordovaFileTransfer', 'signup', 'signin', 'newToken', '$cordovaCapture', 'Upload'];
-  function cameraCtrl($http, $state, $scope, singlePhoto, Upload, $q, $cordovaCamera, $cordovaFile, $cordovaFileTransfer, signup, signin, newToken, $cordovaCapture){
+  cameraCtrl.$inject = ['$http', '$state', '$scope', 'singlePhoto', 'Upload', '$q', '$cordovaCamera', '$cordovaFile', '$cordovaFileTransfer', 'signup', 'signin', 'newToken', '$cordovaCapture', 'Upload', '$jrCrop'];
+  function cameraCtrl($http, $state, $scope, singlePhoto, Upload, $q, $cordovaCamera, $cordovaFile, $cordovaFileTransfer, signup, signin, newToken, $cordovaCapture, Upload, $jrCrop){
 
     ////////////////////////////
     /////////global variables///
-    $scope.mediaCache = [];
+    $scope.mediaCache = [{"link":"/img/adam.jpg", type:"photo"}];
+    // $scope.mediaCache = [];
+    $scope.croppedPhoto = '';
     $scope.submitModalVar = false;
     var eraseSubmitArr = [];
     /////end global variables///
@@ -76,6 +78,16 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     }
     $scope.selectSubmitted = selectSubmitted;
 
+
+    function deletePhotos(){
+      for (var i = 0; i < eraseSubmitArr.length; i++) {
+        $scope.mediaCache.splice(eraseSubmitArr[i], 1);
+        console.log($scope.mediaCache);
+        console.log(eraseSubmitArr[i]);
+      }
+    }
+    $scope.deletePhotos = deletePhotos;
+
     //////function to submit all cached photos from your session to the db
     function submitAllPhotos(set){
       //////through our if-statement below, we'll need to add different options so that photos and videos get processed correctly
@@ -94,11 +106,6 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
       }
       var submissionData = {photos: [], videos: [], userId: ''};
-      for (var i = 0; i < eraseSubmitArr.length; i++) {
-        $scope.mediaCache.splice(eraseSubmitArr[i], 1);
-        console.log($scope.mediaCache);
-        console.log(eraseSubmitArr[i]);
-      }
       //////first we need to find the users ID, so we can use it to make the post requests
       $http({
         method: "GET"
@@ -133,6 +140,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                     ,data: submissionData
                   })
                   .then(function(newSubmission){
+
                   })
                 }
               })
@@ -159,6 +167,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                     ,data: submissionData
                   })
                   .then(function(newSubmission){
+                    $scope.submitModalVar = false;
                   })
                 }
               })
@@ -169,4 +178,35 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     }
     $scope.submitAllPhotos = submitAllPhotos;
 
+    function cropPhoto(photoData, evt){
+      console.log(evt.currentTarget);
+      console.log(photoData);
+      $scope.croppedPhoto = photoData;
+      $('.submitCropContainer').animate({
+        marginLeft: 0
+      }, 500);
+      // $jrCrop.crop({
+      //   url: photoData.link
+      //   ,width: 200+"px"
+      //   ,height: 200+"px"
+      // })
+      // .then(function(data){
+      //   console.log(data.toDataURL());
+      // })
+      // $('#image').cropit();
+      $('.submitCropContainer').append(
+        "<img id='image' src='"+photoData.link+"' class='cropImage col-sm-8 col-sm-offset-2 col-xs-8 col-xs-offset-2'>"
+      )
+      $(".cropImage").cropper({
+        autoCrop: false,
+        built: function () {
+          // Do something here
+          // ...
+
+          // And then
+          $(this).cropper('crop');
+        }
+      });
+    }
+    $scope.cropPhoto = cropPhoto;
   }

@@ -1,14 +1,21 @@
 <ion-view view-title="Camera" ng-controller='cameraCtrl'>
   <ion-content class="">
     <div class="submitModal" ng-if='submitModalVar'>
-      <div class="submitButton" ng-click='submitAllPhotos(mediaCache)'>
-        Submit Your Photos
+      <div class="submitCropContainer">
       </div>
-      <div class="submitRepeat">
-        <div class="submitCell col-xs-6" ng-repeat='media in mediaCache'>
-          <i class="fa fa-circle-thin" ng-click='selectSubmitted($event, $index)'></i>
-          <img ng-src="{{media.link}}" ng-if='media.type=="photo"' />
-          <video ng-src="{{media.link}}" ng-if='media.type=="video"'></video>
+      <div class="submitModalContainer">
+        <div class="submitButton col-xs-4" ng-click='submitAllPhotos(mediaCache)'>
+          Submit Photos
+        </div>
+        <div class="submitDelete col-xs-4" ng-click='deletePhotos()'>
+          Delete
+        </div>
+        <div class="submitRepeat">
+          <div class="submitCell col-xs-6" ng-repeat='media in mediaCache'>
+            <i class="fa fa-circle-thin" ng-click='selectSubmitted($event, $index)'></i>
+            <img ng-src="{{media.link}}" ng-if='media.type=="photo"' ng-click='cropPhoto(media, $event)'/>
+            <video ng-src="{{media.link}}" ng-if='media.type=="video"'></video>
+          </div>
         </div>
       </div>
     </div>
@@ -19,9 +26,11 @@
       <div class="shootButton" ng-click='getPic()'>
         Film<br>some<br>MoPhos
       </div>
-      <div class="submitButton" ng-click='openSubmitModal()'>
+      <div class="submitButton col-xs-4 col-xs-offset-8" ng-click='openSubmitModal()'>
         Submit Your Photos
       </div>
+    </div>
+    <div>
     </div>
   </ion-content>
 </ion-view>
