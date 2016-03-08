@@ -2,6 +2,12 @@
   <ion-content class="">
     <div class="submitModal" ng-if='submitModalVar'>
       <div class="submitCropContainer">
+        <div class="backToSubmit col-xs-6" ng-click='backToSubmit()'>
+          Back
+        </div>
+        <div class="cropPhoto col-xs-6">
+          Crop
+        </div>
       </div>
       <div class="submitModalContainer">
         <div class="submitButton col-xs-4" ng-click='submitAllPhotos(mediaCache)'>

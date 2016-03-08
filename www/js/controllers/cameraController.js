@@ -24,9 +24,10 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
           destinationType : Camera.DestinationType.FILE_URI,
           sourceType : Camera.PictureSourceType.Camera ,
           allowEdit : true,
-          encodingType: Camera.EncodingType.JPEG,
+          encodingType: Camera.EncodingType.PNG,
           targetWidth: 100,
           targetHeight: 100,
+          correctOrientation: true,
           popoverOptions: CameraPopoverOptions,
           saveToPhotoAlbum: false,
       };
@@ -184,22 +185,25 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       $scope.croppedPhoto = photoData;
       $('.submitCropContainer').animate({
         marginLeft: 0
-      }, 500);
-      // $jrCrop.crop({
-      //   url: photoData.link
-      //   ,width: 200+"px"
-      //   ,height: 200+"px"
-      // })
-      // .then(function(data){
-      //   console.log(data.toDataURL());
-      // })
-      // $('#image').cropit();
+      }, 1000);
       $('.submitCropContainer').append(
-        "<img id='image' src='"+photoData.link+"' class='cropImage col-sm-8 col-sm-offset-2 col-xs-8 col-xs-offset-2'>"
+        "<img id='image' src='"+photoData.link+"' class='cropImage'>"
       )
+      $('.cropImage').css({
+        width: 100+"%"
+        ,height: 100+"%"
+      })
       $(".cropImage").cropper({
-        autoCrop: false,
-        built: function () {
+        zoomOnWheel: false,
+        background: false,
+        modal: false,
+        autoCrop: true,
+        rotate: 90,
+        crop: function(e){
+          console.log(e);
+          $scope.cropData = e;
+        },
+        built: function (e) {
           // Do something here
           // ...
 
@@ -209,4 +213,11 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       });
     }
     $scope.cropPhoto = cropPhoto;
+
+    function backToSubmit(){
+      $('.submitCropContainer').animate({
+        marginLeft: 100+"%"
+      }, 500);
+    }
+    $scope.backToSubmit = backToSubmit;
   }
