@@ -2,13 +2,13 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
   .controller('cameraCtrl', cameraCtrl);
 
-  cameraCtrl.$inject = ['$http', '$state', '$scope', 'singlePhoto', 'Upload', '$q', '$cordovaCamera', '$cordovaFile', '$cordovaFileTransfer', 'signup', 'signin', 'newToken', '$cordovaCapture', 'Upload', '$jrCrop'];
-  function cameraCtrl($http, $state, $scope, singlePhoto, Upload, $q, $cordovaCamera, $cordovaFile, $cordovaFileTransfer, signup, signin, newToken, $cordovaCapture, Upload, $jrCrop){
+  cameraCtrl.$inject = ['$http', '$state', '$scope', 'singlePhoto', 'Upload', '$q', '$cordovaCamera', '$cordovaFile', '$cordovaFileTransfer', 'signup', 'signin', 'newToken', '$cordovaCapture', 'Upload'];
+  function cameraCtrl($http, $state, $scope, singlePhoto, Upload, $q, $cordovaCamera, $cordovaFile, $cordovaFileTransfer, signup, signin, newToken, $cordovaCapture, Upload){
 
     ////////////////////////////
     /////////global variables///
-    $scope.mediaCache = [{"link":"/img/adam.jpg", type:"photo"}];
-    // $scope.mediaCache = [];
+    // $scope.mediaCache = [{"link":"/img/adam.jpg", "type":"photo"}, {"link":"/img/max.png", "type":"photo"}, {"link":"/img/ben.png", "type":"photo"}];
+    $scope.mediaCache = [];
     $scope.croppedPhoto = '';
     $scope.submitModalVar = false;
     var eraseSubmitArr = [];
@@ -17,6 +17,27 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
     /////////////////////////////
     /////functions to upload photos////
+    document.addEventListener("deviceready", function() {
+        canvasMain = document.getElementById("camera");
+        CanvasCamera.initialize(canvasMain);
+        // define options
+        var opt = {
+            quality: 75,
+            destinationType: CanvasCamera.DestinationType.DATA_URL,
+            encodingType: CanvasCamera.EncodingType.JPEG,
+            saveToPhotoAlbum:true,
+            correctOrientation:true,
+            width:640,
+            height:480
+        };
+        CanvasCamera.start(opt);
+    });
+    
+    function takeCordovaPicture(){
+
+    }
+    $scope.takeCordovaPicture = takeCordovaPicture;
+
     function takePicture(){
       console.log('opening camera');
       var options = {
@@ -63,34 +84,61 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
     //////function to open the submit modal
     function openSubmitModal(){
-      console.log('opening');
       $scope.submitModalVar = true;
     }
     $scope.openSubmitModal = openSubmitModal;
 
     function selectSubmitted(evt, index){
-      console.log(evt);
-      console.log(index);
-      $(evt.currentTarget).css({
-        color: "blue"
-      })
-      eraseSubmitArr.push(index);
-      // $scope.mediaCache.splice(index, 1);
+      if(!$(evt.currentTarget).hasClass('selected')){
+        console.log(evt);
+        console.log(index);
+        $(evt.currentTarget).css({
+          color: "blue"
+        })
+        $(evt.currentTarget).addClass('selected');
+        eraseSubmitArr.push(index);
+        // $scope.mediaCache.splice(index, 1);
+      }
+      else {
+        $(evt.currentTarget).css({
+          color: "white"
+        });
+        $(evt.currentTarget).removeClass('selected');
+        eraseSubmitArr = eraseSubmitArr.sort();
+        console.log(eraseSubmitArr);
+        for (var i = 0; i < eraseSubmitArr.length; i++) {
+          if(eraseSubmitArr[i] == index){
+            eraseSubmitArr[i] = null;
+            console.log(eraseSubmitArr);
+          }
+        };
+        for (var i = 0; i < eraseSubmitArr.length; i++) {
+          if(eraseSubmitArr[i] == null){
+            console.log(eraseSubmitArr);
+            eraseSubmitArr.splice(i, 1)
+          }
+        }
+        console.log(eraseSubmitArr);
+      }
+
     }
     $scope.selectSubmitted = selectSubmitted;
 
 
     function deletePhotos(){
+      console.log(eraseSubmitArr);
       for (var i = 0; i < eraseSubmitArr.length; i++) {
-        $scope.mediaCache.splice(eraseSubmitArr[i], 1);
         console.log($scope.mediaCache);
+        $scope.mediaCache.splice(eraseSubmitArr[i], 1);
         console.log(eraseSubmitArr[i]);
       }
+      eraseSubmitArr = [];
     }
     $scope.deletePhotos = deletePhotos;
 
     //////function to submit all cached photos from your session to the db
     function submitAllPhotos(set){
+      console.log(set);
       //////through our if-statement below, we'll need to add different options so that photos and videos get processed correctly
       var photoOptions = {
           quality : 80,
@@ -110,7 +158,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       //////first we need to find the users ID, so we can use it to make the post requests
       $http({
         method: "GET"
-        ,url: "http://192.168.0.5:5555/api/decodetoken/"+window.localStorage.webToken
+        ,url: "https://moneyshotapi.herokuapp.com/api/decodetoken/"+window.localStorage.webToken
       })
       .then(function(decodedToken){
         var userFullId = decodedToken.data.userId;
@@ -119,14 +167,14 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         ////now iterate through to submit to backend
         for (var i = 0; i <= set.length; i++) {
           if(set[i].type == "video"){
-            $cordovaFileTransfer.upload('http://192.168.0.5:5555/api/upload/video', set[i].link, {})
+            $cordovaFileTransfer.upload('https://moneyshotapi.herokuapp.com/api/upload/video', set[i].link, {})
             .then(function(callbackImage){
               var splitUrl = callbackImage.response.split('');
               var sliced = splitUrl.slice(1, callbackImage.response.split('').length - 1);
               ////////this is where we're having data problems, you need to figure out why our string result doesnt work to call the video
               $http({
                 method: "POST"
-                ,url: "http://192.168.0.5:5555/api/createphotos"
+                ,url: "https://moneyshotapi.herokuapp.com/api/createphotos"
                 ,data: {url: sliced.join(''), userId: userFullId, isVid: true}
               })
               .then(function(newVid){
@@ -137,7 +185,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                 if(amalgam == parseInt(set.length)){
                   $http({
                     method: "POST"
-                    ,url: "http://192.168.0.5:5555/api/new/submission"
+                    ,url: "https://moneyshotapi.herokuapp.com/api/new/submission"
                     ,data: submissionData
                   })
                   .then(function(newSubmission){
@@ -148,12 +196,12 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
             })
           }
           else if(set[i].type == "photo"){
-            $cordovaFileTransfer.upload('http://192.168.0.5:5555/api/newimage', set[i].link, photoOptions)
+            $cordovaFileTransfer.upload('https://moneyshotapi.herokuapp.com/api/newimage', set[i].link, photoOptions)
             .then(function(callbackImage){
               var parsedPhoto = JSON.parse(callbackImage.response);
               $http({
                 method: "POST"
-                ,url: "http://192.168.0.5:5555/api/createphotos"
+                ,url: "https://moneyshotapi.herokuapp.com/api/createphotos"
                 ,data: {url: parsedPhoto.secure_url, userId: userFullId, isVid: false}
               })
               .then(function(newPhoto){
@@ -164,7 +212,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                 if(amalgam == parseInt(set.length)){
                   $http({
                     method: "POST"
-                    ,url: "http://192.168.0.5:5555/api/new/submission"
+                    ,url: "https://moneyshotapi.herokuapp.com/api/new/submission"
                     ,data: submissionData
                   })
                   .then(function(newSubmission){
@@ -180,12 +228,10 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     $scope.submitAllPhotos = submitAllPhotos;
 
     function cropPhoto(photoData, evt){
-      console.log(evt.currentTarget);
-      console.log(photoData);
       $scope.croppedPhoto = photoData;
       $('.submitCropContainer').animate({
         marginLeft: 0
-      }, 1000);
+      }, 700);
       $('.submitCropContainer').append(
         "<img id='image' src='"+photoData.link+"' class='cropImage'>"
       )
@@ -204,10 +250,6 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
           $scope.cropData = e;
         },
         built: function (e) {
-          // Do something here
-          // ...
-
-          // And then
           $(this).cropper('crop');
         }
       });
@@ -220,4 +262,9 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       }, 500);
     }
     $scope.backToSubmit = backToSubmit;
+
+    function backToPhotos(){
+      $scope.submitModalVar = false;
+    }
+    $scope.backToPhotos = backToPhotos;
   }

@@ -1,5 +1,9 @@
 /* Empty. Add your own CSS if you like */
 
+body {
+  background-color: transparent;
+}
+
 .accountTab {
   height: 100%;
   border-right: 1px solid beige;
@@ -29,6 +33,15 @@
   font-size: 25px;
   padding-top: 10px;
   text-align: center;
+}
+
+.backToPhotos {
+  height: 65px;
+  background-color: purple;
+  color: white;
+  font-size: 23px;
+  text-align: center;
+  padding-top: 8px;
 }
 
 .backToSubmit {
@@ -240,9 +253,12 @@
 }
 
 .submitButton {
-  height: 40px;
+  height: 65px;
   background-color: green;
-  margin-top: 25px;
+  color: white;
+  font-size: 23px;
+  text-align: center;
+  padding-top: 8px;
 }
 
 .submitCell {
@@ -255,7 +271,7 @@
   position: absolute;
   margin-top: 5px;
   margin-left: 5px;
-  font-size: 20px;
+  font-size: 30px;
   color: white;
   border: black;
 }
@@ -287,9 +303,12 @@
 }
 
 .submitDelete {
-  height: 40px;
+  height: 65px;
   background-color: blue;
-  margin-top: 25px;
+  color: white;
+  font-size: 23px;
+  text-align: center;
+  padding-top: 8px;
 }
 
 .submitModal {
