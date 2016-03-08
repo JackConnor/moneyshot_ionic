@@ -53,11 +53,30 @@ body {
   padding-top: 12px;
 }
 
+#camera {
+  width: 300px;
+  height: 400px;
+}
+
 .cameraBackground {
   background-color: black;
   width: 100%;
   height: 670px;
   position: absolute;
+}
+
+.cameraLensHolder {
+  width: 80%;
+  height: 80%;
+  /*position: absolute;*/
+}
+
+.cameraModal {
+  width: 100%;
+  height: 600px;
+  position: fixed;
+  background-color: blue;
+  z-index: 10;
 }
 
 .cropPhoto {

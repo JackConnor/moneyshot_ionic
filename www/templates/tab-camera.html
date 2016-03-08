@@ -1,6 +1,12 @@
 <ion-view view-title="Camera" ng-controller='cameraCtrl'>
   <ion-content class="">
-    <canvas id="camera" width="352" height="288" style="border:2px"></canvas>
+    <div class="cameraModal" ng-show='cameraModal==true'>
+      <div class="cameraLensHolder">
+        <canvas id="camera"style="border:2px"></canvas>
+      </div>
+      <button type="button" name="button" ng-click='takeCordovaPicture()'>Take Photo</button>
+    </div>
+    <img ng-src="{{newPhotoData}}" alt="" />
     <div class="submitModal" ng-if='submitModalVar'>
       <div class="submitCropContainer">
         <div class="backToSubmit col-xs-6" ng-click='backToSubmit()'>
@@ -30,7 +36,7 @@
       </div>
     </div>
     <div class="cameraBackground">
-      <div class="shootButton" ng-click='takeCordovaPicture()'>
+      <div class="shootButton" ng-click='openPhotoModal()'>
         Shoot<br>some<br>MoPhos
       </div>
       <div class="shootButton" ng-click='getPic()'>

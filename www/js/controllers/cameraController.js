@@ -11,6 +11,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     $scope.mediaCache = [];
     $scope.croppedPhoto = '';
     $scope.submitModalVar = false;
+    $scope.cameraModal = false;
     var eraseSubmitArr = [];
     /////end global variables///
     ////////////////////////////
@@ -25,18 +26,42 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
             quality: 75,
             destinationType: CanvasCamera.DestinationType.DATA_URL,
             encodingType: CanvasCamera.EncodingType.JPEG,
-            saveToPhotoAlbum:true,
+            saveToPhotoAlbum:false,
             correctOrientation:true,
-            width:640,
-            height:480
+            width:300,
+            height:300
         };
         CanvasCamera.start(opt);
+        console.log(document.getElementById('camera').style.width);
+        console.log(document.getElementById('camera').style.height);
+        document.getElementById('camera').style.height = 80+"%"
+        function takeCordovaPicture(){
+          var canvas = document.getElementById("camera");
+          // console.log(canvas);
+          var dataURL = canvas.toDataURL("img/png");
+          dataRefined = "data:image/jpeg;base64," + dataURL;
+          // console.log(dataURL);
+          $scope.newPhotoData = dataURL;
+          $scope.mediaCache.push({
+            type: "photo"
+            ,link: $scope.newPhotoData
+            ,date: new Date()
+          })
+          console.log($scope.mediaCache);
+          // $cordovaFileTransfer.upload('https://moneyshotapi.herokuapp.com/api/newimage', dataURL, {})
+          // .then(function(callbackImage){
+          //   console.log(callbackImage);
+          //   var parsedPhoto = JSON.parse(callbackImage.response);
+          //   console.log(parsedPhoto);
+          // })
+        }
+        $scope.takeCordovaPicture = takeCordovaPicture;
     });
-    
-    function takeCordovaPicture(){
 
+    function openPhotoModal(){
+      $scope.cameraModal = true;
     }
-    $scope.takeCordovaPicture = takeCordovaPicture;
+    $scope.openPhotoModal = openPhotoModal;
 
     function takePicture(){
       console.log('opening camera');
