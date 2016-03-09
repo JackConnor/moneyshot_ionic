@@ -53,9 +53,15 @@ body {
   padding-top: 12px;
 }
 
+.blankSpace {
+  height: 15px;
+}
+
+.buttonDiv {
+  margin-top: 15px;
+}
+
 #camera {
-  width: 300px;
-  height: 400px;
 }
 
 .cameraBackground {
@@ -65,18 +71,26 @@ body {
   position: absolute;
 }
 
+.cameraButtonsContainer {
+  width: 100%;
+  display: block;
+  height: 30%;
+  background-color: black;
+  padding: 0px;
+  margin: 0px;
+}
+
 .cameraLensHolder {
-  width: 80%;
-  height: 80%;
-  /*position: absolute;*/
+  height: 70%;
+  width: 99%;
 }
 
 .cameraModal {
-  width: 100%;
-  height: 600px;
+  width: 99%;
+  height: 568px;
   position: fixed;
   background-color: blue;
-  z-index: 10;
+  z-index: 15;
 }
 
 .cropPhoto {
@@ -109,6 +123,15 @@ body {
   text-align: center;
   font-size: 25px;
   background-color: aqua;
+}
+
+.outCameraModal {
+  background-color: gray;
+  color: white;
+  font-size: 20px;
+  padding-top: 10px;
+  text-align: center;
+  height: 60px;
 }
 
 .priceLayer {
@@ -347,6 +370,14 @@ body {
   padding: 0px;
 }
 
+.submitSetDiv {
+  height: 60px;
+  background-color: green;
+  color: white;
+  font-size: 22px;
+  padding-top: 10px;
+}
+
 .submittedRow {
   padding: 0px;
   height: 130px;
@@ -373,6 +404,17 @@ body {
 .subRepeat video {
   padding: 0px;
   border: 5px solid black;
+}
+
+.takePhotoButton {
+  width: 75px;
+  height: 75px;
+  border-radius: 50%;
+  border: 4px solid gray;
+  background-color: blue;
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .testing {

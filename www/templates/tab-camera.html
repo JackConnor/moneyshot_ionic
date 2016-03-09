@@ -2,11 +2,24 @@
   <ion-content class="">
     <div class="cameraModal" ng-show='cameraModal==true'>
       <div class="cameraLensHolder">
-        <canvas id="camera"style="border:2px"></canvas>
+        <canvas id="camera"></canvas>
       </div>
-      <button type="button" name="button" ng-click='takeCordovaPicture()'>Take Photo</button>
+      <div class="cameraButtonsContainer">
+        <div class="col-xs-4">
+          <div class="submitSetDiv" ng-click='submitAllPhotos(mediaCache)'>
+            Submit
+          </div>
+        </div>
+        <div class="buttonDiv col-xs-4">
+          <div class="takePhotoButton" ng-click='takeCordovaPicture()'></div>
+        </div>
+        <div class="col-xs-4">
+          <div class="outCameraModal" ng-click='getPic()'>
+            Video
+          </div>
+        </div>
+      </div>
     </div>
-    <img ng-src="{{newPhotoData}}" alt="" />
     <div class="submitModal" ng-if='submitModalVar'>
       <div class="submitCropContainer">
         <div class="backToSubmit col-xs-6" ng-click='backToSubmit()'>

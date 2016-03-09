@@ -32,39 +32,49 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
             height:300
         };
         CanvasCamera.start(opt);
-        console.log(document.getElementById('camera').style.width);
-        console.log(document.getElementById('camera').style.height);
-        document.getElementById('camera').style.height = 80+"%"
+        document.getElementById('camera').style.height = 100+"%"
         function takeCordovaPicture(){
           var canvas = document.getElementById("camera");
-          // console.log(canvas);
           var dataURL = canvas.toDataURL("img/png");
           dataRefined = "data:image/jpeg;base64," + dataURL;
-          // console.log(dataURL);
           $scope.newPhotoData = dataURL;
           $scope.mediaCache.push({
             type: "photo"
             ,link: $scope.newPhotoData
             ,date: new Date()
           })
-          console.log($scope.mediaCache);
-          // $cordovaFileTransfer.upload('https://moneyshotapi.herokuapp.com/api/newimage', dataURL, {})
-          // .then(function(callbackImage){
-          //   console.log(callbackImage);
-          //   var parsedPhoto = JSON.parse(callbackImage.response);
-          //   console.log(parsedPhoto);
-          // })
+          $('.takePhotoButton').css({
+            backgroundColor: "red"
+          })
+          setTimeout(function(){
+            $('.takePhotoButton').css({
+              backgroundColor: "blue"
+            })
+          }, 300)
+          $('#camera').css({
+            border: "5px solid white"
+          })
+          setTimeout(function(){
+            $('#camera').css({
+              border: ""
+            })
+          }, 300);
         }
         $scope.takeCordovaPicture = takeCordovaPicture;
     });
+
+    function outPhotoModal(){
+      $scope.cameraModal = false;
+    }
+    $scope.outPhotoModal = outPhotoModal;
 
     function openPhotoModal(){
       $scope.cameraModal = true;
     }
     $scope.openPhotoModal = openPhotoModal;
+    openPhotoModal();/////calling this function to open the modal right away
 
     function takePicture(){
-      console.log('opening camera');
       var options = {
           quality : 80,
           destinationType : Camera.DestinationType.FILE_URI,
@@ -84,24 +94,20 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
           ,link: result
           ,date: new Date()
         })
-        console.log($scope.mediaCache);
       })
     }
     $scope.takePicture = takePicture;
     // takePicture();
     function getPic(){
-      console.log('video baby');
       $cordovaCapture.captureVideo({})
       .then(function(result){
         var pathFull = result[0].fullPath;///////this is what we need to add to our cache
-        console.log(pathFull);
         /////next, we push the video plus some extra data to the media cache, where it waits to be submitted
         $scope.mediaCache.push({
           type: "video"
           ,link: pathFull
           ,date: new Date()
         })
-        console.log($scope.mediaCache);
       })
     }
     $scope.getPic = getPic;
@@ -115,8 +121,6 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
     function selectSubmitted(evt, index){
       if(!$(evt.currentTarget).hasClass('selected')){
-        console.log(evt);
-        console.log(index);
         $(evt.currentTarget).css({
           color: "blue"
         })
@@ -130,20 +134,16 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         });
         $(evt.currentTarget).removeClass('selected');
         eraseSubmitArr = eraseSubmitArr.sort();
-        console.log(eraseSubmitArr);
         for (var i = 0; i < eraseSubmitArr.length; i++) {
           if(eraseSubmitArr[i] == index){
             eraseSubmitArr[i] = null;
-            console.log(eraseSubmitArr);
           }
         };
         for (var i = 0; i < eraseSubmitArr.length; i++) {
           if(eraseSubmitArr[i] == null){
-            console.log(eraseSubmitArr);
             eraseSubmitArr.splice(i, 1)
           }
         }
-        console.log(eraseSubmitArr);
       }
 
     }
@@ -151,11 +151,8 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
 
     function deletePhotos(){
-      console.log(eraseSubmitArr);
       for (var i = 0; i < eraseSubmitArr.length; i++) {
-        console.log($scope.mediaCache);
         $scope.mediaCache.splice(eraseSubmitArr[i], 1);
-        console.log(eraseSubmitArr[i]);
       }
       eraseSubmitArr = [];
     }
@@ -163,7 +160,6 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
     //////function to submit all cached photos from your session to the db
     function submitAllPhotos(set){
-      console.log(set);
       //////through our if-statement below, we'll need to add different options so that photos and videos get processed correctly
       var photoOptions = {
           quality : 80,
@@ -271,7 +267,6 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         autoCrop: true,
         rotate: 90,
         crop: function(e){
-          console.log(e);
           $scope.cropData = e;
         },
         built: function (e) {
