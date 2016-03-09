@@ -267,7 +267,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     }
     $scope.submitAllPhotos = submitAllPhotos;
 
-    function cropPhoto(photoData, evt){
+    function cropPhoto(photoData, evt, index){
       $scope.croppedPhoto = photoData;
       console.log($scope.croppedPhoto.link.split('').splice($scope.croppedPhoto.link.split('').length-10, $scope.croppedPhoto.link.split('').length-1));
       $('.submitCropContainer').animate({
@@ -289,16 +289,51 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         aspectRatio: 4/5,
         crop: function(e){
           $scope.cropData = e;
-          console.log(e);
+          // console.log(e);
           // console.log(JSON.parse(e));
-          console.log($(".cropImage").cropper('getImageData'));
+          var cropData = $(".cropImage").cropper('getData');
+          console.log(cropData);
+          var imageData = $(".cropImage").cropper('getImageData');
+          console.log(imageData);
+          var imageNumbers = {
+            cropWidth: cropData.width
+            ,cropHeight: cropData.height
+            ,cropOffsetX: cropData.x
+            ,cropOffsetY: cropData.y
+            ,imageWidth: imageData.width
+            ,imageHeight: imageData.height
+            ,imageNaturalWidth: imageData.naturalWidth
+            ,imageNaturalHeight: imageData.naturalHeight
+            ,DOMImageWidth: $('.submitPhoto').width()
+            ,conversionMultiple: $('.submitPhoto').width()/cropData.width
+            ,newImageWidth: imageData.width*$('.submitPhoto').width()/cropData.width
+            ,newImageHeight: imageData.height*$('.submitPhoto').width()/cropData.width
+            ,newImageX: cropData.x*$('.submitPhoto').width()/cropData.width
+            ,newImageY: cropData.y*$('.submitPhoto').width()/cropData.width
+            ,index: index
+          }
+          $scope.imageNumbers = imageNumbers;
+          console.log(imageNumbers);
         },
         built: function (e) {
-          $(this).cropper('crop');
+          // $(this).cropper('crop');
         }
       });
     }
     $scope.cropPhoto = cropPhoto;
+
+    function cropAway(){
+      $('.submitPhoto'+$scope.imageNumbers.index).css({
+        width: $scope.imageNumbers.newImageWidth
+        ,height: $scope.imageNumbers.newImageHeight
+        ,marginLeft: -($scope.imageNumbers.newImageX)
+        ,marginTop: -($scope.imageNumbers.newImageY)
+      })
+      $('.submitCropContainer').animate({
+        marginLeft: 100+"%"
+      }, 700);
+    }
+    $scope.cropAway = cropAway;
 
     function backToSubmit(){
       $('.submitCropContainer').animate({
@@ -306,6 +341,14 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       }, 500);
     }
     $scope.backToSubmit = backToSubmit;
+
+    setInterval(function(){
+      var width = $('.submitCell').width();
+      console.log(width);
+      $('.submitCell').css({
+        height: width*(5/4)+"px"
+      })
+    }, 500)
 
     function submitModalOpen(){
       $scope.submitModalVar = true;
