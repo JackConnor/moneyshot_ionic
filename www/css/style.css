@@ -74,23 +74,42 @@ body {
 .cameraButtonsContainer {
   width: 100%;
   display: block;
+  position: absolute;
   height: 30%;
-  background-color: black;
+  /*background-color: black;*/
   padding: 0px;
-  margin: 0px;
+  margin-top: -150px;
+  z-index: 17;
 }
 
 .cameraLensHolder {
-  height: 70%;
-  width: 99%;
+  height: 100%;
+  width: 100%;
 }
 
 .cameraModal {
-  width: 99%;
+  width: 100%;
   height: 568px;
   position: fixed;
   background-color: blue;
   z-index: 15;
+}
+
+.circleHolder {
+  height: 30%;
+  position: absolute;
+}
+
+.cropIconHolder {
+  position: absolute;
+  width: 100%;
+  padding-top: 15px;
+  height: 120px;
+  text-align: center;
+  color: white;
+  margin-top: 80px;
+  font-size: 50px;
+  opacity: 0.5;
 }
 
 .cropPhoto {
@@ -306,7 +325,7 @@ body {
 .submitCell {
   height: 200px;
   padding: 0px;
-  border: 2px solid blue;
+  /*border: 2px solid blue;*/
 }
 
 .submitCell i {
@@ -358,7 +377,7 @@ body {
   height: 660px;
   position: fixed;
   background-color: gray;
-  z-index: 10;
+  z-index: 16;
 }
 
 .submitModalContainer {
@@ -412,7 +431,6 @@ body {
   border-radius: 50%;
   border: 4px solid gray;
   background-color: blue;
-  position: absolute;
   margin-left: auto;
   margin-right: auto;
 }

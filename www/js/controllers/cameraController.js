@@ -7,8 +7,8 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
     ////////////////////////////
     /////////global variables///
-    // $scope.mediaCache = [{"link":"/img/adam.jpg", "type":"photo"}, {"link":"/img/max.png", "type":"photo"}, {"link":"/img/ben.png", "type":"photo"}];
-    $scope.mediaCache = [];
+    $scope.mediaCache = [{"link":"/img/adam.jpg", "type":"photo"}, {"link":"/img/max.png", "type":"photo"}, {"link":"/img/ben.png", "type":"photo"}];
+    // $scope.mediaCache = [];
     $scope.croppedPhoto = '';
     $scope.submitModalVar = false;
     $scope.cameraModal = false;
@@ -23,7 +23,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         CanvasCamera.initialize(canvasMain);
         // define options
         var opt = {
-            quality: 75,
+            quality: 95,
             destinationType: CanvasCamera.DestinationType.DATA_URL,
             encodingType: CanvasCamera.EncodingType.JPEG,
             saveToPhotoAlbum:false,
@@ -120,19 +120,34 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     $scope.openSubmitModal = openSubmitModal;
 
     function selectSubmitted(evt, index){
-      if(!$(evt.currentTarget).hasClass('selected')){
-        $(evt.currentTarget).css({
-          color: "blue"
+      var circleEl = $(evt.currentTarget).children()[0];
+      console.log();
+      console.log(evt.currentTarget.firstChild);
+      if(!$(circleEl).hasClass('selected')){
+        $(circleEl).css({
+          color: '#7FFF00'
         })
-        $(evt.currentTarget).addClass('selected');
+        $(circleEl).addClass('selected');
+        $(circleEl).removeClass('fa-circle-thin');
+        $(circleEl).addClass('fa-circle');
+        console.log();
+        $($(evt.currentTarget)[0].parentElement).css({
+          border: "5px solid #7FFF00"
+        })
         eraseSubmitArr.push(index);
         // $scope.mediaCache.splice(index, 1);
       }
       else {
-        $(evt.currentTarget).css({
+        $(circleEl).css({
           color: "white"
+          ,backgroundColor: ''
         });
-        $(evt.currentTarget).removeClass('selected');
+        $($(evt.currentTarget)[0].parentElement).css({
+          border: ""
+        })
+        $(circleEl).removeClass('selected');
+        $(circleEl).removeClass('fa-circle');
+        $(circleEl).addClass('fa-circle-thin');
         eraseSubmitArr = eraseSubmitArr.sort();
         for (var i = 0; i < eraseSubmitArr.length; i++) {
           if(eraseSubmitArr[i] == index){
@@ -210,7 +225,9 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                     ,data: submissionData
                   })
                   .then(function(newSubmission){
-
+                    console.log(newSubmission);
+                    $scope.submitModalVar = false;
+                    $scope.cameraModal = false;
                   })
                 }
               })
@@ -237,7 +254,9 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                     ,data: submissionData
                   })
                   .then(function(newSubmission){
+                    console.log(newSubmission);
                     $scope.submitModalVar = false;
+                    $scope.cameraModal = false;
                   })
                 }
               })
@@ -250,6 +269,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
     function cropPhoto(photoData, evt){
       $scope.croppedPhoto = photoData;
+      console.log($scope.croppedPhoto.link.split('').splice($scope.croppedPhoto.link.split('').length-10, $scope.croppedPhoto.link.split('').length-1));
       $('.submitCropContainer').animate({
         marginLeft: 0
       }, 700);
@@ -265,9 +285,13 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         background: false,
         modal: false,
         autoCrop: true,
-        rotate: 90,
+        viewMode: 1,
+        aspectRatio: 4/5,
         crop: function(e){
           $scope.cropData = e;
+          console.log(e);
+          // console.log(JSON.parse(e));
+          console.log($(".cropImage").cropper('getImageData'));
         },
         built: function (e) {
           $(this).cropper('crop');
@@ -282,6 +306,12 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       }, 500);
     }
     $scope.backToSubmit = backToSubmit;
+
+    function submitModalOpen(){
+      $scope.submitModalVar = true;
+    }
+
+    $scope.submitModalOpen = submitModalOpen;
 
     function backToPhotos(){
       $scope.submitModalVar = false;
