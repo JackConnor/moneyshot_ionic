@@ -7,8 +7,8 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
     ////////////////////////////
     /////////global variables///
-    $scope.mediaCache = [{"link":"/img/adam.jpg", "type":"photo"}, {"link":"/img/max.png", "type":"photo"}, {"link":"/img/ben.png", "type":"photo"}];
-    // $scope.mediaCache = [];
+    // $scope.mediaCache = [{"link":"/img/adam.jpg", "type":"photo"}, {"link":"/img/max.png", "type":"photo"}, {"link":"/img/ben.png", "type":"photo"}];
+    $scope.mediaCache = [];
     $scope.croppedPhoto = '';
     $scope.submitModalVar = false;
     $scope.cameraModal = false;
@@ -28,8 +28,6 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
             encodingType: CanvasCamera.EncodingType.JPEG,
             saveToPhotoAlbum:false,
             correctOrientation:true,
-            width:300,
-            height:300
         };
         CanvasCamera.start(opt);
         document.getElementById('camera').style.height = 100+"%"
@@ -76,13 +74,11 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
     function takePicture(){
       var options = {
-          quality : 80,
+          quality : 95,
           destinationType : Camera.DestinationType.FILE_URI,
           sourceType : Camera.PictureSourceType.Camera ,
           allowEdit : true,
           encodingType: Camera.EncodingType.PNG,
-          targetWidth: 100,
-          targetHeight: 100,
           correctOrientation: true,
           popoverOptions: CameraPopoverOptions,
           saveToPhotoAlbum: false,
@@ -175,18 +171,22 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
     //////function to submit all cached photos from your session to the db
     function submitAllPhotos(set){
+      console.log('working');
       //////through our if-statement below, we'll need to add different options so that photos and videos get processed correctly
       var photoOptions = {
-          quality : 80,
+          quality : 95,
           destinationType : Camera.DestinationType.FILE_URI,
           sourceType : Camera.PictureSourceType.Camera ,
           allowEdit : true,
           encodingType: Camera.EncodingType.JPEG,
-          targetWidth: 100,
-          targetHeight: 100,
           popoverOptions: CameraPopoverOptions,
           saveToPhotoAlbum: false,
+          params: {cloudCropImageWidth: "100%", cloudCropImageHeight: "100%", cloudCropImageX: 0, cloudCropImageY: 0}
       };
+      // ,cloudCropImageWidth: cropData.width*(imageData.naturalWidth/imageData.width)
+      // ,cloudCropImageHeight:cropData.height*(imageData.naturalWidth/imageData.width)
+      // ,cloudCropImageX: cropData.x*(imageData.naturalWidth/imageData.width)
+      // ,cloudCropImageY:cropData.y*(imageData.naturalWidth/imageData.width)
       var videoOptions = {
 
       }
@@ -194,9 +194,10 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       //////first we need to find the users ID, so we can use it to make the post requests
       $http({
         method: "GET"
-        ,url: "https://moneyshotapi.herokuapp.com/api/decodetoken/"+window.localStorage.webToken
+        ,url: "http://192.168.0.5:5555/api/decodetoken/"+window.localStorage.webToken
       })
       .then(function(decodedToken){
+        console.log('yo decoded '+decodedToken.data.userId);
         var userFullId = decodedToken.data.userId;
         submissionData.userId = userFullId;
 
@@ -234,12 +235,23 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
             })
           }
           else if(set[i].type == "photo"){
-            $cordovaFileTransfer.upload('https://moneyshotapi.herokuapp.com/api/newimage', set[i].link, photoOptions)
+            function addCrop(){
+              if(set[i].cropData){
+                photoOptions.params.cloudCropImageWidth = set[i].cropData.cloudCropImageWidth;
+                photoOptions.params.cloudCropImageHeight = set[i].cropData.cloudCropImageHeight;
+                photoOptions.params.cloudCropImageX = set[i].cropData.cloudCropImageX;
+                photoOptions.params.cloudCropImageY = set[i].cropData.cloudCropImageY;
+
+              }
+            }
+            addCrop();
+            $cordovaFileTransfer.upload('http://192.168.0.5:5555/api/newimage', set[i].link,photoOptions)
             .then(function(callbackImage){
               var parsedPhoto = JSON.parse(callbackImage.response);
+              console.log(parsedPhoto);
               $http({
                 method: "POST"
-                ,url: "https://moneyshotapi.herokuapp.com/api/createphotos"
+                ,url: "http://192.168.0.5:5555/api/createphotos"
                 ,data: {url: parsedPhoto.secure_url, userId: userFullId, isVid: false}
               })
               .then(function(newPhoto){
@@ -250,7 +262,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                 if(amalgam == parseInt(set.length)){
                   $http({
                     method: "POST"
-                    ,url: "https://moneyshotapi.herokuapp.com/api/new/submission"
+                    ,url: "http://192.168.0.5:5555/api/new/submission"
                     ,data: submissionData
                   })
                   .then(function(newSubmission){
@@ -304,6 +316,11 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
             ,imageHeight: imageData.height
             ,imageNaturalWidth: imageData.naturalWidth
             ,imageNaturalHeight: imageData.naturalHeight
+            ,naturalConversionMultiple: imageData.naturalWidth/imageData.width
+            ,cloudCropImageWidth: cropData.width*(imageData.naturalWidth/imageData.width)
+            ,cloudCropImageHeight:cropData.height*(imageData.naturalWidth/imageData.width)
+            ,cloudCropImageX: cropData.x*(imageData.naturalWidth/imageData.width)
+            ,cloudCropImageY:cropData.y*(imageData.naturalWidth/imageData.width)
             ,DOMImageWidth: $('.submitPhoto').width()
             ,conversionMultiple: $('.submitPhoto').width()/cropData.width
             ,newImageWidth: imageData.width*$('.submitPhoto').width()/cropData.width
@@ -332,6 +349,9 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       $('.submitCropContainer').animate({
         marginLeft: 100+"%"
       }, 700);
+      $scope.mediaCache[$scope.imageNumbers.index]["cropData"] = $scope.imageNumbers;
+      console.log($scope.mediaCache);
+
     }
     $scope.cropAway = cropAway;
 
@@ -344,7 +364,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
     setInterval(function(){
       var width = $('.submitCell').width();
-      console.log(width);
+      // console.log(width);
       $('.submitCell').css({
         height: width*(5/4)+"px"
       })

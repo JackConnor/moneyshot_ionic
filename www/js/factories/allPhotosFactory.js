@@ -10,7 +10,7 @@ angular.module('allPhotosFactory', [])
     function allPhotos(){
       return $http({
               method: 'GET'
-              ,url: "https://moneyshotapi.herokuapp.com/api/test"
+              ,url: "http://192.168.0.5:5555/api/test"
             })
     }
 
