@@ -22,6 +22,9 @@ angular.module('signupController', [])
       if(!window.localStorage.webToken || window.localStorage.webToken == "" || window.localStorage.webToken == null){
         console.log('no token');
         $scope.introModal = true;
+        $('.tab-nav').css({
+          height: 0+"px"
+        })
       }
     }
     checkIntro();
@@ -54,9 +57,9 @@ angular.module('signupController', [])
 
     /////function to exit the intro modal
     function exitIntro(){
-      $('.swipeIntroRow').animate({
-        opacity: 0
-      }, 500);
+      $('.tab-nav').css({
+        height: 49+"px"
+      })
       $scope.introModal = false;
     }
     $scope.exitIntro = exitIntro;
