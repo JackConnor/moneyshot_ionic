@@ -1,4 +1,40 @@
 <ion-view view-title="Upload">
+  <div class="swipeIntro" ng-if="introModal">
+    <div class="swipeIntroRow" ng-swipe-left='introSwipeLeft()' ng-swipe-right='introSwipeRight()'>
+      <div class="col-xs-3 swipeCell swipe1">
+        <p>
+          Step 1
+        </p>
+        <div class="endIntroButton" ng-click='exitIntro()'>
+          Exit
+        </div>
+      </div>
+      <div class="col-xs-3 swipeCell swipe2">
+        <p>
+          Step 2
+        </p>
+        <div class="endIntroButton" ng-click='exitIntro()'>
+          Exit
+        </div>
+      </div>
+      <div class="col-xs-3 swipeCell swipe3">
+        <p>
+          Step 3
+        </p>
+        <div class="endIntroButton" ng-click='exitIntro()'>
+          Exit
+        </div>
+      </div>
+      <div class="col-xs-3 swipeCell swipe4">
+        <p>
+          Step 4
+        </p>
+        <div class="endIntroButton" ng-click='exitIntro()'>
+          Exit
+        </div>
+      </div>
+    </div>
+  </div>
   <ion-content>
     <div class="signinTabs" ng-if="signupModalTabs">
       <div class="signin col-xs-4" ng-click='toggleSigns($event)'>

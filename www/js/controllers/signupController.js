@@ -6,12 +6,62 @@ angular.module('signupController', [])
 
   function signupCtrl($scope, $state, signup, signin, newToken){
     ///////////////global variables//////
-    $scope.signupModalVar = false;
-    $scope.signinModalVar = true;
+    $scope.signupModalVar  = false;
+    $scope.signinModalVar  = true;
     $scope.signupModalTabs = true;
+    $scope.introModal      = false;
+    $scope.introCounter    = 0;
 
     console.log('yoyoyo');
     console.log(window.localStorage.webToken);
+
+
+    ///////////////////////////////
+    ////////intro swipe modal stuff
+    function checkIntro(){
+      if(!window.localStorage.webToken || window.localStorage.webToken == "" || window.localStorage.webToken == null){
+        console.log('no token');
+        $scope.introModal = true;
+      }
+    }
+    checkIntro();
+    function introSwipeLeft(){
+      console.log('swiping');
+      if($scope.introCounter < 3 && $scope.introCounter >=0){
+        $scope.introCounter++;
+        console.log($scope.introCounter);
+        $('.swipeIntroRow').animate({
+          marginLeft: -($scope.introCounter*100)+"%"
+        }, 200);
+      }
+      else if($scope.introCounter >= 3){
+        // $scope.introModal = false;
+        // $scope.introCounter = 0;
+      }
+    }
+    $scope.introSwipeLeft = introSwipeLeft;
+
+    function introSwipeRight(){
+      if($scope.introCounter > 0){
+        $scope.introCounter--;
+        console.log($scope.introCounter);
+        $('.swipeIntroRow').animate({
+          marginLeft: -($scope.introCounter*100)+"%"
+        }, 200);
+      }
+    }
+    $scope.introSwipeRight = introSwipeRight;
+
+    /////function to exit the intro modal
+    function exitIntro(){
+      $('.swipeIntroRow').animate({
+        opacity: 0
+      }, 500);
+      $scope.introModal = false;
+    }
+    $scope.exitIntro = exitIntro;
+    ////////end intro swipe modal stuff
+    ///////////////////////////////////
     // function to signup users who are new to the site
     function signupUser(){
       var email = $('.signupEmail').val();
