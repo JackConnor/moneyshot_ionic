@@ -20,18 +20,14 @@ angular.module('accountController', [])
     var userToken = window.localStorage.webToken;
     // console.log(userToken);
     function getUserPhotos(token){
-      console.log(token);
       decodeToken(token)
       .then(function(decToken){
-        console.log(decToken);
         userPhotos(decToken.data.userId)
         .then(function(userInfo){
           $scope.userInfo = userInfo.data;
-          console.log($scope.userInfo);
           var userPhotos = userInfo.data.photos;////this is all of a signed-in user's
           $scope.userPhotos = userPhotos.reverse();
           $scope.userSubmissions = userInfo.data.submissions.reverse();
-          console.log($scope.userSubmissions);
           $scope.totalEarned = 0;
           function mapPhotos(){
             var soldPhotos = [];
@@ -40,13 +36,11 @@ angular.module('accountController', [])
                 console.log('sold one');
                 soldPhotos.push(userPhotos[i]);
                 $scope.totalEarned += userPhotos[i].price;
-                console.log($scope.totalEarned);
               }
             }
             $scope.soldPhotos = soldPhotos.reverse();
           }
           mapPhotos();
-          console.log($scope.soldPhotos);
         })
       })
     }
@@ -86,7 +80,6 @@ angular.module('accountController', [])
     $scope.showFinanceFunc = showFinanceFunc;
 
     function openSingle(photoData){
-      console.log(photoData);
       $scope.singlePhotoData = photoData;
       $('.repeatContainer').css({
         marginRight: "100%"
@@ -102,7 +95,6 @@ angular.module('accountController', [])
     $scope.openSingle = openSingle;
 
     function openSubmission(subInfo){
-      console.log(subInfo);
       $scope.singleSubmission = subInfo;
       $('.repeatContainer').css({
         marginRight: "100%"

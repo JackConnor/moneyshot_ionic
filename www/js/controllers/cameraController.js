@@ -181,12 +181,8 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
           encodingType: Camera.EncodingType.JPEG,
           popoverOptions: CameraPopoverOptions,
           saveToPhotoAlbum: false,
-          params: {cloudCropImageWidth: "100%", cloudCropImageHeight: "100%", cloudCropImageX: 0, cloudCropImageY: 0}
+          params: {naturalWidth: 0, naturalHeight: 0}
       };
-      // ,cloudCropImageWidth: cropData.width*(imageData.naturalWidth/imageData.width)
-      // ,cloudCropImageHeight:cropData.height*(imageData.naturalWidth/imageData.width)
-      // ,cloudCropImageX: cropData.x*(imageData.naturalWidth/imageData.width)
-      // ,cloudCropImageY:cropData.y*(imageData.naturalWidth/imageData.width)
       var videoOptions = {
 
       }
@@ -235,17 +231,38 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
             })
           }
           else if(set[i].type == "photo"){
+            var photoOptions = {
+                quality : 95,
+                destinationType : Camera.DestinationType.FILE_URI,
+                sourceType : Camera.PictureSourceType.Camera ,
+                allowEdit : true,
+                encodingType: Camera.EncodingType.JPEG,
+                popoverOptions: CameraPopoverOptions,
+                saveToPhotoAlbum: false,
+                params: {naturalWidth: 0, naturalHeight: 0}
+            };
             function addCrop(){
               if(set[i].cropData){
                 photoOptions.params.cloudCropImageWidth = set[i].cropData.cloudCropImageWidth;
                 photoOptions.params.cloudCropImageHeight = set[i].cropData.cloudCropImageHeight;
                 photoOptions.params.cloudCropImageX = set[i].cropData.cloudCropImageX;
                 photoOptions.params.cloudCropImageY = set[i].cropData.cloudCropImageY;
-
+                photoOptions.params.naturalWidth = set[i].cropData.imageNaturalWidth;
+                photoOptions.params.naturalHeight = set[i].cropData.imageNaturalHeight;
+                console.log(photoOptions);
+              }
+              else {
+                var el = $('body').append(
+                  "<img src='"+set[i].link+"' class='tempImage'></img>"
+                )
+                console.log('width');
+                console.log($('.tempImage').naturalWidth);
+                photoOptions.params.naturalWidth = $('.tempImage').naturalWidth;
+                photoOptions.params.naturalHeight = $('.tempImage').naturalHeight;
               }
             }
             addCrop();
-            $cordovaFileTransfer.upload('https://moneyshotapi.herokuapp.com/api/newimage', set[i].link,photoOptions)
+            $cordovaFileTransfer.upload('http://192.168.0.4:5555/api/newimage', set[i].link, photoOptions)
             .then(function(callbackImage){
               var parsedPhoto = JSON.parse(callbackImage.response);
               console.log(parsedPhoto);
@@ -266,7 +283,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                     ,data: submissionData
                   })
                   .then(function(newSubmission){
-                    console.log(newSubmission);
+                    // console.log(newSubmission);
                     $scope.submitModalVar = false;
                     $scope.cameraModal = false;
                   })
@@ -281,7 +298,6 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
     function cropPhoto(photoData, evt, index){
       $scope.croppedPhoto = photoData;
-      console.log($scope.croppedPhoto.link.split('').splice($scope.croppedPhoto.link.split('').length-10, $scope.croppedPhoto.link.split('').length-1));
       $('.submitCropContainer').animate({
         marginLeft: 0
       }, 700);

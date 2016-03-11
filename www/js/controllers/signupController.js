@@ -38,8 +38,8 @@ angular.module('signupController', [])
         }, 200);
       }
       else if($scope.introCounter >= 3){
-        // $scope.introModal = false;
-        // $scope.introCounter = 0;
+        exitIntro();
+        $scope.introCounter = 0;
       }
     }
     $scope.introSwipeLeft = introSwipeLeft;
