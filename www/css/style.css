@@ -151,6 +151,24 @@ body {
   color: white;
 }
 
+.goToSignin {
+  width: 29%;
+  text-align: center;
+  padding-top: 10px;
+  font-size: 18px;
+  color: white;
+  display: inline-block;
+}
+
+.goToSignup {
+  width: 29%;
+  text-align: center;
+  padding-top: 10px;
+  font-size: 18px;
+  color: white;
+  display: inline-block;
+}
+
 .hamburgerCell {
   height: 55px;
   outline: 2px solid green;
@@ -476,6 +494,7 @@ body {
   margin-left: 30%;
   margin-top: 25px;
   background-color: green;
+  display: inline-block;
 }
 
 .subRepeat {

@@ -133,7 +133,7 @@ angular.module('accountController', [])
 
     function hamburgerSignout(){
       window.localStorage.webToken = '';
-      $state.go('tab.upload')
+      window.location.hash = "/signin"
     }
     $scope.hamburgerSignout = hamburgerSignout;
 

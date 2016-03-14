@@ -74,26 +74,15 @@ angular.module('starter', ['ionic', 'ngCordova', 'ngFileUpload', 'starter.servic
         }
       })
 
-    /////upload from camera roll///////
-    .state('tab.upload', {
-      url: '/upload'
-      ,cache: false
-      ,views: {
-        'tab-upload': {
-          templateUrl: 'templates/signin.html',
-          controller: 'signupCtrl'
-        }
-      }
-    })
-    /////upload from camera roll///////
-    // .state('signin', {
-    //   url: '/signin'
-    //   ,cache: false
-    //   ,templateUrl: 'templates/signin.html'
-    //   ,controller: 'signupCtrl'
-    // });
+      .state('signin', {
+        url: '/signin'
+        ,cache: false
+        ,templateUrl: 'templates/signin.html'
+        ,controller: 'signupCtrl'
+      })
+
 
     // if none of the above states are matched, use this as the fallback
-    $urlRouterProvider.otherwise('/tab/upload');
+    $urlRouterProvider.otherwise('/signin');
 
   });

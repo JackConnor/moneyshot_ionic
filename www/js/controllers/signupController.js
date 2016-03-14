@@ -27,7 +27,7 @@ angular.module('signupController', [])
         })
       }
     }
-    checkIntro();
+    // checkIntro();
     function introSwipeLeft(){
       console.log('swiping');
       if($scope.introCounter < 3 && $scope.introCounter >=0){
@@ -151,12 +151,13 @@ angular.module('signupController', [])
 
     // function to toggle between signin and signup tabs
     function toggleSigns(evt){
-      if($(evt.currentTarget).hasClass('signin')){
+      console.log(evt);
+      if($(evt.currentTarget).hasClass('goToSignin')){
         $scope.signupModalVar = false;
         $scope.signinModalVar = true;
         $scope.signupModalTabs = true;
       }
-      else if($(evt.currentTarget).hasClass('signup')){
+      else if($(evt.currentTarget).hasClass('goToSignup')){
         $scope.signinModalVar = false;
         $scope.signupModalVar = true;
         $scope.signupModalTabs = true;
@@ -180,4 +181,19 @@ angular.module('signupController', [])
         window.location.hash = "#/";
       }
     }
+
+    /////toggling signin/signup
+    function hoverSignin(evt){
+      $(evt.currentTarget).css({
+        color: 'blue'
+      })
+    }
+    $scope.hoverSignin = hoverSignin;
+
+    function outHoverSignin(evt){
+      $(evt.currentTarget).css({
+        color: 'white'
+      })
+    }
+    $scope.outHoverSignin = outHoverSignin;
   }

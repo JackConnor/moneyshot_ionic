@@ -1,4 +1,4 @@
-<ion-view view-title="Upload">
+<ion-view view-title="Signin">
   <div class="swipeIntro" ng-if="introModal">
     <div class="swipeIntroRow" ng-swipe-left='introSwipeLeft()' ng-swipe-right='introSwipeRight()'>
       <div class="col-xs-3 swipeCell swipe1">
@@ -77,6 +77,9 @@
         <input type="text" class='signupPassword splashInput' placeholder='Password'>
         <input type="text" class='signupConfirmPassword splashInput' placeholder='Confirm Password'>
         <button type="button" class='submitSignup' ng-click='submitSignup()'>Sign Up</button>
+        <div class="goToSignin" ng-mouseenter='hoverSignin($event)' ng-mouseleave='outHoverSignin($event)' ng-click='toggleSigns($event)'>
+          Signin?
+        </div>
       </div>
     </div>
     <div class="signinModal" ng-if='signinModalVar'>
@@ -84,12 +87,10 @@
         <input type="text" class='signupEmail splashInput' placeholder='Email'>
         <input type="text" class='signupPassword splashInput' placeholder='Password'>
         <button type="button" class='submitSignup' ng-click='signinUser()'>Sign In</button>
+        <div class="goToSignup" ng-mouseenter='hoverSignin($event)' ng-mouseleave='outHoverSignin($event)' ng-click='toggleSigns($event)'>
+          Signup?
+        </div>
       </div>
     </div>
-    </div>
-    <div class="" style='color:white'>
-      khlkjhlkh
-    </div>
-    <a class="media" href="https://res.cloudinary.com/drjseeoep/video/upload/v1456963157/lt4pzybowxeuvwqjzrud.mov">My Quicktime Movie</a>
   </ion-content>
 </ion-view>
