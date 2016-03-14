@@ -2,9 +2,12 @@ angular.module('signupController', [])
 
   .controller('signupCtrl', signupCtrl);
 
-  signupCtrl.$inject = ['$scope', '$state', 'signup', 'signin', 'newToken']
+  signupCtrl.$inject = ['$scope', '$state', 'signup', 'signin', 'newToken', '$cordovaStatusbar']
 
-  function signupCtrl($scope, $state, signup, signin, newToken){
+  function signupCtrl($scope, $state, signup, signin, newToken, $cordovaStatusbar){
+    ionic.Platform.fullScreen();
+    $cordovaStatusbar.hide();
+    $cordovaStatusbar.overlaysWebView(true)
     ///////////////global variables//////
     $scope.signupModalVar  = false;
     $scope.signinModalVar  = true;

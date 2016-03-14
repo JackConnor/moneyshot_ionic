@@ -152,26 +152,28 @@ body {
 }
 
 .goToSignin {
-  width: 29%;
+  width: 20%;
+  margin-left: 5%;
   text-align: center;
   padding-top: 10px;
-  font-size: 18px;
+  font-size: 12px;
   color: white;
   display: inline-block;
 }
 
 .goToSignup {
-  width: 29%;
+  width: 20%;
+  margin-left: 5%;
   text-align: center;
   padding-top: 10px;
-  font-size: 18px;
+  font-size: 12px;
   color: white;
   display: inline-block;
 }
 
 .hamburgerCell {
-  height: 55px;
-  outline: 2px solid green;
+  height: 65px;
+  border-bottom: 3px solid gray;
   padding: 15px 0 0 0;
 }
 
@@ -188,10 +190,10 @@ body {
   position: absolute;
   height: auto;
   outline: 2px solid red;
-  background-color: black;
+  background-color: #683A5E;
   color: white;
   border: 3px solid white;
-  opacity: .8;
+  opacity: 1;
   z-index: 18;
   padding: 0px;
 }
@@ -311,7 +313,7 @@ body {
 }
 
 .signupInputHolder {
-  margin-top: 55px;
+  margin-top: 25%;
   width: 80%;
   margin-left: 10%;
 }

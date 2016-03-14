@@ -8,9 +8,13 @@ angular.module('accountController', [])
     };
   })
 
-  acctCtrl.$inject = ['$http', '$state', '$scope', 'navbar', 'userPhotos', 'decodeToken'];
+  acctCtrl.$inject = ['$http', '$state', '$scope', 'navbar', 'userPhotos', 'decodeToken', '$cordovaStatusbar'];
 
-  function acctCtrl($http, $state, $scope, navbar, userPhotos, decodeToken){
+  function acctCtrl($http, $state, $scope, navbar, userPhotos, decodeToken, $cordovaStatusbar){
+    console.log($cordovaStatusbar.isVisible);
+    ionic.Platform.fullScreen();
+    // $cordovaStatusbar.hide();
+    // $cordovaStatusbar.overlaysWebView(true)
 
     /////global variables
     $scope.showSold      = true;
@@ -136,8 +140,15 @@ angular.module('accountController', [])
       window.location.hash = "/signin"
     }
     $scope.hamburgerSignout = hamburgerSignout;
-
     //////////logic for hamburger menu////////
     //////////////////////////////////////////
+
+    function closeHamburgerBody(evt){
+      console.log(evt.currentTarget);
+      if(!$(evt.currentTarget).hasClass("hamburgerSignout")){
+        $scope.hamburgerOpen = false;
+      }
+    }
+    $scope.closeHamburgerBody = closeHamburgerBody;
 
   }
