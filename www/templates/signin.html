@@ -60,15 +60,16 @@
     </div>
   </div>
   <ion-content>
-    <div class="signinTabs" ng-if="signupModalTabs">
-      <div class="signin col-xs-4" ng-click='toggleSigns($event)'>
-        sign in
+    <div class="navBar">
+      <div class="hamburgerMenu col-sm-4 col-sm-offset-8 col-xs-6 col-xs-offset-6" ng-if="hamburgerOpen">
+        <div class="hamburgerCell" ng-click="closeHamburger()">
+        </div>
+        <div class="hamburgerCell hamburgerSignout" ng-click="hamburgerSignout()">
+          Sign Out
+        </div>
       </div>
-      <div class="signup col-xs-4" ng-click='toggleSigns($event)'>
-        sign up
-      </div>
-      <div class="signout col-xs-4" ng-click="signoutUser()">
-        sign out
+      <div class="col-xs-8 col-xs-offset-2 nameTag">
+        MoPho
       </div>
     </div>
     <div class="signupModal" ng-if='signupModalVar'>
