@@ -151,6 +151,33 @@ body {
   color: white;
 }
 
+.hamburgerCell {
+  height: 55px;
+  outline: 2px solid green;
+  padding: 15px 0 0 0;
+}
+
+.hamburgerFirst {
+  /*margin-top: 45px;*/
+}
+
+.hamburgerIcon {
+  font-size: 40px;
+  margin-top: 5px;
+}
+
+.hamburgerMenu {
+  position: absolute;
+  height: auto;
+  outline: 2px solid red;
+  background-color: black;
+  color: white;
+  border: 3px solid white;
+  opacity: .8;
+  z-index: 18;
+  padding: 0px;
+}
+
 .introPhoto {
   width: 200px;
   height: 200px;

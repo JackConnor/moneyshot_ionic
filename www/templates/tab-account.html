@@ -1,8 +1,18 @@
 <ion-view view-title="Account"  ng-controller='accountCtrl'>
   <ion-content>
     <div class="navBar">
+      <div class="hamburgerMenu col-sm-4 col-sm-offset-8 col-xs-6 col-xs-offset-6" ng-if="hamburgerOpen">
+        <div class="hamburgerCell" ng-click="closeHamburger()">
+        </div>
+        <div class="hamburgerCell hamburgerSignout" ng-click="hamburgerSignout()">
+          Sign Out
+        </div>
+      </div>
       <div class="col-xs-8 col-xs-offset-2 nameTag">
         MoPho
+      </div>
+      <div class="col-xs-2 hamburgerHolder" ng-click="openHamburger()">
+        <p class='fa fa-bars hamburgerIcon'></p>
       </div>
       <div class="col-xs-4 accountTab soldTab" ng-click='showSoldFunc()'>
         Sold

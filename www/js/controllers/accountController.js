@@ -16,6 +16,7 @@ angular.module('accountController', [])
     $scope.showSold      = true;
     $scope.showSubmitted = false;
     $scope.showFinance   = false;
+    $scope.hamburgerOpen = false;
 
     var userToken = window.localStorage.webToken;
     // console.log(userToken);
@@ -117,5 +118,26 @@ angular.module('accountController', [])
       })
     }
     $scope.backToRepeat = backToRepeat;
+
+    //////////////////////////////////////////
+    //////////logic for hamburger menu////////
+    function openHamburger(){
+      $scope.hamburgerOpen = true;
+    }
+    $scope.openHamburger = openHamburger;
+
+    function closeHamburger(){
+      $scope.hamburgerOpen = false;
+    }
+    $scope.closeHamburger = closeHamburger;
+
+    function hamburgerSignout(){
+      window.localStorage.webToken = '';
+      $state.go('tab.upload')
+    }
+    $scope.hamburgerSignout = hamburgerSignout;
+
+    //////////logic for hamburger menu////////
+    //////////////////////////////////////////
 
   }
