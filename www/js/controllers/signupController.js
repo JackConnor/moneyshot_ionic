@@ -5,14 +5,12 @@ angular.module('signupController', [])
   signupCtrl.$inject = ['$scope', '$state', 'signup', 'signin', 'newToken', '$cordovaStatusbar']
 
   function signupCtrl($scope, $state, signup, signin, newToken, $cordovaStatusbar){
-    ionic.Platform.fullScreen();
-    $cordovaStatusbar.hide();
-    $cordovaStatusbar.overlaysWebView(true)
+    ionic.Platform.fullScreen();////hides status bar
     ///////////////global variables//////
     $scope.signupModalVar  = false;
     $scope.signinModalVar  = true;
     $scope.signupModalTabs = true;
-    $scope.introModal      = false;
+    $scope.introModal      = true;
     $scope.introCounter    = 0;
 
     console.log('yoyoyo');
@@ -29,8 +27,11 @@ angular.module('signupController', [])
           height: 0+"px"
         })
       }
+      else {
+        window.location.hash = "#/tab/camera";
+      }
     }
-    // checkIntro();
+    checkIntro();
     function introSwipeLeft(){
       console.log('swiping');
       if($scope.introCounter < 3 && $scope.introCounter >=0){

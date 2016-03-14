@@ -12,15 +12,71 @@ angular.module('accountController', [])
 
   function acctCtrl($http, $state, $scope, navbar, userPhotos, decodeToken, $cordovaStatusbar){
     console.log($cordovaStatusbar.isVisible);
-    ionic.Platform.fullScreen();
-    // $cordovaStatusbar.hide();
-    // $cordovaStatusbar.overlaysWebView(true)
-
+    ionic.Platform.fullScreen();/////removes the status bar from the app
     /////global variables
-    $scope.showSold      = true;
-    $scope.showSubmitted = false;
+    $scope.showSold      = false;
+    $scope.showSubmitted = true;
     $scope.showFinance   = false;
     $scope.hamburgerOpen = false;
+    $scope.introModal    = false;
+    $scope.introCounter  = 0;
+
+
+    /////begin intro modal stuff////
+    ////////////////////////////////
+    console.log($(window).height());
+    setInterval(function(){
+      var heightVar = $(window).height();
+      $('.swipeIntro').height(heightVar);
+    }, 10);
+    function introSwipeLeft(){
+      console.log('swiping');
+      if($scope.introCounter < 3 && $scope.introCounter >=0){
+        $scope.introCounter++;
+        console.log($scope.introCounter);
+        $('.swipeIntroRow').animate({
+          marginLeft: -($scope.introCounter*100)+"%"
+        }, 200);
+      }
+      else if($scope.introCounter >= 3){
+        exitIntro();
+        $scope.introCounter = 0;
+      }
+    }
+    $scope.introSwipeLeft = introSwipeLeft;
+
+    function introSwipeRight(){
+      if($scope.introCounter > 0){
+        $scope.introCounter--;
+        console.log($scope.introCounter);
+        $('.swipeIntroRow').animate({
+          marginLeft: -($scope.introCounter*100)+"%"
+        }, 200);
+      }
+    }
+    $scope.introSwipeRight = introSwipeRight;
+
+    /////function to exit the intro modal
+    function exitIntro(){
+      $('.tab-nav').css({
+        height: 49+"px"
+      })
+      $scope.introModal = false;
+      $scope.hamburgerOpen = false;
+      $('.submittedRow').height('130px');
+      $('.singleSubmissionModal').height('667px');
+    }
+    $scope.exitIntro = exitIntro;
+
+    function openIntro(){
+      $scope.introModal = true;
+      $scope.hamburgerOpen = false;
+      $('.submittedRow').height("0px");
+      $('.singleSubmissionModal').height('0px');
+    }
+    $scope.openIntro = openIntro;
+    ////////end intro swipe modal stuff
+    ///////////////////////////////////
 
     var userToken = window.localStorage.webToken;
     // console.log(userToken);
@@ -145,7 +201,7 @@ angular.module('accountController', [])
 
     function closeHamburgerBody(evt){
       console.log(evt.currentTarget);
-      if(!$(evt.currentTarget).hasClass("hamburgerSignout")){
+      if($(evt.currentTarget).hasClass("hamburgerSignout") == false){
         $scope.hamburgerOpen = false;
       }
     }
