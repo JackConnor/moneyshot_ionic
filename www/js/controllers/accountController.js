@@ -191,13 +191,18 @@ angular.module('accountController', [])
     }
     $scope.closeHamburger = closeHamburger;
 
+    /////signout option
     function hamburgerSignout(){
       window.localStorage.webToken = '';
       window.location.hash = "/signin"
     }
     $scope.hamburgerSignout = hamburgerSignout;
-    //////////logic for hamburger menu////////
-    //////////////////////////////////////////
+
+    /////banks hamburger button
+    function goToBanking(){
+      window.location.hash = "/bankinfo";
+    }
+    $scope.goToBanking = goToBanking;
 
     function closeHamburgerBody(evt){
       console.log(evt.currentTarget);
@@ -206,5 +211,9 @@ angular.module('accountController', [])
       }
     }
     $scope.closeHamburgerBody = closeHamburgerBody;
+
+    //////////logic for hamburger menu////////
+    //////////////////////////////////////////
+
 
   }

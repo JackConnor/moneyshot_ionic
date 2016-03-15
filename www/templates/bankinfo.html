@@ -1,0 +1,29 @@
+<ion-content>
+  <div class="bankContainer">
+    <div class="bankInfoHolder col-sm-8 col-sm-offset-2 col-xs-10 col-xs-offset-1" ng-if="bankStart">
+      <div class="bankInfoTitle">
+        Add or Edit an account
+      </div>
+      <div class="bankAddAccount" ng-click="provePassword()">
+        <span class='fa fa-plus-circle bankPlusIcon'></span>Add A Bank Account
+      </div>
+    </div>
+    <div class="bankPasswordHolder col-sm-8 col-sm-offset-2 col-xs-10 col-xs-offset-1" ng-if="bankPassword">
+      <div class="bankPasswordTitle">
+        Confirm Password Below
+      </div>
+      <div class="bankSignin">
+        <input class="bankPass bankPass1" type="text" placeholder="password">
+        <input class="bankPass bankPass2" type="text" placeholder="re-type password">
+        <div class="bankNext" ng-click='verifyPassword()'>
+          NEXT
+        </div>
+      </div>
+    </div>
+    <div class="BankAccount" ng-if="bankAccountVar">
+      <p style="font-size: 50px; color: white; padding-top: 50px">
+        Add your bank account info
+      </p>
+    </div>
+  </div>
+</ion-content>

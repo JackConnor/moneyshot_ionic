@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'ngCordova', 'ngFileUpload', 'starter.services', 'accountController', 'cameraController', 'uploadController', 'signupController', 'allPhotosFactory', 'singlePhotoFactory', 'navbarHolderFactory', 'signupFactory', 'signinFactory', 'newTokenFactory', 'userPhotosFactory', 'decodeTokenFactory', 'ngTouch'])
+angular.module('starter', ['ionic', 'ngCordova', 'ngFileUpload', 'starter.services', 'accountController', 'cameraController', 'uploadController', 'signupController', 'allPhotosFactory', 'singlePhotoFactory', 'navbarHolderFactory', 'signupFactory', 'signinFactory', 'newTokenFactory', 'userPhotosFactory', 'decodeTokenFactory', 'ngTouch', 'bankController'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -79,6 +79,13 @@ angular.module('starter', ['ionic', 'ngCordova', 'ngFileUpload', 'starter.servic
         ,cache: false
         ,templateUrl: 'templates/signin.html'
         ,controller: 'signupCtrl'
+      })
+
+      .state('banks', {
+        url: '/bankinfo'
+        ,cache: false
+        ,templateUrl: 'templates/bankinfo.html'
+        ,controller: 'bankCtrl'
       })
 
 

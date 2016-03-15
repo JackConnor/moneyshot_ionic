@@ -10,7 +10,7 @@ angular.module('allPhotosFactory', [])
     function allPhotos(){
       return $http({
               method: 'GET'
-              ,url: "http://192.168.0.8:5555/api/test"
+              ,url: "http://192.168.0.3:5555/api/test"
             })
     }
 

@@ -9,7 +9,7 @@ angular.module('signupFactory', [])
     function signingUp(email, password){
       return $http({
           method: "POST"
-          ,url: "http://192.168.0.8:5555/api/signup"
+          ,url: "http://192.168.0.3:5555/api/signup"
           ,data: {email: email, password: password}
         })
     }
