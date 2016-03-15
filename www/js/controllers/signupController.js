@@ -111,6 +111,8 @@ angular.module('signupController', [])
     function signinUser(){
       var email = $('.signupEmail').val();
       var password = $('.signupPassword').val();
+      console.log(email);
+      console.log(password);
       signin(email, password)
       .then(function(signedInUser){
         console.log(signedInUser);

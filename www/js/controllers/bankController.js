@@ -42,6 +42,8 @@ angular.module('bankController', [])
       console.log(pass2);
       // window.open('https://moneyshotapi.herokuapp.com/');
       if(pass1 === pass2){
+        console.log('first challenge');
+        console.log($scope.userInfo.email + " email");
         signin($scope.userInfo.email, pass2)
         .then(function(userData){
           console.log(userData);
@@ -55,8 +57,10 @@ angular.module('bankController', [])
             $scope.bankPassword = false;
             $scope.bankAccountVar = true;
             console.log('linking');
-            window.open("https://connect.stripe.com/oauth/authorize?response_type=code&client_id=ca_85XIIrajUKuhChdWZQFJ9zu1lmuzul3F&scope=read_write", "_blank")
+            // window.open("https://connect.stripe.com/oauth/authorize?response_type=code&client_id=ca_85XIIrajUKuhChdWZQFJ9zu1lmuzul3F&scope=read_write", "_system");
+            cordova.InAppBrowser.open("https://connect.stripe.com/oauth/authorize?response_type=code&client_id=ca_85XIIrajUKuhChdWZQFJ9zu1lmuzul3F&scope=read_write", "_system");
             console.log('linking');
+            window.location.hash = "#/"
           }
         })
       }
