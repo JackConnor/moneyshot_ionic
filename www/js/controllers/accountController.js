@@ -167,15 +167,21 @@ angular.module('accountController', [])
     }
     $scope.openSubmission = openSubmission;
 
-    function backToRepeat(){
+    function backToRepeat(modalType){
       var x = document.getElementById("repeatContainer");
       x.style.marginRight = 0;
-      $('.singleSubmissionModal').css({
-        marginLeft: "100%"
-      })
+      console.log(modalType);
+      if(modalType == 'submission'){
+        $('.singleSubmissionModal').css({
+          marginLeft: "100%"
+        })
+      }
       $('.singleImageModal').css({
         marginLeft: "100%"
       })
+      $('.repeatContainer').css({
+        marginRight: "0%"
+      });
     }
     $scope.backToRepeat = backToRepeat;
 
