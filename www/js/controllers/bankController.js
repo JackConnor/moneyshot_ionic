@@ -102,7 +102,7 @@ angular.module('bankController', [])
     function deleteBank(){
       $http({
         method: "POST"
-        ,url: "http://192.168.0.4:5555/api/delete/bank"
+        ,url: "https://moneyshotapi.herokuapp.com/api/delete/bank"
         ,data: {userId: $scope.userInfo._id}
       })
       .then(function(updatedUser){

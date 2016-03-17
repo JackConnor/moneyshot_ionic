@@ -225,8 +225,11 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                   })
                   .then(function(newSubmission){
                     console.log(newSubmission);
-                    $scope.submitModalVar = false;
-                    $scope.cameraModal = false;
+                    if(i = set.length-1){
+                      $scope.submitModalVar = false;
+                      $scope.cameraModal = false;
+                      window.location.hash = "#/tab/account"
+                    }
                   })
                 }
               })
@@ -286,8 +289,11 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                   })
                   .then(function(newSubmission){
                     // console.log(newSubmission);
-                    $scope.submitModalVar = false;
-                    $scope.cameraModal = false;
+                    if(i = set.length-1){
+                      $scope.submitModalVar = false;
+                      $scope.cameraModal = false;
+                      window.location.hash = "#/tab/account"
+                    }
                   })
                 }
               })
