@@ -17,6 +17,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     $scope.croppedPhoto = '';
     $scope.submitModalVar = false;
     $scope.cameraModal = false;
+    $scope.cameraLaunched = false;
     var eraseSubmitArr = [];
     /////end global variables///
     ////////////////////////////
@@ -24,6 +25,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     /////////////////////////////
     /////functions to upload photos////
     function uploadPhotos() {
+        $scope.cameraLaunched = true;
         canvasMain = document.getElementById("camera");
         CanvasCamera.initialize(canvasMain);
         // define options
@@ -65,8 +67,29 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         }
         $scope.takeCordovaPicture = takeCordovaPicture;
     }
-    // document.addEventListener("deviceready", uploadPhotos);
-    uploadPhotos();
+    document.addEventListener("deviceready", uploadPhotos);
+    ////////delayed functions fire in case the device is not loading up for the first time if the app was already open
+    setTimeout(function(){
+      console.log();
+      if($scope.cameraLaunched == false){
+        uploadPhotos();
+      }
+    }, 100);
+    setTimeout(function(){
+      if($scope.cameraLaunched == false){
+        uploadPhotos();
+      }
+    }, 500);
+    setTimeout(function(){
+      if($scope.cameraLaunched == false){
+        uploadPhotos();
+      }
+    }, 1000);
+    setTimeout(function(){
+      if($scope.cameraLaunched == false){
+        uploadPhotos();
+      }
+    }, 2000);
 
     function outPhotoModal(){
       $scope.cameraModal = false;
@@ -197,7 +220,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       //////first we need to find the users ID, so we can use it to make the post requests
       $http({
         method: "GET"
-        ,url: "https://moneyshotapi.herokuapp.com/api/decodetoken/"+window.localStorage.webToken
+        ,url: "http://192.168.0.4:5555/api/decodetoken/"+window.localStorage.webToken
       })
       .then(function(decodedToken){
         console.log('yo decoded '+decodedToken.data.userId);
@@ -207,14 +230,14 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         ////now iterate through to submit to backend
         for (var i = 0; i <= set.length; i++) {
           if(set[i].type == "video"){
-            $cordovaFileTransfer.upload('https://moneyshotapi.herokuapp.com/api/upload/video', set[i].link, {})
+            $cordovaFileTransfer.upload('http://192.168.0.4:5555/api/upload/video', set[i].link, {})
             .then(function(callbackImage){
               var splitUrl = callbackImage.response.split('');
               var sliced = splitUrl.slice(1, callbackImage.response.split('').length - 1);
               ////////this is where we're having data problems, you need to figure out why our string result doesnt work to call the video
               $http({
                 method: "POST"
-                ,url: "https://moneyshotapi.herokuapp.com/api/createphotos"
+                ,url: "http://192.168.0.4:5555/api/createphotos"
                 ,data: {url: sliced.join(''), userId: userFullId, isVid: true}
               })
               .then(function(newVid){
@@ -225,7 +248,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                 if(amalgam == parseInt(set.length)){
                   $http({
                     method: "POST"
-                    ,url: "https://moneyshotapi.herokuapp.com/api/new/submission"
+                    ,url: "http://192.168.0.4:5555/api/new/submission"
                     ,data: submissionData
                   })
                   .then(function(newSubmission){
@@ -272,13 +295,13 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
               }
             }
             addCrop();
-            $cordovaFileTransfer.upload('https://moneyshotapi.herokuapp.com/api/newimage', set[i].link, photoOptions)
+            $cordovaFileTransfer.upload('http://192.168.0.4:5555/api/newimage', set[i].link, photoOptions)
             .then(function(callbackImage){
               var parsedPhoto = JSON.parse(callbackImage.response);
               console.log(parsedPhoto);
               $http({
                 method: "POST"
-                ,url: "https://moneyshotapi.herokuapp.com/api/createphotos"
+                ,url: "http://192.168.0.4:5555/api/createphotos"
                 ,data: {url: parsedPhoto.secure_url, userId: userFullId, isVid: false}
               })
               .then(function(newPhoto){
@@ -289,7 +312,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                 if(amalgam == parseInt(set.length)){
                   $http({
                     method: "POST"
-                    ,url: "https://moneyshotapi.herokuapp.com/api/new/submission"
+                    ,url: "http://192.168.0.4:5555/api/new/submission"
                     ,data: submissionData
                   })
                   .then(function(newSubmission){

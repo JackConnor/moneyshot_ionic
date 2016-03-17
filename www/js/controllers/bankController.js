@@ -19,7 +19,7 @@ angular.module('bankController', [])
     .then(function(userInfo){
       $http({
         method: "POST"
-        ,url: "https://moneyshotapi.herokuapp.com/api/userinfo"
+        ,url: "http://192.168.0.4:5555/api/userinfo"
         ,data: {userId: userInfo.data.userId}
       })
       .then(function(userData){
@@ -62,6 +62,7 @@ angular.module('bankController', [])
             window.location.hash = "#/"
             cordova.InAppBrowser.open("https://connect.stripe.com/oauth/authorize?response_type=code&client_id=ca_85XIIrajUKuhChdWZQFJ9zu1lmuzul3F&scope=read_write&state="+$scope.userInfo._id, "_system");
             console.log('linking');
+            window.location.reload();
           }
         })
       }
@@ -102,7 +103,7 @@ angular.module('bankController', [])
     function deleteBank(){
       $http({
         method: "POST"
-        ,url: "https://moneyshotapi.herokuapp.com/api/delete/bank"
+        ,url: "http://192.168.0.4:5555/api/delete/bank"
         ,data: {userId: $scope.userInfo._id}
       })
       .then(function(updatedUser){
