@@ -3,11 +3,23 @@
     <div ng-click="bankBack()" class="bankBack">
       Back
     </div>
+    <div class="editModal" ng-if="editVar">
+      <div class="editBlackLayer" ng-click="closeEdit()">
+
+      </div>
+      <div class="editOptions col-sm-8 col-sm-offset-2 col-xs-12 col-xs-offset-0">
+        <span class='optionOption optionEdit col-xs-6'>Edit on Stripe Website</span>
+        <span class="optionOption optionDelete col-xs-6">Delete</span>
+      </div>
+    </div>
     <div class="bankInfoHolder col-sm-8 col-sm-offset-2 col-xs-10 col-xs-offset-1" ng-if="bankStart">
       <div class="bankInfoTitle">
         Add or Edit an account
       </div>
-      <div class="bankAddAccount" ng-click="provePassword()">
+      <div class="bankAddedAcct" ng-if="userInfo.access_token">
+        <span class='col-xs-7 editAcctTitle'>Your Stripe Account</span><span class="col-xs-5 editAcct" ng-click="openEdit()">Edit</span>
+      </div>
+      <div class="bankAddAccount" ng-click="provePassword()" ng-if='!userInfo.access_token'>
         <span class='fa fa-plus-circle bankPlusIcon'></span>Add A Bank Account
       </div>
     </div>

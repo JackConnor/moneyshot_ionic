@@ -12,6 +12,7 @@ angular.module('bankController', [])
     $scope.bankStart = true;
     $scope.bankPassword = false;
     $scope.bankAccountVar = false;
+    $scope.editVar = false;
 
     var userToken = window.localStorage.webToken;
     decodeToken(userToken)
@@ -78,5 +79,16 @@ angular.module('bankController', [])
       window.location.hash = "#/tab/account"
     }
     $scope.bankBack = bankBack;
+
+    /////function to open the edit modal
+    function openEdit(){
+      $scope.editVar = true;
+    }
+    $scope.openEdit = openEdit;
+
+    function closeEdit(){
+      $scope.editVar = false;
+    }
+    $scope.closeEdit = closeEdit;
   ////////////end bank controller//////
   }
