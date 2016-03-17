@@ -18,7 +18,7 @@ angular.module('bankController', [])
     .then(function(userInfo){
       $http({
         method: "POST"
-        ,url: "http://192.168.0.8:5555/api/userinfo"
+        ,url: "https://moneyshotapi.herokuapp.com/api/userinfo"
         ,data: {userId: userInfo.data.userId}
       })
       .then(function(userData){
@@ -71,5 +71,12 @@ angular.module('bankController', [])
       }
     }
     $scope.verifyPassword = verifyPassword;
+
+    //////back button out of banking
+    function bankBack(){
+      console.log('something is working');
+      window.location.hash = "#/tab/account"
+    }
+    $scope.bankBack = bankBack;
   ////////////end bank controller//////
   }
