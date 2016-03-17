@@ -8,9 +8,9 @@ angular.module('accountController', [])
     };
   })
 
-  acctCtrl.$inject = ['$http', '$state', '$scope', 'navbar', 'userPhotos', 'decodeToken', '$cordovaStatusbar'];
+  acctCtrl.$inject = ['$http', '$state', '$scope', 'navbar', 'userPhotos', 'decodeToken', '$cordovaStatusbar', '$ionicScrollDelegate'];
 
-  function acctCtrl($http, $state, $scope, navbar, userPhotos, decodeToken, $cordovaStatusbar){
+  function acctCtrl($http, $state, $scope, navbar, userPhotos, decodeToken, $cordovaStatusbar, $ionicScrollDelegate){
     console.log($cordovaStatusbar.isVisible);
     ionic.Platform.fullScreen();/////removes the status bar from the app
     /////global variables
@@ -168,7 +168,7 @@ angular.module('accountController', [])
       $('.singleSubmissionModal').css({
         marginLeft: 0
       })
-      $('html').scrollTop(0);
+      $ionicScrollDelegate.scrollTop(true);
     }
     $scope.openSubmission = openSubmission;
 
@@ -223,6 +223,8 @@ angular.module('accountController', [])
     }
     $scope.closeHamburgerBody = closeHamburgerBody;
 
+
+    console.log($ionicScrollDelegate);
     //////////logic for hamburger menu////////
     //////////////////////////////////////////
 
