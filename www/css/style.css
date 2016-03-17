@@ -546,7 +546,6 @@ ion-view {
   position: fixed;
   height: 667px;
   margin-left: 100%;
-  border: 1px solid red;
   background-color: gray;
   z-index: 7;
 }

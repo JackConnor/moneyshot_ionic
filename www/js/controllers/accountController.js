@@ -179,7 +179,6 @@ angular.module('accountController', [])
     $scope.openSubmission = openSubmission;
 
     function backToRepeat(modalType){
-      $ionicScrollDelegate.scrollTo(0, $scope.scrollPosition, false);
       var x = document.getElementById("repeatContainer");
       x.style.marginRight = 0;
       console.log(modalType);
@@ -187,6 +186,10 @@ angular.module('accountController', [])
         $('.singleSubmissionModal').css({
           marginLeft: "100%"
         });
+        $ionicScrollDelegate.scrollTo(0, $scope.scrollPosition, false);
+      }
+      else {
+        $ionicScrollDelegate.scrollTop(false);
       }
       $('.singleImageModal').css({
         marginLeft: "100%"
