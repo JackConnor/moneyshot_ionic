@@ -391,6 +391,11 @@ ion-view {
   padding: 0px;
 }
 
+.longArrow {
+  font-size: 60px;
+  opacity: .6;
+}
+
 .nameTag {
   height: 45px;
   padding-top: 10px;

@@ -165,6 +165,9 @@ angular.module('accountController', [])
       $('.repeatContainer').css({
         marginRight: "100%"
       });
+      $('.submissionInfo').css({
+        opacity: 0
+      })
       $('.singleSubmissionModal').css({
         marginLeft: 0
       })
