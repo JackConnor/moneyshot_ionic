@@ -21,6 +21,11 @@ angular.module('accountController', [])
     $scope.introModal    = false;
     $scope.introCounter  = 0;
 
+    // function to add tabs back if coming from camera (where tabs are removed)
+    function addTabs(){
+      $('ion-tabs').removeClass('tabs-item-hide');
+    }
+    addTabs();
 
     /////begin intro modal stuff////
     ////////////////////////////////

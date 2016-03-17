@@ -5,7 +5,11 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
   cameraCtrl.$inject = ['$http', '$state', '$scope', 'singlePhoto', 'Upload', '$q', '$cordovaCamera', '$cordovaFile', '$cordovaFileTransfer', 'signup', 'signin', 'newToken', '$cordovaCapture', 'Upload', '$cordovaStatusbar'];
   function cameraCtrl($http, $state, $scope, singlePhoto, Upload, $q, $cordovaCamera, $cordovaFile, $cordovaFileTransfer, signup, signin, newToken, $cordovaCapture, Upload, $cordovaStatusbar){
     ionic.Platform.fullScreen();//////hides status bar
-    console.log(window.location.href);
+    ////////function to remove tabs from this view
+    function removeTabs(){
+      $('ion-tabs').addClass('tabs-item-hide');
+    }
+    removeTabs();
     ////////////////////////////
     /////////global variables///
     // $scope.mediaCache = [{"link":"/img/adam.jpg", "type":"photo"}, {"link":"/img/max.png", "type":"photo"}, {"link":"/img/ben.png", "type":"photo"}];
@@ -404,4 +408,10 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       $scope.submitModalVar = false;
     }
     $scope.backToPhotos = backToPhotos;
+
+    function leaveCamera(){
+      console.log('yooooo');
+      window.location.hash = "#/tab/account"
+    }
+    $scope.leaveCamera = leaveCamera;
   }

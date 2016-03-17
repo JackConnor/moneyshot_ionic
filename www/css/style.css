@@ -4,6 +4,10 @@ body {
   background-color: transparent;
 }
 
+ion-content {
+  height: auto;
+}
+
 .accountTab {
   height: 100%;
   border-right: 1px solid beige;
@@ -153,10 +157,19 @@ body {
 }
 
 .buttonDiv {
-  margin-top: 15px;
+  margin-top: 35px;
 }
 
 #camera {
+}
+
+.cameraBack {
+  position: absolute;
+  margin: 10px 0 0  10px;
+  color: white;
+  font-size: 38px;
+  width: 50px;
+  /*outline: 2px solid white;*/
 }
 
 .cameraBackground {
@@ -166,14 +179,26 @@ body {
   position: absolute;
 }
 
+.cameraBlackLayer {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  opacity: 0.4
+}
+
+.cameraButtonCell {
+  margin-top: 20px;
+}
+
 .cameraButtonsContainer {
   width: 100%;
   display: block;
   position: absolute;
-  height: 30%;
+  height: 120px;
   /*background-color: black;*/
   padding: 0px;
-  margin-top: -150px;
+  margin-top: -120px;
   z-index: 17;
 }
 
@@ -396,12 +421,16 @@ body {
 }
 
 .outCameraModal {
-  background-color: gray;
-  color: white;
-  font-size: 20px;
-  padding-top: 10px;
-  text-align: center;
   height: 60px;
+  width: 60px;
+  border-radius: 50%;
+  border: 4px solid white;
+  color: white;
+  font-size: 14px;
+  padding-top: 17px;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .priceLayer {
@@ -643,10 +672,15 @@ body {
 
 .submitSetDiv {
   height: 60px;
-  background-color: green;
-  color: white;
-  font-size: 22px;
-  padding-top: 10px;
+  width: 60px;
+  border-radius: 50%;
+  border: 4px solid #8CDD81;
+  color: #8CDD81;
+  font-size: 14px;
+  padding-top: 17px;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .submittedRow {
