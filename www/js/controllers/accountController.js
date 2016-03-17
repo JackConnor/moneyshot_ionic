@@ -168,7 +168,7 @@ angular.module('accountController', [])
       $('.singleSubmissionModal').css({
         marginLeft: 0
       })
-      $('window').scrollTop(0);
+      $('html').scrollTop(0);
     }
     $scope.openSubmission = openSubmission;
 
