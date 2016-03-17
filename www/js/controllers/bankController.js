@@ -90,5 +90,27 @@ angular.module('bankController', [])
       $scope.editVar = false;
     }
     $scope.closeEdit = closeEdit;
+
+    function openPassword(){
+      console.log('working');
+      $scope.editVar = false;
+      $scope.bankStart = false;
+      $scope.bankPassword = true;
+    }
+    $scope.openPassword = openPassword;
+
+    function deleteBank(){
+      $http({
+        method: "POST"
+        ,url: "http://192.168.0.4:5555/api/delete/bank"
+        ,data: {userId: $scope.userInfo._id}
+      })
+      .then(function(updatedUser){
+        console.log(updatedUser);
+        $scope.editVar = false;
+        $scope.userInfo = updatedUser.data;
+      })
+    }
+    $scope.deleteBank = deleteBank;
   ////////////end bank controller//////
   }
