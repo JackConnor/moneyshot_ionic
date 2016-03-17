@@ -14,12 +14,13 @@ angular.module('accountController', [])
     console.log($cordovaStatusbar.isVisible);
     ionic.Platform.fullScreen();/////removes the status bar from the app
     /////global variables
-    $scope.showSold      = false;
-    $scope.showSubmitted = true;
-    $scope.showFinance   = false;
-    $scope.hamburgerOpen = false;
-    $scope.introModal    = false;
-    $scope.introCounter  = 0;
+    $scope.showSold       = false;
+    $scope.showSubmitted  = true;
+    $scope.showFinance    = false;
+    $scope.hamburgerOpen  = false;
+    $scope.introModal     = false;
+    $scope.introCounter   = 0;
+    $scope.scrollPosition = 0;
 
     // function to add tabs back if coming from camera (where tabs are removed)
     function addTabs(){
@@ -160,7 +161,9 @@ angular.module('accountController', [])
     }
     $scope.openSingle = openSingle;
 
-    function openSubmission(subInfo){
+    function openSubmission(subInfo, evt){
+      console.log($ionicScrollDelegate.getScrollPosition().top);
+      $scope.scrollPosition = $ionicScrollDelegate.getScrollPosition().top;
       $scope.singleSubmission = subInfo;
       $('.repeatContainer').css({
         marginRight: "100%"
@@ -171,11 +174,12 @@ angular.module('accountController', [])
       $('.singleSubmissionModal').css({
         marginLeft: 0
       })
-      $ionicScrollDelegate.scrollTop(true);
+      $ionicScrollDelegate.scrollTop(false);
     }
     $scope.openSubmission = openSubmission;
 
     function backToRepeat(modalType){
+      $ionicScrollDelegate.scrollTo(0, $scope.scrollPosition, false);
       var x = document.getElementById("repeatContainer");
       x.style.marginRight = 0;
       console.log(modalType);
@@ -187,6 +191,9 @@ angular.module('accountController', [])
       $('.singleImageModal').css({
         marginLeft: "100%"
       });
+      $('.submissionInfo').css({
+        opacity: 1
+      })
       $('.repeatContainer').css({
         marginRight: "0%"
       });
@@ -197,11 +204,13 @@ angular.module('accountController', [])
     //////////logic for hamburger menu////////
     function openHamburger(){
       $scope.hamburgerOpen = true;
+      $ionicScrollDelegate.freezeAllScrolls(true);
     }
     $scope.openHamburger = openHamburger;
 
     function closeHamburger(){
       $scope.hamburgerOpen = false;
+      $ionicScrollDelegate.freezeAllScrolls(false);
     }
     $scope.closeHamburger = closeHamburger;
 
@@ -223,6 +232,7 @@ angular.module('accountController', [])
       if($(evt.currentTarget).hasClass("hamburgerSignout") == false){
         $scope.hamburgerOpen = false;
       }
+      $ionicScrollDelegate.freezeAllScrolls(false);
     }
     $scope.closeHamburgerBody = closeHamburgerBody;
 
