@@ -19,7 +19,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
     /////////////////////////////
     /////functions to upload photos////
-    document.addEventListener("deviceready", function() {
+    function uploadPhotos() {
         canvasMain = document.getElementById("camera");
         CanvasCamera.initialize(canvasMain);
         // define options
@@ -60,7 +60,8 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
           }, 300);
         }
         $scope.takeCordovaPicture = takeCordovaPicture;
-    });
+    }
+    document.addEventListener("deviceready", uploadPhotos());
 
     function outPhotoModal(){
       $scope.cameraModal = false;
