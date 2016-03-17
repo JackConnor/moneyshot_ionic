@@ -174,11 +174,11 @@ angular.module('accountController', [])
       if(modalType == 'submission'){
         $('.singleSubmissionModal').css({
           marginLeft: "100%"
-        })
+        });
       }
       $('.singleImageModal').css({
         marginLeft: "100%"
-      })
+      });
       $('.repeatContainer').css({
         marginRight: "0%"
       });

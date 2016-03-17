@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'ngCordova', 'ngFileUpload', 'starter.services', 'accountController', 'cameraController', 'uploadController', 'signupController', 'allPhotosFactory', 'singlePhotoFactory', 'navbarHolderFactory', 'signupFactory', 'signinFactory', 'newTokenFactory', 'userPhotosFactory', 'decodeTokenFactory', 'ngTouch', 'bankController'])
+angular.module('starter', ['ionic', 'ngCordova', 'ngFileUpload', 'starter.services', 'accountController', 'cameraController', 'uploadController', 'signupController', 'allPhotosFactory', 'singlePhotoFactory', 'navbarHolderFactory', 'signupFactory', 'signinFactory', 'newTokenFactory', 'userPhotosFactory', 'decodeTokenFactory', 'ngTouch', 'bankController', 'ngRoute'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -86,6 +86,13 @@ angular.module('starter', ['ionic', 'ngCordova', 'ngFileUpload', 'starter.servic
         ,cache: false
         ,templateUrl: 'templates/bankinfo.html'
         ,controller: 'bankCtrl'
+      })
+
+      .state('banking', {
+        url: "/banking/:stripe_data"
+        ,cache: false
+        ,templateUrl: "templates/banking.html"
+        ,controller: "bankCtrl"
       })
 
 

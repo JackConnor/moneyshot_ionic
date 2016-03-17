@@ -97,6 +97,7 @@ angular.module('signupController', [])
               ///////final callback, which opens up the camera
               // removeSignupModal();
               window.localStorage.webToken = token;
+              window.location.hash = "#/tab/camera"
             })
           }
         })
