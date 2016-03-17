@@ -8,6 +8,10 @@ ion-content {
   height: auto;
 }
 
+ion-view {
+  height: auto;
+}
+
 .accountTab {
   height: 100%;
   border-right: 1px solid beige;
@@ -553,10 +557,9 @@ ion-content {
 }
 
 .singleSubmissionModal {
-  position: fixed;
-  height: 667px;
+  position: absolute;
+  height: auto;
   margin-left: 100%;
-  /*outline: 5px solid red;*/
   background-color: gray;
   z-index: 5;
 }
