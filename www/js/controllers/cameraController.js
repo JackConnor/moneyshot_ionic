@@ -61,7 +61,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         }
         $scope.takeCordovaPicture = takeCordovaPicture;
     }
-    document.addEventListener("deviceready", uploadPhotos());
+    document.addEventListener("deviceready", uploadPhotos);
 
     function outPhotoModal(){
       $scope.cameraModal = false;
