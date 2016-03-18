@@ -128,13 +128,44 @@
       </div>
     </div>
     <div class="repeatContainer" id='repeatContainer'>
+      <!-- /////begin tab for sold photos//// -->
       <div class="" ng-if='showSold'>
-        <div class="soldPhotosRepeat col-sm-4 col-xs-6" ng-repeat='soldPhoto in soldPhotos'>
-          <div class="priceLayer" ng-click='openSingle(soldPhoto)'>
-            {{soldPhoto.price | currency}}
+        <div class="soldPhotosRepeatContainer">
+          <div class="sellPhotoModal" ng-if="sellModal">
+            <div class="sellModalBlack"></div>
+            <div class="sellModalContent col-sm-8 col-sm-offset-2 col-xs-12 col-xs-offset-0">
+              <div class="sellPhotoHolder col-sm-8 col-sm-offset-2 col-xs-12 col-xs-offset-0">
+                <img ng-src="{{singlePhotoData.url}}" ng-if="!singlePhotoData.isVideo" />
+                <video ng-src="{{singlePhotoData.url | trustUrl}}" class="col-xs-12" controls ng-if="singlePhotoData.isVideo"></video>
+              </div>
+              <div class="sellPrice col-xs-12">
+                Sell this photo for: {{singlePhotoData.price | currency}}
+              </div>
+              <div class="sellButtonContainer col-xs-12">
+                <div class="sellButton sellYes col-xs-6">
+                  Yes, Sell Photo
+                </div>
+                <div class="sellButton sellNo col-xs-6">
+                  Reject Offer
+                </div>
+              </div>
+            </div>
           </div>
-          <img class='allSoldPhotosRepeat' ng-src="{{soldPhoto.url}}" ng-if='!soldPhoto.isVideo' />
-          <video ng-src="{{soldPhoto.url | trustUrl}}" class="col-xs-12" controls ng-if="soldPhoto.isVideo"></video>
+          <div class="soldPhotosRepeat col-sm-4 col-xs-6" ng-repeat='soldPhoto in soldPhotos'>
+            <div class="priceLayer" ng-click='openSingle(soldPhoto, soldPhoto.status)'>
+              <div class="ifSold" ng-if="soldPhoto.status == 'offered for sale'">
+                Accept Offer
+              </div>
+              <div class="ifPaid" ng-if="soldPhoto.status == 'sold'">
+                Sold!
+              </div>
+              <div class="priceInfo">
+                {{soldPhoto.price | currency}}
+              </div>
+            </div>
+            <img class='allSoldPhotosRepeat' ng-src="{{soldPhoto.url}}" ng-if='!soldPhoto.isVideo' />
+            <video ng-src="{{soldPhoto.url | trustUrl}}" class="col-xs-12" controls ng-if="soldPhoto.isVideo"></video>
+          </div>
         </div>
         <div class="col-sm-4 col-xs-6" style='padding:0px; margin: 0px'>
         </div>

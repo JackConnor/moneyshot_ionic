@@ -37,7 +37,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
             correctOrientation:true,
         };
         CanvasCamera.start(opt);
-        document.getElementById('camera').style.height = 100+"%"
+        document.getElementById('camera').style.height = 100+"%";
         function takeCordovaPicture(){
           var canvas = document.getElementById("camera");
           var dataURL = canvas.toDataURL("img/png");
@@ -217,10 +217,11 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
       }
       var submissionData = {photos: [], videos: [], userId: ''};
+      console.log('huh?');
       //////first we need to find the users ID, so we can use it to make the post requests
       $http({
         method: "GET"
-        ,url: "http://192.168.0.4:5555/api/decodetoken/"+window.localStorage.webToken
+        ,url: "http://192.168.0.7:5555/api/decodetoken/"+window.localStorage.webToken
       })
       .then(function(decodedToken){
         console.log('yo decoded '+decodedToken.data.userId);
@@ -230,14 +231,15 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         ////now iterate through to submit to backend
         for (var i = 0; i <= set.length; i++) {
           if(set[i].type == "video"){
-            $cordovaFileTransfer.upload('http://192.168.0.4:5555/api/upload/video', set[i].link, {})
+            console.log('video');
+            $cordovaFileTransfer.upload('http://192.168.0.7:5555/api/upload/video', set[i].link, {})
             .then(function(callbackImage){
               var splitUrl = callbackImage.response.split('');
               var sliced = splitUrl.slice(1, callbackImage.response.split('').length - 1);
               ////////this is where we're having data problems, you need to figure out why our string result doesnt work to call the video
               $http({
                 method: "POST"
-                ,url: "http://192.168.0.4:5555/api/createphotos"
+                ,url: "http://192.168.0.7:5555/api/createphotos"
                 ,data: {url: sliced.join(''), userId: userFullId, isVid: true}
               })
               .then(function(newVid){
@@ -248,7 +250,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                 if(amalgam == parseInt(set.length)){
                   $http({
                     method: "POST"
-                    ,url: "http://192.168.0.4:5555/api/new/submission"
+                    ,url: "http://192.168.0.7:5555/api/new/submission"
                     ,data: submissionData
                   })
                   .then(function(newSubmission){
@@ -264,6 +266,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
             })
           }
           else if(set[i].type == "photo"){
+            console.log('photo');
             var photoOptions = {
                 quality : 95,
                 destinationType : Camera.DestinationType.FILE_URI,
@@ -295,13 +298,13 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
               }
             }
             addCrop();
-            $cordovaFileTransfer.upload('http://192.168.0.4:5555/api/newimage', set[i].link, photoOptions)
+            $cordovaFileTransfer.upload('http://192.168.0.7:5555/api/newimage', set[i].link, photoOptions)
             .then(function(callbackImage){
               var parsedPhoto = JSON.parse(callbackImage.response);
               console.log(parsedPhoto);
               $http({
                 method: "POST"
-                ,url: "http://192.168.0.4:5555/api/createphotos"
+                ,url: "http://192.168.0.7:5555/api/createphotos"
                 ,data: {url: parsedPhoto.secure_url, userId: userFullId, isVid: false}
               })
               .then(function(newPhoto){
@@ -312,7 +315,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                 if(amalgam == parseInt(set.length)){
                   $http({
                     method: "POST"
-                    ,url: "http://192.168.0.4:5555/api/new/submission"
+                    ,url: "http://192.168.0.7:5555/api/new/submission"
                     ,data: submissionData
                   })
                   .then(function(newSubmission){

@@ -19,6 +19,7 @@ angular.module('accountController', [])
     $scope.showFinance    = false;
     $scope.hamburgerOpen  = false;
     $scope.introModal     = false;
+    $scope.sellModal     = false;
     $scope.introCounter   = 0;
     $scope.scrollPosition = 0;
 
@@ -99,8 +100,9 @@ angular.module('accountController', [])
           function mapPhotos(){
             var soldPhotos = [];
             for (var i = 0; i < userPhotos.length; i++) {
-              if(userPhotos[i].status === 'sold'){
+              if(userPhotos[i].status === 'offered for sale' || 'sold'){
                 console.log('sold one');
+                console.log(userPhotos[i]);
                 soldPhotos.push(userPhotos[i]);
                 $scope.totalEarned += userPhotos[i].price;
               }
@@ -146,18 +148,24 @@ angular.module('accountController', [])
     }
     $scope.showFinanceFunc = showFinanceFunc;
 
-    function openSingle(photoData){
+    function openSingle(photoData, status){
+      console.log(status);
       $scope.singlePhotoData = photoData;
-      $('.repeatContainer').css({
-        marginRight: "100%"
-      });
-      $('.singleSubmissionModal').css({
-        marginRight: "100%"
-      });
-      $('.singleImageModal').css({
-        marginLeft: 0
-      })
-      $('window').scrollTop(0);
+      if(status == "sold"){
+        $('.repeatContainer').css({
+          marginRight: "100%"
+        });
+        $('.singleSubmissionModal').css({
+          marginRight: "100%"
+        });
+        $('.singleImageModal').css({
+          marginLeft: 0
+        })
+        $('window').scrollTop(0);
+      }
+      else if(status == 'offered for sale'){
+        $scope.sellModal = true;
+      }
     }
     $scope.openSingle = openSingle;
 
