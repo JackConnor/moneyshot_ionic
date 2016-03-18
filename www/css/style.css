@@ -677,6 +677,13 @@ ion-view {
 
 .soldPhotosRepeat {
   padding: 0px;
+  height: 250px;
+}
+
+.soldPhotosRepeat img {
+  height: 100%;
+  width: 100%;
+  /*position: absolute;*/
 }
 
 .soldPhotosRepeatContainer {

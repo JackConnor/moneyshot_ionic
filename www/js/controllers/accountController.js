@@ -14,8 +14,8 @@ angular.module('accountController', [])
     console.log($cordovaStatusbar.isVisible);
     ionic.Platform.fullScreen();/////removes the status bar from the app
     /////global variables
-    $scope.showSold       = false;
-    $scope.showSubmitted  = true;
+    $scope.showSold       = true;
+    $scope.showSubmitted  = false;
     $scope.showFinance    = false;
     $scope.hamburgerOpen  = false;
     $scope.introModal     = false;
@@ -94,20 +94,23 @@ angular.module('accountController', [])
         .then(function(userInfo){
           $scope.userInfo = userInfo.data;
           var userPhotos = userInfo.data.photos;////this is all of a signed-in user's
+          console.log(userPhotos);
           $scope.userPhotos = userPhotos.reverse();
           $scope.userSubmissions = userInfo.data.submissions.reverse();
           $scope.totalEarned = 0;
           function mapPhotos(){
             var soldPhotos = [];
             for (var i = 0; i < userPhotos.length; i++) {
-              if(userPhotos[i].status === 'offered for sale' || 'sold'){
+              console.log(userPhotos[i].status);
+              if(userPhotos[i].status == 'offered for sale' || userPhotos[i].status == 'sold'){
                 console.log('sold one');
                 console.log(userPhotos[i]);
                 soldPhotos.push(userPhotos[i]);
                 $scope.totalEarned += userPhotos[i].price;
               }
             }
-            $scope.soldPhotos = soldPhotos.reverse();
+            $scope.soldPhotos = soldPhotos;
+            console.log($scope.soldPhotos);
           }
           mapPhotos();
         })
@@ -165,9 +168,14 @@ angular.module('accountController', [])
       }
       else if(status == 'offered for sale'){
         $scope.sellModal = true;
+        $ionicScrollDelegate.scrollTop(false);
       }
     }
     $scope.openSingle = openSingle;
+
+    $scope.closeSellModal = function(){
+      $scope.sellModal = false;
+    }
 
     function openSubmission(subInfo, evt){
       console.log($ionicScrollDelegate.getScrollPosition().top);
@@ -261,6 +269,22 @@ angular.module('accountController', [])
       })
       .then(function(updatedPhoto){
         console.log(updatedPhoto);
+        $scope.sellModal = false;
+        // window.location.reload();
+        if(updatedPhoto.data.status == 'sold'){
+          for (var i = 0; i < $scope.soldPhotos.length; i++) {
+            if($scope.soldPhotos[i]._id == updatedPhoto.data._id){
+              $scope.soldPhotos[i].status = 'sold';
+            }
+          }
+        }
+        else if(updatedPhoto.data.status == 'rejected'){
+          for (var i = 0; i < $scope.soldPhotos.length; i++) {
+            if($scope.soldPhotos[i]._id == updatedPhoto.data._id){
+              $scope.soldPhotos.splice(i, 1);
+            }
+          }
+        }
       })
     }
     $scope.buyRejectPhoto = buyRejectPhoto;

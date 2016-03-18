@@ -132,7 +132,7 @@
       <div class="" ng-if='showSold'>
         <div class="soldPhotosRepeatContainer">
           <div class="sellPhotoModal" ng-if="sellModal">
-            <div class="sellModalBlack"></div>
+            <div class="sellModalBlack" ng-click='closeSellModal()'></div>
             <div class="sellModalContent col-sm-8 col-sm-offset-2 col-xs-12 col-xs-offset-0">
               <div class="sellPhotoHolder col-sm-8 col-sm-offset-2 col-xs-12 col-xs-offset-0">
                 <img ng-src="{{singlePhotoData.url}}" ng-if="!singlePhotoData.isVideo" />
@@ -156,11 +156,12 @@
               <div class="ifSold" ng-if="soldPhoto.status == 'offered for sale'">
                 Accept Offer
               </div>
-              <div class="ifPaid" ng-if="soldPhoto.status == 'sold'">
+              <div class='ifPaid' ng-if='soldPhoto.status == "sold"'>
                 Sold!
               </div>
               <div class="priceInfo">
                 {{soldPhoto.price | currency}}
+                {{soldPhoto.status}}
               </div>
             </div>
             <img class='allSoldPhotosRepeat' ng-src="{{soldPhoto.url}}" ng-if='!soldPhoto.isVideo' />
