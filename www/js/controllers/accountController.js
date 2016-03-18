@@ -252,5 +252,17 @@ angular.module('accountController', [])
     //////////logic for hamburger menu////////
     //////////////////////////////////////////
 
+    ///////function to accept or reject price
+    function buyRejectPhoto(status, photo){
+      $http({
+        method: "POST"
+        ,url: 'http://192.168.0.7:5555/api/photopurchase'
+        ,data: {status: status, photoId: photo._id}
+      })
+      .then(function(updatedPhoto){
+        console.log(updatedPhoto);
+      })
+    }
+    $scope.buyRejectPhoto = buyRejectPhoto;
 
   }

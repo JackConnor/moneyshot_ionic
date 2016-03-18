@@ -142,10 +142,10 @@
                 Sell this photo for: {{singlePhotoData.price | currency}}
               </div>
               <div class="sellButtonContainer col-xs-12">
-                <div class="sellButton sellYes col-xs-6">
+                <div class="sellButton sellYes col-xs-6" ng-click='buyRejectPhoto("sold", singlePhotoData)'>
                   Yes, Sell Photo
                 </div>
-                <div class="sellButton sellNo col-xs-6">
+                <div class="sellButton sellNo col-xs-6" ng-click='buyRejectPhoto("rejected", singlePhotoData)'>
                   Reject Offer
                 </div>
               </div>
