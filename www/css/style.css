@@ -683,14 +683,12 @@ ion-view {
 .soldPhotosRepeat img {
   height: 100%;
   width: 100%;
-  /*position: absolute;*/
 }
 
-.soldPhotosRepeat video{
+.soldPhotosRepeat video {
   height: 100%;
   width: 100%;
   background-color: black;
-  /*position: absolute;*/
 }
 
 .soldPhotosRepeatContainer {

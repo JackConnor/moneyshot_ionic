@@ -265,13 +265,15 @@ angular.module('accountController', [])
       $http({
         method: "POST"
         ,url: 'http://192.168.0.7:5555/api/photopurchase'
-        ,data: {status: status, photoId: photo._id}
+        ,data: {status: status, photoId: photo._id, refresh_token: $scope.userInfo.refresh_token, price: photo.price}
       })
       .then(function(updatedPhoto){
         console.log(updatedPhoto);
         $scope.sellModal = false;
         // window.location.reload();
         if(updatedPhoto.data.status == 'sold'){
+          /////////bank stuff goes here
+
           for (var i = 0; i < $scope.soldPhotos.length; i++) {
             if($scope.soldPhotos[i]._id == updatedPhoto.data._id){
               $scope.soldPhotos[i].status = 'sold';

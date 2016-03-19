@@ -19,7 +19,7 @@ angular.module('bankController', [])
     .then(function(userInfo){
       $http({
         method: "POST"
-        ,url: "http://192.168.0.4:5555/api/userinfo"
+        ,url: "http://192.168.0.7:5555/api/userinfo"
         ,data: {userId: userInfo.data.userId}
       })
       .then(function(userData){
@@ -62,7 +62,7 @@ angular.module('bankController', [])
             window.location.hash = "#/"
             cordova.InAppBrowser.open("https://connect.stripe.com/oauth/authorize?response_type=code&client_id=ca_85XIIrajUKuhChdWZQFJ9zu1lmuzul3F&scope=read_write&state="+$scope.userInfo._id, "_system");
             console.log('linking');
-            window.location.reload();
+            // window.location.reload();
           }
         })
       }
