@@ -18,7 +18,7 @@ angular.module('accountController', [])
     $scope.showSubmitted  = false;
     $scope.showFinance    = false;
     $scope.hamburgerOpen  = false;
-    $scope.introModal     = false;
+    $scope.introModal     = false; 
     $scope.sellModal     = false;
     $scope.introCounter   = 0;
     $scope.scrollPosition = 0;
