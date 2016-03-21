@@ -18,6 +18,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     $scope.submitModalVar = false;
     $scope.cameraModal = false;
     $scope.cameraLaunched = false;
+    $scope.cameraToggle = true;
     var eraseSubmitArr = [];
     /////end global variables///
     ////////////////////////////
@@ -30,11 +31,13 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         CanvasCamera.initialize(canvasMain);
         // define options
         var opt = {
-            quality: 95,
+            quality: 100,
             destinationType: CanvasCamera.DestinationType.DATA_URL,
-            encodingType: CanvasCamera.EncodingType.JPEG,
+            encodingType: CanvasCamera.EncodingType.PNG,
             saveToPhotoAlbum:false,
             correctOrientation:true,
+            width: 1200,
+            height: 1500
         };
         CanvasCamera.start(opt);
         document.getElementById('camera').style.height = 100+"%";
@@ -101,6 +104,19 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     }
     $scope.openPhotoModal = openPhotoModal;
     openPhotoModal();/////calling this function to open the modal right away
+
+    // function to flip the camera
+    function flipCamera(){
+      if($scope.cameraToggle){
+        CanvasCamera.setCameraPosition(2);
+        $scope.cameraToggle = false;
+      }
+      else if(!$scope.cameraToggle) {
+        CanvasCamera.setCameraPosition(1);
+        $scope.cameraToggle = true;
+      }
+    }
+    $scope.flipCamera = flipCamera;
 
     function takePicture(){
       var options = {

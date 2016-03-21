@@ -886,6 +886,14 @@ ion-view {
   height: 100px;
 }
 
+.toggleCameraIcon {
+  color: white;
+  font-size: 28px;
+  position: absolute;
+  margin-left: 90%;
+  margin-top: 15px;
+}
+
 .xOutSignup {
   font-size: 30px;
   float: right;
