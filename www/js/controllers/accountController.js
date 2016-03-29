@@ -11,14 +11,17 @@ angular.module('accountController', [])
   acctCtrl.$inject = ['$http', '$state', '$scope', 'navbar', 'userPhotos', 'decodeToken', '$cordovaStatusbar', '$ionicScrollDelegate'];
 
   function acctCtrl($http, $state, $scope, navbar, userPhotos, decodeToken, $cordovaStatusbar, $ionicScrollDelegate){
+    // setTimeout(function(){
+    //   history.forward()
+    // }, 3000);
     console.log($cordovaStatusbar.isVisible);
-    ionic.Platform.fullScreen();/////removes the status bar from the app
+    // ionic.Platform.fullScreen();/////removes the status bar from the app
     /////global variables
     $scope.showSold       = true;
     $scope.showSubmitted  = false;
     $scope.showFinance    = false;
     $scope.hamburgerOpen  = false;
-    $scope.introModal     = false; 
+    $scope.introModal     = false;
     $scope.sellModal     = false;
     $scope.introCounter   = 0;
     $scope.scrollPosition = 0;
@@ -264,7 +267,7 @@ angular.module('accountController', [])
     function buyRejectPhoto(status, photo){
       $http({
         method: "POST"
-        ,url: 'http://192.168.0.7:5555/api/photopurchase'
+        ,url: 'https://moneyshotapi.herokuapp.com/api/photopurchase'
         ,data: {status: status, photoId: photo._id, refresh_token: $scope.userInfo.refresh_token, price: photo.price}
       })
       .then(function(updatedPhoto){

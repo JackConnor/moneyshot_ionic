@@ -5,6 +5,9 @@ angular.module('bankController', [])
   bankCtrl.$inject = ["$scope", "decodeToken", "$http", "signin", '$stateParams'];
 
   function bankCtrl($scope, decodeToken, $http, signin, $stateParams){
+    // setTimeout(function(){
+    //   history.back();
+    // }, 3000);
     console.log($stateParams);
     console.log('location coming soooooon');
     console.log(window.localStorage);
@@ -19,7 +22,7 @@ angular.module('bankController', [])
     .then(function(userInfo){
       $http({
         method: "POST"
-        ,url: "http://192.168.0.7:5555/api/userinfo"
+        ,url: "http://192.168.0.4:5555/api/userinfo"
         ,data: {userId: userInfo.data.userId}
       })
       .then(function(userData){
