@@ -32,6 +32,14 @@ angular.module('accountController', [])
     }
     addTabs();
 
+    $(window).scroll(function(){
+      console.log('yoooo');
+    })
+
+    /////////background image position fix
+    setInterval(function(){
+      $('.backgroundImage').css('top', '0px')
+    }, 10)
     /////begin intro modal stuff////
     ////////////////////////////////
     console.log($(window).height());
