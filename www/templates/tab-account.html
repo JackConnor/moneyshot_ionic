@@ -1,6 +1,11 @@
 <ion-view view-title="Account"  ng-controller='accountCtrl'>
   <ion-content overflow-scroll='false'>
     <div class="accountBody">
+
+      <div class="backgroundImage col-xs-12">
+        <img src="/img/background.png"/>
+      </div>
+
       <div class="swipeIntro" ng-if="introModal">
         <div class="swipeIntroRow" ng-swipe-left='introSwipeLeft()' ng-swipe-right='introSwipeRight()'>
           <div class="col-xs-3 swipeCell swipe1">
@@ -100,11 +105,11 @@
         <div class="col-xs-4 accountTab submittedTab" ng-click='showSubmittedFunc()'>
           Submitted
         </div>
-        <div class="col-xs-4 accountTab moneyTab" ng-click='showFinanceFunc()'>
+        <div class="col-xs-3 accountTab moneyTab" ng-click='showFinanceFunc()'>
           Money
-          <div class="col-xs-2 hamburgerHolder" ng-click="openHamburger()">
-            <p class='fa fa-bars hamburgerIcon'></p>
-          </div>
+        </div>
+        <div class="col-xs-1 hamburgerHolder" ng-click="openHamburger()">
+          <p class='fa fa-bars hamburgerIcon'></p>
         </div>
       </div>
 
@@ -173,7 +178,7 @@
         </div>
       </div>
     </div>
-    <!-- <div class="navBar">
+    <div class="">
       <div class="hamburgerBackground" ng-click='closeHamburgerBody($event)' ng-if="hamburgerOpen">
       </div>
       <div class="hamburgerMenu col-sm-4 col-sm-offset-8 col-xs-6 col-xs-offset-6" ng-if="hamburgerOpen">
@@ -192,12 +197,12 @@
           Open Tutorial
         </div>
       </div>
-      <div class="col-xs-8 col-xs-offset-2 nameTag">
+      <!-- <div class="col-xs-8 col-xs-offset-2 nameTag">
         MoPho
       </div>
       <div class="col-xs-2 hamburgerHolder" ng-click="openHamburger()">
         <p class='fa fa-bars hamburgerIcon'></p>
-      </div>
-    </div> -->
+      </div> -->
+    </div>
   </ion-content>
 </ion-view>

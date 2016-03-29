@@ -16,18 +16,16 @@ ion-view {
 .accountBody {
   position: absolute;
   /*height: 100%;*/
-  background-image: url('http://media.getstyled.net/2015/03/miranda.jpg')
-}
-
-.accountTab {
-  height: auto;
+  /*background-image: url('http://media.getstyled.net/2015/03/miranda.jpg');
+  background-attachment: fixed;
+  background-repeat:repeat-y;*/
 }
 
 .accountTab {
   height: 100%;
-  border-right: 1px solid beige;
-  color: gray;
-  font-size: 16px;
+  /*border-right: 1px solid beige;*/
+  color: white;
+  font-size: 23px;
   padding-top: 15px;
   /*background-color: gray;*/
   text-align: center;
@@ -61,6 +59,18 @@ ion-view {
   font-size: 25px;
   padding-top: 10px;
   text-align: center;
+}
+
+.backgroundImage {
+  height: auto;
+  position: fixed;
+  padding: 0px;
+}
+
+.backgroundImage img {
+  width: 100%;
+  position: absolute;
+  opacity: .8;
 }
 
 .backToPhotos {
@@ -379,8 +389,8 @@ ion-view {
 
 .hamburgerHolder {
   color: white;
-  position: absolute;
-  margin-left: 75%;
+  /*position: absolute;*/
+  /*margin-left: 75%;*/
   top: 0;
   margin-top: 8px;
   /*margin-right: 10px;*/
