@@ -87,7 +87,7 @@
           </div>
         </div>
       </div>
-      <div class="singleSubmissionModal col-xs-12">
+      <div class="singleSubmissionModal col-xs-12" ng-if='singleSubmissionModal'>
         <div class="backButton" ng-click='backToRepeat("submission")'>
           go back
         </div>
@@ -165,28 +165,28 @@
             <div class="allPhotosRepeat col-xs-6">
               <div class="submitPhotosHolder">
                 <div class="subPhotoCell subPhoto0" ng-if='submission.photos[0] && !submission.photos[0].isVideo'>
-                  <img src="{{submission.photos[0].url}}" alt="" />
+                  <img src="{{submission.photos[0].url}}" alt="" ng-click='openSubmission(submission, $event)'/>
                 </div>
                 <div class="subPhotoCell subPhoto0" ng-if='submission.photos[0] && submission.photos[0].isVideo'>
-                  <img src="https://s-media-cache-ak0.pinimg.com/736x/8a/31/71/8a3171fc490597cf02e89d7ad1fc4e35.jpg" alt="" />
+                  <img src="https://s-media-cache-ak0.pinimg.com/736x/8a/31/71/8a3171fc490597cf02e89d7ad1fc4e35.jpg" alt="" ng-click='openSubmission(submission, $event)'/>
                 </div>
                 <div class="subPhotoCell subPhoto1" ng-if='submission.photos[1] && !submission.photos[0].isVideo'>
-                  <img src="{{submission.photos[1].url}}" alt="" />
+                  <img src="{{submission.photos[1].url}}" alt="" ng-click='openSubmission(submission, $event)'/>
                 </div>
                 <div class="subPhotoCell subPhoto1" ng-if='submission.photos[1] && submission.photos[1].isVideo'>
-                  <img src="https://s-media-cache-ak0.pinimg.com/736x/8a/31/71/8a3171fc490597cf02e89d7ad1fc4e35.jpg" alt="" />
+                  <img src="https://s-media-cache-ak0.pinimg.com/736x/8a/31/71/8a3171fc490597cf02e89d7ad1fc4e35.jpg" alt="" ng-click='openSubmission(submission, $event)'/>
                 </div>
                 <div class="subPhotoCell subPhoto2" ng-if='submission.photos[2] && !submission.photos[2].isVideo'>
-                  <img src="{{submission.photos[2].url}}" alt="" />
+                  <img src="{{submission.photos[2].url}}" alt="" ng-click='openSubmission(submission, $event)'/>
                 </div>
                 <div class="subPhotoCell subPhoto2" ng-if='submission.photos[2] && submission.photos[2].isVideo'>
-                  <img src="https://s-media-cache-ak0.pinimg.com/736x/8a/31/71/8a3171fc490597cf02e89d7ad1fc4e35.jpg" alt="" />
+                  <img src="https://s-media-cache-ak0.pinimg.com/736x/8a/31/71/8a3171fc490597cf02e89d7ad1fc4e35.jpg" alt="" ng-click='openSubmission(submission, $event)'/>
                 </div>
                 <div class="subPhotoCell subPhoto3" ng-if='submission.photos[3] && !submission.photos[3].isVideo'>
-                  <img src="{{submission.photos[3].url}}" alt="" />
+                  <img src="{{submission.photos[3].url}}" alt="" ng-click='openSubmission(submission, $event)'/>
                 </div>
                 <div class="subPhotoCell subPhoto3" ng-if='submission.photos[3] && submission.photos[3].isVideo'>
-                  <img src="https://s-media-cache-ak0.pinimg.com/736x/8a/31/71/8a3171fc490597cf02e89d7ad1fc4e35.jpg" alt="" />
+                  <img src="https://s-media-cache-ak0.pinimg.com/736x/8a/31/71/8a3171fc490597cf02e89d7ad1fc4e35.jpg" alt="" ng-click='openSubmission(submission, $event)'/>
                 </div>
               </div>
             </div>

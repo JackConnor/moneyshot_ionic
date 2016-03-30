@@ -17,15 +17,16 @@ angular.module('accountController', [])
     console.log($cordovaStatusbar.isVisible);
     // ionic.Platform.fullScreen();/////removes the status bar from the app
     /////global variables
-    $scope.showSold       = false;
-    $scope.showSubmitted  = true;
-    $scope.showFinance    = false;
-    $scope.hamburgerOpen  = false;
-    $scope.introModal     = false;
-    $scope.sellModal     = false;
-    $scope.introCounter   = 0;
-    $scope.scrollPosition = 0;
-    $scope.backgroundMultiple = [];
+    $scope.showSold              = false;
+    $scope.showSubmitted         = true;
+    $scope.showFinance           = false;
+    $scope.hamburgerOpen         = false;
+    $scope.introModal            = false;
+    $scope.sellModal             = false;
+    $scope.singleSubmissionModal = false;
+    $scope.introCounter          = 0;
+    $scope.scrollPosition        = 0;
+    $scope.backgroundMultiple    = [];
 
     // function to add tabs back if coming from camera (where tabs are removed)
     function addTabs(){
@@ -338,15 +339,7 @@ angular.module('accountController', [])
       console.log($ionicScrollDelegate.getScrollPosition().top);
       $scope.scrollPosition = $ionicScrollDelegate.getScrollPosition().top;
       $scope.singleSubmission = subInfo;
-      $('.repeatContainer').css({
-        marginRight: "100%"
-      });
-      $('.submissionInfo').css({
-        opacity: 0
-      })
-      $('.singleSubmissionModal').css({
-        marginLeft: 0
-      })
+      $scope.singleSubmissionModal = true;
       $ionicScrollDelegate.scrollTop(false);
     }
     $scope.openSubmission = openSubmission;
@@ -356,23 +349,13 @@ angular.module('accountController', [])
       x.style.marginRight = 0;
       console.log(modalType);
       if(modalType == 'submission'){
-        $('.singleSubmissionModal').css({
-          marginLeft: "100%"
-        });
+       $scope.singleSubmissionModal = false;
         $ionicScrollDelegate.scrollTo(0, $scope.scrollPosition, false);
       }
       else {
         $ionicScrollDelegate.scrollTop(false);
       }
-      $('.singleImageModal').css({
-        marginLeft: "100%"
-      });
-      $('.submissionInfo').css({
-        opacity: 1
-      })
-      $('.repeatContainer').css({
-        marginRight: "0%"
-      });
+      $scope.singleSubmissionModal = false;
     }
     $scope.backToRepeat = backToRepeat;
 
