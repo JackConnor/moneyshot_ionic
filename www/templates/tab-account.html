@@ -138,13 +138,13 @@
                 </div>
               </div>
             </div>
-            <div class="soldPhotosRepeat col-md-4 col-xs-6" ng-repeat='soldPhoto in soldPhotos'>
+            <div class="soldPhotosRepeat col-md-4 col-xs-6" ng-repeat='soldPhoto in allSoldPhotos'>
               <div class="soldInnerHolder">
                 <div class="priceLayer" ng-click='openSingle(soldPhoto, soldPhoto.status)'>
                   <div class="ifSold" ng-if="soldPhoto.status == 'offered for sale'">
                     Accept Offer
                   </div>
-                  <div class='ifPaid' ng-if='soldPhoto.status == "sold"'>
+                  <div class='ifPaid col-xs-8' ng-if='soldPhoto.status == "sold"'>
                     Sold!
                   </div>
                   <div class="priceInfo">
@@ -162,8 +162,36 @@
         <!-- </div> -->
         <div class="" ng-if='showSubmitted'>
           <div class="submittedRow col-xs-12" ng-repeat='submission in userSubmissions'>
-            <video class='allPhotosRepeat col-xs-6' ng-src="{{submission.photos[0].url | trustUrl}}" controls ng-if='submission.photos[0].isVideo' ng-click='openSubmission(submission, $event)'></video>
-            <img class='allPhotosRepeat col-xs-6' ng-click='openSubmission(submission, $event)' ng-src="{{submission.photos[0].url}}" ng-if='!submission.photos[0].isVideo'/>
+            <div class="allPhotosRepeat col-xs-6">
+              <div class="submitPhotosHolder col-xs-12">
+                <div class="subPhotoCell subPhoto0" ng-if='submission.photos[0] && !submission.photos[0].isVideo'>
+                  <img src="{{submission.photos[0].url}}" alt="" />
+                </div>
+                <div class="subPhotoCell subPhoto0" ng-if='submission.photos[0] && submission.photos[0].isVideo'>
+                  <img src="http://previews.123rf.com/images/floralset/floralset1404/floralset140400826/27691323-Video-camera-icon-Media-symbol-Flat-design--Stock-Vector.jpg" alt="" />
+                </div>
+                <div class="subPhotoCell subPhoto1" ng-if='submission.photos[1] && !submission.photos[0].isVideo'>
+                  <img src="{{submission.photos[1].url}}" alt="" />
+                </div>
+                <div class="subPhotoCell subPhoto1" ng-if='submission.photos[1] && submission.photos[1].isVideo'>
+                  <img src="http://previews.123rf.com/images/floralset/floralset1404/floralset140400826/27691323-Video-camera-icon-Media-symbol-Flat-design--Stock-Vector.jpg" alt="" />
+                </div>
+                <div class="subPhotoCell subPhoto2" ng-if='submission.photos[2] && !submission.photos[2].isVideo'>
+                  <img src="{{submission.photos[2].url}}" alt="" />
+                </div>
+                <div class="subPhotoCell subPhoto2" ng-if='submission.photos[2] && submission.photos[2].isVideo'>
+                  <img src="http://previews.123rf.com/images/floralset/floralset1404/floralset140400826/27691323-Video-camera-icon-Media-symbol-Flat-design--Stock-Vector.jpg" alt="" />
+                </div>
+                <div class="subPhotoCell subPhoto3" ng-if='submission.photos[3] && !submission.photos[3].isVideo'>
+                  <img src="{{submission.photos[3].url}}" alt="" />
+                </div>
+                <div class="subPhotoCell subPhoto3" ng-if='submission.photos[3] && submission.photos[3].isVideo'>
+                  <img src="http://previews.123rf.com/images/floralset/floralset1404/floralset140400826/27691323-Video-camera-icon-Media-symbol-Flat-design--Stock-Vector.jpg" alt="" />
+                </div>
+              </div>
+            </div>
+            <!-- <video class='allPhotosRepeat col-xs-6' ng-src="{{submission.photos[0].url | trustUrl}}" controls ng-if='submission.photos[0].isVideo' ng-click='openSubmission(submission, $event)'></video>
+            <img class='allPhotosRepeat col-xs-6' ng-click='openSubmission(submission, $event)' ng-src="{{submission.photos[0].url}}" ng-if='!submission.photos[0].isVideo'/> -->
             <div class="submissionInfo col-xs-6" >
               Date submitted: {{submission.date | date}}
             </div>

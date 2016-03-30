@@ -17,8 +17,8 @@ angular.module('accountController', [])
     console.log($cordovaStatusbar.isVisible);
     // ionic.Platform.fullScreen();/////removes the status bar from the app
     /////global variables
-    $scope.showSold       = true;
-    $scope.showSubmitted  = false;
+    $scope.showSold       = false;
+    $scope.showSubmitted  = true;
     $scope.showFinance    = false;
     $scope.hamburgerOpen  = false;
     $scope.introModal     = false;
@@ -38,21 +38,21 @@ angular.module('accountController', [])
         $('.soldTabInner').css({
           fontStyle: 'bold'
           ,fontSize: "19px"
-          ,borderBottom: "3px solid green"
+          ,borderBottom: "5px solid green"
         })
       }
       else if($scope.showSubmitted){
         $('.submittedTabInner').css({
           fontStyle: 'bold'
           ,fontSize: "19px"
-          ,borderBottom: "3px solid green"
+          ,borderBottom: "5px solid green"
         })
       }
       else if($scope.showFinance){
         $('.moneyTabInner').css({
           fontStyle: 'bold'
           ,fontSize: "19px"
-          ,borderBottom: "3px solid green"
+          ,borderBottom: "5px solid green"
         })
       }
     }
@@ -125,21 +125,30 @@ angular.module('accountController', [])
           console.log(userPhotos);
           $scope.userPhotos = userPhotos.reverse();
           $scope.userSubmissions = userInfo.data.submissions.reverse();
+          console.log($scope.userSubmissions);
           $scope.totalEarned = 0;
           function mapPhotos(){
             var soldPhotos = [];
+            var offeredPhotos = [];
             for (var i = 0; i < userPhotos.length; i++) {
-              console.log(userPhotos[i].status);
-              if(userPhotos[i].status == 'offered for sale' || userPhotos[i].status == 'sold'){
-                console.log('sold one');
-                console.log(userPhotos[i]);
+              if(userPhotos[i].status == 'sold'){
                 soldPhotos.push(userPhotos[i]);
                 $scope.totalEarned += userPhotos[i].price;
+                if(i == userPhotos.length-1){
+                  $scope.allSoldPhotos = offeredPhotos.concat(soldPhotos);
+                }
+              }
+              else if(userPhotos[i].status == 'offered for sale'){
+                offeredPhotos.push(userPhotos[i]);
+                $scope.totalEarned += userPhotos[i].price;
+                if(i == userPhotos.length-1){
+                  $scope.allSoldPhotos = offeredPhotos.concat(soldPhotos);
+                }
               }
             }
-            $scope.soldPhotos = soldPhotos;
-            console.log($scope.soldPhotos);
-            for (var i = 0; i < soldPhotos.length; i++) {
+            // $scope.soldPhotos = soldPhotos;
+            // console.log($scope.soldPhotos);
+            for (var i = 0; i < $scope.allSoldPhotos.length; i++) {
               $scope.backgroundMultiple.push('filler'+i);
             }
             setCss();
@@ -233,7 +242,7 @@ angular.module('accountController', [])
         $('.soldTabInner').css({
           fontStyle: 'bold'
           ,fontSize: "19px"
-          ,borderBottom: "3px solid green"
+          ,borderBottom: "5px solid green"
         })
       }
       else if(submission()){
@@ -241,7 +250,7 @@ angular.module('accountController', [])
         $('.submittedTabInner').css({
           fontStyle: 'bold'
           ,fontSize: "19px"
-          ,borderBottom: "3px solid green"
+          ,borderBottom: "5px solid green"
         })
       }
       else if(finance()){
@@ -249,7 +258,7 @@ angular.module('accountController', [])
         $('.moneyTabInner').css({
           fontStyle: 'bold'
           ,fontSize: "19px"
-          ,borderBottom: "3px solid green"
+          ,borderBottom: "5px solid green"
         })
       }
     }

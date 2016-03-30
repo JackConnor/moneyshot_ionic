@@ -41,13 +41,13 @@ ion-view {
 .allPhotosRepeat {
   padding: 0px;
   height: 100%;
+  border: 3px solid blue;
 }
 
 .allSoldPhotosRepeat {
   padding: 0px;
   width: 100%;
   min-height: 100%;
-  /*height: 100%;*/
 }
 
 .backButton {
@@ -413,7 +413,7 @@ ion-view {
 .ifPaid {
   position: absolute;
   height: 40px;
-  width: 70px;
+  /*width: 70px;*/
   background-color: green;
 }
 
@@ -863,6 +863,45 @@ ion-view {
   margin-top: 25px;
   background-color: green;
   display: inline-block;
+}
+
+.subPhoto0 {
+  z-index: 6;
+}
+
+.subPhoto1 {
+  z-index: 5;
+  margin-left: 20px;
+}
+
+.subPhoto2 {
+  z-index: 4;
+  margin-left: 40px;
+}
+
+.subPhoto3 {
+  z-index: 3;
+  margin-left: 60px;
+}
+
+.subPhotoCell {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 2px solid gray;
+}
+
+.subPhotoCell img{
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+
+.submitPhotosHolder {
+  padding: 0px;
+  height: 100px;
+  margin-top: 15px;
 }
 
 .subRepeat {
