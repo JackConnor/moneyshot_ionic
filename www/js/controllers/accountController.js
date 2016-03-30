@@ -56,7 +56,6 @@ angular.module('accountController', [])
         })
       }
     }
-    setCss();
 
     /////begin intro modal stuff////
     ////////////////////////////////
@@ -143,6 +142,7 @@ angular.module('accountController', [])
             for (var i = 0; i < soldPhotos.length; i++) {
               $scope.backgroundMultiple.push('filler'+i);
             }
+            setCss();
           }
           mapPhotos();
         })
