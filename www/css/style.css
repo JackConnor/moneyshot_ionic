@@ -52,13 +52,16 @@ ion-view {
 .backButton {
   width: 140px;
   height: 45px;
-  margin: 10px 0 10px 0;
-  background-color: purple;
+  margin: 5px 0 0px 0;
+  /*background-color: purple;*/
+  border-bottom: 4px solid green;
   color: white;
   text-align: center;
-  font-size: 25px;
+  font-size: 32px;
   padding-top: 10px;
   text-align: center;
+  z-index: 25;
+  position: absolute;
 }
 
 .backgroundImage {
@@ -702,17 +705,15 @@ ion-view {
 .singleSubmissionBackground {
   position: absolute;
   width: 100%;
-  height: 2000px;
+  height: 1000%;
   background-color: black;
-  opacity: 0.5;
+  opacity: 0.7;
 }
 
 .singleSubmissionModal {
   position: absolute;
   height: auto;
   padding: 0px;
-  /*margin-left: 100%;*/
-  background-color: gray;
   z-index: 25;
 }
 
@@ -768,7 +769,8 @@ ion-view {
 }
 
 .submissionRepeatContainer {
-  z-index: -3
+  z-index: -3;
+  margin-top: 55px;
 }
 
 .submitButton {

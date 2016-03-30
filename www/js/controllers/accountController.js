@@ -123,10 +123,8 @@ angular.module('accountController', [])
         .then(function(userInfo){
           $scope.userInfo = userInfo.data;
           var userPhotos = userInfo.data.photos;////this is all of a signed-in user's
-          console.log(userPhotos);
           $scope.userPhotos = userPhotos.reverse();
           $scope.userSubmissions = userInfo.data.submissions.reverse();
-          console.log($scope.userSubmissions);
           $scope.totalEarned = 0;
           function mapPhotos(){
             var soldPhotos = [];
@@ -340,6 +338,9 @@ angular.module('accountController', [])
       $scope.scrollPosition = $ionicScrollDelegate.getScrollPosition().top;
       $scope.singleSubmission = subInfo;
       $scope.singleSubmissionModal = true;
+      setTimeout(function(){
+        limitSubmissionModalScroll();
+      }, 200);
       $ionicScrollDelegate.scrollTop(false);
     }
     $scope.openSubmission = openSubmission;
@@ -431,4 +432,8 @@ angular.module('accountController', [])
     }
     $scope.buyRejectPhoto = buyRejectPhoto;
 
+
+  ////////////////////////
+  ////end controller//////
+  ///////////////////////
   }
