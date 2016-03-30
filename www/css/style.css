@@ -41,7 +41,6 @@ ion-view {
 .allPhotosRepeat {
   padding: 0px;
   height: 100%;
-  border: 3px solid blue;
 }
 
 .allSoldPhotosRepeat {
@@ -833,6 +832,14 @@ ion-view {
   height: 100%;
 }
 
+.submitPhotosHolder {
+  padding: 0px;
+  height: 100px;
+  margin-top: 15px;
+  min-width: 100%;
+  border: 2px solid blue;
+}
+
 .submitRepeat{
   padding: 0px;
 }
@@ -886,6 +893,7 @@ ion-view {
 
 .subPhotoCell {
   position: absolute;
+  background-color: white;
   width: 100px;
   height: 100px;
   border-radius: 50%;
@@ -896,12 +904,6 @@ ion-view {
   width: 100%;
   height: 100%;
   border-radius: 50%;
-}
-
-.submitPhotosHolder {
-  padding: 0px;
-  height: 100px;
-  margin-top: 15px;
 }
 
 .subRepeat {

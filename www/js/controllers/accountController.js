@@ -159,6 +159,42 @@ angular.module('accountController', [])
     }
     getUserPhotos(userToken);
 
+    setTimeout(function(){
+      var arr = $scope.userSubmissions;
+      for (var i = 0; i < arr.length; i++) {
+        if(arr[i].photos.length == 1){
+          var el = $('.submittedRow'+i).find('.subPhoto0');
+          el.animate({
+            marginLeft: '30px'
+          }, 300);
+        }
+        else if(arr[i].photos.length == 2){
+          var el = $('.submittedRow'+i).find('.subPhoto0');
+          var el1 = $('.submittedRow'+i).find('.subPhoto1');
+          el.animate({
+            marginLeft: '20px'
+          }, 300);
+          el1.animate({
+            marginLeft: '55px'
+          }, 300);
+        }
+        else if(arr[i].photos.length == 3){
+          var el = $('.submittedRow'+i).find('.subPhoto0');
+          var el1 = $('.submittedRow'+i).find('.subPhoto1');
+          var el2 = $('.submittedRow'+i).find('.subPhoto2');
+          el.animate({
+            marginLeft: '10px'
+          }, 300);
+          el1.animate({
+            marginLeft: '35px'
+          }, 300);
+          el2.animate({
+            marginLeft: '60px'
+          }, 300);
+        }
+      }
+    }, 2000);
+
     function checkToken(){
       var maybeToken = window.localStorage.webToken;
       if(maybeToken.length > 4){
