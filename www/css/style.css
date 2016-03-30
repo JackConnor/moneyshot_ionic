@@ -24,11 +24,10 @@ ion-view {
 
 .accountTab {
   height: 100%;
-  /*border-right: 1px solid beige;*/
+  padding: 0px;
   color: white;
   font-size: 16px;
   padding-top: 30px;
-  /*background-color: gray;*/
   text-align: center;
 }
 

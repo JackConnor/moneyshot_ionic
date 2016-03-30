@@ -33,14 +33,31 @@ angular.module('accountController', [])
     }
     addTabs();
 
-    $(window).scroll(function(){
-      console.log('yoooo');
-    })
+    function setCss(){
+      if($scope.showSold){
+        $('.soldTabInner').css({
+          fontStyle: 'bold'
+          ,fontSize: "19px"
+          ,borderBottom: "3px solid green"
+        })
+      }
+      else if($scope.showSubmitted){
+        $('.submittedTabInner').css({
+          fontStyle: 'bold'
+          ,fontSize: "19px"
+          ,borderBottom: "3px solid green"
+        })
+      }
+      else if($scope.showFinance){
+        $('.moneyTabInner').css({
+          fontStyle: 'bold'
+          ,fontSize: "19px"
+          ,borderBottom: "3px solid green"
+        })
+      }
+    }
+    setCss();
 
-    /////////background image position fix
-    setInterval(function(){
-      $('.backgroundImage').css('top', '0px')
-    }, 10)
     /////begin intro modal stuff////
     ////////////////////////////////
     console.log($(window).height());
@@ -165,6 +182,78 @@ angular.module('accountController', [])
       $scope.showFinance   = true;
     }
     $scope.showFinanceFunc = showFinanceFunc;
+    ////function to adjust the text ui when a tab is selected
+    function tabUi(evt){
+      console.log('yo');
+      console.log(evt.currentTarget);
+      var sold = function(){
+        if($(evt.currentTarget).hasClass('soldTab')){
+          return true;
+        }
+        else {
+          return false;
+        }
+      }
+      var submission = function(){
+        if($(evt.currentTarget).hasClass('submittedTab')){
+          return true;
+        }
+        else {
+          return false;
+        }
+      }
+      var finance = function(){
+        if($(evt.currentTarget).hasClass('moneyTab')){
+          return true;
+        }
+        else {
+          return false;
+        }
+      }
+      //////first we take out all current additional css
+      $('.soldTabInner').css({
+        fontStyle: 'regular'
+        ,fontSize: "16px"
+        ,borderBottom: ""
+      })
+      $('.submittedTabInner').css({
+        fontStyle: 'regular'
+        ,fontSize: "16px"
+        ,borderBottom: ""
+      })
+      $('.moneyTabInner').css({
+        fontStyle: 'regular'
+        ,fontSize: "16px"
+        ,borderBottom: ""
+      })
+
+      ///////now we select and add css to correct text
+      if(sold()){
+        console.log('sold');
+        $('.soldTabInner').css({
+          fontStyle: 'bold'
+          ,fontSize: "19px"
+          ,borderBottom: "3px solid green"
+        })
+      }
+      else if(submission()){
+        console.log('submitted');
+        $('.submittedTabInner').css({
+          fontStyle: 'bold'
+          ,fontSize: "19px"
+          ,borderBottom: "3px solid green"
+        })
+      }
+      else if(finance()){
+        console.log('money');
+        $('.moneyTabInner').css({
+          fontStyle: 'bold'
+          ,fontSize: "19px"
+          ,borderBottom: "3px solid green"
+        })
+      }
+    }
+    $scope.tabUi = tabUi;
 
     function openSingle(photoData, status){
       console.log(status);
