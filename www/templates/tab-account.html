@@ -92,6 +92,7 @@
           go back
         </div>
         <div class="submissionRepeatContainer">
+          <div class="singleSubmissionBackground"></div>
           <div class="col-sm-4 col-xs-6 subRepeat" ng-repeat="photo in singleSubmission.photos">
             <video ng-src="{{photo.url | trustUrl}}" class="col-xs-12" controls ng-if="photo.isVideo" ng-click='openSingle(photo)'></video>
             <img ng-src="{{photo.url | trustUrl}}" ng-if="!photo.isVideo" class="col-xs-12" ng-click='openSingle(photo)'/>
