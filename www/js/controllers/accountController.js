@@ -159,23 +159,23 @@ angular.module('accountController', [])
     }
     getUserPhotos(userToken);
 
-    setTimeout(function(){
+    function setPhotoUiSubs(){
       var arr = $scope.userSubmissions;
       for (var i = 0; i < arr.length; i++) {
         if(arr[i].photos.length == 1){
           var el = $('.submittedRow'+i).find('.subPhoto0');
           el.animate({
-            marginLeft: '30px'
+            marginLeft: '27.5px'
           }, 300);
         }
         else if(arr[i].photos.length == 2){
           var el = $('.submittedRow'+i).find('.subPhoto0');
           var el1 = $('.submittedRow'+i).find('.subPhoto1');
           el.animate({
-            marginLeft: '20px'
+            marginLeft: '10px'
           }, 300);
           el1.animate({
-            marginLeft: '55px'
+            marginLeft: '45px'
           }, 300);
         }
         else if(arr[i].photos.length == 3){
@@ -183,17 +183,22 @@ angular.module('accountController', [])
           var el1 = $('.submittedRow'+i).find('.subPhoto1');
           var el2 = $('.submittedRow'+i).find('.subPhoto2');
           el.animate({
-            marginLeft: '10px'
+            marginLeft: '5px'
           }, 300);
           el1.animate({
-            marginLeft: '35px'
+            marginLeft: '27.5px'
           }, 300);
           el2.animate({
-            marginLeft: '60px'
+            marginLeft: '50px'
           }, 300);
         }
       }
-    }, 2000);
+    }
+
+    setTimeout(setPhotoUiSubs, 500);
+    setTimeout(setPhotoUiSubs, 1000);
+    setTimeout(setPhotoUiSubs, 2000);
+    setTimeout(setPhotoUiSubs, 3000);
 
     function checkToken(){
       var maybeToken = window.localStorage.webToken;
@@ -218,6 +223,9 @@ angular.module('accountController', [])
       $scope.showSold      = false;
       $scope.showSubmitted = true;
       $scope.showFinance   = false;
+      setTimeout(function(){
+        setPhotoUiSubs();
+      }, 400)
     }
     $scope.showSubmittedFunc = showSubmittedFunc;
 
