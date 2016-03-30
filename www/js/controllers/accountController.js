@@ -25,6 +25,7 @@ angular.module('accountController', [])
     $scope.sellModal     = false;
     $scope.introCounter   = 0;
     $scope.scrollPosition = 0;
+    $scope.backgroundMultiple = [];
 
     // function to add tabs back if coming from camera (where tabs are removed)
     function addTabs(){
@@ -122,6 +123,9 @@ angular.module('accountController', [])
             }
             $scope.soldPhotos = soldPhotos;
             console.log($scope.soldPhotos);
+            for (var i = 0; i < soldPhotos.length; i++) {
+              $scope.backgroundMultiple.push('filler'+i);
+            }
           }
           mapPhotos();
         })

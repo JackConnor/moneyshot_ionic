@@ -15,6 +15,7 @@ ion-view {
 
 .accountBody {
   position: absolute;
+  overflow: hidden;
   /*height: 100%;*/
   /*background-image: url('http://media.getstyled.net/2015/03/miranda.jpg');
   background-attachment: fixed;
@@ -63,12 +64,13 @@ ion-view {
 
 .backgroundImage {
   height: auto;
-  position: fixed;
   padding: 0px;
+  position: absolute;
 }
 
 .backgroundImage img {
   width: 100%;
+  margin-top: -6px;
   opacity: .8;
 }
 
