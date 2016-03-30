@@ -341,6 +341,9 @@ angular.module('accountController', [])
       setTimeout(function(){
         limitSubmissionModalScroll();
       }, 200);
+      $('.repeatContainer').css({
+        opacity: 0
+      })
       $ionicScrollDelegate.scrollTop(false);
     }
     $scope.openSubmission = openSubmission;
@@ -350,13 +353,16 @@ angular.module('accountController', [])
       x.style.marginRight = 0;
       console.log(modalType);
       if(modalType == 'submission'){
-       $scope.singleSubmissionModal = false;
+        $scope.singleSubmissionModal = false;
         $ionicScrollDelegate.scrollTo(0, $scope.scrollPosition, false);
       }
       else {
         $ionicScrollDelegate.scrollTop(false);
       }
       $scope.singleSubmissionModal = false;
+      $('.repeatContainer').css({
+        opacity: 1
+      })
     }
     $scope.backToRepeat = backToRepeat;
 

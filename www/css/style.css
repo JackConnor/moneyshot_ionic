@@ -54,10 +54,10 @@ ion-view {
   height: 45px;
   margin: 5px 0 0px 0;
   /*background-color: purple;*/
-  border-bottom: 4px solid green;
-  color: white;
+  color: #2cec2c;
   text-align: center;
   font-size: 32px;
+  font-weight: bolder;
   padding-top: 10px;
   text-align: center;
   z-index: 25;
