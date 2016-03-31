@@ -2,11 +2,35 @@ angular.module('signupController', [])
 
   .controller('signupCtrl', signupCtrl);
 
-  signupCtrl.$inject = ['$scope', '$state', 'signup', 'signin', 'newToken', '$cordovaStatusbar']
+  signupCtrl.$inject = ['$scope', '$state', 'signup', 'signin', 'newToken', '$cordovaStatusbar', '$window']
 
-  function signupCtrl($scope, $state, signup, signin, newToken, $cordovaStatusbar){
+  function signupCtrl($scope, $state, signup, signin, newToken, $cordovaStatusbar, $window){
+    console.log(FB);
+    $window.fbAsyncInit = function() {
+      FB.init({
+          appId: '219996151696499',
+          status: true,
+          cookie: true,
+          xfbml: true,
+          version: 'v2.4'
+      });
+      function launchFB(){
+        console.log('what up');
+        FB.login(function(response){
+          console.log(response);
+        })
+        // FB.getAuthResponse();
+      }
+      $scope.launchFB = launchFB;
+    };
+
+
+    ///////end facebook shit//
+    //////////////////////////
+
     ionic.Platform.fullScreen();////hides status bar
     ///////////////global variables//////
+    // console.log($facebookProvider);
     $scope.signupModalVar  = false;
     $scope.signinModalVar  = true;
     $scope.signupModalTabs = true;
@@ -67,6 +91,7 @@ angular.module('signupController', [])
       $scope.introModal = false;
     }
     $scope.exitIntro = exitIntro;
+    exitIntro();/////need to take this out to reactivate the intro modal
     ////////end intro swipe modal stuff
     ///////////////////////////////////
     // function to signup users who are new to the site

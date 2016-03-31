@@ -350,6 +350,23 @@ ion-view {
   color: white;
 }
 
+.fbSignin {
+  padding-top: 15px;
+  height: auto;
+  width: 100px;
+  margin: 0 auto;
+}
+
+.fbSignin img{
+  height: 100%;
+  width: 100%;
+}
+
+.fbText {
+  text-align: center;
+  font-size: 25px;
+}
+
 .goToSignin {
   width: 20%;
   margin-left: 5%;
@@ -624,17 +641,23 @@ ion-view {
   color: white;
 }
 
-.signinTabs {
-  height: 60px;
-  width: 100%;
-}
-
 .signinModal {
   position: absolute;
   width: 100%;
   height: 1000px;
   background-color: #323232;
   color: white;
+}
+
+.signinOr {
+  text-align: center;
+  font-size: 22px;
+  margin-top: 20px;
+}
+
+.signinTabs {
+  height: 60px;
+  width: 100%;
 }
 
 .signout {
@@ -707,7 +730,7 @@ ion-view {
   width: 100%;
   height: 1000%;
   background-color: black;
-  opacity: 0.7;
+  opacity: 0.4;
 }
 
 .singleSubmissionModal {

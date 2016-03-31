@@ -4,6 +4,7 @@
   "description": "moneyshot_ionic_app: An Ionic project",
   "dependencies": {
     "angular": "^1.5.0",
+    "angular-facebook": "0.0.2",
     "angular-img-cropper": "0.0.2",
     "angular-route": "^1.5.0",
     "bcrypt": "^0.8.5",
@@ -21,6 +22,7 @@
     "jquery": "^2.2.1",
     "jquery-ui": "^1.10.5",
     "multer": "^1.1.0",
+    "ng-facebook": "^0.1.6",
     "ng-file-upload": "^12.0.1",
     "youtube-api": "^1.4.0"
   },

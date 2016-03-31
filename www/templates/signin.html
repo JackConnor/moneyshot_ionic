@@ -1,4 +1,21 @@
 <ion-view view-title="Signin">
+  <!-- <script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '219996151696499',
+      xfbml      : true,
+      version    : 'v2.5'
+    });
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</script> -->
   <div class="swipeIntro" ng-if="introModal">
     <div class="swipeIntroRow" ng-swipe-left='introSwipeLeft()' ng-swipe-right='introSwipeRight()'>
       <div class="col-xs-3 swipeCell swipe1">
@@ -79,7 +96,7 @@
         <input type="text" class='signupConfirmPassword splashInput' placeholder='Confirm Password'>
         <button type="button" class='submitSignup' ng-click='submitSignup()'>Sign Up</button>
         <div class="goToSignin" ng-mouseenter='hoverSignin($event)' ng-mouseleave='outHoverSignin($event)' ng-click='toggleSigns($event)'>
-          Signin?
+          Signup?
         </div>
       </div>
     </div>
@@ -89,8 +106,19 @@
         <input type="text" class='signupPassword splashInput' placeholder='Password'>
         <button type="button" class='submitSignup' ng-click='signinUser()'>Sign In</button>
         <div class="goToSignup" ng-mouseenter='hoverSignin($event)' ng-mouseleave='outHoverSignin($event)' ng-click='toggleSigns($event)'>
-          Signup?
+          Signin?
         </div>
+      </div>
+      <div class="signinOr">
+        ------------ OR ------------
+      </div>
+      <div class="fbSignin">
+        <img src="http://www.midzu.it/images/fb.png" alt="" ng-click='launchFB()'/>
+      </div>
+      <!-- <fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
+      </fb:login-button> -->
+      <div class="fbText">
+        Sign In With Facebook
       </div>
     </div>
   </ion-content>
