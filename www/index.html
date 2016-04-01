@@ -8,12 +8,18 @@
     <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
     <link href="css/ionic.app.css" rel="stylesheet">
     -->
+
+    <!-- //////phonegap plugins -->
+    <gap:plugin name="com.mbppower.camerapreview" version="0.0.8" source="plugins.cordova.io" />
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.0/jquery.min.js" charset="utf-8"></script>
     <!-- ionic/angularjs js -->
     <script src="lib/ionic/js/ionic.bundle.js"></script>
+    <!-- <script src="../ng-cordova-oauth/dist/ng-cordova-oauth.min.js"></script> -->
 
     <!-- cordova script (this will be a 404 during development) -->
     <script src="cordova.js"></script>
+    <script src="lib/angular-facebook.js" charset="utf-8"></script>
     <script src="http://connect.facebook.net/en_US/all.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/danialfarid-angular-file-upload/12.0.1/ng-file-upload.min.js"></script> <!-- for no html5 browsers support -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/danialfarid-angular-file-upload/12.0.1/ng-file-upload-shim.min.js"></script>
@@ -59,7 +65,7 @@
     <script src="js/factories/userPhotosFactory.js" charset="utf-8"></script>
     <script src="js/factories/decodeTokenFactory.js" charset="utf-8"></script>
   </head>
-  <body ng-app="starter">
+  <body ng-app="starter" style="background-color='transparent'">
     <!--
       The nav bar that will be updated as we navigate between views.
     -->

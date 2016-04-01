@@ -4,6 +4,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
   cameraCtrl.$inject = ['$http', '$state', '$scope', 'singlePhoto', 'Upload', '$q', '$cordovaCamera', '$cordovaFile', '$cordovaFileTransfer', 'signup', 'signin', 'newToken', '$cordovaCapture', 'Upload', '$cordovaStatusbar'];
   function cameraCtrl($http, $state, $scope, singlePhoto, Upload, $q, $cordovaCamera, $cordovaFile, $cordovaFileTransfer, signup, signin, newToken, $cordovaCapture, Upload, $cordovaStatusbar){
+
     // ionic.Platform.fullScreen();//////hides status bar
     ////////function to remove tabs from this view
     function removeTabs(){
@@ -27,38 +28,45 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     /////functions to upload photos////
     // console.log(CanvasCamera);
     function uploadPhotos() {
+        console.log($('.viewYo'));
         $scope.cameraLaunched = true;
         canvasMain = document.getElementById("camera");
-        CanvasCamera.initialize(canvasMain);
+        // CanvasCamera.initialize(canvasMain);
         // define options
-        var opt = {
-            quality: 100,
-            destinationType: CanvasCamera.DestinationType.DATA_URL,
-            encodingType: CanvasCamera.EncodingType.PNG,
-            saveToPhotoAlbum:false,
-            correctOrientation:true,
-            width: 1200
-        };
-        CanvasCamera.start(opt);
-        document.getElementById('camera').style.height = 100+"%";
+        // var opt = {
+        //     quality: 100,
+        //     destinationType: CanvasCamera.DestinationType.DATA_URL,
+        //     encodingType: CanvasCamera.EncodingType.PNG,
+        //     saveToPhotoAlbum:false,
+        //     correctOrientation:true,
+        // };
+        var tapEnabled = true; //enable tap take picture
+        var dragEnabled = true; //enable preview box drag across the screen
+        var toBack = false; //send preview box to the back of the webview
+        console.log(1);
+        console.log(1);
+        console.log(1);
+        console.log(1);
+        console.log(cordova.plugins.camerapreview);
+        var rect = {x: 0, y: 50, width: 375, height: 398};
+        cordova.plugins.camerapreview.startCamera(rect, 'back', tapEnabled, dragEnabled, toBack);
+        cordova.plugins.camerapreview.setOnPictureTakenHandler(function(result){
+          console.log(result);
+            $scope.newPhotoData = result[0];
+            $scope.mediaCache.push({
+              type: "photo"
+              ,link: $scope.newPhotoData
+              ,date: new Date()
+            });
+        });
+        function toggleView(){
+          cordova.plugins.camerapreview.switchCamera();
+        }
+        $scope.toggleView = toggleView;
+        // window.plugin.CanvasCamera.start(opt);
+        // document.getElementById('camera').style.height = 100+"%";
         function takeCordovaPicture(){
-          CanvasCamera.takePicture(function(photoData){
-            console.log('uuuuuuuu');
-            console.log(photoData);
-          })
-          CanvasCamera.capture(function(photoData){
-            console.log('uuuuuuuu');
-            console.log(photoData);
-          })
-          var canvas = document.getElementById("camera");
-          var dataURL = canvas.toDataURL("img/png");
-          dataRefined = "data:image/jpeg;base64," + dataURL;
-          $scope.newPhotoData = dataURL;
-          $scope.mediaCache.push({
-            type: "photo"
-            ,link: $scope.newPhotoData
-            ,date: new Date()
-          })
+          cordova.plugins.camerapreview.takePicture({maxWidth:2000, maxHeight:2000});
           $('.takePhotoButton').css({
             backgroundColor: "red"
           })
@@ -67,14 +75,14 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
               backgroundColor: "blue"
             })
           }, 300)
-          $('#camera').css({
-            border: "5px solid white"
+          $('.cameraModal').css({
+            backgroundColor: "#7f0000"
           })
           setTimeout(function(){
-            $('#camera').css({
-              border: ""
+            $('.cameraModal').css({
+              backgroundColor: ""
             })
-          }, 300);
+          }, 200);
         }
         $scope.takeCordovaPicture = takeCordovaPicture;
     }
@@ -452,6 +460,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     }, 500)
 
     function submitModalOpen(){
+      cordova.plugins.camerapreview.hide();
       $scope.submitModalVar = true;
     }
 

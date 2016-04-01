@@ -1,29 +1,47 @@
 angular.module('signupController', [])
 
+  .config(function(FacebookProvider) {
+     // Set your appId through the setAppId method or
+     // use the shortcut in the initialize method directly.
+     FacebookProvider.init('219996151696499');
+  })
+
   .controller('signupCtrl', signupCtrl);
 
-  signupCtrl.$inject = ['$scope', '$state', 'signup', 'signin', 'newToken', '$cordovaStatusbar', '$window']
+  signupCtrl.$inject = ['$scope', '$state', 'signup', 'signin', 'newToken', '$cordovaStatusbar', '$window', 'Facebook']
 
-  function signupCtrl($scope, $state, signup, signin, newToken, $cordovaStatusbar, $window){
-    console.log(FB);
-    $window.fbAsyncInit = function() {
-      FB.init({
-          appId: '219996151696499',
-          status: true,
-          cookie: true,
-          xfbml: true,
-          version: 'v2.4'
-      });
-      function launchFB(){
-        console.log('what up');
-        FB.login(function(response){
-          console.log(response);
-        })
-        // FB.getAuthResponse();
-      }
-      $scope.launchFB = launchFB;
-    };
+  function signupCtrl($scope, $state, signup, signin, newToken, $cordovaStatusbar, $window, Facebook){
+    console.log(Facebook);
 
+    // console.log(window.location.href);
+    FB.init({
+        appId: '219996151696499',
+        status: true,
+        cookie: true,
+        xfbml: true,
+        version: 'v2.4'
+    });
+    function launchFB(){
+      console.log('yo');
+      console.log(window.location.href);
+      console.log(FB);
+      console.log(FB.XFBML);
+      // Facebook.getLoginStatus(function(response){
+      //   console.log(response);
+      // })
+      // FB.getLoginStatus(function(response){
+      //   console.log(response);
+      //   if(response.status == 'unknown' || response.status == 'not_authorized'){
+      //     FB.login(function(loginResponse){
+      //       console.log(loginResponse);
+      //     })
+      //   }
+      //   else {
+      //     console.log('already logged in, it would seem');
+      //   }
+      // })
+    }
+    $scope.launchFB = launchFB;
 
     ///////end facebook shit//
     //////////////////////////

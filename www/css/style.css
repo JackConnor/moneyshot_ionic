@@ -1,9 +1,13 @@
 /* Empty. Add your own CSS if you like */
 
 body {
-  background-color: transparent;
   font-family: "Akzidenz Grotesk";
 }
+
+
+/*body, ion-tabs, .pane, .tab-nav, .tabs, html, ion-pane, ion-content, ion-view, ion-nav-view, .scroll, .platform-ios, .view, .platform-ios, .cameraModal {
+  background-color: transparent;
+}*/
 
 /*ion-content {
   height: auto;
@@ -202,9 +206,9 @@ ion-view {
 
 .cameraBack {
   position: absolute;
-  margin: 10px 0 0  10px;
+  margin: 0px 0 0  10px;
   color: white;
-  font-size: 38px;
+  font-size: 28px;
   width: 50px;
   /*outline: 2px solid white;*/
 }
@@ -248,7 +252,7 @@ ion-view {
   width: 100%;
   height: 568px;
   position: fixed;
-  background-color: blue;
+  background-color: black;
   z-index: 15;
 }
 
