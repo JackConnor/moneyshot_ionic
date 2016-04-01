@@ -813,7 +813,6 @@ ion-view {
 .submitCell {
   height: 200px;
   padding: 0px;
-  /*border: 2px solid blue;*/
   overflow: hidden;
 }
 

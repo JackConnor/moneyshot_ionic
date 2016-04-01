@@ -1,6 +1,7 @@
 <ion-view view-title="Camera" ng-controller='cameraCtrl'>
   <ion-content class="">
     <div class="cameraModal" ng-show='cameraModal==true'>
+      <img class='boom' src="" alt="" />
       <div class="cameraBack">
         <p class='fa fa-long-arrow-left longArrow' ng-click='leaveCamera()'></p>
       </div>
@@ -55,7 +56,7 @@
             <div class="cropIconHolder" ng-click='cropPhoto(mediaCache[$index], $event, $index)'>
               <div class='fa fa-crop'></div>
             </div>
-            <img class='submitPhoto submitPhoto{{$index}}' ng-src="{{media.link}}" ng-if='media.type=="photo"'/>
+            <img class='submitPhoto submitPhoto{{$index}}' id='submit{{$index}}' ng-src="{{media.link}}" ng-if='media.type=="photo"'/>
             <video ng-src="{{media.link}}" ng-if='media.type=="video"'></video>
           </div>
         </div>

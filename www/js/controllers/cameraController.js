@@ -14,6 +14,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     ////////////////////////////
     /////////global variables///
     // $scope.mediaCache = [{"link":"/img/adam.jpg", "type":"photo"}, {"link":"/img/max.png", "type":"photo"}, {"link":"/img/ben.png", "type":"photo"}];
+    $scope.mediaCache = [{type:'photo', link: 'http://axelthekey.com/wp-content/uploads/2015/05/kiwi.jpg'}, {type:'photo', link: 'http://axelthekey.com/wp-content/uploads/2015/05/kiwi.jpg'}];
     $scope.mediaCache = [];
     $scope.croppedPhoto = '';
     $scope.submitModalVar = false;
@@ -40,7 +41,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         //     saveToPhotoAlbum:false,
         //     correctOrientation:true,
         // };
-        var tapEnabled = true; //enable tap take picture
+        var tapEnabled = false; //enable tap take picture
         var dragEnabled = true; //enable preview box drag across the screen
         var toBack = false; //send preview box to the back of the webview
         console.log(1);
@@ -49,15 +50,34 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         console.log(1);
         console.log(cordova.plugins.camerapreview);
         var rect = {x: 0, y: 50, width: 375, height: 398};
-        cordova.plugins.camerapreview.startCamera(rect, 'back', tapEnabled, dragEnabled, toBack);
+        cordova.plugins.camerapreview.startCamera(rect, 'front', tapEnabled, dragEnabled, toBack);
         cordova.plugins.camerapreview.setOnPictureTakenHandler(function(result){
+          console.log('yoooooo');
           console.log(result);
-            $scope.newPhotoData = result[0];
-            $scope.mediaCache.push({
-              type: "photo"
-              ,link: $scope.newPhotoData
-              ,date: new Date()
-            });
+          // $('.boom').attr('src', result[0]);
+          // alert($('.boom').attr('src'));
+          var picResult = result[0]
+          // $scope.newPhotoData = result[0];
+          $scope.mediaCache.push({
+            type: "photo"
+            ,link: picResult
+            ,date: new Date()
+          });
+          //////
+          // resolveLocalFileSystemURL(result[0], function(fileEntry) {
+          //     fileEntry.file(function(file) {
+          //         console.log(file);
+          //                   // $('.boom').attr('src', file.name);
+          //         // alert(3333+ file.name)
+          //         $scope.newPhotoData =  "data:image/jpeg;base64,"+file.name;
+          //         $scope.mediaCache.push({
+          //           type: "photo"
+          //           ,link: $scope.newPhotoData
+          //           ,date: new Date()
+          //         });
+          //     });
+          // });
+          //////
         });
         function toggleView(){
           cordova.plugins.camerapreview.switchCamera();
@@ -462,11 +482,39 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     function submitModalOpen(){
       cordova.plugins.camerapreview.hide();
       $scope.submitModalVar = true;
+                /////
+      console.log($scope.mediaCache);
+      setTimeout(function(){
+        for (var i = 0; i < $scope.mediaCache.length; i++) {
+
+          document.getElementById('submit'+i).src = $scope.mediaCache[i].link
+        }
+      }, 500);
+      // for (var i = 0; i < $scope.mediaCache.length; i++) {
+      //   if($scope.mediaCache[i].type == 'photo'){
+      //     alert('photo');
+      //     $('.submitRepeat').append(
+      //       "<h2>YOOOOOOO</h2>"+
+      //       "<div class='submitCell col-xs-6'>"+
+      //         // "<img class='submitPhoto submitPhoto"+i+"' src='"+$scope.mediaCache[i].link+"'/>"+
+      //         "<img class='submitPhoto submitPhoto"+i+"' src='http://weknowyourdreamz.com/images/book/book-07.jpg'/>"+
+      //       "</div>"
+      //     )
+      //   }
+      //   else if($scope.mediaCache[i].type == 'video'){
+      //     $('.submitRepeat').append(
+      //       "<div class='submitCell col-xs-6'>"+
+      //       "<video src='"+$scope.mediaCache[i].link+"' class='submitPhoto submitPhoto"+i+"></video>"+
+      //       "</div>"
+      //     )
+      //   }
+      // }
     }
 
     $scope.submitModalOpen = submitModalOpen;
 
     function backToPhotos(){
+      cordova.plugins.camerapreview.show();
       $scope.submitModalVar = false;
     }
     $scope.backToPhotos = backToPhotos;
