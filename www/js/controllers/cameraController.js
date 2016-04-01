@@ -520,8 +520,11 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     $scope.backToPhotos = backToPhotos;
 
     function leaveCamera(){
-      console.log('yooooo');
+      cordova.plugins.camerapreview.hide();
       window.location.hash = "#/tab/account"
+      // setTimeout(function(){
+      //   cordova.plugins.camerapreview.stopCamera();
+      // }, 2000);
     }
     $scope.leaveCamera = leaveCamera;
   }
