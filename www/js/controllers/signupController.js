@@ -27,30 +27,37 @@ angular.module('signupController', [])
     //////function to control our photo carousel
     ////////////////////////////////////////////
     function moveCarousel(arr, speed){
+      console.log('outter');
       var arr = arr;
       // $scope.carouselPhoto1 = arr[0];
       // $scope.carouselPhoto2 = arr[1];
       $('.photoImage1').attr('src', arr[0]);
       $('.photoImage2').attr('src', arr[1]);
+      var carouselIntervalCounter = 0;
       setInterval(function(){
-        $('.carouselHolders').animate({
-          marginLeft: "-100%"
-        }, 900);
-        setTimeout(function(){
+        if(carouselIntervalCounter === 0){
+          $('.carouselHolders').animate({
+            marginLeft: "-100%"
+          }, 900);
+          carouselIntervalCounter++;
+        }
+        else if(carouselIntervalCounter !== 0){
           var endOfLine = arr.slice(0, 1);
-          console.log(endOfLine);
-          console.log(arr);
           arr.shift();
           arr[arr.length] = endOfLine[0];
+          $('.carouselHolders').css({
+            marginLeft: "0"
+          });
           $('.photoImage1').attr('src', arr[0]);
           $('.photoImage2').attr('src', arr[1]);
-          $('.carouselHolders').css({
-            marginLeft: 0
-          })
-        }, 950);
+          $('.carouselHolders').animate({
+            marginLeft: "-100%"
+          }, 900);
+          carouselIntervalCounter = 0;
+        }
       }, speed);
     }
-    var photoArray = ['http://www.eonline.com/eol_images/Entire_Site/2013925/rs_634x1024-131025103438-634.kanye-west-kim-kardashian-dream-africa.ls.102513_copy.jpg', 'http://a1.files.biography.com/image/upload/c_fit,cs_srgb,dpr_1.0,q_80,w_620/MTE5NTU2MzE2MTA0MTk3NjQz.jpg']
+    var photoArray = ['http://www.eonline.com/eol_images/Entire_Site/2013925/rs_634x1024-131025103438-634.kanye-west-kim-kardashian-dream-africa.ls.102513_copy.jpg', 'http://a1.files.biography.com/image/upload/c_fit,cs_srgb,dpr_1.0,q_80,w_620/MTE5NTU2MzE2MTA0MTk3NjQz.jpg', 'http://popcrush.com/files/2015/11/Siafacegallery1.jpg?w=600&h=0&zc=1&s=0&a=t&q=89', 'https://i.ytimg.com/vi/eiKxjLkV8sA/maxresdefault.jpg']
     moveCarousel(photoArray, 3000);
 
     //////////end carousel//////////////////////

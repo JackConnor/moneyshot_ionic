@@ -60,18 +60,6 @@
     </div>
   </div>
   <ion-content>
-    <div class="navBar">
-      <div class="hamburgerMenu col-sm-4 col-sm-offset-8 col-xs-6 col-xs-offset-6" ng-if="hamburgerOpen">
-        <div class="hamburgerCell" ng-click="closeHamburger()">
-        </div>
-        <div class="hamburgerCell hamburgerSignout" ng-click="hamburgerSignout()">
-          Sign Out
-        </div>
-      </div>
-      <div class="col-xs-8 col-xs-offset-2 nameTag">
-        MoPho
-      </div>
-    </div>
     <div class="credentialContainer">
       <div class="signupModal" ng-if='signupModalVar'>
         <div class="signupInputHolder">
@@ -83,15 +71,9 @@
             Sign in?
           </div>
         </div>
-        <div class="signinOr">
-          ------------ OR ------------
-        </div>
-        <div class="fbSignin">
+        <!-- <div class="fbSignin">
           <img src="http://i.imgur.com/umDsi9f.png" alt="" ng-click='launchFB()'/>
-        </div>
-        <div class="fbText">
-          Sign Up With Facebook
-        </div>
+        </div> -->
       </div>
       <div class="signinModal" ng-if='signinModalVar'>
         <div class="signupInputHolder">
@@ -102,15 +84,9 @@
             Sign up?
           </div>
         </div>
-        <div class="signinOr">
-          ------------ OR ------------
-        </div>
-        <div class="fbSignin">
+        <!-- <div class="fbSignin">
           <img src="http://i.imgur.com/umDsi9f.png" alt="" ng-click='launchFB()'/>
-        </div>
-        <div class="fbText">
-          Sign In With Facebook
-        </div>
+        </div> -->
       </div>
       <div class="carouselHolders">
         <div class="carouselImageHolder col-xs-6">

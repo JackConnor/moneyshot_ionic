@@ -263,11 +263,13 @@ ion-view {
 
 .carouselImageHolder{
   height: auto;
+  padding: 0px;
 }
 
 .carouselImageHolder img{
-  height: auto;
-  width: 100%;
+  padding: 0px;
+  height: 667px;
+  width: 375px;
 }
 
 .circleHolder {
@@ -377,7 +379,7 @@ ion-view {
 .fbSignin {
   padding-top: 15px;
   height: auto;
-  width: 100px;
+  width: 40px;
   margin: 0 auto;
 }
 
@@ -670,10 +672,12 @@ ion-view {
 }
 
 .signinModal {
+  margin-top: 320px;
   position: absolute;
   width: 100%;
   height: 1000px;
   color: white;
+  z-index: 2;
 }
 
 .signinOr {
@@ -716,7 +720,9 @@ ion-view {
   position: absolute;
   width: 100%;
   height: 1000px;
+  margin-top: 300px;
   color: white;
+  z-index: 2;
 }
 
 .singleImage {
