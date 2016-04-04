@@ -256,9 +256,29 @@ ion-view {
   z-index: 15;
 }
 
+.carouselHolders {
+  width: 200%;
+  height: auto;
+}
+
+.carouselImageHolder{
+  height: auto;
+}
+
+.carouselImageHolder img{
+  height: auto;
+  width: 100%;
+}
+
 .circleHolder {
   height: 30%;
   position: absolute;
+}
+
+.credentialContainer {
+  width: 100%;
+  height: auto;
+  background-color: pink;
 }
 
 .cropIconHolder {
@@ -635,9 +655,13 @@ ion-view {
   font-size: 20px;
 }
 
+.signBackground {
+  width: 100%;
+  height: auto;
+}
+
 .signin {
   height: 100%;
-  background-color: blue;
   display: inline-block;
   font-size: 30px;
   text-align: center;
@@ -649,7 +673,6 @@ ion-view {
   position: absolute;
   width: 100%;
   height: 1000px;
-  background-color: #323232;
   color: white;
 }
 
@@ -676,7 +699,6 @@ ion-view {
 
 .signup {
   height: 100%;
-  background-color: green;
   display: inline-block;
   font-size: 30px;
   text-align: center;
@@ -694,12 +716,10 @@ ion-view {
   position: absolute;
   width: 100%;
   height: 1000px;
-  background-color: #323232;
   color: white;
 }
 
 .singleImage {
-  /*position: absolute;*/
   padding: 0px;
   width: 100%;
   height: 300px;

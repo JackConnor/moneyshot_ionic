@@ -72,43 +72,53 @@
         MoPho
       </div>
     </div>
-    <div class="signupModal" ng-if='signupModalVar'>
-      <div class="signupInputHolder">
-        <input type="text" class='signupEmail splashInput' placeholder='Email'>
-        <input type="text" class='signupPassword splashInput' placeholder='Password'>
-        <input type="text" class='signupConfirmPassword splashInput' placeholder='Confirm Password'>
-        <button type="button" class='submitSignup' ng-click='submitSignup()'>Sign Up</button>
-        <div class="goToSignin" ng-mouseenter='hoverSignin($event)' ng-mouseleave='outHoverSignin($event)' ng-click='toggleSigns($event)'>
-          Sign in?
+    <div class="credentialContainer">
+      <div class="signupModal" ng-if='signupModalVar'>
+        <div class="signupInputHolder">
+          <input type="text" class='signupEmail splashInput' placeholder='Email'>
+          <input type="text" class='signupPassword splashInput' placeholder='Password'>
+          <input type="text" class='signupConfirmPassword splashInput' placeholder='Confirm Password'>
+          <button type="button" class='submitSignup' ng-click='submitSignup()'>Sign Up</button>
+          <div class="goToSignin" ng-mouseenter='hoverSignin($event)' ng-mouseleave='outHoverSignin($event)' ng-click='toggleSigns($event)'>
+            Sign in?
+          </div>
+        </div>
+        <div class="signinOr">
+          ------------ OR ------------
+        </div>
+        <div class="fbSignin">
+          <img src="http://i.imgur.com/umDsi9f.png" alt="" ng-click='launchFB()'/>
+        </div>
+        <div class="fbText">
+          Sign Up With Facebook
         </div>
       </div>
-      <div class="signinOr">
-        ------------ OR ------------
-      </div>
-      <div class="fbSignin">
-        <img src="http://i.imgur.com/umDsi9f.png" alt="" ng-click='launchFB()'/>
-      </div>
-      <div class="fbText">
-        Sign Up With Facebook
-      </div>
-    </div>
-    <div class="signinModal" ng-if='signinModalVar'>
-      <div class="signupInputHolder">
-        <input type="text" class='signupEmail splashInput' placeholder='Email'>
-        <input type="text" class='signupPassword splashInput' placeholder='Password'>
-        <button type="button" class='submitSignup' ng-click='signinUser()'>Sign In</button>
-        <div class="goToSignup" ng-mouseenter='hoverSignin($event)' ng-mouseleave='outHoverSignin($event)' ng-click='toggleSigns($event)'>
-          Sign up?
+      <div class="signinModal" ng-if='signinModalVar'>
+        <div class="signupInputHolder">
+          <input type="text" class='signupEmail splashInput' placeholder='Email'>
+          <input type="text" class='signupPassword splashInput' placeholder='Password'>
+          <button type="button" class='submitSignup' ng-click='signinUser()'>Sign In</button>
+          <div class="goToSignup" ng-mouseenter='hoverSignin($event)' ng-mouseleave='outHoverSignin($event)' ng-click='toggleSigns($event)'>
+            Sign up?
+          </div>
+        </div>
+        <div class="signinOr">
+          ------------ OR ------------
+        </div>
+        <div class="fbSignin">
+          <img src="http://i.imgur.com/umDsi9f.png" alt="" ng-click='launchFB()'/>
+        </div>
+        <div class="fbText">
+          Sign In With Facebook
         </div>
       </div>
-      <div class="signinOr">
-        ------------ OR ------------
-      </div>
-      <div class="fbSignin">
-        <img src="http://i.imgur.com/umDsi9f.png" alt="" ng-click='launchFB()'/>
-      </div>
-      <div class="fbText">
-        Sign In With Facebook
+      <div class="carouselHolders">
+        <div class="carouselImageHolder col-xs-6">
+          <img class='photoImage1' src=""/>
+        </div>
+        <div class="carouselImageHolder col-xs-6">
+          <img class='photoImage2' src="" alt="" class='' />
+        </div>
       </div>
     </div>
   </ion-content>

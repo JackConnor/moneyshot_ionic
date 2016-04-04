@@ -11,41 +11,6 @@ angular.module('signupController', [])
   signupCtrl.$inject = ['$scope', '$state', 'signup', 'signin', 'newToken', '$cordovaStatusbar', '$window', 'Facebook']
 
   function signupCtrl($scope, $state, signup, signin, newToken, $cordovaStatusbar, $window, Facebook){
-    console.log(Facebook);
-
-    // console.log(window.location.href);
-    FB.init({
-        appId: '219996151696499',
-        status: true,
-        cookie: true,
-        xfbml: true,
-        version: 'v2.4'
-    });
-    function launchFB(){
-      console.log('yo');
-      console.log(window.location.href);
-      console.log(FB);
-      console.log(FB.XFBML);
-      // Facebook.getLoginStatus(function(response){
-      //   console.log(response);
-      // })
-      // FB.getLoginStatus(function(response){
-      //   console.log(response);
-      //   if(response.status == 'unknown' || response.status == 'not_authorized'){
-      //     FB.login(function(loginResponse){
-      //       console.log(loginResponse);
-      //     })
-      //   }
-      //   else {
-      //     console.log('already logged in, it would seem');
-      //   }
-      // })
-    }
-    $scope.launchFB = launchFB;
-
-    ///////end facebook shit//
-    //////////////////////////
-
     ionic.Platform.fullScreen();////hides status bar
     ///////////////global variables//////
     // console.log($facebookProvider);
@@ -58,6 +23,38 @@ angular.module('signupController', [])
     console.log('yoyoyo');
     console.log(window.localStorage.webToken);
 
+
+    //////function to control our photo carousel
+    ////////////////////////////////////////////
+    function moveCarousel(arr, speed){
+      var arr = arr;
+      // $scope.carouselPhoto1 = arr[0];
+      // $scope.carouselPhoto2 = arr[1];
+      $('.photoImage1').attr('src', arr[0]);
+      $('.photoImage2').attr('src', arr[1]);
+      setInterval(function(){
+        $('.carouselHolders').animate({
+          marginLeft: "-100%"
+        }, 900);
+        setTimeout(function(){
+          var endOfLine = arr.slice(0, 1);
+          console.log(endOfLine);
+          console.log(arr);
+          arr.shift();
+          arr[arr.length] = endOfLine[0];
+          $('.photoImage1').attr('src', arr[0]);
+          $('.photoImage2').attr('src', arr[1]);
+          $('.carouselHolders').css({
+            marginLeft: 0
+          })
+        }, 950);
+      }, speed);
+    }
+    var photoArray = ['http://www.eonline.com/eol_images/Entire_Site/2013925/rs_634x1024-131025103438-634.kanye-west-kim-kardashian-dream-africa.ls.102513_copy.jpg', 'http://a1.files.biography.com/image/upload/c_fit,cs_srgb,dpr_1.0,q_80,w_620/MTE5NTU2MzE2MTA0MTk3NjQz.jpg']
+    moveCarousel(photoArray, 3000);
+
+    //////////end carousel//////////////////////
+    ////////////////////////////////////////////
 
     ///////////////////////////////
     ////////intro swipe modal stuff
@@ -246,4 +243,38 @@ angular.module('signupController', [])
       })
     }
     $scope.outHoverSignin = outHoverSignin;
+    console.log(Facebook);
+
+    // console.log(window.location.href);
+    FB.init({
+        appId: '219996151696499',
+        status: true,
+        cookie: true,
+        xfbml: true,
+        version: 'v2.4'
+    });
+    function launchFB(){
+      console.log('yo');
+      console.log(window.location.href);
+      console.log(FB);
+      console.log(FB.XFBML);
+      // Facebook.getLoginStatus(function(response){
+      //   console.log(response);
+      // })
+      // FB.getLoginStatus(function(response){
+      //   console.log(response);
+      //   if(response.status == 'unknown' || response.status == 'not_authorized'){
+      //     FB.login(function(loginResponse){
+      //       console.log(loginResponse);
+      //     })
+      //   }
+      //   else {
+      //     console.log('already logged in, it would seem');
+      //   }
+      // })
+    }
+    $scope.launchFB = launchFB;
+
+    ///////end facebook shit//
+    //////////////////////////
   }
