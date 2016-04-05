@@ -63,10 +63,10 @@
     <div class="credentialContainer">
       <div class="signupModal" ng-if='signupModalVar'>
         <div class="signupInputHolder">
-          <input type="text" class='signupEmail splashInput' placeholder='Email'>
-          <input type="text" class='signupPassword splashInput' placeholder='Password' ng-blur="checkPassword()">
+          <input type="text" class='signupEmail splashInput' placeholder='Email' ng-blur='checkValidEmail()'>
+          <input type="password" class='signupPassword splashInput' placeholder='Password' ng-blur="checkPassword()">
           <input type="text" class='signupConfirmPassword splashInput' placeholder='Confirm Password'>
-          <button type="button" class='submitSignup' ng-click='submitSignup()'>Sign Up</button>
+          <button type="password" class='submitSignup' ng-click='submitSignup()'>Sign Up</button>
           <div class="goToSignin" ng-mouseenter='hoverSignin($event)' ng-mouseleave='outHoverSignin($event)' ng-click='toggleSigns($event)'>
             Sign in?
           </div>

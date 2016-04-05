@@ -14,8 +14,8 @@ angular.module('signupController', [])
     ionic.Platform.fullScreen();////hides status bar
     ///////////////global variables//////
     // console.log($facebookProvider);
-    $scope.signupModalVar  = false;
-    $scope.signinModalVar  = true;
+    $scope.signupModalVar  = true;
+    $scope.signinModalVar  = false;
     $scope.signupModalTabs = true;
     $scope.introModal      = true;
     $scope.introCounter    = 0;
@@ -265,12 +265,57 @@ angular.module('signupController', [])
       //////check for length////
       if(pwArr.length < 6){
         alert('sorry, your password must be at least 6 characters');
+        $('.signupPassword').val('');
+        $('.signupConfirmPassword').val('');
       }
       else{
         console.log('passwrod accepted');
       }
     }
     $scope.checkPassword = checkPassword;
+
+    ///////email checking///////
+    function checkValidEmail(){
+      console.log('email');
+      var emailVal = $('.signupEmail').val().split('');
+      var emLength = emailVal.length;
+      console.log(emailVal);
+      console.log(emLength);
+      var atIndex = null;
+      var dotIndex = null;
+      for (var i = 0; i < emLength; i++) {
+        console.log(emailVal[i]);
+        if(emailVal[i] === '@' && i !== emLength-1){
+          console.log('yeaaaaa');
+          console.log(emailVal[i]);
+          atIndex = i;
+        }
+        else if(emailVal[i] === '.' && i !== emLength-1){
+          dotIndex = i;
+        }
+        else if(i === emLength-1){
+          console.log('last letter');
+          console.log(atIndex);
+          console.log(dotIndex);
+          if(atIndex === null){
+            alert('you need n @ sign');
+            $('.signupEmail').val('');
+          }
+          else if(dotIndex === null){
+            alert('you need a . i there');
+            $('.signupEmail').val('');
+          }
+          else if((atIndex >= dotIndex-2) || (atIndex === 0)){
+            alert('I think you have an issue with your email address');
+            $('.signupEmail').val('');
+          }
+          else {
+            console.log('boom, email accepted');
+          }
+        }
+      }
+    }
+    $scope.checkValidEmail = checkValidEmail;
 
 
     ////////////////////////////////////
