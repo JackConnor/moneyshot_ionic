@@ -122,39 +122,45 @@ angular.module('signupController', [])
     ///////////////////////////////////
     // function to signup users who are new to the site
     function signupUser(){
-      var email = $('.signupEmail').val();
-      var password = $('.signupPassword').val();
-      var repassword = $('.signupConfirmPassword').val();
-      if(password == repassword){
-        signup(email, password)
-        .then(function(newUser){
-          console.log(newUser);
-          if(newUser.data == 'email already in use'){
-            alert('that email is already in the system, please try another one or login using your password');
-            window.location.reload();
-          }
-          else if(newUser.data == 'please send a password'){
-            alert('you forgot your password');
-            window.location.reload();
-          }
-          else {
-            newToken(newUser.data._id)
-            .then(function(ourToken){
-              var token = ourToken.data;
-              console.log(token);
-              $scope.signupModalVar = false;
-              $scope.signinModalVar = false;
-              $scope.signupModalTabs = false;
-              ///////final callback, which opens up the camera
-              // removeSignupModal();
-              window.localStorage.webToken = token;
-              window.location.hash = "#/tab/camera"
-            })
-          }
-        })
+      var validPW = checkPassword();
+      console.log(validPW);
+      if(validPW){
+        console.log('ye');
+        var email = $('.signupEmail').val();
+        var password = $('.signupPassword').val();
+        var repassword = $('.signupConfirmPassword').val();
+        if(password == repassword){
+          signup(email, password)
+          .then(function(newUser){
+            console.log(newUser);
+            if(newUser.data == 'email already in use'){
+              alert('that email is already in the system, please try another one or login using your password');
+              window.location.reload();
+            }
+            else if(newUser.data == 'please send a password'){
+              alert('you forgot your password');
+              window.location.reload();
+            }
+            else {
+              newToken(newUser.data._id)
+              .then(function(ourToken){
+                var token = ourToken.data;
+                console.log(token);
+                $scope.signupModalVar = false;
+                $scope.signinModalVar = false;
+                $scope.signupModalTabs = false;
+                window.localStorage.webToken = token;
+                window.location.hash = "#/tab/camera";
+              })
+            }
+          })
+        }
+        else {
+          alert('passwords dont match');
+        }
       }
       else {
-        alert('passwords dont match');
+        console.log('password issues');
       }
     }
     $scope.submitSignup = signupUser;
@@ -267,9 +273,11 @@ angular.module('signupController', [])
         alert('sorry, your password must be at least 6 characters');
         $('.signupPassword').val('');
         $('.signupConfirmPassword').val('');
+        return false;
       }
       else{
         console.log('passwrod accepted');
+        return true;
       }
     }
     $scope.checkPassword = checkPassword;
@@ -300,17 +308,24 @@ angular.module('signupController', [])
           if(atIndex === null){
             alert('you need n @ sign');
             $('.signupEmail').val('');
+            $('.signupEmail').unblur();
+            return false;
           }
           else if(dotIndex === null){
             alert('you need a . i there');
             $('.signupEmail').val('');
+            $('.signupEmail').unblur();
+            return false
           }
           else if((atIndex >= dotIndex-2) || (atIndex === 0)){
             alert('I think you have an issue with your email address');
             $('.signupEmail').val('');
+            $('.signupEmail').unblur();
+            return false;
           }
           else {
             console.log('boom, email accepted');
+            return true;
           }
         }
       }

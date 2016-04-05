@@ -20,10 +20,11 @@ ion-view {
 .accountBody {
   position: absolute;
   overflow: hidden;
-  /*height: 100%;*/
-  /*background-image: url('http://media.getstyled.net/2015/03/miranda.jpg');
-  background-attachment: fixed;
-  background-repeat:repeat-y;*/
+  /*background-color: grey;*/
+  height: 5000px;
+  background-image: url('http://media.getstyled.net/2015/03/miranda.jpg');
+  /*background-attachment: fixed;*/
+  background-repeat:repeat-y;
 }
 
 .accountTab {
@@ -31,7 +32,7 @@ ion-view {
   padding: 0px;
   color: white;
   font-size: 16px;
-  padding-top: 30px;
+  padding-top: 15px;
   text-align: center;
 }
 
@@ -298,7 +299,7 @@ ion-view {
 
 .credentialContainer {
   width: 100%;
-  height: auto;
+  height: 100%;
   /*background-color: pink;*/
 }
 
@@ -453,6 +454,7 @@ ion-view {
 }
 
 .hamburgerHolder {
+  text-align: center;
   color: white;
   top: 0;
   padding: 0px;
@@ -752,6 +754,7 @@ ion-view {
   position: absolute;
   width: 100%;
   height: auto;
+  padding-top: 20px;
   color: white;
   z-index: 2;
   bottom: 0;

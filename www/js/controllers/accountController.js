@@ -57,6 +57,7 @@ angular.module('accountController', [])
         })
       }
     }
+    setCss();
 
     /////begin intro modal stuff////
     ////////////////////////////////
@@ -124,38 +125,53 @@ angular.module('accountController', [])
         userPhotos(decToken.data.userId)
         .then(function(userInfo){
           console.log(userInfo);
-          $scope.userInfo = userInfo.data;
-          var userPhotos = userInfo.data.photos;////this is all of a signed-in user's
-          $scope.userPhotos = userPhotos.reverse();
-          $scope.userSubmissions = userInfo.data.submissions.reverse();
-          $scope.totalEarned = 0;
-          function mapPhotos(){
-            var soldPhotos = [];
-            var offeredPhotos = [];
-            for (var i = 0; i < userPhotos.length; i++) {
-              if(userPhotos[i].status == 'sold'){
-                soldPhotos.push(userPhotos[i]);
-                $scope.totalEarned += userPhotos[i].price;
-                if(i == userPhotos.length-1){
-                  $scope.allSoldPhotos = offeredPhotos.concat(soldPhotos);
-                }
-              }
-              else if(userPhotos[i].status == 'offered for sale'){
-                offeredPhotos.push(userPhotos[i]);
-                $scope.totalEarned += userPhotos[i].price;
-                if(i == userPhotos.length-1){
-                  $scope.allSoldPhotos = offeredPhotos.concat(soldPhotos);
-                }
-              }
-            }
-            // $scope.soldPhotos = soldPhotos;
-            // console.log($scope.soldPhotos);
-            for (var i = 0; i < $scope.allSoldPhotos.length; i++) {
-              $scope.backgroundMultiple.push('filler'+i);
-            }
-            setCss();
+          if(userInfo.data === null){
+            console.log('null');
+            var userPhotos = [];
+            $scope.userInfo = [];
+            $scope.userSubmissions = [];
+            $scope.totalEarned = 0;
+            // $('.showSubmittedHolder').append(
+            //   '<div class="submittedRow submittedRow{{$index}} col-xs-12" ng-repeat="submission in userSubmissions"></div>'
+            // )
           }
-          mapPhotos();
+          else {
+            console.log(typeof userInfo.data.photos.length);
+            // if(typeof userPhotos.length='number'){
+            //   var photoLength = userPhotos.length;
+            $scope.userInfo = userInfo.data;
+            var userPhotos = userInfo.data.photos;////this is all of a signed-in user's
+            $scope.userPhotos = userPhotos.reverse();
+            $scope.userSubmissions = userInfo.data.submissions.reverse();
+            $scope.totalEarned = 0;
+            function mapPhotos(){
+              var soldPhotos = [];
+              var offeredPhotos = [];
+              for (var i = 0; i < photoLength; i++) {
+                if(userPhotos[i].status == 'sold'){
+                  soldPhotos.push(userPhotos[i]);
+                  $scope.totalEarned += userPhotos[i].price;
+                  if(i == userPhotos.length-1){
+                    $scope.allSoldPhotos = offeredPhotos.concat(soldPhotos);
+                  }
+                }
+                else if(userPhotos[i].status == 'offered for sale'){
+                  offeredPhotos.push(userPhotos[i]);
+                  $scope.totalEarned += userPhotos[i].price;
+                  if(i == userPhotos.length-1){
+                    $scope.allSoldPhotos = offeredPhotos.concat(soldPhotos);
+                  }
+                }
+              }
+              // $scope.soldPhotos = soldPhotos;
+              // console.log($scope.soldPhotos);
+              for (var i = 0; i < $scope.allSoldPhotos.length; i++) {
+                $scope.backgroundMultiple.push('filler'+i);
+              }
+              setCss();
+            }
+            mapPhotos();
+          }
         })
       })
     }
@@ -281,7 +297,6 @@ angular.module('accountController', [])
         ,fontSize: "16px"
         ,borderBottom: ""
       })
-
       ///////now we select and add css to correct text
       if(sold()){
         console.log('sold');

@@ -1,6 +1,6 @@
 <ion-view view-title="Account"  ng-controller='accountCtrl'>
   <ion-content overflow-scroll='false'>
-    <div class="accountBody">
+    <div class="accountBody col-xs-12">
 
       <div class="backgroundImage col-xs-12">
         <img src="https://i.imgsafe.org/017d610.png" ng-repeat='photo in backgroundMultiple'/>
@@ -161,7 +161,7 @@
           <div class="col-sm-4 col-xs-6" style='padding:0px; margin: 0px'>
           </div>
         <!-- </div> -->
-        <div class="" ng-if='showSubmitted'>
+        <div class="showSubmittedHolder" ng-if='showSubmitted'>
           <div class="submittedRow submittedRow{{$index}} col-xs-12" ng-repeat='submission in userSubmissions'>
             <div class="allPhotosRepeat col-xs-6">
               <div class="submitPhotosHolder">

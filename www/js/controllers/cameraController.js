@@ -4,6 +4,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
   cameraCtrl.$inject = ['$http', '$state', '$scope', 'singlePhoto', 'Upload', '$q', '$cordovaCamera', '$cordovaFile', '$cordovaFileTransfer', 'signup', 'signin', 'newToken', '$cordovaCapture', 'Upload', '$cordovaStatusbar'];
   function cameraCtrl($http, $state, $scope, singlePhoto, Upload, $q, $cordovaCamera, $cordovaFile, $cordovaFileTransfer, signup, signin, newToken, $cordovaCapture, Upload, $cordovaStatusbar){
+    // delete window.localStorage.webToken;
 
     // ionic.Platform.fullScreen();//////hides status bar
     ////////function to remove tabs from this view
@@ -44,10 +45,6 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         var tapEnabled = false; //enable tap take picture
         var dragEnabled = true; //enable preview box drag across the screen
         var toBack = false; //send preview box to the back of the webview
-        console.log(1);
-        console.log(1);
-        console.log(1);
-        console.log(1);
         console.log(cordova.plugins.camerapreview);
         var rect = {x: 0, y: 50, width: 375, height: 398};
         cordova.plugins.camerapreview.startCamera(rect, 'front', tapEnabled, dragEnabled, toBack);
