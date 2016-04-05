@@ -257,19 +257,39 @@ ion-view {
 }
 
 .carouselHolders {
-  width: 200%;
-  height: auto;
+  width: 300%;
+  height: 667px;
 }
 
-.carouselImageHolder{
+.carouselImageHolder1 {
+  position: absolute;
+  margin-left: -0%;
+  width: 100%;
+  height: 100%;
+  padding: 0%;
+  border: 7px solid gold;
+}
+
+.carouselImageHolder2 {
+  margin-left: 100%;
+  position: absolute;
+  width: auto;
   height: auto;
   padding: 0px;
+  border: 7px solid green;
 }
 
-.carouselImageHolder img{
+.carouselImageHolder1 img{
   padding: 0px;
   height: 667px;
   width: 375px;
+}
+
+.carouselImageHolder2 img{
+  padding: 0px;
+  height: 667px;
+  width: 375px;
+  /*opacity: 0.2;*/
 }
 
 .circleHolder {
@@ -675,9 +695,11 @@ ion-view {
   margin-top: 320px;
   position: absolute;
   width: 100%;
-  height: 1000px;
+  height: auto;
   color: white;
   z-index: 2;
+  bottom: 0;
+  margin-bottom: 115px;
 }
 
 .signinOr {
@@ -710,6 +732,17 @@ ion-view {
   color: white;
 }
 
+.signupBlack {
+  position: absolute;
+  z-index: 1;
+  background-color: black;
+  opacity: 0.12;
+  height: 330px;
+  width: 100%;
+  margin-top: -330px;
+  /*bottom: 0;*/
+}
+
 .signupInputHolder {
   margin-top: 25%;
   width: 80%;
@@ -719,10 +752,11 @@ ion-view {
 .signupModal {
   position: absolute;
   width: 100%;
-  height: 1000px;
-  margin-top: 300px;
+  height: auto;
   color: white;
   z-index: 2;
+  bottom: 0;
+  margin-bottom: 115px;
 }
 
 .singleImage {
@@ -1048,4 +1082,75 @@ ion-view {
   float: right;
   margin-right: 10px;
   margin-top: 10px;
+}
+
+
+/*/////animation stuff*/
+@-webkit-keyframes slideInSmooth0 {
+  0% {
+    -webkit-transform: translate3d(0%,0,0);
+  }
+
+  50% {
+    -webkit-transform: translate3d(-50%,0,0);
+  }
+
+  100% {
+    -webkit-transform: translate3d(-100%,0,0);
+  }
+}
+
+@-webkit-keyframes slideStep2Smooth {
+  0% {
+    -webkit-transform: translate3d(100%,0,0);
+  }
+
+  50% {
+    -webkit-transform: translate3d(50%,0,0);
+  }
+
+  100% {
+    -webkit-transform: translate3d(0%,0,0);
+  }
+}
+
+@-webkit-keyframes slideStep2Smooth2 {
+  0% {
+    -webkit-transform: translate3d(-100%,0,0);
+  }
+
+  50% {
+    -webkit-transform: translate3d(-150%,0,0);
+  }
+
+  100% {
+    -webkit-transform: translate3d(-200%,0,0);
+  }
+}
+
+.slideLeft0{
+  -webkit-animation: slideInSmooth0 ease-in 1;
+  animation: slideInSmooth0 ease-in 1;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+  -webkit-animation-duration: 750ms;
+  animation-duration: 750ms;
+}
+
+.slideLeftStep{
+  -webkit-animation: slideStep2Smooth ease-in 1;
+  animation: slideStep2Smooth ease-in 1;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+  -webkit-animation-duration: 750ms;
+  animation-duration: 750ms;
+}
+
+.slideLeftStep2{
+  -webkit-animation: slideStep2Smooth2 ease-in 1;
+  animation: slideStep2Smooth2 ease-in 1;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+  -webkit-animation-duration: 750ms;
+  animation-duration: 750ms;
 }

@@ -8,9 +8,9 @@ angular.module('signupController', [])
 
   .controller('signupCtrl', signupCtrl);
 
-  signupCtrl.$inject = ['$scope', '$state', 'signup', 'signin', 'newToken', '$cordovaStatusbar', '$window', 'Facebook']
+  signupCtrl.$inject = ['$scope', '$state', 'signup', 'signin', 'newToken', '$cordovaStatusbar', '$window', 'Facebook', '$timeout', '$interval', '$animateCss']
 
-  function signupCtrl($scope, $state, signup, signin, newToken, $cordovaStatusbar, $window, Facebook){
+  function signupCtrl($scope, $state, signup, signin, newToken, $cordovaStatusbar, $window, Facebook, $timeout, $interval, $animateCss){
     ionic.Platform.fullScreen();////hides status bar
     ///////////////global variables//////
     // console.log($facebookProvider);
@@ -20,45 +20,50 @@ angular.module('signupController', [])
     $scope.introModal      = true;
     $scope.introCounter    = 0;
 
-    console.log('yoyoyo');
-    console.log(window.localStorage.webToken);
-
-
     //////function to control our photo carousel
     ////////////////////////////////////////////
+    $scope.photo1;
+    $scope.photo2;
+
     function moveCarousel(arr, speed){
-      console.log('outter');
-      var arr = arr;
-      // $scope.carouselPhoto1 = arr[0];
-      // $scope.carouselPhoto2 = arr[1];
-      $('.photoImage1').attr('src', arr[0]);
-      $('.photoImage2').attr('src', arr[1]);
-      var carouselIntervalCounter = 0;
-      setInterval(function(){
-        if(carouselIntervalCounter === 0){
-          $('.carouselHolders').animate({
-            marginLeft: "-100%"
-          }, 900);
-          carouselIntervalCounter++;
+      $scope.photo1 = arr[0];
+      $scope.photo2 = arr[1];
+      $interval(function(){
+        if(carCounter === 'heads'){
+          $('.carouselImageHolder2').removeClass('slideLeftStep2');
+          $('.carouselImageHolder1').removeClass('slideLeftStep');
+          $('.carouselImageHolder1').addClass('slideLeft0');
+          $('.carouselImageHolder2').addClass('slideLeft0');
+          $timeout(function(){
+            $scope.photo1 = $scope.photoArray[2];
+            var endOfLine = $scope.photoArray.slice(0,1);
+            $scope.photoArray.shift();
+            $scope.photoArray[$scope.photoArray.length] = endOfLine[0];
+            console.log($scope.photoArray);
+          }, 800);
+          carCounter = 'tails';
         }
-        else if(carouselIntervalCounter !== 0){
-          var endOfLine = arr.slice(0, 1);
-          arr.shift();
-          arr[arr.length] = endOfLine[0];
-          $('.carouselHolders').css({
-            marginLeft: "0"
-          });
-          $('.photoImage1').attr('src', arr[0]);
-          $('.photoImage2').attr('src', arr[1]);
-          $('.carouselHolders').animate({
-            marginLeft: "-100%"
-          }, 900);
-          carouselIntervalCounter = 0;
+        else if(carCounter === 'tails'){
+          $('.carouselImageHolder1').removeClass('slideLeft0');
+          $('.carouselImageHolder2').removeClass('slideLeft0');
+          $('.carouselImageHolder2').addClass('slideLeftStep2');
+          $('.carouselImageHolder1').addClass('slideLeftStep');
+          $timeout(function(){
+            $scope.photo2 = $scope.photoArray[2];
+            var endOfLine = $scope.photoArray.slice(0,1);
+            $scope.photoArray.shift();
+            $scope.photoArray[$scope.photoArray.length] = endOfLine[0];
+            console.log($scope.photoArray);
+          }, 800);
+          carCounter = 'heads';
         }
-      }, speed);
+      }, 3000);
     }
-    var photoArray = ['http://www.eonline.com/eol_images/Entire_Site/2013925/rs_634x1024-131025103438-634.kanye-west-kim-kardashian-dream-africa.ls.102513_copy.jpg', 'http://a1.files.biography.com/image/upload/c_fit,cs_srgb,dpr_1.0,q_80,w_620/MTE5NTU2MzE2MTA0MTk3NjQz.jpg', 'http://popcrush.com/files/2015/11/Siafacegallery1.jpg?w=600&h=0&zc=1&s=0&a=t&q=89', 'https://i.ytimg.com/vi/eiKxjLkV8sA/maxresdefault.jpg']
+    var photoArray = ['http://www.eonline.com/eol_images/Entire_Site/2013925/rs_634x1024-131025103438-634.kanye-west-kim-kardashian-dream-africa.ls.102513_copy.jpg', 'http://a1.files.biography.com/image/upload/c_fit,cs_srgb,dpr_1.0,q_80,w_620/MTE5NTU2MzE2MTA0MTk3NjQz.jpg', 'http://popcrush.com/files/2015/11/Siafacegallery1.jpg?w=600&h=0&zc=1&s=0&a=t&q=89', 'https://i.ytimg.com/vi/eiKxjLkV8sA/maxresdefault.jpg'];
+    $scope.photoArray = photoArray;
+    var carCounter = 'heads';
     moveCarousel(photoArray, 3000);
+
 
     //////////end carousel//////////////////////
     ////////////////////////////////////////////
@@ -67,7 +72,6 @@ angular.module('signupController', [])
     ////////intro swipe modal stuff
     function checkIntro(){
       if(!window.localStorage.webToken || window.localStorage.webToken == "" || window.localStorage.webToken == null){
-        console.log('no token');
         $scope.introModal = true;
         $('.tab-nav').css({
           height: 0+"px"
@@ -250,7 +254,6 @@ angular.module('signupController', [])
       })
     }
     $scope.outHoverSignin = outHoverSignin;
-    console.log(Facebook);
 
     // console.log(window.location.href);
     FB.init({
