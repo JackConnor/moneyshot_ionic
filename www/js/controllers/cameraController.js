@@ -15,7 +15,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     ////////////////////////////
     /////////global variables///
     // $scope.mediaCache = [{"link":"/img/adam.jpg", "type":"photo"}, {"link":"/img/max.png", "type":"photo"}, {"link":"/img/ben.png", "type":"photo"}];
-    $scope.mediaCache = [{type:'photo', link: 'http://axelthekey.com/wp-content/uploads/2015/05/kiwi.jpg'}, {type:'photo', link: 'http://axelthekey.com/wp-content/uploads/2015/05/kiwi.jpg'}];
+    // $scope.mediaCache = [{type:'photo', link: 'http://www.musiclipse.com/wp-content/uploads/2014/10/Black-Sabbath-Large-Wallpaper.jpg'}, {type:'photo', link: 'http://www.musiclipse.com/wp-content/uploads/2014/10/Black-Sabbath-Large-Wallpaper.jpg'}];
     $scope.mediaCache = [];
     $scope.croppedPhoto = '';
     $scope.submitModalVar = false;
@@ -179,26 +179,27 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       var circleEl = $(evt.currentTarget).children()[0];
       console.log();
       console.log(evt.currentTarget.firstChild);
+      var targetEl = $($(evt.currentTarget)[0].nextElementSibling.nextElementSibling);
       if(!$(circleEl).hasClass('selected')){
         $(circleEl).css({
-          color: '#7FFF00'
+          color: 'white'
         })
         $(circleEl).addClass('selected');
         $(circleEl).removeClass('fa-circle-thin');
         $(circleEl).addClass('fa-circle');
-        console.log();
-        $($(evt.currentTarget)[0].parentElement).css({
-          border: "5px solid #7FFF00"
+        console.log($(evt.currentTarget)[0].nextElementSibling.nextElementSibling);
+        targetEl.css({
+          border: "5px solid white"
         })
         eraseSubmitArr.push(index);
         // $scope.mediaCache.splice(index, 1);
       }
       else {
         $(circleEl).css({
-          color: "white"
+          color: "#7FFF00"
           ,backgroundColor: ''
         });
-        $($(evt.currentTarget)[0].parentElement).css({
+        targetEl.css({
           border: ""
         })
         $(circleEl).removeClass('selected');
