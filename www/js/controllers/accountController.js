@@ -117,10 +117,13 @@ angular.module('accountController', [])
     var userToken = window.localStorage.webToken;
     // console.log(userToken);
     function getUserPhotos(token){
+      console.log(token);
       decodeToken(token)
       .then(function(decToken){
+        console.log(decToken);
         userPhotos(decToken.data.userId)
         .then(function(userInfo){
+          console.log(userInfo);
           $scope.userInfo = userInfo.data;
           var userPhotos = userInfo.data.photos;////this is all of a signed-in user's
           $scope.userPhotos = userPhotos.reverse();

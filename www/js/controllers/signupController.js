@@ -24,7 +24,6 @@ angular.module('signupController', [])
     ////////////////////////////////////////////
     $scope.photo1;
     $scope.photo2;
-
     function moveCarousel(arr, speed){
       $scope.photo1 = arr[0];
       $scope.photo2 = arr[1];
@@ -39,8 +38,8 @@ angular.module('signupController', [])
             var endOfLine = $scope.photoArray.slice(0,1);
             $scope.photoArray.shift();
             $scope.photoArray[$scope.photoArray.length] = endOfLine[0];
-            console.log($scope.photoArray);
-          }, 800);
+            // console.log($scope.photoArray);
+          }, 1100);
           carCounter = 'tails';
         }
         else if(carCounter === 'tails'){
@@ -53,20 +52,21 @@ angular.module('signupController', [])
             var endOfLine = $scope.photoArray.slice(0,1);
             $scope.photoArray.shift();
             $scope.photoArray[$scope.photoArray.length] = endOfLine[0];
-            console.log($scope.photoArray);
-          }, 800);
+            // console.log($scope.photoArray);
+          }, 1100);
           carCounter = 'heads';
         }
-      }, 3000);
+      }, 2000);
     }
+    //////our initial seed photos for the carousel
     var photoArray = ['http://www.eonline.com/eol_images/Entire_Site/2013925/rs_634x1024-131025103438-634.kanye-west-kim-kardashian-dream-africa.ls.102513_copy.jpg', 'http://a1.files.biography.com/image/upload/c_fit,cs_srgb,dpr_1.0,q_80,w_620/MTE5NTU2MzE2MTA0MTk3NjQz.jpg', 'http://popcrush.com/files/2015/11/Siafacegallery1.jpg?w=600&h=0&zc=1&s=0&a=t&q=89', 'https://i.ytimg.com/vi/eiKxjLkV8sA/maxresdefault.jpg'];
     $scope.photoArray = photoArray;
     var carCounter = 'heads';
     moveCarousel(photoArray, 3000);
-
-
     //////////end carousel//////////////////////
     ////////////////////////////////////////////
+
+    ////
 
     ///////////////////////////////
     ////////intro swipe modal stuff
@@ -256,6 +256,25 @@ angular.module('signupController', [])
     $scope.outHoverSignin = outHoverSignin;
 
     // console.log(window.location.href);
+
+    ////////password character checking
+    function checkPassword(){
+      var passwordAttempt = $('.signupPassword').val();
+      console.log(passwordAttempt);
+      var pwArr = passwordAttempt.split('');
+      //////check for length////
+      if(pwArr.length < 6){
+        alert('sorry, your password must be at least 6 characters');
+      }
+      else{
+        console.log('passwrod accepted');
+      }
+    }
+    $scope.checkPassword = checkPassword;
+
+
+    ////////////////////////////////////
+    /////////////begin fb stuff////////
     FB.init({
         appId: '219996151696499',
         status: true,

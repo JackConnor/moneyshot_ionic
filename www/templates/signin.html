@@ -64,7 +64,7 @@
       <div class="signupModal" ng-if='signupModalVar'>
         <div class="signupInputHolder">
           <input type="text" class='signupEmail splashInput' placeholder='Email'>
-          <input type="text" class='signupPassword splashInput' placeholder='Password'>
+          <input type="text" class='signupPassword splashInput' placeholder='Password' ng-blur="checkPassword()">
           <input type="text" class='signupConfirmPassword splashInput' placeholder='Confirm Password'>
           <button type="button" class='submitSignup' ng-click='submitSignup()'>Sign Up</button>
           <div class="goToSignin" ng-mouseenter='hoverSignin($event)' ng-mouseleave='outHoverSignin($event)' ng-click='toggleSigns($event)'>
@@ -79,7 +79,7 @@
         <div class="signupInputHolder">
           <input type="text" class='signupEmail splashInput' placeholder='Email'>
           <input type="text" class='signupPassword splashInput' placeholder='Password'>
-          <button type="button" class='submitSignup' ng-click='signinUser()'>Sign In</button>
+          <button type="button" class='submitSignup subSignup' ng-click='signinUser()'>Sign In</button>
           <div class="goToSignup" ng-mouseenter='hoverSignin($event)' ng-mouseleave='outHoverSignin($event)' ng-click='toggleSigns($event)'>
             Sign up?
           </div>
