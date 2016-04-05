@@ -15,10 +15,10 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     ////////////////////////////
     /////////global variables///
     // $scope.mediaCache = [{"link":"/img/adam.jpg", "type":"photo"}, {"link":"/img/max.png", "type":"photo"}, {"link":"/img/ben.png", "type":"photo"}];
-    // $scope.mediaCache = [{type:'photo', link: 'http://www.musiclipse.com/wp-content/uploads/2014/10/Black-Sabbath-Large-Wallpaper.jpg'}, {type:'photo', link: 'http://www.musiclipse.com/wp-content/uploads/2014/10/Black-Sabbath-Large-Wallpaper.jpg'}];
-    $scope.mediaCache = [];
+    $scope.mediaCache = [{type:'photo', link: '/img/adam.jpg'}, {type:'photo', link: '/img/ben.png'}];
+    // $scope.mediaCache = [];
     $scope.croppedPhoto = '';
-    $scope.submitModalVar = false;
+    $scope.submitModalVar = true;
     $scope.cameraModal = false;
     $scope.cameraLaunched = false;
     $scope.cameraToggle = true;
@@ -176,31 +176,22 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     $scope.openSubmitModal = openSubmitModal;
 
     function selectSubmitted(evt, index){
-      var circleEl = $(evt.currentTarget).children()[0];
-      console.log();
-      console.log(evt.currentTarget.firstChild);
+      var circleEl = $(evt.currentTarget).children()[1];
       var targetEl = $($(evt.currentTarget)[0].nextElementSibling.nextElementSibling);
       if(!$(circleEl).hasClass('selected')){
-        $(circleEl).css({
-          color: 'white'
-        })
         $(circleEl).addClass('selected');
         $(circleEl).removeClass('fa-circle-thin');
         $(circleEl).addClass('fa-circle');
         console.log($(evt.currentTarget)[0].nextElementSibling.nextElementSibling);
         targetEl.css({
-          border: "5px solid white"
+          outline: "5px solid white"
         })
         eraseSubmitArr.push(index);
         // $scope.mediaCache.splice(index, 1);
       }
       else {
-        $(circleEl).css({
-          color: "#7FFF00"
-          ,backgroundColor: ''
-        });
         targetEl.css({
-          border: ""
+          outline: ""
         })
         $(circleEl).removeClass('selected');
         $(circleEl).removeClass('fa-circle');
@@ -368,7 +359,8 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     $scope.submitAllPhotos = submitAllPhotos;
 
     function cropPhoto(photoData, evt, index){
-      $scope.croppedPhoto = photoData;
+      console.log(photoData);
+      // $scope.croppedPhoto = photoData;
       $('.submitCropContainer').animate({
         marginLeft: 0
       }, 700);
@@ -436,6 +428,9 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       $('.submitCropContainer').animate({
         marginLeft: 100+"%"
       }, 700);
+      setTimeout(function(){
+        $('.cropper-container').remove();
+      }, 700);
       $scope.mediaCache[$scope.imageNumbers.index]["cropData"] = $scope.imageNumbers;
       console.log($scope.mediaCache);
 
@@ -445,7 +440,10 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     function backToSubmit(){
       $('.submitCropContainer').animate({
         marginLeft: 100+"%"
-      }, 500);
+      }, 700);
+      setTimeout(function(){
+        $('.cropper-container').remove();
+      }, 700);
     }
     $scope.backToSubmit = backToSubmit;
 
