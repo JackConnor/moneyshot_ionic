@@ -137,10 +137,9 @@ angular.module('accountController', [])
           }
           else {
             console.log(typeof userInfo.data.photos.length);
-            // if(typeof userPhotos.length='number'){
-            //   var photoLength = userPhotos.length;
             $scope.userInfo = userInfo.data;
             var userPhotos = userInfo.data.photos;////this is all of a signed-in user's
+            var photoLength = userInfo.data.photos.length;
             $scope.userPhotos = userPhotos.reverse();
             $scope.userSubmissions = userInfo.data.submissions.reverse();
             $scope.totalEarned = 0;
@@ -164,8 +163,21 @@ angular.module('accountController', [])
                 }
               }
               // $scope.soldPhotos = soldPhotos;
-              // console.log($scope.soldPhotos);
-              for (var i = 0; i < $scope.allSoldPhotos.length; i++) {
+              console.log($scope.allSoldPhotos);
+              if($scope.allSoldPhotos){
+                console.log(true);
+              }
+              else{
+                console.log(false);
+              }
+              if($scope.allSoldPhotos){
+                var backLength =  $scope.allSoldPhotos.length;
+              }
+              else {
+                var backLength = 1;
+              }
+              console.log(backLength);
+              for (var i = 0; i <backLength; i++) {
                 $scope.backgroundMultiple.push('filler'+i);
               }
               setCss();

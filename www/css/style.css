@@ -18,11 +18,12 @@ ion-view {
 }*/
 
 .accountBody {
+  padding: 0px;
   position: absolute;
   overflow: hidden;
   /*background-color: grey;*/
-  height: 5000px;
-  background-image: url('http://media.getstyled.net/2015/03/miranda.jpg');
+  height: 1000px;
+  /*background-image: url('http://i63.tinypic.com/nb40ol.jpg');*/
   /*background-attachment: fixed;*/
   background-repeat:repeat-y;
 }

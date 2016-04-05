@@ -2,8 +2,8 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
   .controller('cameraCtrl', cameraCtrl);
 
-  cameraCtrl.$inject = ['$http', '$state', '$scope', 'singlePhoto', 'Upload', '$q', '$cordovaCamera', '$cordovaFile', '$cordovaFileTransfer', 'signup', 'signin', 'newToken', '$cordovaCapture', 'Upload', '$cordovaStatusbar'];
-  function cameraCtrl($http, $state, $scope, singlePhoto, Upload, $q, $cordovaCamera, $cordovaFile, $cordovaFileTransfer, signup, signin, newToken, $cordovaCapture, Upload, $cordovaStatusbar){
+  cameraCtrl.$inject = ['$http', '$state', '$scope', 'singlePhoto', 'Upload', '$q', '$cordovaCamera', '$cordovaFile', '$cordovaFileTransfer', 'signup', 'signin', 'newToken', '$cordovaCapture', 'Upload', '$cordovaStatusbar', '$timeout'];
+  function cameraCtrl($http, $state, $scope, singlePhoto, Upload, $q, $cordovaCamera, $cordovaFile, $cordovaFileTransfer, signup, signin, newToken, $cordovaCapture, Upload, $cordovaStatusbar, $timeout){
     // delete window.localStorage.webToken;
 
     // ionic.Platform.fullScreen();//////hides status bar
@@ -30,24 +30,15 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     /////functions to upload photos////
     // console.log(CanvasCamera);
     function uploadPhotos() {
-        console.log($('.viewYo'));
+      console.log('cameraaaaaa');
         $scope.cameraLaunched = true;
-        canvasMain = document.getElementById("camera");
-        // CanvasCamera.initialize(canvasMain);
-        // define options
-        // var opt = {
-        //     quality: 100,
-        //     destinationType: CanvasCamera.DestinationType.DATA_URL,
-        //     encodingType: CanvasCamera.EncodingType.PNG,
-        //     saveToPhotoAlbum:false,
-        //     correctOrientation:true,
-        // };
         var tapEnabled = false; //enable tap take picture
         var dragEnabled = true; //enable preview box drag across the screen
         var toBack = false; //send preview box to the back of the webview
-        console.log(cordova.plugins.camerapreview);
+        // console.log(cordova.plugins.camerapreview);
         var rect = {x: 0, y: 50, width: 375, height: 398};
         cordova.plugins.camerapreview.startCamera(rect, 'front', tapEnabled, dragEnabled, toBack);
+        cordova.plugins.camerapreview.show();
         cordova.plugins.camerapreview.setOnPictureTakenHandler(function(result){
           console.log('yoooooo');
           console.log(result);
@@ -60,21 +51,6 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
             ,link: picResult
             ,date: new Date()
           });
-          //////
-          // resolveLocalFileSystemURL(result[0], function(fileEntry) {
-          //     fileEntry.file(function(file) {
-          //         console.log(file);
-          //                   // $('.boom').attr('src', file.name);
-          //         // alert(3333+ file.name)
-          //         $scope.newPhotoData =  "data:image/jpeg;base64,"+file.name;
-          //         $scope.mediaCache.push({
-          //           type: "photo"
-          //           ,link: $scope.newPhotoData
-          //           ,date: new Date()
-          //         });
-          //     });
-          // });
-          //////
         });
         function toggleView(){
           cordova.plugins.camerapreview.switchCamera();
@@ -104,7 +80,11 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         $scope.takeCordovaPicture = takeCordovaPicture;
     }
     document.addEventListener("deviceready", uploadPhotos);
-    // uploadPhotos();
+    $timeout(function(){
+      if(!$scope.cameraLaunched){
+        uploadPhotos();
+      }
+    }, 1500);
     ////////delayed functions fire in case the device is not loading up for the first time if the app was already open
     // setTimeout(function(){
     //   console.log();
