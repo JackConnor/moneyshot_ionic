@@ -319,6 +319,22 @@ ion-view {
   /*background-color: pink;*/
 }
 
+
+.cropHolder {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  padding: 0px;
+  /*margin-top: 60px;*/
+}
+
+.cropHolder img {
+  height: auto;
+  width: 75%;
+  margin-left: 12.5%;
+  margin-top: 50px;
+}
+
 .cropIconHolder {
   position: absolute;
   width: 100%;
@@ -331,6 +347,19 @@ ion-view {
   opacity: 0.5;
 }
 
+.cropImage {
+  padding-top: 60px;
+  height: 400px;
+  /*margin-left: auto;
+  margin-right: auto;*/
+}
+
+.cropper-container img{
+  outline: 5px solid green;
+  height: 600px;
+  width: auto;
+}
+
 .cropPhoto {
   height: 60px;
   background-color: orange;
@@ -341,8 +370,9 @@ ion-view {
   padding-top: 12px;
 }
 
-.cropImage {
-  /*margin-top: 20px;*/
+.cropper-container {
+  height: 500px;
+  width: 100%;
 }
 
 .dollarIcon {
@@ -449,6 +479,19 @@ ion-view {
   display: inline-block;
 }
 
+.jr-crop-img {
+  width: 70%;
+  margin-left: 15%;
+  margin-top: 0px;
+  height: auto;
+}
+
+.jr-crop-img img{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
 .hamburgerBackground {
   position: absolute;
   background-color: black;
@@ -509,6 +552,11 @@ ion-view {
   height: 40px;
   width: 100%;
   font-size: 23px;
+}
+
+#image {
+  width: 200px;
+  height: 200px;
 }
 
 .introPhoto {
@@ -837,7 +885,8 @@ ion-view {
 
 .soldPhotosRepeat {
   padding: 0px;
-  height: 250px;
+  height: auto;
+  overflow: hidden;
 }
 
 .soldPhotosRepeat video {
@@ -920,17 +969,14 @@ ion-view {
 }
 
 .submitCropContainer {
+  outline: 2px solid blue;
   width: 100%;
-  height: 600px;
+  height: 400px;
   margin-left: 100%;
+  /*margin-top: 100px;*/
   position: fixed;
   z-index: 11;
   background-color: gray;
-}
-
-.submitCropContainer img {
-  margin: 0;
-  padding: 0;
 }
 
 .submitDelete {

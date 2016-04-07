@@ -1,7 +1,26 @@
 {
   "name": "HelloIonic",
-  "private": "true",
   "devDependencies": {
     "ionic": "driftyco/ionic-bower#1.2.4"
-  }
+  },
+  "dependencies": {
+    "angular-img-cropper": "~1.1.0",
+    "ng-cropper": "~0.4.1",
+    "ng-img-crop": "ngImgCrop#~0.3.2",
+    "jquery-ui": "^1.11.4"
+  },
+  "version": "0.0.0",
+  "homepage": "https://github.com/JackConnor/moneyshot_ionic",
+  "authors": [
+    "Jack Connor <jack.connor83@gmail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "www/lib",
+    "test",
+    "tests"
+  ]
 }

@@ -136,10 +136,12 @@ angular.module('signupController', [])
             if(newUser.data == 'email already in use'){
               alert('that email is already in the system, please try another one or login using your password');
               window.location.reload();
+              return;
             }
             else if(newUser.data == 'please send a password'){
               alert('you forgot your password');
               window.location.reload();
+              return;
             }
             else {
               newToken(newUser.data._id)

@@ -4,24 +4,25 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
   cameraCtrl.$inject = ['$http', '$state', '$scope', 'singlePhoto', 'Upload', '$q', '$cordovaCamera', '$cordovaFile', '$cordovaFileTransfer', 'signup', 'signin', 'newToken', '$cordovaCapture', 'Upload', '$cordovaStatusbar', '$timeout'];
   function cameraCtrl($http, $state, $scope, singlePhoto, Upload, $q, $cordovaCamera, $cordovaFile, $cordovaFileTransfer, signup, signin, newToken, $cordovaCapture, Upload, $cordovaStatusbar, $timeout){
-    // delete window.localStorage.webToken;
-
     // ionic.Platform.fullScreen();//////hides status bar
     ////////function to remove tabs from this view
+    // console.log($jrCrop);
     function removeTabs(){
       $('ion-tabs').addClass('tabs-item-hide');
     }
     removeTabs();
+
     ////////////////////////////
     /////////global variables///
-    // $scope.mediaCache = [{"link":"/img/adam.jpg", "type":"photo"}, {"link":"/img/max.png", "type":"photo"}, {"link":"/img/ben.png", "type":"photo"}];
-    $scope.mediaCache = [{type:'photo', link: '/img/adam.jpg'}, {type:'photo', link: '/img/ben.png'}];
-    // $scope.mediaCache = [];
+    // $scope.mediaCache = [{type: 'photo', link: 'http://www.kaplaninternational.com/blog/wp-content/uploads/2011/08/blah-290x300.jpg'}, {type:'photo', link: '/img/adam.jpg'}, {type:'photo', link: '/img/ben.png'}];
+    $scope.mediaCache = [];
     $scope.croppedPhoto = '';
-    $scope.submitModalVar = true;
-    $scope.cameraModal = false;
+    $scope.submitModalVar = false;
+    $scope.cameraModal = true;
     $scope.cameraLaunched = false;
     $scope.cameraToggle = true;
+    $scope.cropper = {};
+    $scope.cropper.croppedImage = '';
     var eraseSubmitArr = [];
     /////end global variables///
     ////////////////////////////
@@ -85,28 +86,6 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         uploadPhotos();
       }
     }, 1500);
-    ////////delayed functions fire in case the device is not loading up for the first time if the app was already open
-    // setTimeout(function(){
-    //   console.log();
-    //   if($scope.cameraLaunched == false){
-    //     uploadPhotos();
-    //   }
-    // }, 100);
-    // setTimeout(function(){
-    //   if($scope.cameraLaunched == false){
-    //     uploadPhotos();
-    //   }
-    // }, 500);
-    // setTimeout(function(){
-    //   if($scope.cameraLaunched == false){
-    //     uploadPhotos();
-    //   }
-    // }, 1000);
-    // setTimeout(function(){
-    //   if($scope.cameraLaunched == false){
-    //     uploadPhotos();
-    //   }
-    // }, 2000);
 
     function outPhotoModal(){
       $scope.cameraModal = false;
@@ -359,62 +338,218 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     $scope.submitAllPhotos = submitAllPhotos;
 
     function cropPhoto(photoData, evt, index){
-      console.log(photoData);
-      // $scope.croppedPhoto = photoData;
+      // console.log(photoData);
       $('.submitCropContainer').animate({
         marginLeft: 0
       }, 700);
-      $('.submitCropContainer').append(
-        "<img id='image' src='"+photoData.link+"' class='cropImage'>"
-      )
-      $('.cropImage').css({
-        width: 100+"%"
-        ,height: 100+"%"
+      // console.log($('.cropHolder'));
+      // $scope.cropPhotoImage = photoData.link;
+      var photoOptions = {
+          quality : 95,
+          destinationType : Camera.DestinationType.FILE_URI,
+          sourceType : Camera.PictureSourceType.Camera ,
+          allowEdit : true,
+          encodingType: Camera.EncodingType.png,
+          popoverOptions: CameraPopoverOptions,
+          saveToPhotoAlbum: false,
+          checkOrientation: true,
+          params: {naturalWidth: 0, naturalHeight: 0}
+      };
+      $cordovaFileTransfer.upload('http://192.168.0.5:5555/crop/photo', photoData.link, {}, true)
+      .then(function(result){
+        // console.log(result);
+        var parsedPhoto = JSON.parse(result.response);
+        console.log(parsedPhoto);
+        $scope.cropPhotoImage = parsedPhoto.secure_url;
+        $('.cropHolder').append(
+          "<img id='image' src='"+parsedPhoto.secure_url+"'></img>"
+        )
+        $('#image').cropper({
+            aspectRatio: 9 / 16,
+            background: false,
+            modal: false,
+            autoCrop: true,
+            checkOrientation: false,
+            viewMode: 1,
+            crop: function(e) {
+              // Output the result data for cropping image.
+              console.log(e.x);
+              console.log(e.y);
+              console.log(e.width);
+              console.log(e.height);
+              console.log(e.rotate);
+              console.log(e.scaleX);
+              console.log(e.scaleY);
+              // var ourImg = $(".cropper-canvas img");
+              // var ourImg2 = $(".cropper-view-box img");
+              // console.log('divvvvv');
+              // console.log(ourImg);
+              // ourImg.css({
+              //   '-webkit-transform' : 'rotate(0)'
+              //   ,'-moz-transform'    : 'rotate(0)'
+              //   ,'-ms-transform'     : 'rotate(0)'
+              //   ,'-o-transform'      : 'rotate(0)'
+              //   ,'transform'         : 'rotate(0)'
+              // })
+              // ourImg2.css({
+              //   '-webkit-transform' : 'rotate(0)'
+              //   ,'-moz-transform'    : 'rotate(0)'
+              //   ,'-ms-transform'     : 'rotate(0)'
+              //   ,'-o-transform'      : 'rotate(0)'
+              //   ,'transform'         : 'rotate(0)'
+              // })
+              console.log(ourImg);
+            }
+            ,built: function(){
+
+            }
+          });
       })
-      $(".cropImage").cropper({
-        zoomOnWheel: false,
-        background: false,
-        modal: false,
-        autoCrop: true,
-        viewMode: 1,
-        aspectRatio: 4/5,
-        crop: function(e){
-          $scope.cropData = e;
-          // console.log(e);
-          // console.log(JSON.parse(e));
-          var cropData = $(".cropImage").cropper('getData');
-          console.log(cropData);
-          var imageData = $(".cropImage").cropper('getImageData');
-          console.log(imageData);
-          var imageNumbers = {
-            cropWidth: cropData.width
-            ,cropHeight: cropData.height
-            ,cropOffsetX: cropData.x
-            ,cropOffsetY: cropData.y
-            ,imageWidth: imageData.width
-            ,imageHeight: imageData.height
-            ,imageNaturalWidth: imageData.naturalWidth
-            ,imageNaturalHeight: imageData.naturalHeight
-            ,naturalConversionMultiple: imageData.naturalWidth/imageData.width
-            ,cloudCropImageWidth: cropData.width*(imageData.naturalWidth/imageData.width)
-            ,cloudCropImageHeight:cropData.height*(imageData.naturalWidth/imageData.width)
-            ,cloudCropImageX: cropData.x*(imageData.naturalWidth/imageData.width)
-            ,cloudCropImageY:cropData.y*(imageData.naturalWidth/imageData.width)
-            ,DOMImageWidth: $('.submitPhoto').width()
-            ,conversionMultiple: $('.submitPhoto').width()/cropData.width
-            ,newImageWidth: imageData.width*$('.submitPhoto').width()/cropData.width
-            ,newImageHeight: imageData.height*$('.submitPhoto').width()/cropData.width
-            ,newImageX: cropData.x*$('.submitPhoto').width()/cropData.width
-            ,newImageY: cropData.y*$('.submitPhoto').width()/cropData.width
-            ,index: index
-          }
-          $scope.imageNumbers = imageNumbers;
-          console.log(imageNumbers);
-        },
-        built: function (e) {
-          // $(this).cropper('crop');
-        }
-      });
+      // var canvas = document.getElementById("cropCanvas");
+      // var ctx = canvas.getContext("2d");
+      // console.log(ctx);
+      // ctx.rotate(60 * Math.PI / 180);
+      // $scope.cropper.sourceImage = photoData.link;
+      // ctx.fillRect(70,0,100,30);
+      // cropEl.rotate(20*Math.pi/180);
+      // var file=photoData.link;
+      // var reader = new FileReader();
+      // reader.onload = function (evt) {
+      //   $scope.$apply(function($scope){
+      //     alert(evt.target);
+      //     alert(evt.target.result);
+      //     $scope.myImage=evt.target.result;
+      //   });
+      // };
+      // reader.readAsDataURL(file);
+
+      // var img = new Image();
+      // img.setAttribute('crossOrigin', 'anonymous');
+      // img.src = photoData.link;
+      // img.id = 'image'
+      // $('.cropHolder').append(
+      //   img
+      // )
+      // $('.cropHolder').append(
+      //   "<img-crop image='myImage result-image='myCroppedImage'></img-crop>"
+      // )
+      // $('.cropHolder').attr('id', 'crop')
+      // console.log(img);
+      // $('.cropHolder').append(img);
+      // var cropperOptions = {
+      //   zoomFactor:10,
+      //   doubleZoomControls:true,
+      //   rotateFactor:10,
+      //   modal: true,
+      //   rotateControls:true
+      // }
+      // var cropperHeader = new Croppic('image', cropperOptions);
+      // console.log(cropperHeader);
+      //
+      // var dr = new Darkroom("#image", {
+      //   minWidth: 600,
+      //   minHeight: 500,
+      //   maxWidth: 600,
+      //   maxHeight: 500,
+      //   ratio: 4/3,
+      //   backgroundColor: '#000',
+      //   // Plugins options
+      //   plugins: {
+      //     //save: false,
+      //     crop: {
+      //       quickCropKey: 67, //key "c"
+      //       //minHeight: 50,
+      //       //minWidth: 50,
+      //       //ratio: 4/3
+      //     }
+      //   },
+      //   // Post initialize script
+      //   initialize: function() {
+      //     var cropPlugin = this.plugins['crop'];
+      //     // cropPlugin.selectZone(170, 25, 300, 300);
+      //     cropPlugin.requireFocus();
+      //   }
+      // })
+      // $scope.croppedPhoto = photoData;
+
+      // $jrCrop.crop({
+      //   url: photoData.link
+      //   ,height: 600
+      //   ,width:  600
+      // })
+      // .then(function(canvas){
+      //   console.log('yooooooooo');
+      //   var image = canvas.toDataURL();
+      //   console.log(image);
+      //   $('.submitPhoto0').attr('src', image);
+      // })
+      // $scope.myImage = photoData.link;
+
+      // Cropper.encode((fileSrc))
+      // .then(function(dataUrl){
+      //   console.log(dataUrl);
+      // })
+      // Cropper.crop(img, {
+      //   zoomOnWheel: true,
+      //    background: false,
+      //    modal: false,
+      //    autoCrop: true,
+      //    checkOrientation: false,
+      //    viewMode: 1,
+      //
+      //    responsive: true,
+      //    aspectRatio: 4/5,
+      //    crop: function(e){
+      //      console.log(e);
+      //    }
+      // })
+      // $(".cropImage").cropper({
+      //   zoomOnWheel: true,
+      //   background: false,
+      //   modal: false,
+      //   autoCrop: true,
+      //   checkOrientation: false,
+      //   viewMode: 1,
+      //
+      //   responsive: true,
+      //   aspectRatio: 4/5,
+      //   crop: function(e){
+      //     $scope.cropData = e;
+      //     // console.log(e);
+      //     // console.log(JSON.parse(e));
+      //     var cropData = $(".cropImage").cropper('getData');
+      //     console.log(cropData);
+      //     var imageData = $(".cropImage").cropper('getImageData');
+      //     console.log(imageData);
+      //     var imageNumbers = {
+      //       cropWidth: cropData.width
+      //       ,cropHeight: cropData.height
+      //       ,cropOffsetX: cropData.x
+      //       ,cropOffsetY: cropData.y
+      //       ,imageWidth: imageData.width
+      //       ,imageHeight: imageData.height
+      //       ,imageNaturalWidth: imageData.naturalWidth
+      //       ,imageNaturalHeight: imageData.naturalHeight
+      //       ,naturalConversionMultiple: imageData.naturalWidth/imageData.width
+      //       ,cloudCropImageWidth: cropData.width*(imageData.naturalWidth/imageData.width)
+      //       ,cloudCropImageHeight:cropData.height*(imageData.naturalWidth/imageData.width)
+      //       ,cloudCropImageX: cropData.x*(imageData.naturalWidth/imageData.width)
+      //       ,cloudCropImageY:cropData.y*(imageData.naturalWidth/imageData.width)
+      //       ,DOMImageWidth: $('.submitPhoto').width()
+      //       ,conversionMultiple: $('.submitPhoto').width()/cropData.width
+      //       ,newImageWidth: imageData.width*$('.submitPhoto').width()/cropData.width
+      //       ,newImageHeight: imageData.height*$('.submitPhoto').width()/cropData.width
+      //       ,newImageX: cropData.x*$('.submitPhoto').width()/cropData.width
+      //       ,newImageY: cropData.y*$('.submitPhoto').width()/cropData.width
+      //       ,index: index
+      //     }
+      //     $scope.imageNumbers = imageNumbers;
+      //     console.log(imageNumbers);
+      //   },
+      //   built: function (e) {
+      //     // $(this).cropper('crop');
+      //   }
+      // });
     }
     $scope.cropPhoto = cropPhoto;
 
@@ -444,6 +579,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       setTimeout(function(){
         $('.cropper-container').remove();
       }, 700);
+      $('#image').remove();
     }
     $scope.backToSubmit = backToSubmit;
 
