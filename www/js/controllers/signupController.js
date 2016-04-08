@@ -151,14 +151,15 @@ angular.module('signupController', [])
                 $scope.signupModalVar = false;
                 $scope.signinModalVar = false;
                 $scope.signupModalTabs = false;
+                window.localStorage.webToken = token;
                 $http({
                   method: "POST"
                   ,url: "http://192.168.0.9:5555/api/signup/email"
                   ,data: {userEmail: email}
                 })
                 .then(function(mailCallback){
+                  console.log('email callback');
                   console.log(mailCallback);
-                  window.localStorage.webToken = token;
                   window.location.hash = "#/tab/camera";
                 })
               })
