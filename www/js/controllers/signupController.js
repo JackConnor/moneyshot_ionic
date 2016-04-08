@@ -8,9 +8,9 @@ angular.module('signupController', [])
 
   .controller('signupCtrl', signupCtrl);
 
-  signupCtrl.$inject = ['$scope', '$state', 'signup', 'signin', 'newToken', '$cordovaStatusbar', '$window', 'Facebook', '$timeout', '$interval', '$animateCss']
+  signupCtrl.$inject = ['$scope', '$http', '$state', 'signup', 'signin', 'newToken', '$cordovaStatusbar', '$window', 'Facebook', '$timeout', '$interval', '$animateCss']
 
-  function signupCtrl($scope, $state, signup, signin, newToken, $cordovaStatusbar, $window, Facebook, $timeout, $interval, $animateCss){
+  function signupCtrl($scope, $http, $state, signup, signin, newToken, $cordovaStatusbar, $window, Facebook, $timeout, $interval, $animateCss){
     ionic.Platform.fullScreen();////hides status bar
     ///////////////global variables//////
     // console.log($facebookProvider);
@@ -151,8 +151,16 @@ angular.module('signupController', [])
                 $scope.signupModalVar = false;
                 $scope.signinModalVar = false;
                 $scope.signupModalTabs = false;
-                window.localStorage.webToken = token;
-                window.location.hash = "#/tab/camera";
+                $http({
+                  method: "POST"
+                  ,url: "http://192.168.0.9:5555/api/signup/email"
+                  ,data: {userEmail: email}
+                })
+                .then(function(mailCallback){
+                  console.log(mailCallback);
+                  window.localStorage.webToken = token;
+                  window.location.hash = "#/tab/camera";
+                })
               })
             }
           })

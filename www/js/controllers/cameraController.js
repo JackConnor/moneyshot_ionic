@@ -280,6 +280,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
             };
             function addCrop(){
               if(set[i].cropData){
+                console.log(set[i]);
                 photoOptions.params.cloudCropImageWidth = set[i].cropData.cloudCropImageWidth;
                 photoOptions.params.cloudCropImageHeight = set[i].cropData.cloudCropImageHeight;
                 photoOptions.params.cloudCropImageX = set[i].cropData.cloudCropImageX;
@@ -299,7 +300,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
               }
             }
             addCrop();
-            $cordovaFileTransfer.upload('https://moneyshotapi.herokuapp.com/api/newimage', set[i].link, photoOptions)
+            $cordovaFileTransfer.upload('http://192.168.0.5:5555/api/newimage', set[i].link, photoOptions)
             .then(function(callbackImage){
               var parsedPhoto = JSON.parse(callbackImage.response);
               console.log(parsedPhoto);
