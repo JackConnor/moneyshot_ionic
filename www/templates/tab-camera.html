@@ -61,8 +61,10 @@
             <div class="cropIconHolder" ng-click='cropPhoto(mediaCache[$index], $event, $index)'>
               <div class='fa fa-crop'></div>
             </div>
-            <img class='submitPhoto submitPhoto{{$index}}' id='submit{{$index}}' ng-src="{{media.link}}" ng-if='media.type=="photo"'/>
-            <video ng-src="{{media.link}}" ng-if='media.type=="video"'></video>
+            <div class="submitCellImageHolder">
+              <img class='submitPhoto submitPhoto{{$index}}' id='submit{{$index}}' src="{{media.link}}" ng-if='media.type=="photo"'/>
+              <video ng-src="{{media.link}}" ng-if='media.type=="video"'></video>
+            </div>
           </div>
         </div>
       </div>

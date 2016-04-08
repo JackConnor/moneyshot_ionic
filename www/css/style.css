@@ -311,6 +311,7 @@ ion-view {
   margin-left: 7%;
   height: 30%;
   position: absolute;
+  z-index: 2;
 }
 
 .credentialContainer {
@@ -345,6 +346,7 @@ ion-view {
   margin-top: 80px;
   font-size: 50px;
   opacity: 0.5;
+  z-index: 2;
 }
 
 .cropImage {
@@ -954,14 +956,20 @@ ion-view {
 }
 
 .submitCell img{
-  overflow: hidden;
+  /*position: absolute;*/
+  width: 100%;
+  height: auto;
+}
+
+.submitCell video{
   padding: 0px;
   width: 90%;
   height: 90%;
   margin: 5% 0 0 5%;
 }
 
-.submitCell video{
+.submitCellImageHolder {
+  overflow: hidden;
   padding: 0px;
   width: 90%;
   height: 90%;
@@ -999,6 +1007,10 @@ ion-view {
 .submitModalContainer {
   width: 100%;
   height: 100%;
+}
+
+.submitModal {
+  position: absolute;
 }
 
 .submitPhotosHolder {
