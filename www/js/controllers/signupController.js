@@ -14,11 +14,13 @@ angular.module('signupController', [])
     ionic.Platform.fullScreen();////hides status bar
     ///////////////global variables//////
     // console.log($facebookProvider);
-    $scope.signupModalVar  = true;
-    $scope.signinModalVar  = false;
-    $scope.signupModalTabs = true;
-    $scope.introModal      = true;
-    $scope.introCounter    = 0;
+    $scope.signupModalVar   = false;
+    $scope.signinModalVar   = true;
+    $scope.signupModalTabs  = false;
+    $scope.introModal       = true;
+    $scope.getPasswordModal = false;
+    $scope.newPwModal       = false;
+    $scope.introCounter     = 0;
 
     //////function to control our photo carousel
     ////////////////////////////////////////////
@@ -154,7 +156,7 @@ angular.module('signupController', [])
                 window.localStorage.webToken = token;
                 $http({
                   method: "POST"
-                  ,url: "http://192.168.0.9:5555/api/signup/email"
+                  ,url: "http://192.168.0.6:5555/api/signup/email"
                   ,data: {userEmail: email}
                 })
                 .then(function(mailCallback){
@@ -208,6 +210,56 @@ angular.module('signupController', [])
       })
     }
     $scope.signinUser = signinUser;
+
+    //////function if a user forgets their password
+    function getPassword(){
+      $scope.getPasswordModal = true;
+    }
+    $scope.getPassword = getPassword;
+
+    function retrievePW(){
+      var email = $('.getPwEmail').val();
+      $http({
+        method: "POST"
+        ,url: "http://192.168.0.6:5555/api/getpw"
+        ,data: {userEmail: email}
+      })
+      .then(function(pwCall){
+        console.log(pwCall);
+        if(pwCall.data.bool){
+          alert('create your new pw');
+          $scope.newPwModal = true;
+        }
+        else if(!pwCall.data.bool){
+          alert('no user by that email');
+        }
+      })
+    }
+    $scope.retrievePW = retrievePW;
+
+    //////function to create a new password
+    function newPw(){
+      console.log('sumthin');
+      var newPass = $('.newPassword').val();
+      var confirmNewPw = $('.confirmNewPassword').val();
+      if(newPass === confirmNewPw){
+        var email = $('.getPwEmail').val();
+        alert(email+" "+newPass);
+        $http({
+          method: "POST"
+          ,url: 'http://192.168.0.6:5555/api/update/pw'
+          ,data: {email: email, password: newPass}
+        })
+        .then(function(updatedUser){
+          console.log(updatedUser);
+        })
+
+      }
+      else {
+        alert('your passwords dont match');
+      }
+    }
+    $scope.newPw = newPw;
 
     function signoutUser(){
       console.log('yoyoy');
