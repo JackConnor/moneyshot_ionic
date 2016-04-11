@@ -22,7 +22,7 @@ angular.module('bankController', [])
     .then(function(userInfo){
       $http({
         method: "POST"
-        ,url: "http://192.168.0.4:5555/api/userinfo"
+        ,url: "http://192.168.0.7:5555/api/userinfo"
         ,data: {userId: userInfo.data.userId}
       })
       .then(function(userData){
@@ -106,7 +106,7 @@ angular.module('bankController', [])
     function deleteBank(){
       $http({
         method: "POST"
-        ,url: "http://192.168.0.4:5555/api/delete/bank"
+        ,url: "http://192.168.0.7:5555/api/delete/bank"
         ,data: {userId: $scope.userInfo._id}
       })
       .then(function(updatedUser){

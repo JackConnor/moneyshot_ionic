@@ -156,7 +156,7 @@ angular.module('signupController', [])
                 window.localStorage.webToken = token;
                 $http({
                   method: "POST"
-                  ,url: "http://192.168.0.6:5555/api/signup/email"
+                  ,url: "http://192.168.0.7:5555/api/signup/email"
                   ,data: {userEmail: email}
                 })
                 .then(function(mailCallback){
@@ -221,18 +221,18 @@ angular.module('signupController', [])
       var email = $('.getPwEmail').val();
       $http({
         method: "POST"
-        ,url: "http://192.168.0.6:5555/api/getpw"
+        ,url: "http://192.168.0.7:5555/api/newpw/request"
         ,data: {userEmail: email}
       })
       .then(function(pwCall){
         console.log(pwCall);
-        if(pwCall.data.bool){
-          alert('create your new pw');
-          $scope.newPwModal = true;
-        }
-        else if(!pwCall.data.bool){
-          alert('no user by that email');
-        }
+        // if(pwCall.data.bool){
+        //   alert('create your new pw');
+        //   $scope.newPwModal = true;
+        // }
+        // else if(!pwCall.data.bool){
+        //   alert('no user by that email');
+        // }
       })
     }
     $scope.retrievePW = retrievePW;
@@ -247,7 +247,7 @@ angular.module('signupController', [])
         alert(email+" "+newPass);
         $http({
           method: "POST"
-          ,url: 'http://192.168.0.6:5555/api/update/pw'
+          ,url: 'http://192.168.0.7:5555/api/update/pw'
           ,data: {email: email, password: newPass}
         })
         .then(function(updatedUser){

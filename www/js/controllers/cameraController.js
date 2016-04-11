@@ -4,6 +4,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
   cameraCtrl.$inject = ['$http', '$state', '$scope', 'singlePhoto', 'Upload', '$q', '$cordovaCamera', '$cordovaFile', '$cordovaFileTransfer', 'signup', 'signin', 'newToken', '$cordovaCapture', 'Upload', '$cordovaStatusbar', '$timeout'];
   function cameraCtrl($http, $state, $scope, singlePhoto, Upload, $q, $cordovaCamera, $cordovaFile, $cordovaFileTransfer, signup, signin, newToken, $cordovaCapture, Upload, $cordovaStatusbar, $timeout){
+    // delete window.localStorage.webToken;
     // ionic.Platform.fullScreen();//////hides status bar
     ////////function to remove tabs from this view
     // console.log($jrCrop);
@@ -203,6 +204,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     //////function to submit all cached photos from your session to the db
     function submitAllPhotos(set){
       console.log('working');
+      console.log(set);
       //////through our if-statement below, we'll need to add different options so that photos and videos get processed correctly
       var photoOptions = {
           quality : 95,
@@ -231,7 +233,8 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
         ////now iterate through to submit to backend
         for (var i = 0; i <= set.length; i++) {
-          if(set[i].type == "video"){
+          console.log(set[i]);
+          if(set[i].type === "video"){
             console.log('video');
             $cordovaFileTransfer.upload('https://moneyshotapi.herokuapp.com/api/upload/video', set[i].link, {})
             .then(function(callbackImage){
@@ -266,7 +269,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
               })
             })
           }
-          else if(set[i].type == "photo"){
+          else if(set[i].type === "photo"){
             console.log('photo');
             var photoOptions = {
                 quality : 95,
@@ -300,7 +303,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
               }
             }
             addCrop();
-            $cordovaFileTransfer.upload('http://192.168.0.5:5555/api/newimage', set[i].link, photoOptions)
+            $cordovaFileTransfer.upload('http://192.168.0.7:5555/api/newimage', set[i].link, photoOptions)
             .then(function(callbackImage){
               var parsedPhoto = JSON.parse(callbackImage.response);
               console.log(parsedPhoto);
@@ -356,7 +359,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
           checkOrientation: true,
           params: {naturalWidth: 0, naturalHeight: 0}
       };
-      $cordovaFileTransfer.upload('http://192.168.0.5:5555/crop/photo', photoData.link, {}, true)
+      $cordovaFileTransfer.upload('http://192.168.0.7:5555/crop/photo', photoData.link, {}, true)
       .then(function(result){
         // console.log(result);
         var parsedPhoto = JSON.parse(result.response);
