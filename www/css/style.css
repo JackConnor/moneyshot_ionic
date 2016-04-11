@@ -470,6 +470,12 @@ ion-view {
   font-size: 25px;
 }
 
+.forgotPassword {
+  margin-top: 10px;
+  position: absolute;
+  font-size: 15px;
+}
+
 .getPasswordModal {
   position: absolute;
   width: 100%;
@@ -494,7 +500,6 @@ ion-view {
 .getPwEmail {
   width: 90%;
   margin-left: 5%;
-  padding-top: 15px;
   text-align: center;
   margin-top: 35%;
   border-radius: 4px;
@@ -505,7 +510,7 @@ ion-view {
   margin-left: 5%;
   text-align: center;
   padding-top: 10px;
-  font-size: 12px;
+  font-size: 15px;
   color: white;
   display: inline-block;
 }
@@ -515,7 +520,7 @@ ion-view {
   margin-left: 5%;
   text-align: center;
   padding-top: 10px;
-  font-size: 12px;
+  font-size: 15px;
   color: white;
   display: inline-block;
 }
@@ -806,14 +811,12 @@ ion-view {
 }
 
 .signinModal {
-  margin-top: 320px;
+  margin-top: 275px;
   position: absolute;
   width: 100%;
   height: auto;
   color: white;
   z-index: 2;
-  bottom: 0;
-  margin-bottom: 115px;
 }
 
 .signinOr {
