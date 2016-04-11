@@ -218,7 +218,7 @@ angular.module('signupController', [])
     $scope.getPassword = getPassword;
 
     function retrievePW(){
-      var email = $('.getPwEmail').val();
+      var email = $('.getPwEmail').val().toLowerCase();
       $http({
         method: "POST"
         ,url: "http://192.168.0.7:5555/api/newpw/request"
@@ -226,13 +226,15 @@ angular.module('signupController', [])
       })
       .then(function(pwCall){
         console.log(pwCall);
-        // if(pwCall.data.bool){
-        //   alert('create your new pw');
-        //   $scope.newPwModal = true;
-        // }
-        // else if(!pwCall.data.bool){
-        //   alert('no user by that email');
-        // }
+        if(pwCall.data !== 'no user'){
+          alert('check your email for password information');
+          $scope.newPwModal = false;
+          $scope.getPasswordModal = false;
+          window.location.reload();
+        }
+        else {
+          alert('whoops cant find that user, please enter a new email or check for typos');
+        }
       })
     }
     $scope.retrievePW = retrievePW;
@@ -260,6 +262,12 @@ angular.module('signupController', [])
       }
     }
     $scope.newPw = newPw;
+
+
+    function closePwModal(){
+      $scope.getPasswordModal = false;
+    }
+    $scope.closePwModal = closePwModal;
 
     function signoutUser(){
       console.log('yoyoy');

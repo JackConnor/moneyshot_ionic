@@ -61,11 +61,10 @@
   </div>
   <ion-content>
     <div class="getPasswordModal" ng-if='getPasswordModal'>
-      <input class='getPwEmail' type="text" name="name" placeholder="enter email" ng-show="!newPwModal">
-      <input class='getPwButton' type="button" name="name" value="get password" ng-click='retrievePW()' ng-show="!newPwModal">
-      <!-- <input class='newPassword' type="text" name="name" placeholder="new password" ng-if='newPwModal'>
-      <input class='confirmNewPassword' type="text" name="name" placeholder="confirm new password" ng-if='newPwModal'>
-      <input type="button" name="name" value="submit new password" ng-if='newPwModal' ng-click='newPw()'> -->
+      <div class="blackLayerPwModal"></div>
+      <div class="pwX fa fa-times" ng-click='closePwModal()'></div>
+      <input type="text" name="name" placeholder="enter email" ng-show="!newPwModal"  class='getPwEmail' style='height:45px; font-size: 29px; padding-top: 15px'>
+      <div class='getPwButton' ng-click='retrievePW()' ng-show="!newPwModal">Get Password</div>
     </div>
     <div class="credentialContainer">
       <div class="signupModal" ng-if='signupModalVar'>
