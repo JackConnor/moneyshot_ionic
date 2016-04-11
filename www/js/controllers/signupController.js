@@ -13,7 +13,6 @@ angular.module('signupController', [])
   function signupCtrl($scope, $http, $state, signup, signin, newToken, $cordovaStatusbar, $window, Facebook, $timeout, $interval, $animateCss){
     ionic.Platform.fullScreen();////hides status bar
     ///////////////global variables//////
-    // console.log($facebookProvider);
     $scope.signupModalVar   = false;
     $scope.signinModalVar   = true;
     $scope.signupModalTabs  = false;
@@ -40,7 +39,6 @@ angular.module('signupController', [])
             var endOfLine = $scope.photoArray.slice(0,1);
             $scope.photoArray.shift();
             $scope.photoArray[$scope.photoArray.length] = endOfLine[0];
-            // console.log($scope.photoArray);
           }, 1100);
           carCounter = 'tails';
         }
@@ -54,7 +52,6 @@ angular.module('signupController', [])
             var endOfLine = $scope.photoArray.slice(0,1);
             $scope.photoArray.shift();
             $scope.photoArray[$scope.photoArray.length] = endOfLine[0];
-            // console.log($scope.photoArray);
           }, 1100);
           carCounter = 'heads';
         }
@@ -85,10 +82,8 @@ angular.module('signupController', [])
     }
     checkIntro();
     function introSwipeLeft(){
-      console.log('swiping');
       if($scope.introCounter < 3 && $scope.introCounter >=0){
         $scope.introCounter++;
-        console.log($scope.introCounter);
         $('.swipeIntroRow').animate({
           marginLeft: -($scope.introCounter*100)+"%"
         }, 200);
@@ -103,7 +98,6 @@ angular.module('signupController', [])
     function introSwipeRight(){
       if($scope.introCounter > 0){
         $scope.introCounter--;
-        console.log($scope.introCounter);
         $('.swipeIntroRow').animate({
           marginLeft: -($scope.introCounter*100)+"%"
         }, 200);
@@ -125,16 +119,13 @@ angular.module('signupController', [])
     // function to signup users who are new to the site
     function signupUser(){
       var validPW = checkPassword();
-      console.log(validPW);
       if(validPW){
-        console.log('ye');
         var email = $('.signupEmail').val();
         var password = $('.signupPassword').val();
         var repassword = $('.signupConfirmPassword').val();
         if(password == repassword){
           signup(email, password)
           .then(function(newUser){
-            console.log(newUser);
             if(newUser.data == 'email already in use'){
               alert('that email is already in the system, please try another one or login using your password');
               window.location.reload();
@@ -149,19 +140,16 @@ angular.module('signupController', [])
               newToken(newUser.data._id)
               .then(function(ourToken){
                 var token = ourToken.data;
-                console.log(token);
                 $scope.signupModalVar = false;
                 $scope.signinModalVar = false;
                 $scope.signupModalTabs = false;
                 window.localStorage.webToken = token;
                 $http({
                   method: "POST"
-                  ,url: "http://192.168.0.7:5555/api/signup/email"
+                  ,url: "https://moneyshotapi.herokuapp.com/api/signup/email"
                   ,data: {userEmail: email}
                 })
                 .then(function(mailCallback){
-                  console.log('email callback');
-                  console.log(mailCallback);
                   window.location.hash = "#/tab/camera";
                 })
               })
@@ -182,11 +170,8 @@ angular.module('signupController', [])
     function signinUser(){
       var email = $('.signupEmail').val();
       var password = $('.signupPassword').val();
-      console.log(email);
-      console.log(password);
       signin(email, password)
       .then(function(signedInUser){
-        console.log(signedInUser);
         if(signedInUser.data == 'no user found with that email address'){
           alert('we could not find your email address')
           window.location.reload();
@@ -221,11 +206,10 @@ angular.module('signupController', [])
       var email = $('.getPwEmail').val().toLowerCase();
       $http({
         method: "POST"
-        ,url: "http://192.168.0.7:5555/api/newpw/request"
+        ,url: "https://moneyshotapi.herokuapp.com/api/newpw/request"
         ,data: {userEmail: email}
       })
       .then(function(pwCall){
-        console.log(pwCall);
         if(pwCall.data !== 'no user'){
           alert('check your email for password information');
           $scope.newPwModal = false;
@@ -241,7 +225,6 @@ angular.module('signupController', [])
 
     //////function to create a new password
     function newPw(){
-      console.log('sumthin');
       var newPass = $('.newPassword').val();
       var confirmNewPw = $('.confirmNewPassword').val();
       if(newPass === confirmNewPw){
@@ -249,7 +232,7 @@ angular.module('signupController', [])
         alert(email+" "+newPass);
         $http({
           method: "POST"
-          ,url: 'http://192.168.0.7:5555/api/update/pw'
+          ,url: 'https://moneyshotapi.herokuapp.com/api/update/pw'
           ,data: {email: email, password: newPass}
         })
         .then(function(updatedUser){
@@ -270,7 +253,6 @@ angular.module('signupController', [])
     $scope.closePwModal = closePwModal;
 
     function signoutUser(){
-      console.log('yoyoy');
       window.localStorage.webToken = "";
       window.location.hash = "#/";
       window.location.reload();
@@ -286,7 +268,6 @@ angular.module('signupController', [])
 
     // function to toggle between signin and signup tabs
     function toggleSigns(evt){
-      console.log(evt);
       if($(evt.currentTarget).hasClass('goToSignin')){
         $scope.signupModalVar = false;
         $scope.signinModalVar = true;
@@ -307,10 +288,8 @@ angular.module('signupController', [])
         $scope.signupModalVar = false;
         $scope.signinModalVar = false;
         $scope.signupModalTabs = false;
-        console.log('signed in already');
       }
       else {
-        console.log('no token');
         $scope.signinModalVar = true;
         $scope.signupModalTabs = true;
         window.location.hash = "#/";
@@ -337,7 +316,6 @@ angular.module('signupController', [])
     ////////password character checking
     function checkPassword(){
       var passwordAttempt = $('.signupPassword').val();
-      console.log(passwordAttempt);
       var pwArr = passwordAttempt.split('');
       //////check for length////
       if(pwArr.length < 6){
@@ -347,7 +325,6 @@ angular.module('signupController', [])
         return false;
       }
       else{
-        console.log('passwrod accepted');
         return true;
       }
     }
@@ -355,27 +332,18 @@ angular.module('signupController', [])
 
     ///////email checking///////
     function checkValidEmail(){
-      console.log('email');
       var emailVal = $('.signupEmail').val().split('');
       var emLength = emailVal.length;
-      console.log(emailVal);
-      console.log(emLength);
       var atIndex = null;
       var dotIndex = null;
       for (var i = 0; i < emLength; i++) {
-        console.log(emailVal[i]);
         if(emailVal[i] === '@' && i !== emLength-1){
-          console.log('yeaaaaa');
-          console.log(emailVal[i]);
           atIndex = i;
         }
         else if(emailVal[i] === '.' && i !== emLength-1){
           dotIndex = i;
         }
         else if(i === emLength-1){
-          console.log('last letter');
-          console.log(atIndex);
-          console.log(dotIndex);
           if(atIndex === null){
             alert('you need n @ sign');
             $('.signupEmail').val('');
@@ -395,7 +363,6 @@ angular.module('signupController', [])
             return false;
           }
           else {
-            console.log('boom, email accepted');
             return true;
           }
         }
@@ -414,10 +381,7 @@ angular.module('signupController', [])
         version: 'v2.4'
     });
     function launchFB(){
-      console.log('yo');
-      console.log(window.location.href);
-      console.log(FB);
-      console.log(FB.XFBML);
+
       // Facebook.getLoginStatus(function(response){
       //   console.log(response);
       // })

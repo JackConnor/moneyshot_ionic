@@ -624,6 +624,21 @@ ion-view {
   padding: 0px;
 }
 
+.loadSpinner {
+  width: 150px;
+  height: 150px;
+  margin-left: 100px;
+  margin-top: 200px;
+  position: absolute;
+  z-index: 20
+}
+
+.loadSpinner img{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
 .longArrow {
   font-size: 60px;
   opacity: .6;

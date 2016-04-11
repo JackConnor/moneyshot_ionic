@@ -1,7 +1,9 @@
 <ion-view view-title="Account"  ng-controller='accountCtrl'>
   <ion-content overflow-scroll='false'>
     <div class="accountBody col-xs-12">
-
+      <div class="loadSpinner" ng-if='loadingModal'>
+        <img src="http://s9.postimg.org/op85d80pr/Mo_Pho_icon.png" alt="" ng-if='loadingModal'/>
+      </div>
       <div class="backgroundImage col-xs-12">
         <img src="https://i.imgsafe.org/017d610.png" ng-repeat='photo in backgroundMultiple'/>
       </div>

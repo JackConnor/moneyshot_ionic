@@ -4,6 +4,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
   cameraCtrl.$inject = ['$http', '$state', '$scope', 'singlePhoto', 'Upload', '$q', '$cordovaCamera', '$cordovaFile', '$cordovaFileTransfer', 'signup', 'signin', 'newToken', '$cordovaCapture', 'Upload', '$cordovaStatusbar', '$timeout'];
   function cameraCtrl($http, $state, $scope, singlePhoto, Upload, $q, $cordovaCamera, $cordovaFile, $cordovaFileTransfer, signup, signin, newToken, $cordovaCapture, Upload, $cordovaStatusbar, $timeout){
+    console.log(process.env.STRIPE_ID);
     // delete window.localStorage.webToken;
     // ionic.Platform.fullScreen();//////hides status bar
     ////////function to remove tabs from this view
@@ -303,7 +304,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
               }
             }
             addCrop();
-            $cordovaFileTransfer.upload('http://192.168.0.7:5555/api/newimage', set[i].link, photoOptions)
+            $cordovaFileTransfer.upload('https://moneyshotapi.herokuapp.com/api/newimage', set[i].link, photoOptions)
             .then(function(callbackImage){
               var parsedPhoto = JSON.parse(callbackImage.response);
               console.log(parsedPhoto);
@@ -359,7 +360,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
           checkOrientation: true,
           params: {naturalWidth: 0, naturalHeight: 0}
       };
-      $cordovaFileTransfer.upload('http://192.168.0.7:5555/crop/photo', photoData.link, {}, true)
+      $cordovaFileTransfer.upload('https://moneyshotapi.herokuapp.com/crop/photo', photoData.link, {}, true)
       .then(function(result){
         // console.log(result);
         var parsedPhoto = JSON.parse(result.response);

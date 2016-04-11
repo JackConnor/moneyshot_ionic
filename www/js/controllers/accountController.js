@@ -11,12 +11,12 @@ angular.module('accountController', [])
   acctCtrl.$inject = ['$http', '$state', '$scope', 'navbar', 'userPhotos', 'decodeToken', '$cordovaStatusbar', '$ionicScrollDelegate'];
 
   function acctCtrl($http, $state, $scope, navbar, userPhotos, decodeToken, $cordovaStatusbar, $ionicScrollDelegate){
-    // setTimeout(function(){
-    //   history.forward()
-    // }, 3000);
-    console.log($cordovaStatusbar.isVisible);
     // ionic.Platform.fullScreen();/////removes the status bar from the app
     /////global variables
+    // document.addEventListener('DOMContentLoaded', function() {
+    //    // your code here
+    //    console.log('loaded');
+    // }, false);
     $scope.showSold              = false;
     $scope.showSubmitted         = true;
     $scope.showFinance           = false;
@@ -24,6 +24,7 @@ angular.module('accountController', [])
     $scope.introModal            = false;
     $scope.sellModal             = false;
     $scope.singleSubmissionModal = false;
+    $scope.loadingModal          = true;
     $scope.introCounter          = 0;
     $scope.scrollPosition        = 0;
     $scope.backgroundMultiple    = [];
@@ -61,16 +62,13 @@ angular.module('accountController', [])
 
     /////begin intro modal stuff////
     ////////////////////////////////
-    console.log($(window).height());
     setInterval(function(){
       var heightVar = $(window).height();
       $('.swipeIntro').height(heightVar);
     }, 10);
     function introSwipeLeft(){
-      console.log('swiping');
       if($scope.introCounter < 3 && $scope.introCounter >=0){
         $scope.introCounter++;
-        console.log($scope.introCounter);
         $('.swipeIntroRow').animate({
           marginLeft: -($scope.introCounter*100)+"%"
         }, 200);
@@ -85,7 +83,6 @@ angular.module('accountController', [])
     function introSwipeRight(){
       if($scope.introCounter > 0){
         $scope.introCounter--;
-        console.log($scope.introCounter);
         $('.swipeIntroRow').animate({
           marginLeft: -($scope.introCounter*100)+"%"
         }, 200);
@@ -116,17 +113,12 @@ angular.module('accountController', [])
     ///////////////////////////////////
 
     var userToken = window.localStorage.webToken;
-    // console.log(userToken);
     function getUserPhotos(token){
-      console.log(token);
       decodeToken(token)
       .then(function(decToken){
-        console.log(decToken);
         userPhotos(decToken.data.userId)
         .then(function(userInfo){
-          console.log(userInfo);
           if(userInfo.data === null){
-            console.log('null');
             var userPhotos = [];
             $scope.userInfo = [];
             $scope.userSubmissions = [];
@@ -136,7 +128,6 @@ angular.module('accountController', [])
             // )
           }
           else {
-            console.log(typeof userInfo.data.photos.length);
             $scope.userInfo = userInfo.data;
             var userPhotos = userInfo.data.photos;////this is all of a signed-in user's
             var photoLength = userInfo.data.photos.length;
@@ -163,20 +154,12 @@ angular.module('accountController', [])
                 }
               }
               // $scope.soldPhotos = soldPhotos;
-              console.log($scope.allSoldPhotos);
-              if($scope.allSoldPhotos){
-                console.log(true);
-              }
-              else{
-                console.log(false);
-              }
-              if($scope.allSoldPhotos){
-                var backLength =  $scope.allSoldPhotos.length;
+              if($scope.userSubmissions){
+                var backLength =  $scope.userSubmissions.length*10;
               }
               else {
                 var backLength = 1;
               }
-              console.log(backLength);
               for (var i = 0; i <backLength; i++) {
                 $scope.backgroundMultiple.push('filler'+i);
               }
@@ -189,14 +172,42 @@ angular.module('accountController', [])
     }
     getUserPhotos(userToken);
 
+    var d = 1;
+    function addSpinner(){
+      console.log($scope.loadingModal);
+      if($scope.loadingModal){
+        $('.loadSpinner').css({
+          '-moz-transform':'rotate('+d+'deg)',
+          '-webkit-transform':'rotate('+d+'deg)',
+          '-o-transform':'rotate('+d+'deg)',
+          '-ms-transform':'rotate('+d+'deg)',
+          'transform': 'rotate('+d+'deg)'
+        })
+        if(d >= 360){
+          d = 0;
+        }
+      d++;
+      }
+    }
+    var spinnerInterval = setInterval(addSpinner, 20);
+    // addSpinner();
+
     function setPhotoUiSubs(){
       var arr = $scope.userSubmissions;
-      for (var i = 0; i < arr.length; i++) {
+      var length = arr.length
+      for (var i = 0; i < length; i++) {
         if(arr[i].photos.length == 1){
           var el = $('.submittedRow'+i).find('.subPhoto0');
           el.animate({
             marginLeft: '27.5px'
           }, 300);
+          if(i === length-1){
+            setTimeout(function(){
+              $scope.loadingModal = false;
+              $('.loadSpinner').remove();
+              clearInterval(spinnerInterval);
+            }, 1000)
+          }
         }
         else if(arr[i].photos.length == 2){
           var el = $('.submittedRow'+i).find('.subPhoto0');
@@ -207,6 +218,13 @@ angular.module('accountController', [])
           el1.animate({
             marginLeft: '45px'
           }, 300);
+          if(i === length-1){
+            setTimeout(function(){
+              $scope.loadingModal = false;
+              $('.loadSpinner').remove();
+              clearInterval(spinnerInterval);
+            }, 1000)
+          }
         }
         else if(arr[i].photos.length == 3){
           var el = $('.submittedRow'+i).find('.subPhoto0');
@@ -221,6 +239,13 @@ angular.module('accountController', [])
           el2.animate({
             marginLeft: '50px'
           }, 300);
+          if(i === length-1){
+            setTimeout(function(){
+              $scope.loadingModal = false;
+              $('.loadSpinner').remove();
+              clearInterval(spinnerInterval);
+            }, 1000)
+          }
         }
       }
     }
@@ -267,8 +292,6 @@ angular.module('accountController', [])
     $scope.showFinanceFunc = showFinanceFunc;
     ////function to adjust the text ui when a tab is selected
     function tabUi(evt){
-      console.log('yo');
-      console.log(evt.currentTarget);
       var sold = function(){
         if($(evt.currentTarget).hasClass('soldTab')){
           return true;
@@ -311,7 +334,6 @@ angular.module('accountController', [])
       })
       ///////now we select and add css to correct text
       if(sold()){
-        console.log('sold');
         $('.soldTabInner').css({
           fontStyle: 'bold'
           ,fontSize: "19px"
@@ -319,7 +341,6 @@ angular.module('accountController', [])
         })
       }
       else if(submission()){
-        console.log('submitted');
         $('.submittedTabInner').css({
           fontStyle: 'bold'
           ,fontSize: "19px"
@@ -327,7 +348,6 @@ angular.module('accountController', [])
         })
       }
       else if(finance()){
-        console.log('money');
         $('.moneyTabInner').css({
           fontStyle: 'bold'
           ,fontSize: "19px"
@@ -338,7 +358,6 @@ angular.module('accountController', [])
     $scope.tabUi = tabUi;
 
     function openSingle(photoData, status){
-      console.log(status);
       $scope.singlePhotoData = photoData;
       if(status == "sold"){
         $('.repeatContainer').css({
@@ -364,7 +383,6 @@ angular.module('accountController', [])
     }
 
     function openSubmission(subInfo, evt){
-      console.log($ionicScrollDelegate.getScrollPosition().top);
       $scope.scrollPosition = $ionicScrollDelegate.getScrollPosition().top;
       $scope.singleSubmission = subInfo;
       $scope.singleSubmissionModal = true;
@@ -381,7 +399,6 @@ angular.module('accountController', [])
     function backToRepeat(modalType){
       var x = document.getElementById("repeatContainer");
       x.style.marginRight = 0;
-      console.log(modalType);
       if(modalType == 'submission'){
         $scope.singleSubmissionModal = false;
         $ionicScrollDelegate.scrollTo(0, $scope.scrollPosition, false);
@@ -424,7 +441,6 @@ angular.module('accountController', [])
     $scope.goToBanking = goToBanking;
 
     function closeHamburgerBody(evt){
-      console.log(evt.currentTarget);
       if($(evt.currentTarget).hasClass("hamburgerSignout") == false){
         $scope.hamburgerOpen = false;
       }
@@ -433,7 +449,6 @@ angular.module('accountController', [])
     $scope.closeHamburgerBody = closeHamburgerBody;
 
 
-    console.log($ionicScrollDelegate);
     //////////logic for hamburger menu////////
     //////////////////////////////////////////
 
@@ -445,7 +460,6 @@ angular.module('accountController', [])
         ,data: {status: status, photoId: photo._id, refresh_token: $scope.userInfo.refresh_token, price: photo.price}
       })
       .then(function(updatedPhoto){
-        console.log(updatedPhoto);
         $scope.sellModal = false;
         // window.location.reload();
         if(updatedPhoto.data.status == 'sold'){
