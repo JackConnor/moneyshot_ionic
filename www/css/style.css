@@ -654,7 +654,7 @@ ion-view {
 }
 
 .introSigninButton {
-  margin-top: 170px;
+  margin-top: 300px;
   padding-top: 10px;
 }
 
@@ -876,13 +876,13 @@ ion-view {
   margin-top: 60px;
   height: auto;
   /*position: absolute;*/
-  outline: 2px solid blue;
+  /*outline: 2px solid blue;*/
   z-index: 5;
 }
 
 .signinLogo img{
   width: 100%;
-  position: absolute;
+  /*position: absolute;*/
 }
 
 .signinModal {

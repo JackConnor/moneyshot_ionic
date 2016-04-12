@@ -90,15 +90,17 @@ angular.module('signupController', [])
         }, 200);
       }
       else if($scope.introCounter >= 3){
-        // exitIntro();
-        // $scope.introCounter = 0;
+        $('.swipeIntroRow').animate({
+          marginLeft: 0+'px'
+        }, 200);
+        $scope.introCounter = 0;
       }
     }
     $scope.introSwipeLeft = introSwipeLeft;
 
     setInterval(function(){
       introSwipeLeft();
-    }, 3000);
+    }, 4000);
 
     function introSwipeRight(){
       if($scope.introCounter > 0){
