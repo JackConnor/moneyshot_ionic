@@ -136,6 +136,7 @@ ion-content {
   background-color: #939393;
   width: 100%;
   height: 667px;
+  margin-top: 75px;
 }
 
 .bankInfoHolder {
@@ -153,6 +154,18 @@ ion-content {
   font-size: 20px;
   padding-top: 10px;
   border-bottom: 1px dashed #bdbdbd;
+}
+
+.bankingTab {
+  height: 100%;
+  padding-top: 23px;
+  text-align: center;
+}
+
+.bankingTitle {
+  font-size: 30px;
+  padding-top: 15px;
+  color: white;
 }
 
 .bankNext {
