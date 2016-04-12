@@ -142,6 +142,7 @@
             </div>
             <div class="soldPhotosRepeat col-md-6 col-xs-12" ng-repeat='soldPhoto in allSoldPhotos'>
               <div class="soldInnerHolder">
+                <div class="blackLayerSingleModal"></div>
                 <div class="priceLayer" ng-click='openSingle(soldPhoto, soldPhoto.status)'>
                   <div class="ifSold" ng-if="soldPhoto.status == 'offered for sale'">
                     Accept Offer

@@ -205,6 +205,15 @@ ion-view {
   z-index: -1
 }
 
+.blackLayerSingleModal {
+  width: 90%;
+  height: 90%;
+  position: absolute;
+  background-color: black;
+  opacity: 0.3;
+  z-index: 2;
+}
+
 .blankSpace {
   height: 15px;
 }
@@ -593,13 +602,14 @@ ion-view {
   position: absolute;
   height: 40px;
   /*width: 70px;*/
+  opacity: 0.75;
   background-color: green;
 }
 
 .ifSold {
   position: absolute;
   background-color: red;
-  opacity: .55;
+  opacity: .75;
   padding-top: 10px;
   color: white;
   text-align: center;
@@ -743,9 +753,9 @@ ion-view {
 
 .priceLayer {
   position: absolute;
-  background-color: black;
+  /*background-color: black;*/
   color: white;
-  opacity: 0.3;
+  /*opacity: 0.3;*/
   width: 90%;
   height: 90%;
   font-size: 20px;
@@ -1017,6 +1027,7 @@ ion-view {
   height: 90%;
   margin: 5% 0 0 5%;
   overflow: hidden;
+  z-index: 1;
 }
 
 .soldPhotosRepeat {
