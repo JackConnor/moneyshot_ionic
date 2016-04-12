@@ -229,6 +229,16 @@ angular.module('accountController', [])
               $('.loadSpinner').remove();
               clearInterval(spinnerInterval);
             }, 2000);
+            setTimeout(function(){
+              $scope.loadingModal = false;
+              $('.loadSpinner').remove();
+              clearInterval(spinnerInterval);
+            }, 3000);
+            setTimeout(function(){
+              $scope.loadingModal = false;
+              $('.loadSpinner').remove();
+              clearInterval(spinnerInterval);
+            }, 4000);
           }
         }
         else if(arr[i].photos.length == 2){
@@ -419,6 +429,7 @@ angular.module('accountController', [])
         $ionicScrollDelegate.freezeScroll(true);
       }
       else if(status == 'offered for sale'){
+        $scope.scrollPosition = $ionicScrollDelegate.getScrollPosition().top;
         $scope.sellModal = true;
         $ionicScrollDelegate.scrollTop(true);
         $ionicScrollDelegate.freezeScroll(true);
@@ -427,6 +438,7 @@ angular.module('accountController', [])
     $scope.openSingle = openSingle;
 
     $scope.closeSellModal = function(){
+      $ionicScrollDelegate.scrollTo(0, $scope.scrollPosition, false);
       $ionicScrollDelegate.freezeScroll(false);
       $scope.sellModal = false;
     }
