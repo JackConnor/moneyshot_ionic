@@ -76,7 +76,6 @@
           <img class='singleImage' ng-src="{{singlePhotoData.url}}" ng-if="!singlePhotoData.isVideo" />
           <video ng-src="{{singlePhotoData.url | trustUrl}}" class="singleImage col-xs-12" controls ng-if="singlePhotoData.isVideo"></video>
           <div class="singleInfoHolder col-xs-12">
-            <h2>Photo Data</h2>
             <div class="singleWho">
               Who: {{singlePhotoData.photosubjects[0]}}, {{singlePhotoData.photosubjects[1]}}, {{singlePhotoData.photosubjects[2]}}
             </div>
@@ -96,8 +95,8 @@
         </div>
         <div class="submissionRepeatContainer">
           <div class="col-sm-4 col-xs-6 subRepeat" ng-repeat="photo in singleSubmission.photos">
-            <video ng-src="{{photo.url | trustUrl}}" class="col-xs-12" controls ng-if="photo.isVideo" ng-click='openSingle(photo)'></video>
-            <img ng-src="{{photo.url | trustUrl}}" ng-if="!photo.isVideo" class="col-xs-12" ng-click='openSingle(photo)'/>
+            <video ng-src="{{photo.url | trustUrl}}" class="col-xs-12" controls ng-if="photo.isVideo" ng-click='openSingle(photo, "sold")'></video>
+            <img ng-src="{{photo.url | trustUrl}}" ng-if="!photo.isVideo" class="col-xs-12" ng-click='openSingle(photo, "sold")'/>
           </div>
         </div>
       </div>

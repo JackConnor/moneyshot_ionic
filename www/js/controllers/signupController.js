@@ -98,7 +98,7 @@ angular.module('signupController', [])
     }
     $scope.introSwipeLeft = introSwipeLeft;
 
-    setInterval(function(){
+    var swipeInterval = setInterval(function(){
       introSwipeLeft();
     }, 4000);
 
@@ -249,9 +249,7 @@ angular.module('signupController', [])
       $('.swipeIntro').animate({
         opacity: 0
       }, 600);
-      // setTimeout(function(){
-      //   $scope.signinModalVar   = true;
-      // })
+      clearInterval(swipeInterval);
       setTimeout(function(){
         $scope.introModal       = false;
       }, 700);
@@ -264,6 +262,7 @@ angular.module('signupController', [])
       $('.swipeIntro').animate({
         opacity: 0
       }, 600);
+      clearInterval(swipeInterval);
       $scope.signinModalVar   = false;
       setTimeout(function(){
         $scope.introModal       = false;

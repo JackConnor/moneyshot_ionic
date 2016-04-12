@@ -92,15 +92,17 @@ angular.module('accountController', [])
 
     /////function to exit the intro modal
     function exitIntro(){
-      $('.tab-nav').css({
-        height: 49+"px"
-      })
+      $('ion-tabs').removeClass('tabs-item-hide');
       $scope.introModal = false;
       $scope.hamburgerOpen = false;
     }
     $scope.exitIntro = exitIntro;
 
     function openIntro(){
+      function removeTabs(){
+        $('ion-tabs').addClass('tabs-item-hide');
+      }
+      removeTabs();
       $scope.introModal = true;
       $scope.hamburgerOpen = false;
     }
@@ -398,8 +400,10 @@ angular.module('accountController', [])
     $scope.tabUi = tabUi;
 
     function openSingle(photoData, status){
+      console.log(photoData);
+      console.log(status);
       $scope.singlePhotoData = photoData;
-      if(status == "sold"){
+      if(status === "sold"){
         $('.repeatContainer').css({
           marginRight: "100%"
         });
@@ -408,17 +412,20 @@ angular.module('accountController', [])
         });
         $('.singleImageModal').css({
           marginLeft: 0
-        })
-        $('window').scrollTop(0);
+        });
+        $ionicScrollDelegate.scrollTop(true);
+        $ionicScrollDelegate.freezeScroll(true);
       }
       else if(status == 'offered for sale'){
         $scope.sellModal = true;
-        $ionicScrollDelegate.scrollTop(false);
+        $ionicScrollDelegate.scrollTop(true);
+        $ionicScrollDelegate.freezeScroll(true);
       }
     }
     $scope.openSingle = openSingle;
 
     $scope.closeSellModal = function(){
+      $ionicScrollDelegate.freezeScroll(false);
       $scope.sellModal = false;
     }
 
@@ -437,19 +444,47 @@ angular.module('accountController', [])
     $scope.openSubmission = openSubmission;
 
     function backToRepeat(modalType){
+      console.log('woot?');
       var x = document.getElementById("repeatContainer");
       x.style.marginRight = 0;
-      if(modalType == 'submission'){
+      if(modalType === 'submission'){
         $scope.singleSubmissionModal = false;
         $ionicScrollDelegate.scrollTo(0, $scope.scrollPosition, false);
+        $ionicScrollDelegate.freezeScroll(true);
       }
-      else {
-        $ionicScrollDelegate.scrollTop(false);
+      else if($scope.showSubmitted === true && modalType === 'single'){
+        $ionicScrollDelegate.freezeScroll(false);
+        // $scope.singleSubmissionModal = false;
+        $('.repeatContainer').css({
+          marginRight: "0%"
+        });
+        $('.singleSubmissionModal').css({
+          marginRight: "0%"
+        });
+        $('.singleImageModal').css({
+          marginLeft: '100%'
+        });
+        $('.repeatContainer').css({
+          opacity: 1
+        });
       }
-      $scope.singleSubmissionModal = false;
-      $('.repeatContainer').css({
-        opacity: 1
-      })
+      else if(modalType === 'single'){
+        $ionicScrollDelegate.freezeScroll(false);
+        $scope.singleSubmissionModal = false;
+        $('.repeatContainer').css({
+          marginRight: "0%"
+        });
+        $('.singleSubmissionModal').css({
+          marginRight: "0%"
+        });
+        $('.singleImageModal').css({
+          marginLeft: '100%'
+        });
+        $('.repeatContainer').css({
+          opacity: 1
+        });
+      }
+
     }
     $scope.backToRepeat = backToRepeat;
 
