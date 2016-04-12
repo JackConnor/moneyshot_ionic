@@ -19,6 +19,7 @@ angular.module('signupController', [])
     $scope.introModal       = true;
     $scope.getPasswordModal = false;
     $scope.newPwModal       = false;
+    $scope.pwHide           = false;
     $scope.introCounter     = 0;
 
     //////function to control our photo carousel
@@ -107,13 +108,14 @@ angular.module('signupController', [])
 
     /////function to exit the intro modal
     function exitIntro(){
+      console.log('exiting intro');
       $('.tab-nav').css({
         height: 49+"px"
       })
       $scope.introModal = false;
     }
     $scope.exitIntro = exitIntro;
-    exitIntro();/////need to take this out to reactivate the intro modal
+    // exitIntro();/////need to take this out to reactivate the intro modal
     ////////end intro swipe modal stuff
     ///////////////////////////////////
     // function to signup users who are new to the site
@@ -168,6 +170,7 @@ angular.module('signupController', [])
 
     /////function to sign in a user
     function signinUser(){
+      console.log('signing in');
       var email = $('.signupEmail').val();
       var password = $('.signupPassword').val();
       signin(email, password)
@@ -198,36 +201,77 @@ angular.module('signupController', [])
 
     //////function if a user forgets their password
     function getPassword(){
+      console.log('heyyy');
       // $scope.getPasswordModal = true;
       //////new version of what this does
-      // $scope.pwHide = true;
-      $('.signupPassword').remove();
-      $('.submitSignup').css({
-        marginTop: 80+'px'
-      }, 350);
-      setTimeout(function(){
-        $('.submitSignup').animate({
-          marginTop: 25+'px'
+      if(!$scope.pwHide){
+        $('.signupPassword').hide();
+        $('.submitSignup').css({
+          marginTop: 80+'px'
         }, 350);
-        $('.submitSignup').text('Get Password');
-        $(".forgotPassword").text('Back');
-      }, 20);
+        $('.forgotPassword').css({
+          marginTop: 80+'px'
+        }, 350);
+        setTimeout(function(){
+          $('.submitSignup').animate({
+            marginTop: 25+'px'
+          }, 350);
+          $('.forgotPassword').animate({
+            marginTop: 25+'px'
+          }, 350);
+          $('.submitSignup').text('Get Password');
+          $(".forgotPassword").text('Back');
+        }, 20);
+      }
+      else if($scope.pwHide){
+        $('.submitSignup').animate({
+          marginTop: 80+'px'
+        }, 350);
+        $('.forgotPassword').animate({
+          marginTop: 80+'px'
+        }, 350);
+        $('.submitSignup').text('Sign In');
+        $(".forgotPassword").text('Forgot Password?');
+        setTimeout(function(){
+          $('.signupPassword').show();
+          $('.submitSignup').css({
+            marginTop: 25+'px'
+          }, 1);
+          $('.forgotPassword').animate({
+            marginTop: 25+'px'
+          }, 1);
+        }, 370);
+        setTimeout(function(){
+
+        }, 370);
+      }
+
+      $scope.pwHide = !$scope.pwHide;
       // $scope.getPwOpen = true;
-      $('.submitSignup').unbind('click');
-      $('.submitSignup').on('click', function(){
-        var userEmail = $('.signupEmail').val().toLowerCase();
-        console.log(userEmail);
-        retrievePW(userEmail);
-      })
+      // $('.submitSignup').unbind('click');
+      // $('.submitSignup').on('click', function(){
+      //   var userEmail = $('.signupEmail').val().toLowerCase();
+      //   console.log(userEmail);
+      //   retrievePW(userEmail);
+      // });
+      // $scope.getPassword = function(){
+      //   $('.signupPassword').show();
+      //   $('.submitSignup').text('Sign In');
+      //   $(".forgotPassword").text('Forgot Password?');
+      //   $scope.getPassword = getPassword;
+      // }
     }
     $scope.getPassword = getPassword;
 
+
+
+
     function retrievePW(email){
-      var email = email;
-      console.log(email);
+      console.log('getting pw');
+      var email = $('.signupEmail').val().toLowerCase();
       $http({
         method: "POST"
-        ,url: "http://192.168.0.3:5555/api/newpw/request"
+        ,url: "http://192.168.0.7:5555/api/newpw/request"
         ,data: {userEmail: email}
       })
       .then(function(pwCall){
@@ -242,7 +286,17 @@ angular.module('signupController', [])
         }
       })
     }
-    $('.submitSignup').on('click', retrievePW)
+
+    ////function so signin button can toggle between multiple functions
+    function signinToggleButton(){
+      if($scope.pwHide){
+        retrievePW();
+      }
+      else if(!$scope.pwHide){
+        signinUser();
+      }
+    }
+    $scope.signinToggleButton = signinToggleButton;
     // $scope.retrievePW = retrievePW;
 
 
