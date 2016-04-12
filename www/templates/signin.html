@@ -61,9 +61,12 @@
           <input type="text" class='signupEmail splashInput' placeholder='Email' ng-blur='checkValidEmail()'>
           <input type="password" class='signupPassword splashInput' placeholder='Password'>
           <input type="password" class='signupConfirmPassword splashInput' placeholder='Confirm Password'>
-          <button type="button" class='submitSignup' ng-click='submitSignup()'>Sign Up</button>
+          <div class='submitSignup' ng-click='submitSignup()'>Sign Up</div>
+          <p class='introOr2 col-xs-12'>
+            ---------------- OR --------------------
+          </p>
           <div class="goToSignin" ng-mouseenter='hoverSignin($event)' ng-mouseleave='outHoverSignin($event)' ng-click='toggleSigns($event)'>
-            Sign in?
+            Have An Account?
           </div>
         </div>
         <!-- <div class="fbSignin">
@@ -74,11 +77,14 @@
         <div class="signupInputHolder">
           <input type="text" class='signupEmail splashInput' placeholder='Email'>
           <input type="password" class='signupPassword splashInput' placeholder='Password'>
-          <button type="button" class='submitSignup subSignup' ng-click='signinToggleButton()'>Sign In</button>
-          <div class="forgotPassword" ng-click='getPassword()'>
-            Forgot Password?
-          </div>
+          <div class='submitSignup subSignup' ng-click='signinToggleButton()'>Sign In</div>
         </div>
+        <div class="forgotPassword" ng-click='getPassword()'>
+          Forgot Password?
+        </div>
+        <p class='introOr col-xs-12'>
+          ---------------- OR --------------------
+        </p>
         <div class="goToSignup" ng-mouseenter='hoverSignin($event)' ng-mouseleave='outHoverSignin($event)' ng-click='toggleSigns($event)'>
           Need to Create an Account?
         </div>

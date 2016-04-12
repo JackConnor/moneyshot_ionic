@@ -211,39 +211,39 @@ angular.module('signupController', [])
       if(!$scope.pwHide){
         $('.signupPassword').hide();
         $('.submitSignup').css({
-          marginTop: 80+'px'
-        }, 350);
-        $('.forgotPassword').css({
-          marginTop: 80+'px'
-        }, 350);
+          marginTop: 65+'px'
+        });
+        // $('.forgotPassword').css({
+        //   marginTop: 60+'px'
+        // });
         setTimeout(function(){
           $('.submitSignup').animate({
-            marginTop: 25+'px'
+            marginTop: 10+'px'
           }, 350);
-          $('.forgotPassword').animate({
-            marginTop: 25+'px'
-          }, 350);
+          // $('.forgotPassword').animate({
+          //   marginTop: 10+'px'
+          // }, 350);
           $('.submitSignup').text('Get Password');
           $(".forgotPassword").text('Back');
         }, 20);
       }
       else if($scope.pwHide){
         $('.submitSignup').animate({
-          marginTop: 80+'px'
+          marginTop: 65+'px'
         }, 350);
-        $('.forgotPassword').animate({
-          marginTop: 80+'px'
-        }, 350);
+        // $('.forgotPassword').animate({
+        //   marginTop: 80+'px'
+        // }, 350);
         $('.submitSignup').text('Sign In');
         $(".forgotPassword").text('Forgot Password?');
         setTimeout(function(){
           $('.signupPassword').show();
           $('.submitSignup').css({
-            marginTop: 25+'px'
+            marginTop: 10+'px'
           });
-          $('.forgotPassword').css({
-            marginTop: 25+'px'
-          });
+          // $('.forgotPassword').css({
+          //   marginTop: 10+'px'
+          // });
         }, 360);
         setTimeout(function(){
 
@@ -285,8 +285,10 @@ angular.module('signupController', [])
       $('.swipeIntro').animate({
         opacity: 0
       }, 600);
+      $scope.signinModalVar   = false;
       setTimeout(function(){
         $scope.introModal       = false;
+        $scope.signupModalVar   = true;
       }, 700);
     }
     $scope.toSignup = toSignup;

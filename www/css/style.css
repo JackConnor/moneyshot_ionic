@@ -472,8 +472,8 @@ ion-view {
 }
 
 .forgotPassword {
-  margin-top: 25px;
-  width: 70px;
+  margin-top: 10px;
+  width: 130px;
   float: right;
   margin-right: 20px;
   font-size: 15px;
@@ -509,20 +509,27 @@ ion-view {
 }
 
 .goToSignin {
-  width: 20%;
-  margin-left: 5%;
-  text-align: center;
+  width: 80%;
+  height: 40px;
+  margin-left: 10%;
+  margin-top: 15px;
+  background-color: green;
+  font-size: 22px;
   padding-top: 10px;
-  font-size: 25px;
-  color: white;
-  display: absolute;
+  text-align: center;
+  display: inline-block;
 }
 
 .goToSignup {
-  padding-top: 15px;
-  font-size: 18px;
-  color: white;
-  display: absolute;
+  width: 80%;
+  height: 40px;
+  margin-left: 10%;
+  margin-top: 15px;
+  background-color: green;
+  text-align: center;
+  font-size: 22px;
+  padding-top: 10px;
+  display: inline-block;
 }
 
 .jr-crop-img {
@@ -611,6 +618,15 @@ ion-view {
   height: 45px;
 }
 
+.introOr {
+  margin-top: 10px;
+  text-align: center;
+}
+
+.introOr2 {
+  margin-top: 40px;
+  text-align: center;
+}
 
 .introPhoto {
   top: 0;
@@ -1162,11 +1178,14 @@ ion-view {
 }
 
 .submitSignup {
-  width: 40%;
+  width: 80%;
   height: 40px;
-  margin-left: 30%;
+  margin-left: 10%;
   margin-top: 25px;
   background-color: green;
+  font-size: 22px;
+  padding-top: 10px;
+  text-align: center;
   display: inline-block;
 }
 
