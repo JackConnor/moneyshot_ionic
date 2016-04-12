@@ -11,7 +11,7 @@ angular.module('accountController', [])
   acctCtrl.$inject = ['$http', '$state', '$scope', 'navbar', 'userPhotos', 'decodeToken', '$cordovaStatusbar', '$ionicScrollDelegate'];
 
   function acctCtrl($http, $state, $scope, navbar, userPhotos, decodeToken, $cordovaStatusbar, $ionicScrollDelegate){
-    // ionic.Platform.fullScreen();/////removes the status bar from the app
+    ionic.Platform.fullScreen(false);/////removes the status bar from the app
     /////global variables
     // document.addEventListener('DOMContentLoaded', function() {
     //    // your code here
@@ -133,34 +133,49 @@ angular.module('accountController', [])
             var photoLength = userInfo.data.photos.length;
             $scope.userPhotos = userPhotos.reverse();
             $scope.userSubmissions = userInfo.data.submissions.reverse();
+            console.log($scope.userSubmissions);
+            var backlengthFunc = function(){
+              if($scope.userSubmissions){
+                return $scope.userSubmissions.length*5;
+              }
+              else {
+                return 1;
+              }
+            }
+            var backLength = backlengthFunc();
             $scope.totalEarned = 0;
             function mapPhotos(){
               var soldPhotos = [];
               var offeredPhotos = [];
               for (var i = 0; i < photoLength; i++) {
-                if(userPhotos[i].status == 'sold'){
+                console.log(i);
+                console.log(userPhotos.length-1);
+                if(userPhotos[i].status === 'sold'){
                   soldPhotos.push(userPhotos[i]);
                   $scope.totalEarned += userPhotos[i].price;
                   if(i == userPhotos.length-1){
                     $scope.allSoldPhotos = offeredPhotos.concat(soldPhotos);
                   }
                 }
-                else if(userPhotos[i].status == 'offered for sale'){
+                else if(userPhotos[i].status === 'offered for sale'){
+                  console.log('photo for sale');
                   offeredPhotos.push(userPhotos[i]);
                   $scope.totalEarned += userPhotos[i].price;
-                  if(i == userPhotos.length-1){
+                  if(i === userPhotos.length-1){
                     $scope.allSoldPhotos = offeredPhotos.concat(soldPhotos);
+                    console.log('sold phhhooooootos');
+                    console.log($scope.allSoldPhotos);
+                  }
+                }
+                else {
+                  if(i === userPhotos.length-1){
+                    $scope.allSoldPhotos = offeredPhotos.concat(soldPhotos);
+                    console.log('sold phhhooooootos');
+                    console.log($scope.allSoldPhotos);
                   }
                 }
               }
-              // $scope.soldPhotos = soldPhotos;
-              if($scope.userSubmissions){
-                var backLength =  $scope.userSubmissions.length*10;
-              }
-              else {
-                var backLength = 1;
-              }
-              for (var i = 0; i <backLength; i++) {
+              for (var i = 0; i <= backLength; i++) {
                 $scope.backgroundMultiple.push('filler'+i);
               }
               setCss();
@@ -174,7 +189,6 @@ angular.module('accountController', [])
 
     var d = 1;
     function addSpinner(){
-      console.log($scope.loadingModal);
       if($scope.loadingModal){
         $('.loadSpinner').css({
           '-moz-transform':'rotate('+d+'deg)',
@@ -206,7 +220,17 @@ angular.module('accountController', [])
               $scope.loadingModal = false;
               $('.loadSpinner').remove();
               clearInterval(spinnerInterval);
-            }, 1000)
+            }, 200);
+            setTimeout(function(){
+              $scope.loadingModal = false;
+              $('.loadSpinner').remove();
+              clearInterval(spinnerInterval);
+            }, 1000);
+            setTimeout(function(){
+              $scope.loadingModal = false;
+              $('.loadSpinner').remove();
+              clearInterval(spinnerInterval);
+            }, 2000);
           }
         }
         else if(arr[i].photos.length == 2){
@@ -223,7 +247,17 @@ angular.module('accountController', [])
               $scope.loadingModal = false;
               $('.loadSpinner').remove();
               clearInterval(spinnerInterval);
-            }, 1000)
+            }, 200);
+            setTimeout(function(){
+              $scope.loadingModal = false;
+              $('.loadSpinner').remove();
+              clearInterval(spinnerInterval);
+            }, 1000);
+            setTimeout(function(){
+              $scope.loadingModal = false;
+              $('.loadSpinner').remove();
+              clearInterval(spinnerInterval);
+            }, 2000);
           }
         }
         else if(arr[i].photos.length == 3){
@@ -244,7 +278,17 @@ angular.module('accountController', [])
               $scope.loadingModal = false;
               $('.loadSpinner').remove();
               clearInterval(spinnerInterval);
-            }, 1000)
+            }, 200);
+            setTimeout(function(){
+              $scope.loadingModal = false;
+              $('.loadSpinner').remove();
+              clearInterval(spinnerInterval);
+            }, 1000);
+            setTimeout(function(){
+              $scope.loadingModal = false;
+              $('.loadSpinner').remove();
+              clearInterval(spinnerInterval);
+            }, 2000);
           }
         }
       }

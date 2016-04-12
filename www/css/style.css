@@ -22,7 +22,7 @@ ion-view {
   position: absolute;
   overflow: hidden;
   /*background-color: grey;*/
-  height: 1000px;
+  /*height: 100%;*/
   /*background-image: url('http://i63.tinypic.com/nb40ol.jpg');*/
   /*background-attachment: fixed;*/
   background-repeat:repeat-y;
