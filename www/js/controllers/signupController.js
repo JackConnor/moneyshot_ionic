@@ -14,7 +14,7 @@ angular.module('signupController', [])
     ionic.Platform.fullScreen();////hides status bar
     ///////////////global variables//////
     $scope.signupModalVar   = false;
-    $scope.signinModalVar   = true;
+    $scope.signinModalVar   = false;
     $scope.signupModalTabs  = false;
     $scope.introModal       = true;
     $scope.getPasswordModal = false;
@@ -210,32 +210,24 @@ angular.module('signupController', [])
       console.log('heyyy');
       // $scope.getPasswordModal = true;
       //////new version of what this does
-      if(!$scope.pwHide){
+      if($scope.pwHide === false){
         $('.signupPassword').hide();
         $('.submitSignup').css({
           marginTop: 65+'px'
         });
-        // $('.forgotPassword').css({
-        //   marginTop: 60+'px'
-        // });
-        setTimeout(function(){
-          $('.submitSignup').animate({
-            marginTop: 10+'px'
-          }, 350);
-          // $('.forgotPassword').animate({
-          //   marginTop: 10+'px'
-          // }, 350);
+        $timeout(function(){
+          console.log('yoooooo');
           $('.submitSignup').text('Get Password');
           $(".forgotPassword").text('Back');
         }, 20);
+        $('.submitSignup').animate({
+          marginTop: 10+'px'
+        }, 350);
       }
       else if($scope.pwHide){
         $('.submitSignup').animate({
           marginTop: 65+'px'
         }, 350);
-        // $('.forgotPassword').animate({
-        //   marginTop: 80+'px'
-        // }, 350);
         $('.submitSignup').text('Sign In');
         $(".forgotPassword").text('Forgot Password?');
         setTimeout(function(){
@@ -243,38 +235,23 @@ angular.module('signupController', [])
           $('.submitSignup').css({
             marginTop: 10+'px'
           });
-          // $('.forgotPassword').css({
-          //   marginTop: 10+'px'
-          // });
         }, 360);
-        setTimeout(function(){
-
-        }, 370);
       }
-
       $scope.pwHide = !$scope.pwHide;
-      // $scope.getPwOpen = true;
-      // $('.submitSignup').unbind('click');
-      // $('.submitSignup').on('click', function(){
-      //   var userEmail = $('.signupEmail').val().toLowerCase();
-      //   console.log(userEmail);
-      //   retrievePW(userEmail);
-      // });
-      // $scope.getPassword = function(){
-      //   $('.signupPassword').show();
-      //   $('.submitSignup').text('Sign In');
-      //   $(".forgotPassword").text('Forgot Password?');
-      //   $scope.getPassword = getPassword;
-      // }
     }
     $scope.getPassword = getPassword;
+    // $('.forgotPassword').on('click', getPassword);
 
     /////////functions to go to the signup and signin modals
     function toSignin(){
       $scope.signinModalVar   = true;
+      // $scope.pwHide = false;
       $('.swipeIntro').animate({
         opacity: 0
       }, 600);
+      // setTimeout(function(){
+      //   $scope.signinModalVar   = true;
+      // })
       setTimeout(function(){
         $scope.introModal       = false;
       }, 700);
