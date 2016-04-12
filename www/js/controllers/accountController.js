@@ -11,7 +11,7 @@ angular.module('accountController', [])
   acctCtrl.$inject = ['$http', '$state', '$scope', 'navbar', 'userPhotos', 'decodeToken', '$cordovaStatusbar', '$ionicScrollDelegate'];
 
   function acctCtrl($http, $state, $scope, navbar, userPhotos, decodeToken, $cordovaStatusbar, $ionicScrollDelegate){
-    ionic.Platform.fullScreen(false);/////removes the status bar from the app
+    // ionic.Platform.fullScreen(false);/////removes the status bar from the app
     /////global variables
     // document.addEventListener('DOMContentLoaded', function() {
     //    // your code here

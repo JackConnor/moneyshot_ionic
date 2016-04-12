@@ -198,15 +198,36 @@ angular.module('signupController', [])
 
     //////function if a user forgets their password
     function getPassword(){
-      $scope.getPasswordModal = true;
+      // $scope.getPasswordModal = true;
+      //////new version of what this does
+      // $scope.pwHide = true;
+      $('.signupPassword').remove();
+      $('.submitSignup').css({
+        marginTop: 80+'px'
+      }, 350);
+      setTimeout(function(){
+        $('.submitSignup').animate({
+          marginTop: 25+'px'
+        }, 350);
+        $('.submitSignup').text('Get Password');
+        $(".forgotPassword").text('Back');
+      }, 20);
+      // $scope.getPwOpen = true;
+      $('.submitSignup').unbind('click');
+      $('.submitSignup').on('click', function(){
+        var userEmail = $('.signupEmail').val().toLowerCase();
+        console.log(userEmail);
+        retrievePW(userEmail);
+      })
     }
     $scope.getPassword = getPassword;
 
-    function retrievePW(){
-      var email = $('.getPwEmail').val().toLowerCase();
+    function retrievePW(email){
+      var email = email;
+      console.log(email);
       $http({
         method: "POST"
-        ,url: "https://moneyshotapi.herokuapp.com/api/newpw/request"
+        ,url: "http://192.168.0.3:5555/api/newpw/request"
         ,data: {userEmail: email}
       })
       .then(function(pwCall){
@@ -221,7 +242,9 @@ angular.module('signupController', [])
         }
       })
     }
-    $scope.retrievePW = retrievePW;
+    $('.submitSignup').on('click', retrievePW)
+    // $scope.retrievePW = retrievePW;
+
 
     //////function to create a new password
     function newPw(){
