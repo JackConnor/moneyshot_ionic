@@ -17,15 +17,14 @@ ion-view {
   height: auto;
 }*/
 
+ion-content {
+}
+
 .accountBody {
   padding: 0px;
   position: absolute;
   overflow: hidden;
-  /*background-color: grey;*/
-  /*height: 100%;*/
-  /*background-image: url('http://i63.tinypic.com/nb40ol.jpg');*/
-  /*background-attachment: fixed;*/
-  background-repeat:repeat-y;
+  margin-top: 75px;
 }
 
 .accountTab {
@@ -33,16 +32,17 @@ ion-view {
   padding: 0px;
   color: white;
   font-size: 16px;
-  padding-top: 15px;
+  padding-top: 35px;
   text-align: center;
 }
 
 .accountTabHolder {
   /*margin-top: 55px;*/
-  /*background-color: #013220;*/
+  background-color: #013220;
   padding: 0px;
-  height: 55px;
-  z-index: 10
+  height: 75px;
+  z-index: 10;
+  position: absolute;
 }
 
 .allPhotosRepeat {
@@ -580,7 +580,7 @@ ion-view {
   color: white;
   top: 0;
   padding: 0px;
-  margin-top: 8px;
+  margin-top: 30px;
 }
 
 .hamburgerIcon {
@@ -774,7 +774,7 @@ ion-view {
 .repeatContainer {
   padding: 0px;
   min-height: 100%;
-  /*background-color: #d3d3d3;*/
+  background-color: #d3d3d3;
 }
 
 .sellButton {
@@ -793,7 +793,8 @@ ion-view {
   width: 100%;
   height: 100%;
   background-color: black;
-  opacity: .6;
+  margin-top: -55px;
+  opacity: .8;
 }
 
 .sellModalContent {

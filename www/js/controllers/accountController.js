@@ -11,12 +11,14 @@ angular.module('accountController', [])
   acctCtrl.$inject = ['$http', '$state', '$scope', 'navbar', 'userPhotos', 'decodeToken', '$cordovaStatusbar', '$ionicScrollDelegate'];
 
   function acctCtrl($http, $state, $scope, navbar, userPhotos, decodeToken, $cordovaStatusbar, $ionicScrollDelegate){
-    // ionic.Platform.fullScreen(false);/////removes the status bar from the app
-    /////global variables
-    // document.addEventListener('DOMContentLoaded', function() {
-    //    // your code here
-    //    console.log('loaded');
-    // }, false);
+    ionic.Platform.showStatusBar(true);/////removes the status bar from the app
+    document.addEventListener("deviceready", onDeviceReady, false);
+    function onDeviceReady() {
+        console.log(StatusBar);
+        StatusBar.styleLightContent();
+    }
+    // console.log(StatusBar);
+    // StatusBar.show();
     $scope.showSold              = false;
     $scope.showSubmitted         = true;
     $scope.showFinance           = false;
@@ -173,7 +175,7 @@ angular.module('accountController', [])
                   }
                 }
               }
-              for (var i = 0; i <= backLength; i++) {
+              for (var i = 0; i < 0; i++) {
                 $scope.backgroundMultiple.push('filler'+i);
               }
               setCss();
@@ -320,16 +322,24 @@ angular.module('accountController', [])
     }
 
     function showSoldFunc(){
-      $scope.showSold      = true;
-      $scope.showSubmitted = false;
-      $scope.showFinance   = false;
+
+      $scope.singleSubmissionModal = false;
+      $scope.showSold              = true;
+      $scope.showSubmitted         = false;
+      $scope.showFinance           = false;
+      $scope.hamburgerOpen         = false;
+      $ionicScrollDelegate.scrollTop(true);
     }
     $scope.showSoldFunc = showSoldFunc;
 
     function showSubmittedFunc(){
-      $scope.showSold      = false;
-      $scope.showSubmitted = true;
-      $scope.showFinance   = false;
+      $scope.singleSubmissionModal = false;
+      $scope.sellModal             = false;
+      $scope.showSold              = false;
+      $scope.showSubmitted         = true;
+      $scope.showFinance           = false;
+      $scope.hamburgerOpen         = false;
+      $ionicScrollDelegate.scrollTop(true);
       setTimeout(function(){
         setPhotoUiSubs();
       }, 400)
@@ -337,9 +347,14 @@ angular.module('accountController', [])
     $scope.showSubmittedFunc = showSubmittedFunc;
 
     function showFinanceFunc(){
-      $scope.showSold      = false;
-      $scope.showSubmitted = false;
-      $scope.showFinance   = true;
+
+      $scope.singleSubmissionModal = false;
+      $scope.sellModal             = false;
+      $scope.showSold              = false;
+      $scope.showSubmitted         = false;
+      $scope.showFinance           = true;
+      $scope.hamburgerOpen         = false;
+      $ionicScrollDelegate.scrollTop(true);
     }
     $scope.showFinanceFunc = showFinanceFunc;
     ////function to adjust the text ui when a tab is selected
