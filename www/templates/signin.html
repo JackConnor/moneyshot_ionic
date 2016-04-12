@@ -1,13 +1,20 @@
 <ion-view view-title="Signin">
   <div class="swipeIntro" ng-if="introModal">
-    <div class="signinLogo">
-      <svg src="/img/Mopho_Logo.svg" alt="" ></svg>
+    <div class="introSignin">
+      <div class="signinLogo">
+        <svg src="/img/Mopho_Logo.svg" alt="" ></svg>
+      </div>
+      <div class="goToSigninHolder">
+          <div class="introSigninButton introButton col-xs-6 col-xs-offset-3">
+            Sign In
+          </div>
+          <div class="introSignupButton introButton col-xs-6 col-xs-offset-3">
+            Create An Account
+          </div>
+      </div>
     </div>
     <div class="swipeIntroRow" ng-swipe-left='introSwipeLeft()' ng-swipe-right='introSwipeRight()'>
       <div class="col-xs-3 swipeCell swipe1">
-        <p>
-          Step 1
-        </p>
         <h4>
           Take a Photo
         </h4>
@@ -16,9 +23,6 @@
         </div>
       </div>
       <div class="col-xs-3 swipeCell swipe2">
-        <p>
-          Step 2
-        </p>
         <h4>
           Edit your Photos
         </h4>
@@ -27,9 +31,6 @@
         </div>
       </div>
       <div class="col-xs-3 swipeCell swipe3">
-        <p>
-          Step 3
-        </p>
         <h4>
           Upload a Photo Set
         </h4>
@@ -38,9 +39,6 @@
         </div>
       </div>
       <div class="col-xs-3 swipeCell swipe4">
-        <p>
-          Step 4
-        </p>
         <h4>
           Earn Money
         </h4>
