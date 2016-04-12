@@ -236,11 +236,11 @@ angular.module('signupController', [])
           $('.signupPassword').show();
           $('.submitSignup').css({
             marginTop: 25+'px'
-          }, 1);
-          $('.forgotPassword').animate({
+          });
+          $('.forgotPassword').css({
             marginTop: 25+'px'
-          }, 1);
-        }, 370);
+          });
+        }, 360);
         setTimeout(function(){
 
         }, 370);
