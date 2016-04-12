@@ -263,7 +263,29 @@ angular.module('signupController', [])
     }
     $scope.getPassword = getPassword;
 
+    /////////functions to go to the signup and signin modals
+    function toSignin(){
+      $scope.signinModalVar   = true;
+      $('.swipeIntro').animate({
+        opacity: 0
+      }, 600);
+      setTimeout(function(){
+        $scope.introModal       = false;
+      }, 700);
+    }
+    $scope.toSignin = toSignin;
 
+    ////function to go to signup page
+    function toSignup(){
+      $scope.signupModalVar   = true;
+      $('.swipeIntro').animate({
+        opacity: 0
+      }, 600);
+      setTimeout(function(){
+        $scope.introModal       = false;
+      }, 700);
+    }
+    $scope.toSignup = toSignup;
 
 
     function retrievePW(email){

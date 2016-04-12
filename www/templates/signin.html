@@ -1,36 +1,36 @@
 <ion-view view-title="Signin">
   <div class="swipeIntro" ng-if="introModal">
-    <div class="introSignin">
+    <div class="introSignin" ng-swipe-left='introSwipeLeft()' ng-swipe-right='introSwipeRight()'>
       <div class="signinLogo">
         <svg src="/img/Mopho_Logo.svg" alt="" ></svg>
       </div>
       <div class="goToSigninHolder">
-          <div class="introSigninButton introButton col-xs-6 col-xs-offset-3">
+          <div class="introSigninButton introButton col-xs-6 col-xs-offset-3" ng-click='toSignin()'>
             Sign In
           </div>
-          <div class="introSignupButton introButton col-xs-6 col-xs-offset-3">
+          <div class="introSignupButton introButton col-xs-6 col-xs-offset-3" ng-click='toSignup()'>
             Create An Account
           </div>
       </div>
     </div>
-    <div class="swipeIntroRow" ng-swipe-left='introSwipeLeft()' ng-swipe-right='introSwipeRight()'>
-      <div class="col-xs-3 swipeCell swipe1">
-        <h4>
+    <div class="swipeIntroRow">
+      <div class="col-xs-3 swipeCell swipe1" ng-swipe-left='introSwipeLeft()' ng-swipe-right='introSwipeRight()'>
+        <h4 >
           Take a Photo
         </h4>
         <div class="introPhoto">
           <img src="http://static2.businessinsider.com/image/507c6ebf69bedd185e000001-480/iphone-taking-pictures-pic-photo-photography-camera-cell-phone-bi-dng.jpg" alt="" />
         </div>
       </div>
-      <div class="col-xs-3 swipeCell swipe2">
+      <div class="col-xs-3 swipeCell swipe2" ng-swipe-left='introSwipeLeft()' ng-swipe-right='introSwipeRight()'>
         <h4>
           Edit your Photos
-        </h4>
+        </h4 ng-swipe-left='introSwipeLeft()' ng-swipe-right='introSwipeRight()'>
         <div class="introPhoto">
           <img src="http://s11.postimg.org/a71hakfn7/IMG_6075.png" alt="" />
         </div>
       </div>
-      <div class="col-xs-3 swipeCell swipe3">
+      <div class="col-xs-3 swipeCell swipe3" ng-swipe-left='introSwipeLeft()' ng-swipe-right='introSwipeRight()'>
         <h4>
           Upload a Photo Set
         </h4>
