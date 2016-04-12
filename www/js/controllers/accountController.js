@@ -402,6 +402,8 @@ angular.module('accountController', [])
     function openSingle(photoData, status){
       console.log(photoData);
       console.log(status);
+      $scope.scrollPosition = $ionicScrollDelegate.getScrollPosition().top;
+      console.log($scope.scrollPosition);
       $scope.singlePhotoData = photoData;
       if(status === "sold"){
         $('.repeatContainer').css({
@@ -431,6 +433,7 @@ angular.module('accountController', [])
 
     function openSubmission(subInfo, evt){
       $scope.scrollPosition = $ionicScrollDelegate.getScrollPosition().top;
+      console.log($scope.scrollPosition);
       $scope.singleSubmission = subInfo;
       $scope.singleSubmissionModal = true;
       setTimeout(function(){
@@ -450,7 +453,10 @@ angular.module('accountController', [])
       if(modalType === 'submission'){
         $scope.singleSubmissionModal = false;
         $ionicScrollDelegate.scrollTo(0, $scope.scrollPosition, false);
-        $ionicScrollDelegate.freezeScroll(true);
+        $ionicScrollDelegate.freezeScroll(false);
+        $('.repeatContainer').css({
+          opacity: 1
+        });
       }
       else if($scope.showSubmitted === true && modalType === 'single'){
         $ionicScrollDelegate.freezeScroll(false);
@@ -468,7 +474,8 @@ angular.module('accountController', [])
           opacity: 1
         });
       }
-      else if(modalType === 'single'){
+      else if(modalType === 'single' && $scope.showSold === true){
+        $ionicScrollDelegate.scrollTo(0, $scope.scrollPosition, false);
         $ionicScrollDelegate.freezeScroll(false);
         $scope.singleSubmissionModal = false;
         $('.repeatContainer').css({
