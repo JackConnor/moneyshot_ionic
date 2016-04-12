@@ -158,13 +158,12 @@ ion-content {
 
 .bankingTab {
   height: 100%;
-  padding-top: 23px;
+  padding-top: 30px;
   text-align: center;
 }
 
 .bankingTitle {
-  font-size: 30px;
-  padding-top: 15px;
+  font-size: 23px;
   color: white;
 }
 

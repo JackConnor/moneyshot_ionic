@@ -84,6 +84,7 @@ angular.module('accountController', [])
 
     function introSwipeRight(){
       if($scope.introCounter > 0){
+        console.log('swiping');
         $scope.introCounter--;
         $('.swipeIntroRow').animate({
           marginLeft: -($scope.introCounter*100)+"%"
@@ -528,15 +529,19 @@ angular.module('accountController', [])
       if($scope.hamburgerOpen === false){
         $scope.hamburgerOpen = true;
         $ionicScrollDelegate.freezeAllScrolls(true);
+        $scope.scrollPosition = $ionicScrollDelegate.getScrollPosition().top;
+        $ionicScrollDelegate.scrollTop(true);
       }
       else {
         $scope.hamburgerOpen = false;
+        $ionicScrollDelegate.scrollTo(0, $scope.scrollPosition, false);
         $ionicScrollDelegate.freezeAllScrolls(false);
       }
     }
     $scope.openHamburger = openHamburger;
 
     function closeHamburger(){
+      $ionicScrollDelegate.scrollTo(0, $scope.scrollPosition, false);
       $scope.hamburgerOpen = false;
       $ionicScrollDelegate.freezeAllScrolls(false);
     }
@@ -558,6 +563,7 @@ angular.module('accountController', [])
     function closeHamburgerBody(evt){
       if($(evt.currentTarget).hasClass("hamburgerSignout") == false){
         $scope.hamburgerOpen = false;
+        $ionicScrollDelegate.scrollTo(0, $scope.scrollPosition, false);
       }
       $ionicScrollDelegate.freezeAllScrolls(false);
     }
