@@ -9,7 +9,7 @@
       </div>
 
       <div class="swipeIntro" ng-if="introModal">
-        <div class="swipeIntroRow" ng-swipe-left='introSwipeLeft()' ng-swipe-right='introSwipeRight()'>
+        <div class="swipeIntroRow" >
           <div class="col-xs-3 swipeCell swipe1">
             <p>
               Step 1
@@ -17,7 +17,7 @@
             <h4>
               Take a Photo
             </h4>
-            <div class="introPhoto">
+            <div class="introPhoto" ng-swipe-left='introSwipeLeft()' ng-swipe-right='introSwipeRight()'>
               <img src="http://static2.businessinsider.com/image/507c6ebf69bedd185e000001-480/iphone-taking-pictures-pic-photo-photography-camera-cell-phone-bi-dng.jpg" alt="" />
             </div>
             <div class="endIntroButton" ng-click='exitIntro()'>
@@ -31,7 +31,7 @@
             <h4>
               Edit your Photos
             </h4>
-            <div class="introPhoto">
+            <div class="introPhoto" ng-swipe-left='introSwipeLeft()' ng-swipe-right='introSwipeRight()'>
               <img src="http://s11.postimg.org/a71hakfn7/IMG_6075.png" alt="" />
             </div>
             <div class="endIntroButton" ng-click='exitIntro()'>
@@ -45,7 +45,7 @@
             <h4>
               Upload a Photo Set
             </h4>
-            <div class="introPhoto">
+            <div class="introPhoto" ng-swipe-left='introSwipeLeft()' ng-swipe-right='introSwipeRight()'>
               <img src="http://s15.postimg.org/fqwjso0kb/submit.png" alt="" />
             </div>
             <div class="endIntroButton" ng-click='exitIntro()'>
@@ -59,8 +59,8 @@
             <h4>
               Earn Money
             </h4>
-            <div class="dollarIcon">
-              <i class='fa fa-dollar col-xs-2 col-xs-offset-3'></i><i class='fa fa-dollar col-xs-2'></i><i class='fa fa-dollar col-xs-2'></i>
+            <div class="introPhoto" ng-swipe-left='introSwipeLeft()' ng-swipe-right='introSwipeRight()'>
+              <img src="https://upload.wikimedia.org/wikipedia/commons/5/55/Twenty_dollar_bills.JPG" alt="" />
             </div>
             <div class="endIntroButton" ng-click='exitIntro()'>
               Exit

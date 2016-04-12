@@ -97,16 +97,12 @@ angular.module('accountController', [])
       })
       $scope.introModal = false;
       $scope.hamburgerOpen = false;
-      $('.submittedRow').height('130px');
-      $('.singleSubmissionModal').height('667px');
     }
     $scope.exitIntro = exitIntro;
 
     function openIntro(){
       $scope.introModal = true;
       $scope.hamburgerOpen = false;
-      $('.submittedRow').height("0px");
-      $('.singleSubmissionModal').height('0px');
     }
     $scope.openIntro = openIntro;
     ////////end intro swipe modal stuff

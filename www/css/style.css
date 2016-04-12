@@ -446,7 +446,8 @@ ion-view {
   width: 30%;
   margin-left: 35%;
   height: 40px;
-  margin-top: 15px;
+  margin-top: 455px;
+  position: absolute;
   outline: 2px solid white;
   text-align: center;
   padding-top: 7px;
