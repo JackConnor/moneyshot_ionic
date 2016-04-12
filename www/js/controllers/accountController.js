@@ -525,8 +525,14 @@ angular.module('accountController', [])
     //////////////////////////////////////////
     //////////logic for hamburger menu////////
     function openHamburger(){
-      $scope.hamburgerOpen = true;
-      $ionicScrollDelegate.freezeAllScrolls(true);
+      if($scope.hamburgerOpen === false){
+        $scope.hamburgerOpen = true;
+        $ionicScrollDelegate.freezeAllScrolls(true);
+      }
+      else {
+        $scope.hamburgerOpen = false;
+        $ionicScrollDelegate.freezeAllScrolls(false);
+      }
     }
     $scope.openHamburger = openHamburger;
 

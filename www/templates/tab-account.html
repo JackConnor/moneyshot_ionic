@@ -1,15 +1,15 @@
 <ion-view view-title="Account"  ng-controller='accountCtrl'>
   <div class="accountTabHolder col-xs-12">
-    <div class="col-xs-4 accountTab soldTab" ng-click='showSoldFunc(); tabUi($event)'>
+    <div class="col-xs-2 col-xs-offset-1 accountTab soldTab" ng-click='showSoldFunc(); tabUi($event)'>
       <span class='soldTabInner'>Sold</span>
     </div>
-    <div class="col-xs-4 accountTab submittedTab" ng-click='showSubmittedFunc(); tabUi($event)'>
+    <div class="col-xs-5 accountTab submittedTab" ng-click='showSubmittedFunc(); tabUi($event)'>
       <span class='submittedTabInner'>Submitted</span>
     </div>
-    <div class="col-xs-3 accountTab moneyTab" ng-click='showFinanceFunc(); tabUi($event)'>
+    <div class="col-xs-2 accountTab moneyTab" ng-click='showFinanceFunc(); tabUi($event)'>
       <span class='moneyTabInner'>Money</span>
     </div>
-    <div class="col-xs-1 hamburgerHolder" ng-click="openHamburger()">
+    <div class="col-xs-2 hamburgerHolder" ng-click="openHamburger()">
       <p class='fa fa-bars hamburgerIcon'></p>
     </div>
   </div>
