@@ -10,7 +10,7 @@ angular.module('signinFactory', [])
       console.log('email');
       return $http({
         method: "POST"
-        ,url: "http://192.168.0.7:5555/api/signin"
+        ,url: "https://moneyshotapi.herokuapp.com/api/signin"
         ,data: {email: email.toLowerCase(), password: password}
       })
     }

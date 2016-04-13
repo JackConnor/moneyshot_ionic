@@ -8,6 +8,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       $('ion-tabs').addClass('tabs-item-hide');
     }
     removeTabs();
+    ionic.Platform.showStatusBar(false);
     ////////////////////////////
     /////////global variables///
     // $scope.mediaCache = [{type: 'photo', link: 'http://www.kaplaninternational.com/blog/wp-content/uploads/2011/08/blah-290x300.jpg'}, {type:'photo', link: '/img/adam.jpg'}, {type:'photo', link: '/img/ben.png'}];

@@ -14,11 +14,9 @@ angular.module('accountController', [])
     ionic.Platform.showStatusBar(true);/////removes the status bar from the app
     document.addEventListener("deviceready", onDeviceReady, false);
     function onDeviceReady() {
-        console.log(StatusBar);
-        StatusBar.styleLightContent();
+      StatusBar.styleLightContent();
     }
-    // console.log(StatusBar);
-    // StatusBar.show();
+
     $scope.showSold              = false;
     $scope.showSubmitted         = true;
     $scope.showFinance           = false;
@@ -84,7 +82,6 @@ angular.module('accountController', [])
 
     function introSwipeRight(){
       if($scope.introCounter > 0){
-        console.log('swiping');
         $scope.introCounter--;
         $('.swipeIntroRow').animate({
           marginLeft: -($scope.introCounter*100)+"%"
@@ -124,9 +121,6 @@ angular.module('accountController', [])
             $scope.userInfo = [];
             $scope.userSubmissions = [];
             $scope.totalEarned = 0;
-            // $('.showSubmittedHolder').append(
-            //   '<div class="submittedRow submittedRow{{$index}} col-xs-12" ng-repeat="submission in userSubmissions"></div>'
-            // )
           }
           else {
             $scope.userInfo = userInfo.data;
@@ -134,7 +128,6 @@ angular.module('accountController', [])
             var photoLength = userInfo.data.photos.length;
             $scope.userPhotos = userPhotos.reverse();
             $scope.userSubmissions = userInfo.data.submissions.reverse();
-            console.log($scope.userSubmissions);
             var backlengthFunc = function(){
               if($scope.userSubmissions){
                 return $scope.userSubmissions.length*5;
@@ -149,29 +142,26 @@ angular.module('accountController', [])
               var soldPhotos = [];
               var offeredPhotos = [];
               for (var i = 0; i < photoLength; i++) {
-                console.log(i);
-                console.log(userPhotos.length-1);
                 if(userPhotos[i].status === 'sold'){
+                  console.log('sold one');
                   soldPhotos.push(userPhotos[i]);
                   $scope.totalEarned += userPhotos[i].price;
                   if(i == userPhotos.length-1){
-                    $scope.allSoldPhotos = offeredPhotos.concat(soldPhotos);
+                    $scope.allSoldPhotos = offeredPhotos.concat(soldPhotos.reverse());
+                    console.log($scope.allSoldPhotos);
                   }
                 }
                 else if(userPhotos[i].status === 'offered for sale'){
-                  console.log('photo for sale');
                   offeredPhotos.push(userPhotos[i]);
                   $scope.totalEarned += userPhotos[i].price;
                   if(i === userPhotos.length-1){
-                    $scope.allSoldPhotos = offeredPhotos.concat(soldPhotos);
-                    console.log('sold phhhooooootos');
+                    $scope.allSoldPhotos = offeredPhotos.concat(soldPhotos.reverse());
                     console.log($scope.allSoldPhotos);
                   }
                 }
                 else {
                   if(i === userPhotos.length-1){
-                    $scope.allSoldPhotos = offeredPhotos.concat(soldPhotos);
-                    console.log('sold phhhooooootos');
+                    $scope.allSoldPhotos = offeredPhotos.concat(soldPhotos.reverse());
                     console.log($scope.allSoldPhotos);
                   }
                 }
@@ -313,11 +303,9 @@ angular.module('accountController', [])
     function checkToken(){
       var maybeToken = window.localStorage.webToken;
       if(maybeToken.length > 4){
-        console.log('signed in already');
-        // takePicture();
+        return;
       }
       else {
-        console.log('no token');
         window.location.hash = "#/";
       }
     }
@@ -426,10 +414,7 @@ angular.module('accountController', [])
     $scope.tabUi = tabUi;
 
     function openSingle(photoData, status){
-      console.log(photoData);
-      console.log(status);
       $scope.scrollPosition = $ionicScrollDelegate.getScrollPosition().top;
-      console.log($scope.scrollPosition);
       $scope.singlePhotoData = photoData;
       if(status === "sold"){
         $('.repeatContainer').css({
@@ -461,7 +446,6 @@ angular.module('accountController', [])
 
     function openSubmission(subInfo, evt){
       $scope.scrollPosition = $ionicScrollDelegate.getScrollPosition().top;
-      console.log($scope.scrollPosition);
       $scope.singleSubmission = subInfo;
       $scope.singleSubmissionModal = true;
       setTimeout(function(){
@@ -475,7 +459,6 @@ angular.module('accountController', [])
     $scope.openSubmission = openSubmission;
 
     function backToRepeat(modalType){
-      console.log('woot?');
       var x = document.getElementById("repeatContainer");
       x.style.marginRight = 0;
       if(modalType === 'submission'){
@@ -575,24 +558,28 @@ angular.module('accountController', [])
 
     ///////function to accept or reject price
     function buyRejectPhoto(status, photo){
+      console.log(status);
+      console.log(photo);
       $http({
         method: "POST"
         ,url: 'https://moneyshotapi.herokuapp.com/api/photopurchase'
         ,data: {status: status, photoId: photo._id, refresh_token: $scope.userInfo.refresh_token, price: photo.price}
       })
       .then(function(updatedPhoto){
+        console.log('check status below');
+        console.log(updatedPhoto);
         $scope.sellModal = false;
-        // window.location.reload();
-        if(updatedPhoto.data.status == 'sold'){
+        $ionicScrollDelegate.freezeScroll(false);
+        window.location.reload();
+        if(updatedPhoto.data.status === 'sold'){
           /////////bank stuff goes here
-
           for (var i = 0; i < $scope.soldPhotos.length; i++) {
             if($scope.soldPhotos[i]._id == updatedPhoto.data._id){
               $scope.soldPhotos[i].status = 'sold';
             }
           }
         }
-        else if(updatedPhoto.data.status == 'rejected'){
+        else if(updatedPhoto.data.status === 'rejected'){
           for (var i = 0; i < $scope.soldPhotos.length; i++) {
             if($scope.soldPhotos[i]._id == updatedPhoto.data._id){
               $scope.soldPhotos.splice(i, 1);

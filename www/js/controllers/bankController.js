@@ -22,7 +22,7 @@ angular.module('bankController', [])
     function getStripe(){
       $http({
         method: "GET"
-        ,url: 'http://192.168.0.7:5555/api/bankroute'
+        ,url: 'https://moneyshotapi.herokuapp.com/api/bankroute'
       })
       .then(function(stripeStuff){
         console.log(stripeStuff.data);
