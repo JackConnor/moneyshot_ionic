@@ -202,8 +202,18 @@
           the Money Stuff
           Total Earned: {{totalEarned | currency}}
           <button type="button" name="button" ng-click='sendFinData()'>Send Financial Data as CSV</button>
-          <div class="soldPhotoCell" ng-repeat='soldPhoto in allTransactions'>
-            {{soldPhoto.price | currency}}
+          <div class="finCell" ng-repeat='soldPhoto in allTransactions'>
+            <div class="finPhoto col-xs-6" ng-click='openSingle(soldPhoto.photos[0], "sold")'>
+              <img src="{{soldPhoto.photos[0].url}}" alt="" />
+            </div>
+            <div class="finDetails col-xs-6">
+              <div class="finDate col-xs-6">
+                Taken on: {{soldPhoto.photos[0].date}}
+              </div>
+              <div class="finPrice col-xs-6">
+                Sold for: {{soldPhoto.price | currency}}
+              </div>
+            </div>
           </div>
         </div>
       </div>

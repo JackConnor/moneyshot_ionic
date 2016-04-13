@@ -470,7 +470,7 @@ angular.module('accountController', [])
           opacity: 1
         });
       }
-      else if($scope.showSubmitted === true && modalType === 'single'){
+      else if(($scope.showSubmitted === true || $scope.showFinance === true) && modalType === 'single'){
         $ionicScrollDelegate.freezeScroll(false);
         // $scope.singleSubmissionModal = false;
         $('.repeatContainer').css({
@@ -612,9 +612,18 @@ angular.module('accountController', [])
       })
       .then(function(allTrans){
         console.log(allTrans);
-        $scope.allTransactions = allTrans.data;
+        var length = allTrans.data.length;
+        for (var i = 0; i < length; i++) {
+          allTrans.data[i].date = moment(allTrans.data[i].date).format('MMM Do YYYY');
+          allTrans.data[i].photos[0].date = moment(allTrans.data[i].photos[0].date).format('MMM Do YYYY');
+          if(i === length-1){
+            $scope.allTransactions = allTrans.data.reverse();
+          }
+        }
       })
     }
+
+
 
   ////////////////////////
   ////end controller//////
