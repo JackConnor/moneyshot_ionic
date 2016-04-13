@@ -193,8 +193,6 @@
                 </div>
               </div>
             </div>
-            <!-- <video class='allPhotosRepeat col-xs-6' ng-src="{{submission.photos[0].url | trustUrl}}" controls ng-if='submission.photos[0].isVideo' ng-click='openSubmission(submission, $event)'></video>
-            <img class='allPhotosRepeat col-xs-6' ng-click='openSubmission(submission, $event)' ng-src="{{submission.photos[0].url}}" ng-if='!submission.photos[0].isVideo'/> -->
             <div class="submissionInfo col-xs-6" >
               Date submitted: {{submission.date | date}}
             </div>
@@ -203,6 +201,7 @@
         <div class="" ng-if='showFinance'>
           the Money Stuff
           Total Earned: {{totalEarned | currency}}
+          <button type="button" name="button" ng-click='sendFinData()'>Send Financial Data as CSV</button>
           <div class="" ng-repeat='soldPhoto in soldPhotos'>
             {{soldPhoto.price | currency}}
           </div>

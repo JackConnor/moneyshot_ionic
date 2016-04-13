@@ -152,6 +152,7 @@ angular.module('accountController', [])
                   }
                 }
                 else if(userPhotos[i].status === 'offered for sale'){
+                  console.log('new p');
                   offeredPhotos.push(userPhotos[i]);
                   $scope.totalEarned += userPhotos[i].price;
                   if(i === userPhotos.length-1){
@@ -589,6 +590,19 @@ angular.module('accountController', [])
       })
     }
     $scope.buyRejectPhoto = buyRejectPhoto;
+
+    /////////function to send fin data as a csv file
+    function sendFinData(){
+      $http({
+        method: "POST"
+        ,url: 'http://192.168.0.7:5555/api/tocsv'
+        ,data: {email: $scope.userInfo.email}
+      })
+      .then(function(data){
+        console.log(data);
+      })
+    }
+    $scope.sendFinData = sendFinData;
 
 
   ////////////////////////
