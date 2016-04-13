@@ -299,7 +299,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
               }
             }
             addCrop();
-            $cordovaFileTransfer.upload('https://moneyshotapi.herokuapp.com/api/newimage', set[i].link, photoOptions)
+            $cordovaFileTransfer.upload('http://192.168.0.7:5555/api/newimage', set[i].link, photoOptions)
             .then(function(callbackImage){
               var parsedPhoto = JSON.parse(callbackImage.response);
               console.log(parsedPhoto);

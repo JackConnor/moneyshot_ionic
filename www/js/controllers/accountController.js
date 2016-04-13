@@ -337,7 +337,7 @@ angular.module('accountController', [])
     $scope.showSubmittedFunc = showSubmittedFunc;
 
     function showFinanceFunc(){
-
+      getUserTransactions();
       $scope.singleSubmissionModal = false;
       $scope.sellModal             = false;
       $scope.showSold              = false;
@@ -563,15 +563,15 @@ angular.module('accountController', [])
       console.log(photo);
       $http({
         method: "POST"
-        ,url: 'https://moneyshotapi.herokuapp.com/api/photopurchase'
-        ,data: {status: status, photoId: photo._id, refresh_token: $scope.userInfo.refresh_token, price: photo.price}
+        ,url: 'http://192.168.0.7:5555/api/photopurchase'
+        ,data: {status: status, photoId: photo._id, userId: $scope.userInfo._id, refresh_token: $scope.userInfo.refresh_token, price: photo.price}
       })
       .then(function(updatedPhoto){
         console.log('check status below');
         console.log(updatedPhoto);
         $scope.sellModal = false;
         $ionicScrollDelegate.freezeScroll(false);
-        window.location.reload();
+        // window.location.reload();
         if(updatedPhoto.data.status === 'sold'){
           /////////bank stuff goes here
           for (var i = 0; i < $scope.soldPhotos.length; i++) {
@@ -604,6 +604,17 @@ angular.module('accountController', [])
     }
     $scope.sendFinData = sendFinData;
 
+    function getUserTransactions(){
+      $http({
+        url: 'http://192.168.0.7:5555/api/transactions/all'
+        ,method: "POST"
+        ,data: {userId: $scope.userInfo._id}
+      })
+      .then(function(allTrans){
+        console.log(allTrans);
+        $scope.allTransactions = allTrans.data;
+      })
+    }
 
   ////////////////////////
   ////end controller//////

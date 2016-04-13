@@ -1043,6 +1043,12 @@ ion-content {
   z-index: 1;
 }
 
+.soldPhotoCell {
+  height: 45px;
+  width: 100%;
+  outline: 2px solid blue;
+}
+
 .soldPhotosRepeat {
   padding: 0px;
   height: auto;
