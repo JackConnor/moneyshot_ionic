@@ -71,8 +71,9 @@
             </div>
             <div class="submitCellImageHolder">
               <img class='submitPhoto submitPhoto{{$index}}' id='submit{{$index}}' src="{{media.link}}" ng-if='media.type=="photo"'/>
-              <video ng-if='media.type=="video"'>
+              <video ng-if='media.type=="video"' poster='https://s-media-cache-ak0.pinimg.com/736x/8a/31/71/8a3171fc490597cf02e89d7ad1fc4e35.jpg'>
                 <source ng-src="{{media.link}}" type="video/mp4">
+                  (Your Browser Doesn't Support Video)
               </video>
             </div>
           </div>
