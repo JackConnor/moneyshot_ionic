@@ -12,10 +12,22 @@ angular.module('accountController', [])
 
   function acctCtrl($http, $state, $scope, navbar, userPhotos, decodeToken, $cordovaStatusbar, $ionicScrollDelegate){
     ionic.Platform.showStatusBar(true);/////removes the status bar from the app
-    document.addEventListener("deviceready", onDeviceReady, false);
+    document.addEventListener("deviceready", function(){
+      onDeviceReady();
+      setTimeout(function(){
+        onDeviceReady();
+      }, 500);
+      setTimeout(function(){
+        onDeviceReady();
+      }, 1000);
+      setTimeout(function(){
+        onDeviceReady();
+      }, 3000);
+    }, false);
     function onDeviceReady() {
       StatusBar.styleLightContent();
     }
+
 
     $scope.showSold              = false;
     $scope.showSubmitted         = true;

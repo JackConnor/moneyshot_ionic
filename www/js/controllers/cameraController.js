@@ -13,14 +13,15 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     /////////global variables///
     // $scope.mediaCache = [{type: 'photo', link: 'http://www.kaplaninternational.com/blog/wp-content/uploads/2011/08/blah-290x300.jpg'}, {type:'photo', link: '/img/adam.jpg'}, {type:'photo', link: '/img/ben.png'}];
     $scope.mediaCache = [];
-    $scope.croppedPhoto = '';
-    $scope.submitModalVar = false;
-    $scope.cameraModal = true;
-    $scope.cameraLaunched = false;
-    $scope.cameraToggle = true;
-    $scope.cropper = {};
+    $scope.croppedPhoto         = '';
+    $scope.submitModalVar       = false;
+    $scope.cameraModal          = true;
+    $scope.cameraLaunched       = false;
+    $scope.cameraToggle         = true;
+    $scope.submitPhotoModal     = false;
+    $scope.cropper              = {};
     $scope.cropper.croppedImage = '';
-    var eraseSubmitArr = [];
+    var eraseSubmitArr          = [];
     /////end global variables///
     ////////////////////////////
 
@@ -199,6 +200,10 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
     //////function to submit all cached photos from your session to the db
     function submitAllPhotos(set){
+      $scope.submitPhotoModal = true;
+      var setLength = set.length;
+      var zeroProgress = 0;
+      var progressPercentage = 100/setLength;
       //////through our if-statement below, we'll need to add different options so that photos and videos get processed correctly
       var photoOptions = {
           quality : 95,
@@ -226,6 +231,9 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
         ////now iterate through to submit to backend
         for (var i = 0; i <= set.length; i++) {
+          console.log(progressPercentage);
+          console.log(setLength);
+          console.log(zeroProgress);
           console.log(set[i]);
           if(set[i].type === "video"){
             console.log('video');
@@ -240,6 +248,18 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                 ,data: {url: sliced.join(''), userId: userFullId, isVid: true}
               })
               .then(function(newVid){
+                var progressElement = $('.submitProgressBar');
+                console.log(progressPercentage);
+                if(zeroProgress <= 100){
+                  zeroProgress += progressPercentage;
+                  console.log(zeroProgress);
+                  progressElement.animate({
+                    width: zeroProgress+"%"
+                  }, 200);
+                }
+                else {
+                  return;
+                }
                 submissionData.videos.push(newVid.data._id);
                 var vids = submissionData.videos.length;
                 var phots = submissionData.photos.length;
@@ -251,7 +271,6 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                     ,data: submissionData
                   })
                   .then(function(newSubmission){
-                    console.log(newSubmission);
                     if(i = set.length-1){
                       $scope.submitModalVar = false;
                       $scope.cameraModal = false;
@@ -296,16 +315,30 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
               }
             }
             addCrop();
-            $cordovaFileTransfer.upload('http://192.168.0.5:5555/api/newimage', set[i].link, photoOptions)
+            $cordovaFileTransfer.upload('https://moneyshotapi.herokuapp.com/api/newimage', set[i].link, photoOptions)
             .then(function(callbackImage){
               var parsedPhoto = JSON.parse(callbackImage.response);
               console.log(parsedPhoto);
               $http({
                 method: "POST"
-                ,url: "http://192.168.0.5:5555/api/createphotos"
+                ,url: "https://moneyshotapi.herokuapp.com/api/createphotos"
                 ,data: {url: parsedPhoto.secure_url, thumbnail: parsedPhoto.thumbnail, userId: userFullId, isVid: false}
               })
               .then(function(newPhoto){
+                ///////progress bar stuff
+                var progressElement = $('.submitProgressBar');
+                var progressPercentage = 100/setLength;
+                console.log(progressPercentage);
+                if(zeroProgress <= 100){
+                  zeroProgress += progressPercentage;
+                  console.log(zeroProgress);
+                  progressElement.animate({
+                    width: zeroProgress+"%"
+                  }, 500);
+                }
+                else {
+                  return;
+                }
                 submissionData.photos.push(newPhoto.data._id);
                 var vids = submissionData.videos.length;
                 var phots = submissionData.photos.length;

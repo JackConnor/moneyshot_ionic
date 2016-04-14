@@ -1258,11 +1258,26 @@ ion-content {
   position: absolute;
 }
 
+.submitPhotoModal {
+  width: 80%;
+  margin-right: 10%;
+  height: 300px;
+  background-color: black;
+  position: absolute;
+  z-index: 18;
+}
+
 .submitPhotosHolder {
   padding: 0px;
   height: 100px;
   margin-top: 15px;
   min-width: 100%;
+}
+
+.submitProgressBar {
+  height: 100%;
+  width: 10px;
+  background-color: teal;
 }
 
 .submitRepeat{
@@ -1280,6 +1295,14 @@ ion-content {
   text-align: center;
   margin-left: auto;
   margin-right: auto;
+}
+
+.submitStatusBar {
+  width: 80%;
+  margin-left: 10%;
+  margin-top: 200px;
+  height: 40px;
+  border: 1px solid white;
 }
 
 .submittedRow {
