@@ -1260,11 +1260,23 @@ ion-content {
 
 .submitPhotoModal {
   width: 80%;
-  margin-right: 10%;
-  height: 300px;
+  margin-left: 10%;
+  margin-top: 100px;
+  height: 200px;
   background-color: black;
+  border: 2px solid white;
   position: absolute;
   z-index: 18;
+}
+
+.submitPhotoModalContent {
+  width: 90%;
+  margin-left: 5%;
+  margin-top: 35px;
+  color: white;
+  font-size: 24px;
+  font-weight: 900;
+  text-align: center;
 }
 
 .submitPhotosHolder {
@@ -1300,9 +1312,11 @@ ion-content {
 .submitStatusBar {
   width: 80%;
   margin-left: 10%;
-  margin-top: 200px;
+  margin-top: 50px;
   height: 40px;
   border: 1px solid white;
+  border-radius: 5px;
+  overflow: hidden;
 }
 
 .submittedRow {

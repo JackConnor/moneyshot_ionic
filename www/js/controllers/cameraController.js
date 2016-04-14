@@ -39,6 +39,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         cordova.plugins.camerapreview.startCamera(rect, 'front', tapEnabled, dragEnabled, toBack);
         cordova.plugins.camerapreview.show();
         cordova.plugins.camerapreview.setOnPictureTakenHandler(function(result){
+          console.log(result);
           console.log('yoooooo');
           console.log(result);
           // $('.boom').attr('src', result[0]);
@@ -50,6 +51,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
             ,link: picResult
             ,date: new Date()
           });
+          console.log($scope.mediaCache);
         });
         function toggleView(){
           cordova.plugins.camerapreview.switchCamera();
@@ -58,6 +60,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         // window.plugin.CanvasCamera.start(opt);
         // document.getElementById('camera').style.height = 100+"%";
         function takeCordovaPicture(){
+          console.log($scope.mediaCache);
           cordova.plugins.camerapreview.takePicture({maxWidth:2000, maxHeight:2000});
           $('.takePhotoButton').css({
             backgroundColor: "red"
@@ -239,6 +242,18 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
             console.log('video');
             $cordovaFileTransfer.upload('https://moneyshotapi.herokuapp.com/api/upload/video', set[i].link, {})
             .then(function(callbackImage){
+              var progressElement = $('.submitProgressBar');
+              console.log(progressPercentage);
+              if(zeroProgress <= 100){
+                zeroProgress += progressPercentage;
+                console.log(zeroProgress);
+                progressElement.animate({
+                  width: zeroProgress+"%"
+                }, 200);
+              }
+              else {
+                return;
+              }
               var splitUrl = callbackImage.response.split('');
               var sliced = splitUrl.slice(1, callbackImage.response.split('').length - 1);
               ////////this is where we're having data problems, you need to figure out why our string result doesnt work to call the video
@@ -248,18 +263,6 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                 ,data: {url: sliced.join(''), userId: userFullId, isVid: true}
               })
               .then(function(newVid){
-                var progressElement = $('.submitProgressBar');
-                console.log(progressPercentage);
-                if(zeroProgress <= 100){
-                  zeroProgress += progressPercentage;
-                  console.log(zeroProgress);
-                  progressElement.animate({
-                    width: zeroProgress+"%"
-                  }, 200);
-                }
-                else {
-                  return;
-                }
                 submissionData.videos.push(newVid.data._id);
                 var vids = submissionData.videos.length;
                 var phots = submissionData.photos.length;
@@ -272,9 +275,11 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                   })
                   .then(function(newSubmission){
                     if(i = set.length-1){
-                      $scope.submitModalVar = false;
-                      $scope.cameraModal = false;
-                      window.location.hash = "#/tab/account"
+                      setTimeout(function(){
+                        $scope.submitModalVar = false;
+                        $scope.cameraModal = false;
+                        window.location.hash = "#/tab/account"
+                      }, 1000);
                     }
                   })
                 }
@@ -317,6 +322,18 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
             addCrop();
             $cordovaFileTransfer.upload('https://moneyshotapi.herokuapp.com/api/newimage', set[i].link, photoOptions)
             .then(function(callbackImage){
+              var progressElement = $('.submitProgressBar');
+              console.log(progressPercentage);
+              if(zeroProgress <= 100){
+                zeroProgress += progressPercentage;
+                console.log(zeroProgress);
+                progressElement.animate({
+                  width: zeroProgress+"%"
+                }, 200);
+              }
+              else {
+                return;
+              }
               var parsedPhoto = JSON.parse(callbackImage.response);
               console.log(parsedPhoto);
               $http({
@@ -325,20 +342,6 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                 ,data: {url: parsedPhoto.secure_url, thumbnail: parsedPhoto.thumbnail, userId: userFullId, isVid: false}
               })
               .then(function(newPhoto){
-                ///////progress bar stuff
-                var progressElement = $('.submitProgressBar');
-                var progressPercentage = 100/setLength;
-                console.log(progressPercentage);
-                if(zeroProgress <= 100){
-                  zeroProgress += progressPercentage;
-                  console.log(zeroProgress);
-                  progressElement.animate({
-                    width: zeroProgress+"%"
-                  }, 500);
-                }
-                else {
-                  return;
-                }
                 submissionData.photos.push(newPhoto.data._id);
                 var vids = submissionData.videos.length;
                 var phots = submissionData.photos.length;
@@ -353,9 +356,11 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                     console.log(newSubmission);
                     // console.log(newSubmission);
                     if(i = set.length-1){
-                      $scope.submitModalVar = false;
-                      $scope.cameraModal = false;
-                      window.location.hash = "#/tab/account"
+                      setTimeout(function(){
+                        $scope.submitModalVar = false;
+                        $scope.cameraModal = false;
+                        window.location.hash = "#/tab/account"
+                      }, 100);
                     }
                   })
                 }
@@ -494,7 +499,8 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       console.log($scope.mediaCache);
       setTimeout(function(){
         for (var i = 0; i < $scope.mediaCache.length; i++) {
-
+          console.log($scope.mediaCache[i].link);
+          console.log(document.getElementById('submit'+i));
           document.getElementById('submit'+i).src = $scope.mediaCache[i].link
         }
       }, 500);
