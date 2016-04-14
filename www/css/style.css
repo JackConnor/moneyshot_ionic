@@ -494,28 +494,60 @@ ion-content {
 }
 
 .finCell {
-  height: 85px;
+  height: auto;
   width: 100%;
-  outline: 2px solid blue;
+  display: block;
 }
 
 .finDetails {
   top: 0;
   padding: 0px;
-  height: 100%;
+  height: 100px;
   display: inline-block;
+  color: white;
+  text-align: center;
+  padding-top: 20px;
+  font-size: 22px;
+  background-color: #acacac;
+}
+
+.finMoreDetails {
+  height: 150px;
+  width: 100%;
+  background-color: #c8cfd6;
+  opacity: 0;
+  position: absolute;
+}
+
+.finOpenHolder {
+  height: 30px;
+  margin: 0 0 10px 0;
+  padding: 0px;
+}
+
+.finOpenImage {
+  font-size: 20px;
+  height: 30px;
+  text-align: center;
+  padding-top: 5px;
+  background-color: #949494;
+  color: white;
+  opacity: 0.5
 }
 
 .finPhoto {
   padding: 0px;
-  height: 100%;
+  height: 100px;
   display: inline-block;
+  background-color: #acacac;
 }
 
 .finPhoto img {
   width: auto;
   max-width: 100%;
-  height: 100%;
+  height: 100px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .forgotPassword {
@@ -1327,6 +1359,14 @@ ion-content {
   background-color: blue;
   margin-left: auto;
   margin-right: auto;
+}
+
+.tempFinInfo {
+  font-size: 50px;
+  color: white;
+  text-align: center;
+  padding-top: 50px;
+  opacity: 0.3;
 }
 
 .testing {

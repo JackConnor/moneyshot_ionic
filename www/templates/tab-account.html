@@ -203,8 +203,8 @@
           Total Earned: {{totalEarned | currency}}
           <button type="button" name="button" ng-click='sendFinData()'>Send Financial Data as CSV</button>
           <div class="finCell" ng-repeat='soldPhoto in allTransactions'>
-            <div class="finPhoto col-xs-6" ng-click='openSingle(soldPhoto.photos[0], "sold")'>
-              <img src="{{soldPhoto.photos[0].url}}" alt="" />
+            <div class="finPhoto col-xs-6">
+              <img src="{{soldPhoto.photos[0].url}}" ng-click='openSingle(soldPhoto.photos[0], "sold")'/>
             </div>
             <div class="finDetails col-xs-6">
               <div class="finDate col-xs-6">
@@ -212,6 +212,11 @@
               </div>
               <div class="finPrice col-xs-6">
                 Sold for: {{soldPhoto.price | currency}}
+              </div>
+            </div>
+            <div class="col-xs-12 finOpenHolder">
+              <div class="finOpenImage" ng-click='openFin($event, soldPhoto)'>
+                More Details
               </div>
             </div>
           </div>

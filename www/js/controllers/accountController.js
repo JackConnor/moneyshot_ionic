@@ -623,6 +623,55 @@ angular.module('accountController', [])
       })
     }
 
+    ////////////////////////////////////////
+    ////functions to open financial cells///
+    function openFin(evt, transData){
+      console.log(evt.currentTarget);
+      console.log(transData);
+      var isOpen = $(evt.currentTarget).hasClass('opened');
+      console.log(isOpen);
+      var parentEl = $(evt.currentTarget).parent();
+      console.log(parentEl);
+      if(!isOpen){
+        parentEl.animate({
+          height: "170px"
+        }, 1000);
+        $(evt.currentTarget).animate({
+          marginTop: "140px"
+        }, 1000);
+        parentEl.prepend(
+          "<div class='finMoreDetails'>"+
+            "<div class='tempFinInfo'>"+
+              "Coming Soon"+
+            "</div>"+
+          "</div>"
+        );
+        $('.finMoreDetails').animate({
+          opacity: 1
+        }, 500);
+        $(evt.currentTarget).addClass('opened');
+        $(evt.currentTarget).text('Close Details');
+      }
+      else if(isOpen) {
+        parentEl.animate({
+          height: "30px"
+        }, 1000);
+        $(evt.currentTarget).animate({
+          marginTop: "0px"
+        }, 1000);
+        $(evt.currentTarget).removeClass('opened');
+        $(evt.currentTarget).text('More Details');
+        setTimeout(function(){
+          var moreDetails = $(evt.currentTarget).siblings()[0];
+          $(moreDetails).remove();
+        }, 1000);
+      }
+    }
+    $scope.openFin = openFin;
+
+    ////end functions to open financial cells///
+    ////////////////////////////////////////////
+
 
 
   ////////////////////////
