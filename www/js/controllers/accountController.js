@@ -40,21 +40,21 @@ angular.module('accountController', [])
         $('.soldTabInner').css({
           fontStyle: 'bold'
           ,fontSize: "19px"
-          ,borderBottom: "5px solid green"
+          ,borderBottom: "5px solid white"
         })
       }
       else if($scope.showSubmitted){
         $('.submittedTabInner').css({
           fontStyle: 'bold'
           ,fontSize: "19px"
-          ,borderBottom: "5px solid green"
+          ,borderBottom: "5px solid white"
         })
       }
       else if($scope.showFinance){
         $('.moneyTabInner').css({
           fontStyle: 'bold'
           ,fontSize: "19px"
-          ,borderBottom: "5px solid green"
+          ,borderBottom: "5px solid white"
         })
       }
     }
@@ -394,21 +394,21 @@ angular.module('accountController', [])
         $('.soldTabInner').css({
           fontStyle: 'bold'
           ,fontSize: "19px"
-          ,borderBottom: "5px solid green"
+          ,borderBottom: "5px solid white"
         })
       }
       else if(submission()){
         $('.submittedTabInner').css({
           fontStyle: 'bold'
           ,fontSize: "19px"
-          ,borderBottom: "5px solid green"
+          ,borderBottom: "5px solid white"
         })
       }
       else if(finance()){
         $('.moneyTabInner').css({
           fontStyle: 'bold'
           ,fontSize: "19px"
-          ,borderBottom: "5px solid green"
+          ,borderBottom: "5px solid white"
         })
       }
     }
@@ -634,10 +634,10 @@ angular.module('accountController', [])
       console.log(parentEl);
       if(!isOpen){
         parentEl.animate({
-          height: "170px"
+          height: "160px"
         }, 1000);
         $(evt.currentTarget).animate({
-          marginTop: "140px"
+          marginTop: "130px"
         }, 1000);
         parentEl.prepend(
           "<div class='finMoreDetails'>"+
@@ -646,11 +646,13 @@ angular.module('accountController', [])
             "</div>"+
           "</div>"
         );
-        $('.finMoreDetails').animate({
-          opacity: 1
-        }, 500);
         $(evt.currentTarget).addClass('opened');
         $(evt.currentTarget).text('Close Details');
+        setTimeout(function(){
+          $('.finMoreDetails').animate({
+            opacity: 1
+          }, 200);
+        }, 900)
       }
       else if(isOpen) {
         parentEl.animate({
@@ -661,6 +663,9 @@ angular.module('accountController', [])
         }, 1000);
         $(evt.currentTarget).removeClass('opened');
         $(evt.currentTarget).text('More Details');
+        $('.finMoreDetails').animate({
+          opacity: 0
+        }, 100);
         setTimeout(function(){
           var moreDetails = $(evt.currentTarget).siblings()[0];
           $(moreDetails).remove();
