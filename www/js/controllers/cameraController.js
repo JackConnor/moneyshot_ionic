@@ -199,8 +199,6 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
     //////function to submit all cached photos from your session to the db
     function submitAllPhotos(set){
-      console.log('working');
-      console.log(set);
       //////through our if-statement below, we'll need to add different options so that photos and videos get processed correctly
       var photoOptions = {
           quality : 95,
@@ -216,7 +214,6 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
       }
       var submissionData = {photos: [], videos: [], userId: ''};
-      console.log('huh?');
       //////first we need to find the users ID, so we can use it to make the post requests
       $http({
         method: "GET"
@@ -299,14 +296,14 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
               }
             }
             addCrop();
-            $cordovaFileTransfer.upload('http://192.168.0.7:5555/api/newimage', set[i].link, photoOptions)
+            $cordovaFileTransfer.upload('http://192.168.0.5:5555/api/newimage', set[i].link, photoOptions)
             .then(function(callbackImage){
               var parsedPhoto = JSON.parse(callbackImage.response);
               console.log(parsedPhoto);
               $http({
                 method: "POST"
-                ,url: "https://moneyshotapi.herokuapp.com/api/createphotos"
-                ,data: {url: parsedPhoto.secure_url, userId: userFullId, isVid: false}
+                ,url: "http://192.168.0.5:5555/api/createphotos"
+                ,data: {url: parsedPhoto.secure_url, thumbnail: parsedPhoto.thumbnail, userId: userFullId, isVid: false}
               })
               .then(function(newPhoto){
                 submissionData.photos.push(newPhoto.data._id);

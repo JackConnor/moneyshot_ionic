@@ -563,7 +563,7 @@ angular.module('accountController', [])
       console.log(photo);
       $http({
         method: "POST"
-        ,url: 'http://192.168.0.7:5555/api/photopurchase'
+        ,url: 'https://moneyshotapi.herokuapp.com/api/photopurchase'
         ,data: {status: status, photoId: photo._id, userId: $scope.userInfo._id, refresh_token: $scope.userInfo.refresh_token, price: photo.price}
       })
       .then(function(updatedPhoto){
@@ -571,42 +571,34 @@ angular.module('accountController', [])
         console.log(updatedPhoto);
         $scope.sellModal = false;
         $ionicScrollDelegate.freezeScroll(false);
-        // window.location.reload();
-        if(updatedPhoto.data.status === 'sold'){
-          /////////bank stuff goes here
-          for (var i = 0; i < $scope.soldPhotos.length; i++) {
-            if($scope.soldPhotos[i]._id == updatedPhoto.data._id){
-              $scope.soldPhotos[i].status = 'sold';
-            }
-          }
-        }
-        else if(updatedPhoto.data.status === 'rejected'){
-          for (var i = 0; i < $scope.soldPhotos.length; i++) {
-            if($scope.soldPhotos[i]._id == updatedPhoto.data._id){
-              $scope.soldPhotos.splice(i, 1);
-            }
-          }
-        }
+        window.location.reload();
       })
     }
     $scope.buyRejectPhoto = buyRejectPhoto;
 
     /////////function to send fin data as a csv file
     function sendFinData(){
+      $('.sendFinDataButton').css({
+        backgroundColor: '#ccccff'
+      });
+      $('.sendFinDataButton').animate({
+        backgroundColor: '#696969'
+      }, 200);
       $http({
         method: "POST"
-        ,url: 'http://192.168.0.7:5555/api/tocsv'
+        ,url: 'https://moneyshotapi.herokuapp.com/api/tocsv'
         ,data: {email: $scope.userInfo.email}
       })
       .then(function(data){
         console.log(data);
+        alert('Your Financial Data Has been Sent To Your Email');
       })
     }
     $scope.sendFinData = sendFinData;
 
     function getUserTransactions(){
       $http({
-        url: 'http://192.168.0.7:5555/api/transactions/all'
+        url: 'https://moneyshotapi.herokuapp.com/api/transactions/all'
         ,method: "POST"
         ,data: {userId: $scope.userInfo._id}
       })
@@ -614,6 +606,7 @@ angular.module('accountController', [])
         console.log(allTrans);
         var length = allTrans.data.length;
         for (var i = 0; i < length; i++) {
+          console.log(allTrans.data[i].photos[0].thumbnail);
           allTrans.data[i].date = moment(allTrans.data[i].date).format('MMM Do YYYY');
           allTrans.data[i].photos[0].date = moment(allTrans.data[i].photos[0].date).format('MMM Do YYYY');
           if(i === length-1){
@@ -626,12 +619,9 @@ angular.module('accountController', [])
     ////////////////////////////////////////
     ////functions to open financial cells///
     function openFin(evt, transData){
-      console.log(evt.currentTarget);
       console.log(transData);
       var isOpen = $(evt.currentTarget).hasClass('opened');
-      console.log(isOpen);
       var parentEl = $(evt.currentTarget).parent();
-      console.log(parentEl);
       if(!isOpen){
         parentEl.animate({
           height: "160px"

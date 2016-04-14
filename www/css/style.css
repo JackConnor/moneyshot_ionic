@@ -507,7 +507,7 @@ ion-content {
   color: white;
   text-align: center;
   padding-top: 20px;
-  font-size: 22px;
+  font-size: 17px;
   background-color: #acacac;
 }
 
@@ -548,6 +548,23 @@ ion-content {
   height: 100px;
   margin-left: auto;
   margin-right: auto;
+}
+
+.finTopBar {
+  height: 100px;
+  padding: 0px;
+}
+
+.finTotal {
+  text-align: center;
+  height: 100%;
+  display: inline-block;
+  padding: 15px 0 0 0px;
+  font-size: 25px
+}
+
+.finTotal span{
+  font-size: 18px
 }
 
 .forgotPassword {
@@ -922,6 +939,16 @@ ion-content {
   color: white;
   font-size: 25px;
   padding-top: 20px;
+  text-align: center;
+}
+
+.sendFinDataButton {
+  padding: 20px 0 0 0px;
+  height: 100%;
+  background-color: #696969;
+  color: white;
+  font-size: 18px;
+  float: right;
   text-align: center;
 }
 

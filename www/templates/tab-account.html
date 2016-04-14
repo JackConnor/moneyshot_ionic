@@ -199,19 +199,22 @@
           </div>
         </div>
         <div class="" ng-if='showFinance'>
-          the Money Stuff
-          Total Earned: {{totalEarned | currency}}
-          <button type="button" name="button" ng-click='sendFinData()'>Send Financial Data as CSV</button>
-          <div class="finCell" ng-repeat='soldPhoto in allTransactions'>
-            <div class="finPhoto col-xs-6">
-              <img src="{{soldPhoto.photos[0].url}}" ng-click='openSingle(soldPhoto.photos[0], "sold")'/>
+          <div class="finTopBar col-xs-12">
+            <div class="finTotal col-xs-6">
+              <span>Total Earned:</span><br>{{totalEarned | currency}}
             </div>
-            <div class="finDetails col-xs-6">
+            <div class='sendFinDataButton col-xs-4 col-xs-offset-2' ng-click='sendFinData()'>Send Financial Data as Email</div>
+          </div>
+          <div class="finCell" ng-repeat='soldPhoto in allTransactions'>
+            <div class="finPhoto col-xs-4">
+              <img src="{{soldPhoto.photos[0].thumbnail}}" ng-click='openSingle(soldPhoto.photos[0], "sold")'/>
+            </div>
+            <div class="finDetails col-xs-8">
               <div class="finDate col-xs-6">
-                Taken on: {{soldPhoto.photos[0].date}}
+                Taken on:<br> {{soldPhoto.photos[0].date}}
               </div>
               <div class="finPrice col-xs-6">
-                Sold for: {{soldPhoto.price | currency}}
+                Sold for:<br> {{soldPhoto.price | currency}}
               </div>
             </div>
             <div class="col-xs-12 finOpenHolder">
