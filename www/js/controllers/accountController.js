@@ -233,6 +233,21 @@ angular.module('accountController', [])
               $('.loadSpinner').remove();
               clearInterval(spinnerInterval);
             }, 4000);
+            setTimeout(function(){
+              $scope.loadingModal = false;
+              $('.loadSpinner').remove();
+              clearInterval(spinnerInterval);
+            }, 6000);
+            setTimeout(function(){
+              $scope.loadingModal = false;
+              $('.loadSpinner').remove();
+              clearInterval(spinnerInterval);
+            }, 8000);
+            setTimeout(function(){
+              $scope.loadingModal = false;
+              $('.loadSpinner').remove();
+              clearInterval(spinnerInterval);
+            }, 10000);
           }
         }
         else if(arr[i].photos.length == 2){
@@ -312,12 +327,27 @@ angular.module('accountController', [])
     }
 
     function showSoldFunc(){
+      // $scope.showSold              = false;
+      // $scope.showSubmitted         = true;
+      // $scope.showFinance           = false;
+      // $scope.hamburgerOpen         = false;
+      // $scope.introModal            = false;
+      // $scope.sellModal             = false;
+      // $scope.singleSubmissionModal = false;
+      // $scope.loadingModal          = true;
 
       $scope.singleSubmissionModal = false;
+      $scope.sellModal             = false;
       $scope.showSold              = true;
       $scope.showSubmitted         = false;
       $scope.showFinance           = false;
       $scope.hamburgerOpen         = false;
+      $('.singleImageModal').css({
+        marginLeft: '100%'
+      });
+      $('.repeatContainer').css({
+        opacity: 1
+      });
       $ionicScrollDelegate.scrollTop(true);
     }
     $scope.showSoldFunc = showSoldFunc;
@@ -329,6 +359,12 @@ angular.module('accountController', [])
       $scope.showSubmitted         = true;
       $scope.showFinance           = false;
       $scope.hamburgerOpen         = false;
+      $('.singleImageModal').css({
+        marginLeft: '100%'
+      });
+      $('.repeatContainer').css({
+        opacity: 1
+      });
       $ionicScrollDelegate.scrollTop(true);
       setTimeout(function(){
         setPhotoUiSubs();
@@ -344,6 +380,12 @@ angular.module('accountController', [])
       $scope.showSubmitted         = false;
       $scope.showFinance           = true;
       $scope.hamburgerOpen         = false;
+      $('.singleImageModal').css({
+        marginLeft: '100%'
+      });
+      $('.repeatContainer').css({
+        opacity: 1
+      });
       $ionicScrollDelegate.scrollTop(true);
     }
     $scope.showFinanceFunc = showFinanceFunc;

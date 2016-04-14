@@ -25,6 +25,7 @@ ion-content {
   position: absolute;
   overflow: hidden;
   margin-top: 75px;
+  height: 714px;
 }
 
 .accountTab {
