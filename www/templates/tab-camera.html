@@ -46,8 +46,7 @@
           Crop
         </div>
         <div class="cropHolder">
-          <!-- <img id='cropImageRaw' src="{{cropPhotoImage}}" alt="" /> -->
-          <!-- <canvas id='cropCanvas' keep-aspect='true' id="canvas" image-cropper image="cropper.sourceImage"  crop-width="150" crop-height="150" cors='yes' cropped-image="cropper.croppedImage" touch-radius="30" crop-area-bounds="bounds"></canvas> -->
+
         </div>
       </div>
       <div class="submitModalContainer">
@@ -66,12 +65,15 @@
               <div class="circleBlack"></div>
               <i class="fa fa-circle-thin" ></i>
             </div>
-            <div class="cropIconHolder" ng-click='cropPhoto(mediaCache[$index], $event, $index)'>
+            <div class="cropIconHolder" ng-click='cropPhoto(mediaCache[$index], $event, $index)' ng-if='media.type=="photo"'>
+              {{media.isVideo}}
               <div class='fa fa-crop'></div>
             </div>
             <div class="submitCellImageHolder">
               <img class='submitPhoto submitPhoto{{$index}}' id='submit{{$index}}' src="{{media.link}}" ng-if='media.type=="photo"'/>
-              <video ng-src="{{media.link}}" ng-if='media.type=="video"'></video>
+              <video ng-if='media.type=="video"'>
+                <source ng-src="{{media.link}}" type="video/mp4">
+              </video>
             </div>
           </div>
         </div>

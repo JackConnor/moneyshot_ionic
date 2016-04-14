@@ -203,6 +203,10 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
     //////function to submit all cached photos from your session to the db
     function submitAllPhotos(set){
+      var submissionData;
+      var set = set;
+      console.log('set starting');
+      console.log(set);
       $scope.submitPhotoModal = true;
       var setLength = set.length;
       var zeroProgress = 0;
@@ -222,26 +226,28 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
       }
       var submissionData = {photos: [], videos: [], userId: ''};
+      console.log('made it this far?');
       //////first we need to find the users ID, so we can use it to make the post requests
       $http({
         method: "GET"
         ,url: "https://moneyshotapi.herokuapp.com/api/decodetoken/"+window.localStorage.webToken
       })
       .then(function(decodedToken){
+        console.log('got a token?');
         console.log('yo decoded '+decodedToken.data.userId);
         var userFullId = decodedToken.data.userId;
         submissionData.userId = userFullId;
 
         ////now iterate through to submit to backend
         for (var i = 0; i <= set.length; i++) {
-          console.log(progressPercentage);
-          console.log(setLength);
-          console.log(zeroProgress);
-          console.log(set[i]);
+          console.log('iiii');
+          console.log(i);
           if(set[i].type === "video"){
             console.log('video');
-            $cordovaFileTransfer.upload('https://moneyshotapi.herokuapp.com/api/upload/video', set[i].link, {})
+            $cordovaFileTransfer.upload('http://192.168.0.5:5555/api/upload/video', set[i].link, {})
             .then(function(callbackImage){
+              console.log('video callback next');
+              console.log(callbackImage);
               var progressElement = $('.submitProgressBar');
               console.log(progressPercentage);
               if(zeroProgress <= 100){
@@ -252,7 +258,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                 }, 200);
               }
               else {
-                return;
+                // return;
               }
               var splitUrl = callbackImage.response.split('');
               var sliced = splitUrl.slice(1, callbackImage.response.split('').length - 1);
@@ -263,24 +269,29 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                 ,data: {url: sliced.join(''), userId: userFullId, isVid: true}
               })
               .then(function(newVid){
+                console.log(newVid);
                 submissionData.videos.push(newVid.data._id);
                 var vids = submissionData.videos.length;
                 var phots = submissionData.photos.length;
                 var amalgam = vids + phots;
-                if(amalgam == parseInt(set.length)){
+                if(amalgam == setLength){
                   $http({
                     method: "POST"
                     ,url: "https://moneyshotapi.herokuapp.com/api/new/submission"
                     ,data: submissionData
                   })
                   .then(function(newSubmission){
-                    if(i = set.length-1){
-                      setTimeout(function(){
-                        $scope.submitModalVar = false;
-                        $scope.cameraModal = false;
-                        window.location.hash = "#/tab/account"
-                      }, 1000);
-                    }
+                    console.log('submission coming soon');
+                    console.log(newSubmission);
+                    console.log('length data');
+                    console.log(i);
+                    console.log(set.length);
+                    console.log('finishing this up!');
+                    setTimeout(function(){
+                      $scope.submitModalVar = false;
+                      $scope.cameraModal = false;
+                      window.location.hash = "#/tab/account"
+                    }, 1000);
                   })
                 }
               })
@@ -355,7 +366,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                   .then(function(newSubmission){
                     console.log(newSubmission);
                     // console.log(newSubmission);
-                    if(i = set.length-1){
+                    if(i == set.length-1){
                       setTimeout(function(){
                         $scope.submitModalVar = false;
                         $scope.cameraModal = false;
@@ -501,7 +512,8 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         for (var i = 0; i < $scope.mediaCache.length; i++) {
           console.log($scope.mediaCache[i].link);
           console.log(document.getElementById('submit'+i));
-          document.getElementById('submit'+i).src = $scope.mediaCache[i].link
+          console.log('changes made');
+          // document.getElementById('submit'+i).src = $scope.mediaCache[i].link
         }
       }, 500);
     }
