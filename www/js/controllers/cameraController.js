@@ -194,6 +194,8 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
 
     function deletePhotos(){
+      var thisEl = $(".submitDelete")[0];
+      animateClick(thisEl);
       for (var i = 0; i < eraseSubmitArr.length; i++) {
         $scope.mediaCache.splice(eraseSubmitArr[i], 1);
       }
@@ -203,10 +205,10 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
     //////function to submit all cached photos from your session to the db
     function submitAllPhotos(set){
+      var thisEl = document.getElementsByClassName('submitButton')[0];
+      animateClick(thisEl)
       var submissionData;
       var set = set;
-      console.log('set starting');
-      console.log(set);
       $scope.submitPhotoModal = true;
       var setLength = set.length;
       var zeroProgress = 0;
@@ -366,13 +368,11 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                   .then(function(newSubmission){
                     console.log(newSubmission);
                     // console.log(newSubmission);
-                    if(i == set.length-1){
-                      setTimeout(function(){
-                        $scope.submitModalVar = false;
-                        $scope.cameraModal = false;
-                        window.location.hash = "#/tab/account"
-                      }, 100);
-                    }
+                    setTimeout(function(){
+                      $scope.submitModalVar = false;
+                      $scope.cameraModal = false;
+                      window.location.hash = "#/tab/account"
+                    }, 100);
                   })
                 }
               })
@@ -513,7 +513,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
           console.log($scope.mediaCache[i].link);
           console.log(document.getElementById('submit'+i));
           console.log('changes made');
-          // document.getElementById('submit'+i).src = $scope.mediaCache[i].link
+          document.getElementById('submit'+i).src = $scope.mediaCache[i].link
         }
       }, 500);
     }
@@ -521,6 +521,8 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     $scope.submitModalOpen = submitModalOpen;
 
     function backToPhotos(){
+      var thisEl = $(".backToPhotos")[0];
+      animateClick(thisEl);
       cordova.plugins.camerapreview.show();
       $scope.submitModalVar = false;
     }
@@ -534,4 +536,16 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       // }, 2000);
     }
     $scope.leaveCamera = leaveCamera;
+
+    ///////function to animate button presses for any inserted element
+    function animateClick(jsEl){
+      var jqEl = $(jsEl);
+      console.log(jqEl);
+      jqEl.css({
+        backgroundColor: "#6d8383"
+      })
+      jqEl.animate({
+        backgroundColor: '#013220'
+      }, 500);
+    }
   }

@@ -86,12 +86,13 @@ ion-content {
 }
 
 .backToPhotos {
-  height: 65px;
-  background-color: purple;
+  height: 45px;
   color: white;
-  font-size: 23px;
+  font-size: 20px;
   text-align: center;
-  padding-top: 8px;
+  padding-top: 10px;
+  border-right: 2px solid #587272;
+  background-color: #013220;
 }
 
 .backToSubmit {
@@ -1176,13 +1177,13 @@ ion-content {
 }
 
 .submitButton {
-  height: 65px;
-  background-color: green;
+  height: 45px;
   color: white;
-  font-size: 23px;
+  font-size: 20px;
   text-align: center;
-  padding-top: 8px;
-  /*z-index: 10000;*/
+  padding-top: 3px;
+  border-right: 2px solid #587272;
+  background-color: #013220;
 }
 
 .submitCell {
@@ -1234,12 +1235,12 @@ ion-content {
 }
 
 .submitDelete {
-  height: 65px;
-  background-color: blue;
+  height: 45px;
   color: white;
-  font-size: 23px;
+  font-size: 20px;
   text-align: center;
-  padding-top: 8px;
+  padding-top: 3px;
+  background-color: #013220;
 }
 
 .submitModal {
@@ -1248,6 +1249,7 @@ ion-content {
   position: fixed;
   background-color: gray;
   z-index: 16;
+  position: absolute;
 }
 
 .submitModalContainer {
@@ -1255,8 +1257,8 @@ ion-content {
   height: 100%;
 }
 
-.submitModal {
-  position: absolute;
+.submitModalTabHolder {
+  height: 45px;
 }
 
 .submitPhotoModal {
