@@ -11,7 +11,7 @@
     <div class="cameraModal" ng-show='cameraModal==true'>
       <img class='boom' src="" alt="" />
       <div class="cameraBack">
-        <p class='fa fa-long-arrow-left longArrow' ng-click='leaveCamera()'></p>
+        <p class='fa fa-times longArrow' ng-click='leaveCamera()'></p>
       </div>
       <div class="cameraViewToggle">
         <i class='fa fa-repeat toggleCameraIcon' ng-click='toggleView()'></i>
@@ -37,7 +37,7 @@
         </div>
       </div>
     </div>
-    <div class="submitModal" ng-if='submitModalVar'>
+    <div class="submitModal" ng-show='submitModalVar'>
       <div class="submitCropContainer">
         <div class="backToSubmit col-xs-6" ng-click='backToSubmit()'>
           Back

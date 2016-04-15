@@ -234,7 +234,7 @@ ion-content {
 }
 
 .buttonDiv {
-  margin-top: 35px;
+  margin-top: 20px;
 }
 
 #camera {
@@ -242,9 +242,8 @@ ion-content {
 
 .cameraBack {
   position: absolute;
-  margin: 0px 0 0  10px;
+  margin: -22px 0 0  10px;
   color: white;
-  font-size: 28px;
   width: 50px;
   /*outline: 2px solid white;*/
 }
@@ -265,7 +264,7 @@ ion-content {
 }
 
 .cameraButtonCell {
-  margin-top: 20px;
+  margin-top: 5px;
 }
 
 .cameraButtonsContainer {
@@ -784,8 +783,8 @@ ion-content {
 }
 
 .longArrow {
-  font-size: 60px;
-  opacity: .6;
+  font-size: 40px;
+  opacity: .75;
 }
 
 .nameTag {
@@ -1444,10 +1443,11 @@ ion-content {
 
 .toggleCameraIcon {
   color: white;
-  font-size: 28px;
+  font-size:35px;
   position: absolute;
   margin-left: 90%;
-  margin-top: 15px;
+  margin-top: -20px;
+  opacity: 0.75;
 }
 
 .xOutSignup {

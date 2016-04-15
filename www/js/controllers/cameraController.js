@@ -27,40 +27,30 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
     /////////////////////////////
     /////functions to upload photos////
-    // console.log(CanvasCamera);
+    //function to launch camera and take photos
     function uploadPhotos() {
       console.log('cameraaaaaa');
         $scope.cameraLaunched = true;
         var tapEnabled = false; //enable tap take picture
-        var dragEnabled = true; //enable preview box drag across the screen
+        var dragEnabled = false; //enable preview box drag across the screen
         var toBack = false; //send preview box to the back of the webview
         // console.log(cordova.plugins.camerapreview);
-        var rect = {x: 0, y: 50, width: 375, height: 398};
+        var rect = {x: 0, y: 40, width: 375, height: 420};
         cordova.plugins.camerapreview.startCamera(rect, 'front', tapEnabled, dragEnabled, toBack);
         cordova.plugins.camerapreview.show();
         cordova.plugins.camerapreview.setOnPictureTakenHandler(function(result){
-          console.log(result);
-          console.log('yoooooo');
-          console.log(result);
-          // $('.boom').attr('src', result[0]);
-          // alert($('.boom').attr('src'));
           var picResult = result[0]
-          // $scope.newPhotoData = result[0];
           $scope.mediaCache.push({
             type: "photo"
             ,link: picResult
             ,date: new Date()
           });
-          console.log($scope.mediaCache);
         });
         function toggleView(){
           cordova.plugins.camerapreview.switchCamera();
         }
         $scope.toggleView = toggleView;
-        // window.plugin.CanvasCamera.start(opt);
-        // document.getElementById('camera').style.height = 100+"%";
         function takeCordovaPicture(){
-          console.log($scope.mediaCache);
           cordova.plugins.camerapreview.takePicture({maxWidth:2000, maxHeight:2000});
           $('.takePhotoButton').css({
             backgroundColor: "red"
@@ -135,19 +125,22 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     $scope.takePicture = takePicture;
     // takePicture();
     function getPic(){
-      $cordovaCapture.captureVideo({})
-      .then(function(result){
-        var pathFull = result[0].fullPath;///////this is what we need to add to our cache
-        /////next, we push the video plus some extra data to the media cache, where it waits to be submitted
-        $scope.mediaCache.push({
-          type: "video"
-          ,link: pathFull
-          ,date: new Date()
-        })
-      })
+      var thisEl = $('.outCameraModal')[0];
+      animateClick(thisEl, 'white', 'transparent');
+      setTimeout(function(){
+        $cordovaCapture.captureVideo({})
+        .then(function(result){
+          var pathFull = result[0].fullPath;///////this is what we need to add to our cache
+          /////next, we push the video plus some extra data to the media cache, where it waits to be submitted
+          $scope.mediaCache.push({
+            type: "video"
+            ,link: pathFull
+            ,date: new Date()
+          })
+        });
+      }, 300);
     }
     $scope.getPic = getPic;
-    // getPic();
 
     //////function to open the submit modal
     function openSubmitModal(){
@@ -195,7 +188,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
     function deletePhotos(){
       var thisEl = $(".submitDelete")[0];
-      animateClick(thisEl);
+      animateClick(thisEl, "#6d8383", '#013220');
       for (var i = 0; i < eraseSubmitArr.length; i++) {
         $scope.mediaCache.splice(eraseSubmitArr[i], 1);
       }
@@ -206,7 +199,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     //////function to submit all cached photos from your session to the db
     function submitAllPhotos(set){
       var thisEl = document.getElementsByClassName('submitButton')[0];
-      animateClick(thisEl)
+      animateClick(thisEl, "#6d8383", '#013220');
       var submissionData;
       var set = set;
       $scope.submitPhotoModal = true;
@@ -504,48 +497,48 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     }, 500)
 
     function submitModalOpen(){
-      cordova.plugins.camerapreview.hide();
-      $scope.submitModalVar = true;
-                /////
-      console.log($scope.mediaCache);
+      var thisEl = $('.submitSetDiv')[0];
+      animateClick(thisEl, '#8CDD81', 'transparent');
+      for (var i = 0; i < $scope.mediaCache.length; i++) {
+        document.getElementById('submit'+i).src = $scope.mediaCache[i].link
+      }
       setTimeout(function(){
-        for (var i = 0; i < $scope.mediaCache.length; i++) {
-          console.log($scope.mediaCache[i].link);
-          console.log(document.getElementById('submit'+i));
-          console.log('changes made');
-          document.getElementById('submit'+i).src = $scope.mediaCache[i].link
-        }
-      }, 500);
+        $scope.submitModalVar = true;
+        setTimeout(function(){
+          cordova.plugins.camerapreview.hide();
+        }, 100);
+      }, 250);
     }
 
     $scope.submitModalOpen = submitModalOpen;
 
     function backToPhotos(){
       var thisEl = $(".backToPhotos")[0];
-      animateClick(thisEl);
-      cordova.plugins.camerapreview.show();
-      $scope.submitModalVar = false;
+      animateClick(thisEl, "#6d8383", '#013220');
+      setTimeout(function(){
+        $scope.submitModalVar = false;
+        setTimeout(function(){
+          cordova.plugins.camerapreview.show();
+        }, 750);
+      }, 100);
     }
     $scope.backToPhotos = backToPhotos;
 
     function leaveCamera(){
       cordova.plugins.camerapreview.hide();
       window.location.hash = "#/tab/account"
-      // setTimeout(function(){
-      //   cordova.plugins.camerapreview.stopCamera();
-      // }, 2000);
     }
     $scope.leaveCamera = leaveCamera;
 
     ///////function to animate button presses for any inserted element
-    function animateClick(jsEl){
+    function animateClick(jsEl, color1, color2){
       var jqEl = $(jsEl);
       console.log(jqEl);
       jqEl.css({
-        backgroundColor: "#6d8383"
+        backgroundColor: color1
       })
       jqEl.animate({
-        backgroundColor: '#013220'
+        backgroundColor: color2
       }, 500);
     }
   }
