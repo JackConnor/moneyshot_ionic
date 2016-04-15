@@ -36,7 +36,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         var toBack = false; //send preview box to the back of the webview
         // console.log(cordova.plugins.camerapreview);
         var rect = {x: 0, y: 40, width: 375, height: 420};
-        cordova.plugins.camerapreview.startCamera(rect, 'front', tapEnabled, dragEnabled, toBack);
+        cordova.plugins.camerapreview.startCamera(rect, 'back', tapEnabled, dragEnabled, toBack);
         cordova.plugins.camerapreview.show();
         cordova.plugins.camerapreview.setOnPictureTakenHandler(function(result){
           var picResult = result[0]
@@ -525,8 +525,12 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     $scope.backToPhotos = backToPhotos;
 
     function leaveCamera(){
-      cordova.plugins.camerapreview.hide();
-      window.location.hash = "#/tab/account"
+      var thisEl = $('.longArrow');
+      animateClick(thisEl, '#c0caca', 'transparent');
+      setTimeout(function(){
+        cordova.plugins.camerapreview.hide();
+        window.location.hash = "#/tab/account"
+      }, 150);
     }
     $scope.leaveCamera = leaveCamera;
 
