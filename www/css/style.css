@@ -767,6 +767,15 @@ ion-content {
   padding: 0px;
 }
 
+.loadSpinnerBlack {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background-color: black;
+  opacity: 0.4;
+  z-index: 16;
+}
+
 .loadSpinner {
   width: 150px;
   height: 150px;
