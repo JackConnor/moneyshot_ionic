@@ -1,11 +1,17 @@
 <ion-view view-title="Camera" ng-controller='cameraCtrl'>
   <ion-content class="">
     <div class="submitPhotoModal" ng-if='submitPhotoModal'>
-      <div class="submitPhotoModalContent">
-        Sending Your Photos to MoPho
+      <div class="photoNameHolder" ng-if='!submitBar'>
+        <input type="textarea" name="name" value="Tell us about these photos">
+        <input type="button" name="name" value="" class='submitPhotoName' ng-click='submitPhotoName()'>
       </div>
-      <div class="submitStatusBar">
-        <div class="submitProgressBar"></div>
+      <div class="submitBarHolder" ng-if='submitBar'>
+        <div class="submitPhotoModalContent">
+          Sending Your Photos to MoPho
+        </div>
+        <div class="submitStatusBar">
+          <div class="submitProgressBar"></div>
+        </div>
       </div>
     </div>
     <div class="cameraModal" ng-show='cameraModal==true'>

@@ -202,13 +202,30 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     }
     $scope.deletePhotos = deletePhotos;
 
+
+    function submitPhotoName(){
+      $scope.submitBar = true;
+      submitNameAndPhotos();
+    }
+    $scope.submitPhotoName = submitPhotoName;
+
     //////function to submit all cached photos from your session to the db
     function submitAllPhotos(set){
+      $scope.set = set;
       var thisEl = document.getElementsByClassName('submitButton')[0];
       animateClick(thisEl, "#6d8383", '#013220');
-      var submissionData;
-      var set = set;
       $scope.submitPhotoModal = true;
+      $scope.submitBar        = false;
+      // setTimeout(function(){
+      //   $scope.submitBar = true;
+      // }, 2000);
+    }
+    $scope.submitAllPhotos = submitAllPhotos;
+
+    ////animations and actual submissionData
+    function submitNameAndPhotos(){
+      var submissionData;
+      var set = $scope.set;
       var setLength = set.length;
       var zeroProgress = 0;
       var progressPercentage = 100/setLength;
@@ -227,30 +244,21 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
       }
       var submissionData = {photos: [], videos: [], userId: ''};
-      console.log('made it this far?');
       //////first we need to find the users ID, so we can use it to make the post requests
       $http({
         method: "GET"
         ,url: "https://moneyshotapi.herokuapp.com/api/decodetoken/"+window.localStorage.webToken
       })
       .then(function(decodedToken){
-        console.log('got a token?');
-        console.log('yo decoded '+decodedToken.data.userId);
         var userFullId = decodedToken.data.userId;
         submissionData.userId = userFullId;
 
         ////now iterate through to submit to backend
         for (var i = 0; i <= set.length; i++) {
-          console.log('iiii');
-          console.log(i);
           if(set[i].type === "video"){
-            console.log('video');
             $cordovaFileTransfer.upload('https://moneyshotapi.herokuapp.com/api/upload/video', set[i].link, {})
             .then(function(callbackImage){
-              console.log('video callback next');
-              console.log(callbackImage);
               var progressElement = $('.submitProgressBar');
-              console.log(progressPercentage);
               if(zeroProgress <= 100){
                 zeroProgress += progressPercentage;
                 progressElement.animate({
@@ -258,7 +266,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                 }, 200);
               }
               else {
-                // return;
+
               }
               var splitUrl = callbackImage.response.split('');
               var sliced = splitUrl.slice(1, callbackImage.response.split('').length - 1);
@@ -269,7 +277,6 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                 ,data: {url: sliced.join(''), userId: userFullId, isVid: true}
               })
               .then(function(newVid){
-                console.log(newVid);
                 submissionData.videos.push(newVid.data._id);
                 var vids = submissionData.videos.length;
                 var phots = submissionData.photos.length;
@@ -281,12 +288,6 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                     ,data: submissionData
                   })
                   .then(function(newSubmission){
-                    console.log('submission coming soon');
-                    console.log(newSubmission);
-                    console.log('length data');
-                    console.log(i);
-                    console.log(set.length);
-                    console.log('finishing this up!');
                     setTimeout(function(){
                       $scope.submitModalVar = false;
                       $scope.cameraModal = false;
@@ -298,7 +299,6 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
             })
           }
           else if(set[i].type === "photo"){
-            console.log('photo');
             var photoOptions = {
                 quality : 95,
                 destinationType : Camera.DestinationType.FILE_URI,
@@ -311,21 +311,17 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
             };
             function addCrop(){
               if(set[i].cropData){
-                console.log(set[i]);
                 photoOptions.params.cloudCropImageWidth = set[i].cropData.cloudCropImageWidth;
                 photoOptions.params.cloudCropImageHeight = set[i].cropData.cloudCropImageHeight;
                 photoOptions.params.cloudCropImageX = set[i].cropData.cloudCropImageX;
                 photoOptions.params.cloudCropImageY = set[i].cropData.cloudCropImageY;
                 photoOptions.params.naturalWidth = set[i].cropData.imageNaturalWidth;
                 photoOptions.params.naturalHeight = set[i].cropData.imageNaturalHeight;
-                console.log(photoOptions);
               }
               else {
                 var el = $('body').append(
                   "<img src='"+set[i].link+"' class='tempImage'></img>"
                 )
-                console.log('width');
-                console.log($('.tempImage').naturalWidth);
                 photoOptions.params.naturalWidth = $('.tempImage').naturalWidth;
                 photoOptions.params.naturalHeight = $('.tempImage').naturalHeight;
               }
@@ -334,10 +330,8 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
             $cordovaFileTransfer.upload('https://moneyshotapi.herokuapp.com/api/newimage', set[i].link, photoOptions)
             .then(function(callbackImage){
               var progressElement = $('.submitProgressBar');
-              console.log(progressPercentage);
               if(zeroProgress <= 100){
                 zeroProgress += progressPercentage;
-                console.log(zeroProgress);
                 progressElement.animate({
                   width: zeroProgress+"%"
                 }, 200);
@@ -346,7 +340,6 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                 return;
               }
               var parsedPhoto = JSON.parse(callbackImage.response);
-              console.log(parsedPhoto);
               $http({
                 method: "POST"
                 ,url: "https://moneyshotapi.herokuapp.com/api/createphotos"
@@ -364,7 +357,6 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                     ,data: submissionData
                   })
                   .then(function(newSubmission){
-                    console.log(newSubmission);
                     // console.log(newSubmission);
                     setTimeout(function(){
                       $scope.submitModalVar = false;
@@ -377,9 +369,8 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
             })
           }
         }
-      })
+      });
     }
-    $scope.submitAllPhotos = submitAllPhotos;
 
     function cropPhoto(photoData, evt, index){
       // console.log(photoData);
