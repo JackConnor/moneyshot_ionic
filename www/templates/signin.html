@@ -5,6 +5,11 @@
         <img src="./img/MoPho_Logo.png" alt="" ></img>
       </div>
       <div class="goToSigninHolder">
+          <div class="intro-dot-container">
+            <div ng-class="{'intro-dot-item-active': dotActive(0)}" class="intro-dot-item"></div>
+            <div ng-class="{'intro-dot-item-active': dotActive(1)}" class="intro-dot-item"></div>
+            <div ng-class="{'intro-dot-item-active': dotActive(2)}" class="intro-dot-item"></div>
+          </div>
           <div class="introSignupButton introButton col-xs-10 col-xs-offset-1" ng-click='toSignup()'>
             Get started
           </div>
@@ -14,29 +19,14 @@
       </div>
     </div>
     <div class="swipeIntroRow">
-      <div class="col-xs-3 swipeCell swipe1" ng-swipe-left='introSwipeLeft()' ng-swipe-right='introSwipeRight()'>
-        <h4 >
-          Spot a celeb
-        </h4>
-        <div class="introPhoto">
-          <img src="./img/sexy_girl.jpg" alt="" />
-        </div>
+      <div class="col-xs-3 swipeCell swipe1" ng-swipe-left='introSwipeLeft()' ng-swipe-right='introSwipeRight()' style="background-image: linear-gradient(to top, rgba(0,0,0,.2), rgba(0,0,0,.2)), url('./img/sexy_girl.jpg')">
+        <h4>Spot a celeb</h4>
       </div>
-      <div class="col-xs-3 swipeCell swipe2" ng-swipe-left='introSwipeLeft()' ng-swipe-right='introSwipeRight()'>
-        <h4>
-          Snap a photo
-        </h4 ng-swipe-left='introSwipeLeft()' ng-swipe-right='introSwipeRight()'>
-        <div class="introPhoto">
-          <img src="./img/girl_photo.jpg" alt="" />
-        </div>
+      <div class="col-xs-3 swipeCell swipe2" ng-swipe-left='introSwipeLeft()' ng-swipe-right='introSwipeRight()' style="background-image: linear-gradient(to top, rgba(0,0,0,.2), rgba(0,0,0,.2)), url('./img/girl_photo.jpg')">
+        <h4>Snap a photo</h4 ng-swipe-left='introSwipeLeft()' ng-swipe-right='introSwipeRight()'>
       </div>
-      <div class="col-xs-3 swipeCell swipe3" ng-swipe-left='introSwipeLeft()' ng-swipe-right='introSwipeRight()'>
-        <h4>
-          Earn some cash
-        </h4>
-        <div class="introPhoto">
-          <img src="./img/girl_with_cash.jpg" alt="" />
-        </div>
+      <div class="col-xs-3 swipeCell swipe3" ng-swipe-left='introSwipeLeft()' ng-swipe-right='introSwipeRight()' style="background-image: linear-gradient(to top, rgba(0,0,0,.2), rgba(0,0,0,.2)), url('./img/girl_with_cash.jpg')">
+        <h4>Earn some cash</h4>
       </div>
       <div class="col-xs-3 swipeCell swipe4">
         <h4>

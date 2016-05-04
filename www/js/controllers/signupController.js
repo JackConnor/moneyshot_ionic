@@ -121,6 +121,13 @@ angular.module('signupController', [])
       $scope.introModal = false;
     }
     $scope.exitIntro = exitIntro;
+
+    // Intro dots 
+    function dotActive(number){
+      return $scope.introCounter === number ? true : false;
+    }
+    $scope.dotActive = dotActive;
+
     // exitIntro();/////need to take this out to reactivate the intro modal
     ////////end intro swipe modal stuff
     ///////////////////////////////////
@@ -173,6 +180,7 @@ angular.module('signupController', [])
       }
     }
     $scope.submitSignup = signupUser;
+
 
     /////function to sign in a user
     function signinUser(){
