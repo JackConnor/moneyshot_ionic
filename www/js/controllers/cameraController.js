@@ -53,6 +53,9 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         function takeCordovaPicture(){
           if($scope.activePhoto === false){
             $scope.activePhoto = true;
+            setTimeout(function(){
+              $scope.activePhoto = false;
+            }, 500);
             cordova.plugins.camerapreview.takePicture({maxWidth:2000, maxHeight:2000});
             $('.takePhotoButton').css({
               backgroundColor: "red"
@@ -61,7 +64,6 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
               $('.takePhotoButton').css({
                 backgroundColor: "blue"
               });
-              $scope.activePhoto = false;
             }, 300)
             $('.cameraModal').css({
               backgroundColor: "#7f0000"
