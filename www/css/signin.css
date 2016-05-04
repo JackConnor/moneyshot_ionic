@@ -7,13 +7,13 @@
 }
 
 .introButton {
-  background-color: black;
+  background-color: #044c05;
   padding: 12px 20px;
   color: #ffffff;
   font-family: 'Helvetica Neue', arial, san-serif;
   letter-spacing: 2px;
   border-radius: 3px;
-  font-weight: 200;
+  font-weight: 300;
   font-size: 18px;
 }
 
@@ -29,8 +29,6 @@
 }
 
 .introSigninButton {
-  border: 2px solid #000000;
-  background: transparent;
+  background: rgba(255,255,255,.5);
   color: #000000;
-  font-weight: 200;
 }

@@ -1454,9 +1454,6 @@ ion-content {
   width: 100%;
   position: absolute;
   z-index: 11;
-/*<<<<<<< HEAD
-  bottom: 150px;
-=======*/
 }
 
 .swipeIntro {
@@ -1467,6 +1464,9 @@ ion-content {
   position: fixed;
   z-index: 31;
   margin-top: -75px;
+=======
+  bottom: 150px;
+>>>>>>> 8f3b7468d51b94248f49fb690f780b483e608b39
 }
 
 .swipeIntro1 {
@@ -1476,7 +1476,6 @@ ion-content {
   background-color: red;
   position: fixed;
   z-index: 31;
->>>>>>> 91ee4f0fba938c43074965e5d9f0f17088035e0c
 }
 
 .swipeIntroRow {
