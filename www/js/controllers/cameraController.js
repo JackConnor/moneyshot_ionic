@@ -204,8 +204,15 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
 
     function submitPhotoName(){
-      $scope.submitBar = true;
-      submitNameAndPhotos();
+      var nameInfo = $(".photoNameInput").val();
+      console.log(nameInfo);
+      if(nameInfo.length > 1){
+        $scope.submitBar = true;
+        submitNameAndPhotos();
+      }
+      else {
+        alert('Please add a little more info about these photos before you submit, so we can help you earn more money')
+      }
     }
     $scope.submitPhotoName = submitPhotoName;
 
@@ -216,11 +223,20 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       animateClick(thisEl, "#6d8383", '#013220');
       $scope.submitPhotoModal = true;
       $scope.submitBar        = false;
-      // setTimeout(function(){
-      //   $scope.submitBar = true;
-      // }, 2000);
     }
     $scope.submitAllPhotos = submitAllPhotos;
+
+    /////function to close the loading modal
+    function closeLoadingModal(){
+      $(".submitPhotoBacking").animate({
+        opacity: 0
+      }, 200);
+      setTimeout(function(){
+        $scope.submitPhotoModal = false;
+        $scope.submitBar        = false;
+      }, 200);
+    }
+    $scope.closeLoadingModal = closeLoadingModal;
 
     ////animations and actual submissionData
     function submitNameAndPhotos(){
