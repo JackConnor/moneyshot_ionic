@@ -2,40 +2,40 @@
   <div class="swipeIntro" ng-if="introModal">
     <div class="introSignin" ng-swipe-left='introSwipeLeft()' ng-swipe-right='introSwipeRight()'>
       <div class="signinLogo">
-        <img src="http://s23.postimg.org/mat0qtb5n/Screen_Shot_2016_04_12_at_11_40_30_AM.png" alt="" ></img>
+        <img src="./img/MoPho_Logo.png" alt="" ></img>
       </div>
       <div class="goToSigninHolder">
-          <div class="introSigninButton introButton col-xs-10 col-xs-offset-1" ng-click='toSignin()'>
-            Sign In
-          </div>
           <div class="introSignupButton introButton col-xs-10 col-xs-offset-1" ng-click='toSignup()'>
-            Create An Account
+            GET STARTED
+          </div>
+          <div class="introSigninButton introButton col-xs-10 col-xs-offset-1" ng-click='toSignin()'>
+            SIGN IN
           </div>
       </div>
     </div>
     <div class="swipeIntroRow">
       <div class="col-xs-3 swipeCell swipe1" ng-swipe-left='introSwipeLeft()' ng-swipe-right='introSwipeRight()'>
         <h4 >
-          Take a Photo
+          Spot a celeb
         </h4>
         <div class="introPhoto">
-          <img src="http://static2.businessinsider.com/image/507c6ebf69bedd185e000001-480/iphone-taking-pictures-pic-photo-photography-camera-cell-phone-bi-dng.jpg" alt="" />
+          <img src="./img/sexy_girl.jpg" alt="" />
         </div>
       </div>
       <div class="col-xs-3 swipeCell swipe2" ng-swipe-left='introSwipeLeft()' ng-swipe-right='introSwipeRight()'>
         <h4>
-          Edit your Photos
+          Snap a photo
         </h4 ng-swipe-left='introSwipeLeft()' ng-swipe-right='introSwipeRight()'>
         <div class="introPhoto">
-          <img src="http://s11.postimg.org/a71hakfn7/IMG_6075.png" alt="" />
+          <img src="./img/girl_photo.jpg" alt="" />
         </div>
       </div>
       <div class="col-xs-3 swipeCell swipe3" ng-swipe-left='introSwipeLeft()' ng-swipe-right='introSwipeRight()'>
         <h4>
-          Upload a Photo Set
+          Earn some cash
         </h4>
         <div class="introPhoto">
-          <img src="http://s15.postimg.org/fqwjso0kb/submit.png" alt="" />
+          <img src="./img/girl_with_cash.jpg" alt="" />
         </div>
       </div>
       <div class="col-xs-3 swipeCell swipe4">
@@ -61,7 +61,7 @@
           <input type="text" class='signupEmail splashInput' placeholder='Email' ng-blur='checkValidEmail()'>
           <input type="password" class='signupPassword splashInput' placeholder='Password'>
           <input type="password" class='signupConfirmPassword splashInput' placeholder='Confirm Password'>
-          <div class='submitSignup' ng-click='submitSignup()'>Sign Up</div>
+          <div class='submitSignup' ng-click='submitSignup()'>GET STARTED</div>
           <p class='introOr2 col-xs-12'>
             ---------------- OR --------------------
           </p>
@@ -77,7 +77,7 @@
         <div class="signupInputHolder">
           <input type="text" class='signupEmail splashInput' placeholder='Email'>
           <input type="password" class='signupPassword splashInput' placeholder='Password'>
-          <div class='submitSignup subSignup' ng-click='signinToggleButton()'>Sign In</div>
+          <div class='submitSignup subSignup' ng-click='signinToggleButton()'>SIGN IN</div>
         </div>
         <div class="forgotPassword" ng-click='getPassword()'>
           Forgot Password?
