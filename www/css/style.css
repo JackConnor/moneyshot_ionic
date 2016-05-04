@@ -1480,9 +1480,12 @@ ion-content {
   color: white;
   font-size:35px;
   position: absolute;
-  margin-left: 90%;
+  margin-left: 84%;
   margin-top: -15px;
   opacity: 0.75;
+  text-align: center;
+  width: 60px;
+  height: 60px;
 }
 
 .xOutSignup {
