@@ -46,10 +46,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
             ,date: new Date()
           });
         });
-        function toggleView(){
-          cordova.plugins.camerapreview.switchCamera();
-        }
-        $scope.toggleView = toggleView;
+
         function takeCordovaPicture(){
           if($scope.activePhoto === false){
             $scope.activePhoto = true;
@@ -528,6 +525,15 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       }, 100);
     }
     $scope.backToPhotos = backToPhotos;
+
+    function toggleView(evt){
+      console.log('fffff');
+      var thisEl = $(evt.currentTarget);
+      console.log(thisEl);
+      animateClick(thisEl, '#c0caca', 'transparent');
+      cordova.plugins.camerapreview.switchCamera();
+    }
+    $scope.toggleView = toggleView;
 
     function leaveCamera(){
       var thisEl = $('.longArrow');
