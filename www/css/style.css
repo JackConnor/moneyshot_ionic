@@ -62,15 +62,17 @@ ion-content {
   width: 140px;
   height: 45px;
   margin: 5px 0 0px 0;
-  /*background-color: purple;*/
-  color: #2cec2c;
-  text-align: center;
-  font-size: 32px;
+  color: white;
+  font-size: 35px;
   font-weight: bolder;
   padding-top: 10px;
   text-align: center;
   z-index: 25;
   position: absolute;
+}
+
+.backButton p {
+  margin-left: -60px;
 }
 
 .backgroundImage {
@@ -222,7 +224,7 @@ ion-content {
 
 .blackLayerSingleModal {
   width: 90%;
-  height: 90%;
+  height: 97%;
   position: absolute;
   background-color: black;
   opacity: 0.3;
@@ -682,7 +684,7 @@ ion-content {
   background-color: #683A5E;
   color: white;
   opacity: 1;
-  z-index: 18;
+  z-index: 30;
   padding: 0px;
 }
 
@@ -752,22 +754,24 @@ ion-content {
   padding: 0px;
 }
 
-.loadSpinnerBlack {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  background-color: black;
-  opacity: 0.4;
-  z-index: 16;
-}
-
 .loadSpinner {
   width: 150px;
   height: 150px;
-  margin-left: 100px;
-  margin-top: 200px;
+  margin-left: 80px;
+  margin-top: 140px;
   position: absolute;
-  z-index: 20
+  z-index: 20;
+  opacity: 0.5;
+}
+
+.loadSpinnerBlack {
+  width: 100%;
+  height: 115%;
+  margin-top: -15%;
+  position: absolute;
+  background-color: #436060;
+  opacity: 0.65;
+  z-index: 16;
 }
 
 .loadSpinner img{
@@ -880,14 +884,15 @@ ion-content {
 }
 
 .sellModalContent {
-  height: 340px;
-  margin-top: 25px;
+  height: auto;
+  margin-top: 65px;
   padding: 0px;
-  background-color: #e7e7e7;
+  background-color: #d5dbdb;
+  color: #436060;
 }
 
 .sellNo {
-  background-color: red;
+  background-color: #6F4242;
   opacity: .4;
   color: white;
   font-size: 25px;
@@ -896,16 +901,15 @@ ion-content {
 }
 
 .sellPhotoHolder {
-  margin-top: 15px;
+  margin-top: 35px;
   height: 200px;
-  outline: 2px solid black;
-  background-color: #141414;
 }
 
 .sellPhotoHolder img{
-  height: 100%;
+  max-height: 100%;
+  max-width: 100%;
   display: block;
-  margin: 0 auto;
+  margin: auto;
 }
 
 .sellPhotoHolder video{
@@ -926,11 +930,20 @@ ion-content {
   /*color: white;*/
   text-align: center;
   font-size: 22px;
-  padding-top: 10px;
+  padding-top: 3px;
+}
+
+.sellX {
+  font-size: 30px;
+  margin-left: 10px;
+  margin-top: 10px;
+  color: white;
+  position: absolute;
+  z-index: 20;
 }
 
 .sellYes {
-  background-color: purple;
+  background-color: #587272;
   opacity: .4;
   color: white;
   font-size: 25px;
@@ -1068,18 +1081,19 @@ ion-content {
 
 .singleImage {
   padding: 0px;
-  width: 100%;
-  height: 300px;
+  width: auto;
+  max-width: 100%;
+  height: 100%;
 }
 
 .singleImageHolder {
   padding: 0px;
-  height: auto;
-  margin-top: 75px
-  /*outline: 3px solid purple;*/
+  height: 275px;
+  margin-top: 75px;
 }
 
 .singleImageModal {
+  padding: 0px;
   position: fixed;
   height: 667px;
   margin-left: 100%;
@@ -1089,6 +1103,9 @@ ion-content {
 
 .singleInfoHolder {
   margin-top: 5px;
+  width: 100%;
+  padding: 0px;
+  text-align: center;
 }
 
 .singlePrice {
@@ -1401,7 +1418,29 @@ ion-content {
   width: 100%;
   position: absolute;
   z-index: 11;
+<<<<<<< HEAD
   bottom: 150px;
+=======
+}
+
+.swipeIntro {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  background-color: red;
+  position: fixed;
+  z-index: 31;
+  margin-top: -75px;
+}
+
+.swipeIntro1 {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  background-color: red;
+  position: fixed;
+  z-index: 31;
+>>>>>>> 91ee4f0fba938c43074965e5d9f0f17088035e0c
 }
 
 .swipeIntroRow {
@@ -1437,9 +1476,12 @@ ion-content {
   color: white;
   font-size:35px;
   position: absolute;
-  margin-left: 90%;
+  margin-left: 84%;
   margin-top: -15px;
   opacity: 0.75;
+  text-align: center;
+  width: 60px;
+  height: 60px;
 }
 
 .xOutSignup {

@@ -190,54 +190,77 @@ angular.module('accountController', [])
       })
     }
     getUserPhotos(userToken);
-
-    var d = 1;
+    $scope.opTog = true;
+    var d = 9;
     function addSpinner(){
       if($scope.loadingModal){
-        $('.loadSpinner').css({
-          '-moz-transform':'rotate('+d+'deg)',
-          '-webkit-transform':'rotate('+d+'deg)',
-          '-o-transform':'rotate('+d+'deg)',
-          '-ms-transform':'rotate('+d+'deg)',
-          'transform': 'rotate('+d+'deg)'
-        })
-        if(d >= 360){
-          d = 0;
+        if($scope.spinOp == true){
+          $('.loadSpinner').animate({
+            opacity: 0.8
+          }, 400);
+          $scope.spinOp = false;
         }
-      d++;
+        else if($scope.spinOp == false){
+          $('.loadSpinner').animate({
+            opacity: 0.3
+          }, 400);
+          $scope.spinOp = true;
+        }
+      //   $('.loadSpinner').css({
+      //     '-moz-transform':'rotate('+d+'deg)',
+      //     '-webkit-transform':'rotate('+d+'deg)',
+      //     '-o-transform':'rotate('+d+'deg)',
+      //     '-ms-transform':'rotate('+d+'deg)',
+      //     'transform': 'rotate('+d+'deg)'
+      //   });
+      //
+      //   if(d >= 360){
+      //     d = 0;
+      //   }
+      // d+=45;
       }
     }
-    var spinnerInterval = setInterval(addSpinner, 20);
+    $scope.spinOp = true;
+    var spinnerInterval = setInterval(function(){
+      addSpinner();
+    }, 400);
     // addSpinner();
 
     function setPhotoUiSubs(){
       var arr = $scope.userSubmissions;
+      console.log(arr);
       var length = arr.length
+      var topNum = length-1;
+      console.log(length);
       for (var i = 0; i < length; i++) {
+        console.log('at', i);
+        console.log(topNum);
+        console.log($scope.loadingModal);
         if(arr[i].photos.length == 1){
           var el = $('.submittedRow'+i).find('.subPhoto0');
           el.animate({
             marginLeft: '27.5px'
           }, 300);
-          if(i === length-1){
-            setTimeout(function(){
-              $scope.loadingModal = false;
-              $('.loadSpinner').remove();
-              $('.loadSpinnerBlack').remove();
-              clearInterval(spinnerInterval);
-            }, 200);
-            setTimeout(function(){
-              $scope.loadingModal = false;
-              $('.loadSpinner').remove();
-              $('.loadSpinnerBlack').remove();
-              clearInterval(spinnerInterval);
-            }, 500);
-            setTimeout(function(){
-              $scope.loadingModal = false;
-              $('.loadSpinner').remove();
-              $('.loadSpinnerBlack').remove();
-              clearInterval(spinnerInterval);
-            }, 1000);
+          if(i == length-1){
+            console.log('here');
+            // setTimeout(function(){
+            //   $scope.loadingModal = false;
+            //   $('.loadSpinner').remove();
+            //   $('.loadSpinnerBlack').remove();
+            //   clearInterval(spinnerInterval);
+            // }, 200);
+            // setTimeout(function(){
+            //   $scope.loadingModal = false;
+            //   $('.loadSpinner').remove();
+            //   $('.loadSpinnerBlack').remove();
+            //   clearInterval(spinnerInterval);
+            // }, 500);
+            // setTimeout(function(){
+            //   $scope.loadingModal = false;
+            //   $('.loadSpinner').remove();
+            //   $('.loadSpinnerBlack').remove();
+            //   clearInterval(spinnerInterval);
+            // }, 1000);
             setTimeout(function(){
               $scope.loadingModal = false;
               $('.loadSpinner').remove();
@@ -298,24 +321,25 @@ angular.module('accountController', [])
             marginLeft: '45px'
           }, 300);
           if(i === length-1){
-            setTimeout(function(){
-              $scope.loadingModal = false;
-              $('.loadSpinner').remove();
-              $('.loadSpinnerBlack').remove();
-              clearInterval(spinnerInterval);
-            }, 200);
-            setTimeout(function(){
-              $scope.loadingModal = false;
-              $('.loadSpinner').remove();
-              $('.loadSpinnerBlack').remove();
-              clearInterval(spinnerInterval);
-            }, 500);
-            setTimeout(function(){
-              $scope.loadingModal = false;
-              $('.loadSpinner').remove();
-              $('.loadSpinnerBlack').remove();
-              clearInterval(spinnerInterval);
-            }, 1000);
+            console.log('here');
+            // setTimeout(function(){
+            //   $scope.loadingModal = false;
+            //   $('.loadSpinner').remove();
+            //   $('.loadSpinnerBlack').remove();
+            //   clearInterval(spinnerInterval);
+            // }, 200);
+            // setTimeout(function(){
+            //   $scope.loadingModal = false;
+            //   $('.loadSpinner').remove();
+            //   $('.loadSpinnerBlack').remove();
+            //   clearInterval(spinnerInterval);
+            // }, 500);
+            // setTimeout(function(){
+            //   $scope.loadingModal = false;
+            //   $('.loadSpinner').remove();
+            //   $('.loadSpinnerBlack').remove();
+            //   clearInterval(spinnerInterval);
+            // }, 1000);
             setTimeout(function(){
               $scope.loadingModal = false;
               $('.loadSpinner').remove();
@@ -366,7 +390,7 @@ angular.module('accountController', [])
             }, 10000);
           }
         }
-        else if(arr[i].photos.length == 3){
+        else if(arr[i].photos.length >= 3){
           var el = $('.submittedRow'+i).find('.subPhoto0');
           var el1 = $('.submittedRow'+i).find('.subPhoto1');
           var el2 = $('.submittedRow'+i).find('.subPhoto2');
@@ -380,24 +404,25 @@ angular.module('accountController', [])
             marginLeft: '50px'
           }, 300);
           if(i === length-1){
-            setTimeout(function(){
-              $scope.loadingModal = false;
-              $('.loadSpinner').remove();
-              $('.loadSpinnerBlack').remove();
-              clearInterval(spinnerInterval);
-            }, 200);
-            setTimeout(function(){
-              $scope.loadingModal = false;
-              $('.loadSpinner').remove();
-              $('.loadSpinnerBlack').remove();
-              clearInterval(spinnerInterval);
-            }, 500);
-            setTimeout(function(){
-              $scope.loadingModal = false;
-              $('.loadSpinner').remove();
-              $('.loadSpinnerBlack').remove();
-              clearInterval(spinnerInterval);
-            }, 1000);
+            console.log('here');
+            // setTimeout(function(){
+            //   $scope.loadingModal = false;
+            //   $('.loadSpinner').remove();
+            //   $('.loadSpinnerBlack').remove();
+            //   clearInterval(spinnerInterval);
+            // }, 200);
+            // setTimeout(function(){
+            //   $scope.loadingModal = false;
+            //   $('.loadSpinner').remove();
+            //   $('.loadSpinnerBlack').remove();
+            //   clearInterval(spinnerInterval);
+            // }, 500);
+            // setTimeout(function(){
+            //   $scope.loadingModal = false;
+            //   $('.loadSpinner').remove();
+            //   $('.loadSpinnerBlack').remove();
+            //   clearInterval(spinnerInterval);
+            // }, 1000);
             setTimeout(function(){
               $scope.loadingModal = false;
               $('.loadSpinner').remove();
@@ -467,14 +492,10 @@ angular.module('accountController', [])
     }
 
     function showSoldFunc(){
-      // $scope.showSold              = false;
-      // $scope.showSubmitted         = true;
-      // $scope.showFinance           = false;
-      // $scope.hamburgerOpen         = false;
-      // $scope.introModal            = false;
-      // $scope.sellModal             = false;
-      // $scope.singleSubmissionModal = false;
-      // $scope.loadingModal          = true;
+      $scope.loadingModal = false;
+      $('.loadSpinner').remove();
+      $('.loadSpinnerBlack').remove();
+      clearInterval(spinnerInterval);
 
       $scope.singleSubmissionModal = false;
       $scope.sellModal             = false;
@@ -513,6 +534,10 @@ angular.module('accountController', [])
     $scope.showSubmittedFunc = showSubmittedFunc;
 
     function showFinanceFunc(){
+        $scope.loadingModal = false;
+        $('.loadSpinner').remove();
+        $('.loadSpinnerBlack').remove();
+        clearInterval(spinnerInterval);
       getUserTransactions();
       $scope.singleSubmissionModal = false;
       $scope.sellModal             = false;
@@ -600,6 +625,7 @@ angular.module('accountController', [])
       $scope.scrollPosition = $ionicScrollDelegate.getScrollPosition().top;
       $scope.singlePhotoData = photoData;
       if(status === "sold"){
+        /////get proper margin-left
         $('.repeatContainer').css({
           marginRight: "100%"
         });
@@ -609,6 +635,14 @@ angular.module('accountController', [])
         $('.singleImageModal').css({
           marginLeft: 0
         });
+        setTimeout(function(){
+          var elWidth = $('.singleImage').width();
+          var contWidth = $('.singleImageHolder').width();
+          var newMargLeft = (contWidth-elWidth)/2;
+          $('.singleImage').css({
+            marginLeft: newMargLeft
+          });
+        }, 05);
         $ionicScrollDelegate.scrollTop(true);
         $ionicScrollDelegate.freezeScroll(true);
       }
