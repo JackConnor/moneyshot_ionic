@@ -512,7 +512,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         setTimeout(function(){
           cordova.plugins.camerapreview.hide();
         }, 100);
-      }, 250);
+      }, 150);
     }
 
     $scope.submitModalOpen = submitModalOpen;
@@ -524,7 +524,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         $scope.submitModalVar = false;
         setTimeout(function(){
           cordova.plugins.camerapreview.show();
-        }, 750);
+        }, 500);
       }, 100);
     }
     $scope.backToPhotos = backToPhotos;
@@ -548,6 +548,6 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       })
       jqEl.animate({
         backgroundColor: color2
-      }, 500);
+      }, 350);
     }
   }
