@@ -19,6 +19,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     $scope.cameraLaunched       = false;
     $scope.cameraToggle         = true;
     $scope.submitPhotoModal     = false;
+    $scope.activePhoto          = false;
     $scope.cropper              = {};
     $scope.cropper.croppedImage = '';
     var eraseSubmitArr          = [];
@@ -29,7 +30,6 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     /////functions to upload photos////
     //function to launch camera and take photos
     function uploadPhotos() {
-      console.log('cameraaaaaa');
         $scope.cameraLaunched = true;
         var tapEnabled = false; //enable tap take picture
         var dragEnabled = false; //enable preview box drag across the screen
@@ -51,23 +51,27 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         }
         $scope.toggleView = toggleView;
         function takeCordovaPicture(){
-          cordova.plugins.camerapreview.takePicture({maxWidth:2000, maxHeight:2000});
-          $('.takePhotoButton').css({
-            backgroundColor: "red"
-          })
-          setTimeout(function(){
+          if($scope.activePhoto === false){
+            $scope.activePhoto = true;
+            cordova.plugins.camerapreview.takePicture({maxWidth:2000, maxHeight:2000});
             $('.takePhotoButton').css({
-              backgroundColor: "blue"
+              backgroundColor: "red"
             })
-          }, 300)
-          $('.cameraModal').css({
-            backgroundColor: "#7f0000"
-          })
-          setTimeout(function(){
+            setTimeout(function(){
+              $('.takePhotoButton').css({
+                backgroundColor: "blue"
+              });
+              $scope.activePhoto = false;
+            }, 300)
             $('.cameraModal').css({
-              backgroundColor: ""
+              backgroundColor: "#7f0000"
             })
-          }, 200);
+            setTimeout(function(){
+              $('.cameraModal').css({
+                backgroundColor: ""
+              })
+            }, 200);
+          }
         }
         $scope.takeCordovaPicture = takeCordovaPicture;
     }
@@ -247,7 +251,6 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
               console.log(progressPercentage);
               if(zeroProgress <= 100){
                 zeroProgress += progressPercentage;
-                console.log(zeroProgress);
                 progressElement.animate({
                   width: zeroProgress+"%"
                 }, 200);
