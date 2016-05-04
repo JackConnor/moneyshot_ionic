@@ -19,7 +19,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     $scope.cameraLaunched       = false;
     $scope.cameraToggle         = true;
     $scope.submitPhotoModal     = false;
-    $scope.activePhoto          = false;
+    $scope.activePhoto          = true;
     $scope.cropper              = {};
     $scope.cropper.croppedImage = '';
     var eraseSubmitArr          = [];
@@ -30,6 +30,9 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     /////functions to upload photos////
     //function to launch camera and take photos
     function uploadPhotos() {
+        setTimeout(function(){
+          $scope.activePhoto = false;
+        }, 750);
         $scope.cameraLaunched = true;
         var tapEnabled = false; //enable tap take picture
         var dragEnabled = false; //enable preview box drag across the screen
@@ -52,7 +55,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
             $scope.activePhoto = true;
             setTimeout(function(){
               $scope.activePhoto = false;
-            }, 500);
+            }, 600);
             cordova.plugins.camerapreview.takePicture({maxWidth:2000, maxHeight:2000});
             $('.takePhotoButton').css({
               backgroundColor: "red"

@@ -191,7 +191,7 @@ angular.module('accountController', [])
     }
     getUserPhotos(userToken);
     $scope.opTog = true;
-    var d = 45;
+    var d = 9;
     function addSpinner(){
       if($scope.loadingModal){
         $('.loadSpinner').css({
@@ -213,14 +213,19 @@ angular.module('accountController', [])
 
     function setPhotoUiSubs(){
       var arr = $scope.userSubmissions;
+      console.log(arr);
       var length = arr.length
+      console.log(length);
       for (var i = 0; i < length; i++) {
+        console.log('at', i);
+        console.log($scope.loadingModal);
         if(arr[i].photos.length == 1){
           var el = $('.submittedRow'+i).find('.subPhoto0');
           el.animate({
             marginLeft: '27.5px'
           }, 300);
           if(i === length-1){
+            console.log('here');
             // setTimeout(function(){
             //   $scope.loadingModal = false;
             //   $('.loadSpinner').remove();
@@ -299,6 +304,7 @@ angular.module('accountController', [])
             marginLeft: '45px'
           }, 300);
           if(i === length-1){
+            console.log('here');
             // setTimeout(function(){
             //   $scope.loadingModal = false;
             //   $('.loadSpinner').remove();
@@ -381,6 +387,7 @@ angular.module('accountController', [])
             marginLeft: '50px'
           }, 300);
           if(i === length-1){
+            console.log('here');
             // setTimeout(function(){
             //   $scope.loadingModal = false;
             //   $('.loadSpinner').remove();

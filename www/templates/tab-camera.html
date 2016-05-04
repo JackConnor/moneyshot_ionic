@@ -67,10 +67,9 @@
               <div class="circleBlack"></div>
               <i class="fa fa-circle-thin" ></i>
             </div>
-            <div class="cropIconHolder" ng-click='cropPhoto(mediaCache[$index], $event, $index)' ng-if='media.type=="photo"'>
-              {{media.isVideo}}
+            <!-- <div class="cropIconHolder" ng-click='cropPhoto(mediaCache[$index], $event, $index)' ng-if='media.type=="photo"'>
               <div class='fa fa-crop'></div>
-            </div>
+            </div> -->
             <div class="submitCellImageHolder">
               <img class='submitPhoto submitPhoto{{$index}}' id='submit{{$index}}' src="{{media.link}}" ng-if='media.type=="photo"'/>
               <video id='submit{{$index}}'ng-if='media.type=="video"' poster='https://s-media-cache-ak0.pinimg.com/736x/8a/31/71/8a3171fc490597cf02e89d7ad1fc4e35.jpg'>
