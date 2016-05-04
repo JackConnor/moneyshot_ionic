@@ -224,7 +224,7 @@ ion-content {
 
 .blackLayerSingleModal {
   width: 90%;
-  height: 90%;
+  height: 97%;
   position: absolute;
   background-color: black;
   opacity: 0.3;
@@ -775,7 +775,8 @@ ion-content {
   margin-left: 80px;
   margin-top: 140px;
   position: absolute;
-  z-index: 20
+  z-index: 20;
+  opacity: 0.5;
 }
 
 .loadSpinnerBlack {
