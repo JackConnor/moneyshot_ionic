@@ -1,11 +1,11 @@
 <ion-view view-title="Account"  ng-controller='accountCtrl'>
   <ion-content overflow-scroll='false'>
     <div class="accountTabHolder col-xs-12">
-      <div class="accountTab submittedTab" ng-click='showSubmittedFunc(); tabUi($event)'>
-        <span class='submittedTabInner'>Shots</span>
-      </div>
       <div class="accountTab soldTab" ng-click='showSoldFunc(); tabUi($event)'>
-        <span class='soldTabInner'>Offers</span>
+        <span class='soldTabInner'>Sold</span>
+      </div>
+      <div class="accountTab submittedTab" ng-click='showSubmittedFunc(); tabUi($event)'>
+        <span class='submittedTabInner'>Submitted</span>
       </div>
       <div class="accountTab moneyTab" ng-click='showFinanceFunc(); tabUi($event)'>
         <span class='moneyTabInner'>Money</span>
