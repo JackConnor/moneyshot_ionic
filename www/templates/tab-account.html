@@ -1,23 +1,23 @@
 <ion-view view-title="Account"  ng-controller='accountCtrl'>
   <ion-content overflow-scroll='false'>
     <div class="accountTabHolder col-xs-12">
-      <div class="col-xs-2 col-xs-offset-1 accountTab soldTab" ng-click='showSoldFunc(); tabUi($event)'>
-        <span class='soldTabInner'>Sold</span>
+      <div class="accountTab submittedTab" ng-click='showSubmittedFunc(); tabUi($event)'>
+        <span class='submittedTabInner'>Shots</span>
       </div>
-      <div class="col-xs-5 accountTab submittedTab" ng-click='showSubmittedFunc(); tabUi($event)'>
-        <span class='submittedTabInner'>Submitted</span>
+      <div class="accountTab soldTab" ng-click='showSoldFunc(); tabUi($event)'>
+        <span class='soldTabInner'>Offers</span>
       </div>
-      <div class="col-xs-3 accountTab moneyTab" ng-click='showFinanceFunc(); tabUi($event)'>
+      <div class="accountTab moneyTab" ng-click='showFinanceFunc(); tabUi($event)'>
         <span class='moneyTabInner'>Money</span>
       </div>
-      <div class="col-xs-1 hamburgerHolder" ng-click="openHamburger()">
+      <div class="hamburgerHolder" ng-click="openHamburger()">
         <p class='fa fa-bars hamburgerIcon'></p>
       </div>
     </div>
     <div class="accountBody col-xs-12">
       <div class="loadSpinnerBlack" ng-if='loadingModal'></div>
       <div class="loadSpinner" ng-if='loadingModal'>
-        <img src="http://s9.postimg.org/op85d80pr/Mo_Pho_icon.png" alt="" ng-if='loadingModal'/>
+        <img src="./img/MoPho_Logo_No_Background.png" alt="" ng-if='loadingModal'/>
       </div>
       <div class="backgroundImage col-xs-12">
         <img src="https://i.imgsafe.org/017d610.png" ng-repeat='photo in backgroundMultiple'/>
@@ -161,8 +161,6 @@
               </div>
             </div>
           </div>
-          <div class="col-sm-4 col-xs-6" style='padding:0px; margin: 0px'>
-          </div>
         <!-- </div> -->
         <div class="showSubmittedHolder" ng-if='showSubmitted'>
           <div class="submittedRow submittedRow{{$index}} col-xs-12" ng-repeat='submission in userSubmissions'>
@@ -230,20 +228,18 @@
     <div class="">
       <div class="hamburgerBackground" ng-click='closeHamburgerBody($event)' ng-if="hamburgerOpen">
       </div>
-      <div class="hamburgerMenu col-sm-4 col-sm-offset-8 col-xs-6 col-xs-offset-6" ng-if="hamburgerOpen">
-        <div class="hamburgerCell" ng-click="closeHamburger()">
-        </div>
-        <div class="hamburgerCell hamburgerSignout" ng-click="hamburgerSignout()">
-          Sign Out
-        </div>
+      <div class="hamburgerMenu" ng-if="hamburgerOpen">
         <div class="hamburgerCell hamburgerSignout">
-          Profile Settings
+          <i class="fa fa-fw fa-cog" aria-hidden="true"></i> Profile Settings
         </div>
         <div class="hamburgerCell hamburgerSignout" ng-click="goToBanking()">
-          Banks & Cards
+          <i class="fa fa-fw fa-credit-card" aria-hidden="true"></i> Banks & Cards
         </div>
         <div class="hamburgerCell hamburgerSignout" ng-click="openIntro()">
-          Open Tutorial
+          <i class="fa fa-fw fa-question-circle-o" aria-hidden="true"></i> View Tutorial
+        </div>
+        <div class="hamburgerCell hamburgerSignout" ng-click="hamburgerSignout()">
+          <i class="fa fa-fw fa-sign-out" aria-hidden="true"></i> Sign Out
         </div>
       </div>
       <!-- <div class="col-xs-8 col-xs-offset-2 nameTag">

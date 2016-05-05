@@ -49,25 +49,13 @@ angular.module('accountController', [])
 
     function setCss(){
       if($scope.showSold){
-        $('.soldTabInner').css({
-          fontStyle: 'bold'
-          ,fontSize: "19px"
-          ,borderBottom: "5px solid white"
-        })
+        $('.soldTab').addClass('account-tab-active');
       }
       else if($scope.showSubmitted){
-        $('.submittedTabInner').css({
-          fontStyle: 'bold'
-          ,fontSize: "19px"
-          ,borderBottom: "5px solid white"
-        })
+        $('.submittedTab').addClass('account-tab-active');
       }
       else if($scope.showFinance){
-        $('.moneyTabInner').css({
-          fontStyle: 'bold'
-          ,fontSize: "19px"
-          ,borderBottom: "5px solid white"
-        })
+        $('.moneyTab').addClass('account-tab-active');
       }
     }
     setCss();
@@ -190,41 +178,6 @@ angular.module('accountController', [])
       })
     }
     getUserPhotos(userToken);
-    $scope.opTog = true;
-    var d = 9;
-    function addSpinner(){
-      if($scope.loadingModal){
-        if($scope.spinOp == true){
-          $('.loadSpinner').animate({
-            opacity: 0.8
-          }, 400);
-          $scope.spinOp = false;
-        }
-        else if($scope.spinOp == false){
-          $('.loadSpinner').animate({
-            opacity: 0.3
-          }, 400);
-          $scope.spinOp = true;
-        }
-      //   $('.loadSpinner').css({
-      //     '-moz-transform':'rotate('+d+'deg)',
-      //     '-webkit-transform':'rotate('+d+'deg)',
-      //     '-o-transform':'rotate('+d+'deg)',
-      //     '-ms-transform':'rotate('+d+'deg)',
-      //     'transform': 'rotate('+d+'deg)'
-      //   });
-      //
-      //   if(d >= 360){
-      //     d = 0;
-      //   }
-      // d+=45;
-      }
-    }
-    $scope.spinOp = true;
-    var spinnerInterval = setInterval(function(){
-      addSpinner();
-    }, 400);
-    // addSpinner();
 
     function setPhotoUiSubs(){
       var arr = $scope.userSubmissions;
@@ -265,49 +218,49 @@ angular.module('accountController', [])
               $scope.loadingModal = false;
               $('.loadSpinner').remove();
               $('.loadSpinnerBlack').remove();
-              clearInterval(spinnerInterval);
+              //clearInterval(spinnerInterval);
             }, 1500);
             setTimeout(function(){
               $scope.loadingModal = false;
               $('.loadSpinner').remove();
               $('.loadSpinnerBlack').remove();
-              clearInterval(spinnerInterval);
+              //clearInterval(spinnerInterval);
             }, 2000);
             setTimeout(function(){
               $scope.loadingModal = false;
               $('.loadSpinner').remove();
               $('.loadSpinnerBlack').remove();
-              clearInterval(spinnerInterval);
+              //clearInterval(spinnerInterval);
             }, 3000);
             setTimeout(function(){
               $scope.loadingModal = false;
               $('.loadSpinner').remove();
               $('.loadSpinnerBlack').remove();
-              clearInterval(spinnerInterval);
+              //clearInterval(spinnerInterval);
             }, 4000);
             setTimeout(function(){
               $scope.loadingModal = false;
               $('.loadSpinner').remove();
               $('.loadSpinnerBlack').remove();
-              clearInterval(spinnerInterval);
+              //clearInterval(spinnerInterval);
             }, 5000);
             setTimeout(function(){
               $scope.loadingModal = false;
               $('.loadSpinner').remove();
               $('.loadSpinnerBlack').remove();
-              clearInterval(spinnerInterval);
+              //clearInterval(spinnerInterval);
             }, 7000);
             setTimeout(function(){
               $scope.loadingModal = false;
               $('.loadSpinner').remove();
               $('.loadSpinnerBlack').remove();
-              clearInterval(spinnerInterval);
+              //clearInterval(spinnerInterval);
             }, 8000);
             setTimeout(function(){
               $scope.loadingModal = false;
               $('.loadSpinner').remove();
               $('.loadSpinnerBlack').remove();
-              clearInterval(spinnerInterval);
+              //clearInterval(spinnerInterval);
             }, 10000);
           }
         }
@@ -344,49 +297,49 @@ angular.module('accountController', [])
               $scope.loadingModal = false;
               $('.loadSpinner').remove();
               $('.loadSpinnerBlack').remove();
-              clearInterval(spinnerInterval);
+              //clearInterval(spinnerInterval);
             }, 1500);
             setTimeout(function(){
               $scope.loadingModal = false;
               $('.loadSpinner').remove();
               $('.loadSpinnerBlack').remove();
-              clearInterval(spinnerInterval);
+              //clearInterval(spinnerInterval);
             }, 2000);
             setTimeout(function(){
               $scope.loadingModal = false;
               $('.loadSpinner').remove();
               $('.loadSpinnerBlack').remove();
-              clearInterval(spinnerInterval);
+              //clearInterval(spinnerInterval);
             }, 3000);
             setTimeout(function(){
               $scope.loadingModal = false;
               $('.loadSpinner').remove();
               $('.loadSpinnerBlack').remove();
-              clearInterval(spinnerInterval);
+              //clearInterval(spinnerInterval);
             }, 4000);
             setTimeout(function(){
               $scope.loadingModal = false;
               $('.loadSpinner').remove();
               $('.loadSpinnerBlack').remove();
-              clearInterval(spinnerInterval);
+              //clearInterval(spinnerInterval);
             }, 5000);
             setTimeout(function(){
               $scope.loadingModal = false;
               $('.loadSpinner').remove();
               $('.loadSpinnerBlack').remove();
-              clearInterval(spinnerInterval);
+              //clearInterval(spinnerInterval);
             }, 7000);
             setTimeout(function(){
               $scope.loadingModal = false;
               $('.loadSpinner').remove();
               $('.loadSpinnerBlack').remove();
-              clearInterval(spinnerInterval);
+              //clearInterval(spinnerInterval);
             }, 8000);
             setTimeout(function(){
               $scope.loadingModal = false;
               $('.loadSpinner').remove();
               $('.loadSpinnerBlack').remove();
-              clearInterval(spinnerInterval);
+              //clearInterval(spinnerInterval);
             }, 10000);
           }
         }
@@ -427,49 +380,49 @@ angular.module('accountController', [])
               $scope.loadingModal = false;
               $('.loadSpinner').remove();
               $('.loadSpinnerBlack').remove();
-              clearInterval(spinnerInterval);
+              //clearInterval(spinnerInterval);
             }, 1500);
             setTimeout(function(){
               $scope.loadingModal = false;
               $('.loadSpinner').remove();
               $('.loadSpinnerBlack').remove();
-              clearInterval(spinnerInterval);
+              //clearInterval(spinnerInterval);
             }, 2000);
             setTimeout(function(){
               $scope.loadingModal = false;
               $('.loadSpinner').remove();
               $('.loadSpinnerBlack').remove();
-              clearInterval(spinnerInterval);
+              //clearInterval(spinnerInterval);
             }, 3000);
             setTimeout(function(){
               $scope.loadingModal = false;
               $('.loadSpinner').remove();
               $('.loadSpinnerBlack').remove();
-              clearInterval(spinnerInterval);
+              //clearInterval(spinnerInterval);
             }, 4000);
             setTimeout(function(){
               $scope.loadingModal = false;
               $('.loadSpinner').remove();
               $('.loadSpinnerBlack').remove();
-              clearInterval(spinnerInterval);
+              //clearInterval(spinnerInterval);
             }, 5000);
             setTimeout(function(){
               $scope.loadingModal = false;
               $('.loadSpinner').remove();
               $('.loadSpinnerBlack').remove();
-              clearInterval(spinnerInterval);
+              //clearInterval(spinnerInterval);
             }, 7000);
             setTimeout(function(){
               $scope.loadingModal = false;
               $('.loadSpinner').remove();
               $('.loadSpinnerBlack').remove();
-              clearInterval(spinnerInterval);
+              //clearInterval(spinnerInterval);
             }, 8000);
             setTimeout(function(){
               $scope.loadingModal = false;
               $('.loadSpinner').remove();
               $('.loadSpinnerBlack').remove();
-              clearInterval(spinnerInterval);
+              //clearInterval(spinnerInterval);
             }, 10000);
           }
         }
@@ -495,7 +448,7 @@ angular.module('accountController', [])
       $scope.loadingModal = false;
       $('.loadSpinner').remove();
       $('.loadSpinnerBlack').remove();
-      clearInterval(spinnerInterval);
+      //clearInterval(spinnerInterval);
 
       $scope.singleSubmissionModal = false;
       $scope.sellModal             = false;
@@ -537,7 +490,7 @@ angular.module('accountController', [])
         $scope.loadingModal = false;
         $('.loadSpinner').remove();
         $('.loadSpinnerBlack').remove();
-        clearInterval(spinnerInterval);
+        //clearInterval(spinnerInterval);
       getUserTransactions();
       $scope.singleSubmissionModal = false;
       $scope.sellModal             = false;
@@ -581,42 +534,18 @@ angular.module('accountController', [])
         }
       }
       //////first we take out all current additional css
-      $('.soldTabInner').css({
-        fontStyle: 'regular'
-        ,fontSize: "16px"
-        ,borderBottom: ""
-      })
-      $('.submittedTabInner').css({
-        fontStyle: 'regular'
-        ,fontSize: "16px"
-        ,borderBottom: ""
-      })
-      $('.moneyTabInner').css({
-        fontStyle: 'regular'
-        ,fontSize: "16px"
-        ,borderBottom: ""
-      })
+      $('.soldTab').removeClass('account-tab-active');
+      $('.submittedTab').removeClass('account-tab-active');
+      $('.moneyTab').removeClass('account-tab-active');
       ///////now we select and add css to correct text
       if(sold()){
-        $('.soldTabInner').css({
-          fontStyle: 'bold'
-          ,fontSize: "19px"
-          ,borderBottom: "5px solid white"
-        })
+        $('.soldTab').addClass('account-tab-active');
       }
       else if(submission()){
-        $('.submittedTabInner').css({
-          fontStyle: 'bold'
-          ,fontSize: "19px"
-          ,borderBottom: "5px solid white"
-        })
+        $('.submittedTab').addClass('account-tab-active');
       }
       else if(finance()){
-        $('.moneyTabInner').css({
-          fontStyle: 'bold'
-          ,fontSize: "19px"
-          ,borderBottom: "5px solid white"
-        })
+        $('.moneyTab').addClass('account-tab-active');
       }
     }
     $scope.tabUi = tabUi;

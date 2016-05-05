@@ -33,18 +33,30 @@ ion-content {
   height: 100%;
   padding: 0px;
   color: white;
-  font-size: 16px;
-  padding-top: 35px;
+  font-size: 18px;
+  padding: 38px 5px 0;
   text-align: center;
+  flex-grow: 1;
+  font-weight: 200;
+  letter-spacing: 2px;
+}
+
+.account-tab-active {
+  border-bottom: 5px solid rgba(255,255,255,.5);
+}
+
+.account-tab-active > span {
+  font-weight: 300;
 }
 
 .accountTabHolder {
-  /*margin-top: 55px;*/
-  background-color: #013220;
+  background-color: #4DAF7C;
   padding: 0px;
   height: 75px;
   z-index: 10;
   position: absolute;
+  display: flex;
+  justify-content: space-between;
 }
 
 .allPhotosRepeat {
@@ -587,32 +599,12 @@ ion-content {
   height: 100%;
 }
 
-.hamburgerBackground {
-  position: absolute;
-  background-color: black;
-  opacity: .3;
-  width: 100%;
-  height: 1000px;
-  z-index: 17;
-}
-
-.hamburgerCell {
-  height: 65px;
-  border-bottom: 3px solid gray;
-  padding: 15px 0 0 0;
-  cursor: pointer;
-}
-
-.hamburgerFirst {
-  /*margin-top: 45px;*/
-}
-
 .hamburgerHolder {
   text-align: left;
   color: white;
   top: 0;
-  padding: 0px;
-  margin-top: 30px;
+  padding: 35px 15px 0;
+  flex: 0 0 53px;
 }
 
 .hamburgerIcon {
@@ -623,11 +615,44 @@ ion-content {
 .hamburgerMenu {
   position: absolute;
   height: auto;
-  background-color: #683A5E;
-  color: white;
+  background-color: #4DAF7C;
+  box-shadow: 0 3px 4px 1px rgba(0,0,0,.15);
   opacity: 1;
   z-index: 30;
   padding: 0px;
+  top: 80px;
+  right: 5px;
+  width: 200px;
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.hamburgerCell {
+  color: #ffffff;
+  font-size: 16px;
+  line-height: 2.8;
+  border-bottom: 1px solid rgba(255,255,255,.2);
+  padding: 0 15px;
+  cursor: pointer;
+  font-weight: 200;
+  letter-spacing: 1px;
+}
+
+.hamburgerCell i {
+  margin-right: 10px;
+  color: rgba(255,255,255,.5);
+}
+
+.hamburgerCell:last-child {
+  border-bottom: none;
+}
+
+.hamburgerBackground {
+  position: absolute;
+  width: 100%;
+  height: 1000px;
+  z-index: 17;
+  top: 75px;
 }
 
 .ifPaid {
@@ -661,13 +686,22 @@ ion-content {
 }
 
 .loadSpinner {
-  width: 150px;
-  height: 150px;
-  margin-left: 80px;
-  margin-top: 140px;
+  width: 50px;
+  height: 88px;
+  top: 220px;
+  left: 50%;
+  margin-left: -25px;
   position: absolute;
   z-index: 20;
-  opacity: 0.5;
+  animation-name: spin;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+  timing-function: linear;
+}
+
+@keyframes spin {
+  from {transform:rotate(0deg);}
+  to {transform:rotate(360deg);}
 }
 
 .loadSpinnerBlack {
@@ -675,8 +709,8 @@ ion-content {
   height: 115%;
   margin-top: -15%;
   position: absolute;
-  background-color: #436060;
-  opacity: 0.65;
+  background-color: #ffffff;
+  opacity: 0.4;
   z-index: 16;
 }
 

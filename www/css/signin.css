@@ -53,7 +53,7 @@
 }
 
 .introButton {
-  background-color: #54A450;
+  background-color: #4DAF7C;
   padding: 12px 20px;
   color: #ffffff;
   font-family: 'Helvetica Neue', arial, san-serif;
@@ -166,7 +166,7 @@
 .submitSignup {
   color: #ffffff;
   margin-top: 25px;
-  background-color: #54A450;
+  background-color: #4DAF7C;
   font-size: 20px;
   padding: 10px 20px;
   font-family: 'Helvetica Neue';
@@ -192,8 +192,8 @@
 .goToSignin {
   margin-top: 15px;
   background-color: transparent;
-  border: 1px solid #54A450;
-  color: #54A450;
+  border: 1px solid #4DAF7C;
+  color: #4DAF7C;
   font-size: 22px;
   padding: 10px 20px;
   width: 100%;
@@ -206,8 +206,8 @@
 .goToSignup {
   margin-top: 15px;
   background-color: transparent;
-  border: 1px solid #54A450;
-  color: #54A450;
+  border: 1px solid #4DAF7C;
+  color: #4DAF7C;
   text-align: center;
   font-size: 22px;
   padding: 10px 20px;
