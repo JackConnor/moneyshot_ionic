@@ -226,7 +226,7 @@ angular.module('signupController', [])
         $timeout(function(){
           console.log('yoooooo');
           $('.submitSignup').text('Get Password');
-          $(".forgotPassword").text('Back');
+          $(".forgotPassword").text('Back to Sign in');
         }, 20);
         $('.submitSignup').animate({
           marginTop: 10+'px'
@@ -387,21 +387,6 @@ angular.module('signupController', [])
         window.location.hash = "#/";
       }
     }
-
-    /////toggling signin/signup
-    function hoverSignin(evt){
-      $(evt.currentTarget).css({
-        color: 'blue'
-      })
-    }
-    $scope.hoverSignin = hoverSignin;
-
-    function outHoverSignin(evt){
-      $(evt.currentTarget).css({
-        color: 'white'
-      })
-    }
-    $scope.outHoverSignin = outHoverSignin;
 
     // console.log(window.location.href);
 

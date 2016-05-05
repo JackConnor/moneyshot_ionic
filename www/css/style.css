@@ -1,7 +1,7 @@
 /* Empty. Add your own CSS if you like */
 
 body {
-  font-family: "Akzidenz Grotesk";
+  font-family: 'Helvetica Neue', arial, san-serif;;
 }
 
 
@@ -242,14 +242,6 @@ ion-content {
 #camera {
 }
 
-.cameraBack {
-  position: absolute;
-  margin: -22px 0 0  10px;
-  color: white;
-  width: 50px;
-  /*outline: 2px solid white;*/
-}
-
 .cameraBackground {
   background-color: black;
   width: 100%;
@@ -267,17 +259,6 @@ ion-content {
 
 .cameraButtonCell {
   margin-top: 5px;
-}
-
-.cameraButtonsContainer {
-  width: 100%;
-  display: block;
-  position: absolute;
-  height: 120px;
-  /*background-color: black;*/
-  padding: 0px;
-  margin-top: -120px;
-  z-index: 17;
 }
 
 .cameraLensHolder {
@@ -348,13 +329,6 @@ ion-content {
   position: absolute;
   z-index: 2;
 }
-
-.credentialContainer {
-  width: 100%;
-  height: 736px;
-  background-color: #778899;
-}
-
 
 .cropHolder {
   position: absolute;
@@ -571,14 +545,6 @@ ion-content {
   font-size: 18px
 }
 
-.forgotPassword {
-  margin-top: 10px;
-  width: 130px;
-  float: right;
-  margin-right: 20px;
-  font-size: 15px;
-}
-
 .getPasswordModal {
   position: absolute;
   width: 100%;
@@ -606,30 +572,6 @@ ion-content {
   text-align: center;
   margin-top: 35%;
   border-radius: 4px;
-}
-
-.goToSignin {
-  width: 80%;
-  height: 40px;
-  margin-left: 10%;
-  margin-top: 15px;
-  background-color: green;
-  font-size: 22px;
-  padding-top: 10px;
-  text-align: center;
-  display: inline-block;
-}
-
-.goToSignup {
-  width: 80%;
-  height: 40px;
-  margin-left: 10%;
-  margin-top: 15px;
-  background-color: green;
-  text-align: center;
-  font-size: 22px;
-  padding-top: 10px;
-  display: inline-block;
 }
 
 .jr-crop-img {
@@ -711,16 +653,6 @@ ion-content {
 #image {
   width: 200px;
   height: 200px;
-}
-
-.introOr {
-  margin-top: 10px;
-  text-align: center;
-}
-
-.introOr2 {
-  margin-top: 40px;
-  text-align: center;
 }
 
 .ion-content {
@@ -1019,33 +951,6 @@ ion-content {
   /*bottom: 0;*/
 }
 
-.signupInputHolder {
-  margin-top: 25%;
-  width: 100%;
-}
-
-.signupInputHolder input {
-  width: 90%;
-  margin-left: 5%;
-  text-align: left;
-  padding: 5px 15px;
-  margin-top: 10px;
-  border-radius: 3px;
-  font-size: 20px;
-  background: transparent;
-  border: 1px solid #000000;
-  line-height: 1.4;
-  height: auto;
-}
-
-.signupModal {
-  width: 100%;
-  height: auto;
-  padding-top: 80px;
-  color: white;
-  z-index: 2;
-}
-
 .singleImage {
   padding: 0px;
   width: auto;
@@ -1133,17 +1038,6 @@ ion-content {
   border-radius: 4px;
   font-size: 40px;
   margin-top: 20px;
-}
-
-.splashInput {
-  width: 90%;
-  margin-left: 5%;
-  text-align: center;
-  margin-top: 10px;
-  border-radius: 4px;
-  height:55px;
-  font-size: 23px;
-  padding-top: 12px
 }
 
 .submissionInfo {
@@ -1336,19 +1230,6 @@ ion-content {
   border-bottom: 2px solid gray;
 }
 
-.submitSignup {
-  width: 80%;
-  margin-left: 10%;
-  margin-top: 25px;
-  background-color: green;
-  font-size: 20px;
-  padding: 10px 20px;
-  font-family: 'Helvetica Neue';
-  border-radius: 3px;
-  text-align: center;
-  display: inline-block;
-}
-
 .subPhoto0 {
   z-index: 6;
 }
@@ -1433,18 +1314,6 @@ ion-content {
 .testing {
   width: 100px;
   height: 100px;
-}
-
-.toggleCameraIcon {
-  color: white;
-  font-size:35px;
-  position: absolute;
-  margin-left: 84%;
-  margin-top: -15px;
-  opacity: 0.75;
-  text-align: center;
-  width: 60px;
-  height: 60px;
 }
 
 .xOutSignup {

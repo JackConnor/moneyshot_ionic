@@ -48,6 +48,7 @@
     <div class="credentialContainer">
       <div class="signupModal" ng-if='signupModalVar'>
         <div class="signupInputHolder">
+          <h1>Sign up</h1>
           <input type="text" class='signupEmail splashInput' placeholder='Email' ng-blur='checkValidEmail()'>
           <input type="password" class='signupPassword splashInput' placeholder='Password'>
           <input type="password" class='signupConfirmPassword splashInput' placeholder='Confirm Password'>
@@ -55,7 +56,7 @@
           <p class='introOr2 col-xs-12'>
             ---------------- OR --------------------
           </p>
-          <div class="goToSignin" ng-mouseenter='hoverSignin($event)' ng-mouseleave='outHoverSignin($event)' ng-click='toggleSigns($event)'>
+          <div class="goToSignin" ng-click='toggleSigns($event)'>
             Have An Account?
           </div>
         </div>
@@ -65,18 +66,19 @@
       </div>
       <div class="signinModal" ng-if='signinModalVar'>
         <div class="signupInputHolder">
+          <h1>Sign in</h1>
           <input type="text" class='signupEmail splashInput' placeholder='Email'>
           <input type="password" class='signupPassword splashInput' placeholder='Password'>
           <div class='submitSignup subSignup' ng-click='signinToggleButton()'>SIGN IN</div>
-        </div>
-        <div class="forgotPassword" ng-click='getPassword()'>
-          Forgot Password?
-        </div>
-        <p class='introOr col-xs-12'>
-          ---------------- OR --------------------
-        </p>
-        <div class="goToSignup" ng-mouseenter='hoverSignin($event)' ng-mouseleave='outHoverSignin($event)' ng-click='toggleSigns($event)'>
-          Need to Create an Account?
+          <div class="forgotPassword" ng-click='getPassword()'>
+            Forgot Password?
+          </div>
+          <p class='introOr col-xs-12'>
+            ---------------- OR --------------------
+          </p>
+          <div class="goToSignup" ng-click='toggleSigns($event)'>
+            Need to Create an Account?
+          </div>
         </div>
         <!-- <div class="fbSignin">
           <img src="http://i.imgur.com/umDsi9f.png" alt="" ng-click='launchFB()'/>
