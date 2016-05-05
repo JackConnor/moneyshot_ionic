@@ -1,25 +1,31 @@
 <div class="accountTabHolder col-xs-12">
-
-  <div class="col-xs-6 col-xs-offset-3 bankingTab" ng-click='showSubmittedFunc(); tabUi($event)'>
-    <span class='bankingTitle'>Mopho</span>
+  <div ng-click="bankBack()" class="nav-back-button">
+    back
+  </div>
+  <div class="bankingTab" ng-click='showSubmittedFunc(); tabUi($event)'>
+    <span class='bankingTitle'>Pay Me</span>
   </div>
 
 </div>
 <ion-content>
   <div class="bankContainer">
-    <div ng-click="bankBack()" class="bankBack">
-      Back
+    <div class="earnings-bar">
+      <div class="earnings-bar-label">
+        Account Balance
+      </div>
+      <div class="earnings-bar-amount">
+        $2,457.00
+      </div>
     </div>
     <div class="editModal" ng-if="editVar">
       <div class="editBlackLayer" ng-click="closeEdit()">
-
       </div>
       <div class="editOptions col-sm-8 col-sm-offset-2 col-xs-12 col-xs-offset-0">
         <span class='optionOption optionEdit col-xs-6' ng-click="openPassword()">Edit on Stripe Website</span>
         <span class="optionOption optionDelete col-xs-6" ng-click="deleteBank()">Delete</span>
       </div>
     </div>
-    <div class="bankInfoHolder col-sm-8 col-sm-offset-2 col-xs-10 col-xs-offset-1" ng-if="bankStart">
+    <div class="bankInfoHolder" ng-if="bankStart">
       <div class="bankInfoTitle">
         Add or Edit an account
       </div>
@@ -29,10 +35,14 @@
       <div class="bankAddAccount" ng-click="provePassword()" ng-if='!userInfo.access_token'>
         <span class='fa fa-plus-circle bankPlusIcon'></span>Add A Bank Account
       </div>
+      <div class="cta-container col-sm-12">
+        <div class="cta-text">Want your earnings data sent to your email?</div>
+        <button class="cta-button" ng-click='sendFinData()'>Email my earnings data</button>
+      </div>
     </div>
     <div class="bankPasswordHolder col-sm-8 col-sm-offset-2 col-xs-10 col-xs-offset-1" ng-if="bankPassword">
       <div class="bankPasswordTitle">
-        Confirm Password Below
+        Confirm Password
       </div>
       <div class="bankSignin">
         <input class="bankPass bankPass1" type="text" placeholder="password">

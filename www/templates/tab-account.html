@@ -145,15 +145,14 @@
               <div class="soldInnerHolder">
                 <div class="blackLayerSingleModal"></div>
                 <div class="priceLayer" ng-click='openSingle(soldPhoto, soldPhoto.status)'>
+                  <div class="priceInfo">
+                    {{soldPhoto.price | currency}} offered
+                  </div>
                   <div class="ifSold" ng-if="soldPhoto.status == 'offered for sale'">
                     Accept Offer
                   </div>
-                  <div class='ifPaid col-xs-8' ng-if='soldPhoto.status == "sold"'>
+                  <div class='ifPaid' ng-if='soldPhoto.status == "sold"'>
                     Sold!
-                  </div>
-                  <div class="priceInfo">
-                    {{soldPhoto.price | currency}}
-                    {{soldPhoto.status}}
                   </div>
                 </div>
                 <img class='allSoldPhotosRepeat' ng-src="{{soldPhoto.url}}" ng-if='!soldPhoto.isVideo' />
