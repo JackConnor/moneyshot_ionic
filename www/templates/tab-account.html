@@ -83,21 +83,21 @@
         </div>
       </div>
       <div class="singleImageModal col-xs-12">
-        <div class="backButton" ng-click='backToRepeat("single")'>
-          <p class='fa fa-times'></p>
+        <div class="backButton backButtonClose" ng-click='backToRepeat("single")'>
+          <i class='fa fa-times'></i>
         </div>
-        <div class="singleImageHolder col-xs-8 col-xs-offset-2" >
+        <div class="singleImageHolder" >
           <img class='singleImage' ng-src="{{singlePhotoData.url}}" ng-if="!singlePhotoData.isVideo" />
           <video ng-src="{{singlePhotoData.url | trustUrl}}" class="singleImage col-xs-12" controls ng-if="singlePhotoData.isVideo"></video>
           <div class="singleInfoHolder col-xs-12">
             <div class="singleWho">
-              Who: {{singlePhotoData.photosubjects[0]}}, {{singlePhotoData.photosubjects[1]}}, {{singlePhotoData.photosubjects[2]}}
+              Who: <span class="text-dark">{{singlePhotoData.photosubjects[0]}}, {{singlePhotoData.photosubjects[1]}}, {{singlePhotoData.photosubjects[2]}}</span>
             </div>
             <div class="singleWho">
-              When: {{singlePhotoData.date | date}}
+              When: <span class="text-dark">{{singlePhotoData.date | date}}</span>
             </div>
             <div class="singlePrice" ng-if='singlePhotoData.price'>
-              You earned: {{singlePhotoData.price | currency}}
+              You earned: <span class="text-dark">{{singlePhotoData.price | currency}}</span>
             </div>
           </div>
         </div>
@@ -105,12 +105,12 @@
       <div class="singleSubmissionModal col-xs-12" ng-if='singleSubmissionModal'>
         <div class="singleSubmissionBackground" ng-click='backToRepeat("submission")'></div>
         <div class="backButton" ng-click='backToRepeat("submission")'>
-          go back
+          <i class="fa fa-angle-left" aria-hidden="true"></i> Back
         </div>
         <div class="submissionRepeatContainer">
-          <div class="col-sm-4 col-xs-6 subRepeat" ng-repeat="photo in singleSubmission.photos">
-            <video ng-src="{{photo.url | trustUrl}}" class="col-xs-12" controls ng-if="photo.isVideo" ng-click='openSingle(photo, "sold")'></video>
-            <img ng-src="{{photo.url | trustUrl}}" ng-if="!photo.isVideo" class="col-xs-12" ng-click='openSingle(photo, "sold")'/>
+          <div class="subRepeat gallery-item" ng-repeat="photo in singleSubmission.photos">
+            <video ng-src="{{photo.url | trustUrl}}" controls ng-if="photo.isVideo" ng-click='openSingle(photo, "sold")'></video>
+            <img ng-src="{{photo.url | trustUrl}}" ng-if="!photo.isVideo" ng-click='openSingle(photo, "sold")'/>
           </div>
         </div>
       </div>
@@ -163,37 +163,18 @@
           </div>
         <!-- </div> -->
         <div class="showSubmittedHolder" ng-if='showSubmitted'>
-          <div class="submittedRow submittedRow{{$index}} col-xs-12" ng-repeat='submission in userSubmissions'>
-            <div class="allPhotosRepeat col-xs-6">
-              <div class="submitPhotosHolder">
-                <div class="subPhotoCell subPhoto0" ng-if='submission.photos[0] && !submission.photos[0].isVideo'>
-                  <img src="{{submission.photos[0].thumbnail}}" alt="" ng-click='openSubmission(submission, $event)'/>
-                </div>
-                <div class="subPhotoCell subPhoto0" ng-if='submission.photos[0] && submission.photos[0].isVideo'>
-                  <img src="https://s-media-cache-ak0.pinimg.com/736x/8a/31/71/8a3171fc490597cf02e89d7ad1fc4e35.jpg" alt="" ng-click='openSubmission(submission, $event)'/>
-                </div>
-                <div class="subPhotoCell subPhoto1" ng-if='submission.photos[1] && !submission.photos[0].isVideo'>
-                  <img src="{{submission.photos[1].url}}" alt="" ng-click='openSubmission(submission, $event)'/>
-                </div>
-                <div class="subPhotoCell subPhoto1" ng-if='submission.photos[1] && submission.photos[1].isVideo'>
-                  <img src="https://s-media-cache-ak0.pinimg.com/736x/8a/31/71/8a3171fc490597cf02e89d7ad1fc4e35.jpg" alt="" ng-click='openSubmission(submission, $event)'/>
-                </div>
-                <div class="subPhotoCell subPhoto2" ng-if='submission.photos[2] && !submission.photos[2].isVideo'>
-                  <img src="{{submission.photos[2].url}}" alt="" ng-click='openSubmission(submission, $event)'/>
-                </div>
-                <div class="subPhotoCell subPhoto2" ng-if='submission.photos[2] && submission.photos[2].isVideo'>
-                  <img src="https://s-media-cache-ak0.pinimg.com/736x/8a/31/71/8a3171fc490597cf02e89d7ad1fc4e35.jpg" alt="" ng-click='openSubmission(submission, $event)'/>
-                </div>
-                <div class="subPhotoCell subPhoto3" ng-if='submission.photos[3] && !submission.photos[3].isVideo'>
-                  <img src="{{submission.photos[3].url}}" alt="" ng-click='openSubmission(submission, $event)'/>
-                </div>
-                <div class="subPhotoCell subPhoto3" ng-if='submission.photos[3] && submission.photos[3].isVideo'>
-                  <img src="https://s-media-cache-ak0.pinimg.com/736x/8a/31/71/8a3171fc490597cf02e89d7ad1fc4e35.jpg" alt="" ng-click='openSubmission(submission, $event)'/>
-                </div>
+          <div class="submittedRow submittedRow{{$index}}" ng-repeat='submission in userSubmissions' ng-click='openSubmission(submission, $event)'>
+            <div class="submitPhotosHolder">
+              <div class="subPhotoCell subPhoto0" ng-if='submission.photos[0] && !submission.photos[0].isVideo'>
+                <img src="{{submission.photos[0].thumbnail}}" alt="" />
               </div>
-            </div>
-            <div class="submissionInfo col-xs-6" >
-              Date submitted: {{submission.date | date}}
+              <div class="subPhotoCell subPhoto0" ng-if='submission.photos[0] && submission.photos[0].isVideo'>
+                <img src="https://s-media-cache-ak0.pinimg.com/736x/8a/31/71/8a3171fc490597cf02e89d7ad1fc4e35.jpg" alt=""/>
+              </div>               
+            </div>  
+            <div class="submissionInfo" >
+              <div class="submissionInfo-shots-number">{{submission.photos.length}} {{submission.photos.length > 1 ? 'shots' : 'shot'}}</div>
+              <div class="submissionInfo-date">Submitted on <span class="text-dark">{{submission.photos[0].date | date}}</span></div>
             </div>
           </div>
         </div>
