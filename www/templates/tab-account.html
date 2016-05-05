@@ -179,30 +179,35 @@
           </div>
         </div>
         <div class="" ng-if='showFinance'>
-          <div class="finTopBar col-xs-12">
-            <div class="finTotal col-xs-6">
-              <span>Total Earned:</span><br>{{totalEarned | currency}}
+          <div class="earnings-bar">
+            <div class="earnings-bar-label">
+              Total Money Earned
             </div>
-            <div class='sendFinDataButton col-xs-4 col-xs-offset-2' ng-click='sendFinData()'>Send Financial Data as Email</div>
+            <div class="earnings-bar-amount">
+              {{totalEarned | currency}}
+            </div>
           </div>
           <div class="finCell" ng-repeat='soldPhoto in allTransactions'>
-            <div class="finPhoto col-xs-4">
+            <div class="finPhoto">
               <img src="{{soldPhoto.photos[0].thumbnail}}" ng-click='openSingle(soldPhoto.photos[0], "sold")'/>
             </div>
-            <div class="finDetails col-xs-8">
-              <div class="finDate col-xs-6">
-                Taken on:<br> {{soldPhoto.photos[0].date}}
+            <div class="finDetails">
+              <div class="finPrice">
+                {{soldPhoto.price | currency}}
               </div>
-              <div class="finPrice col-xs-6">
-                Sold for:<br> {{soldPhoto.price | currency}}
+              <div class="finDate">
+                Sold on <span class="text-dark">{{soldPhoto.photos[0].date}}</span>
               </div>
-            </div>
-            <div class="col-xs-12 finOpenHolder">
-              <div class="finOpenImage" ng-click='openFin($event, soldPhoto)'>
-                More Details
-              </div>
+              <!--<div class="finOpenImage" ng-click='openFin($event, soldPhoto)'>
+                More Details <i class="fa fa-angle-down" aria-hidden="true"></i>
+              </div> -->
             </div>
           </div>
+          <div class="cta-container">
+            <div class="cta-text">Let us know how to pay you</div>
+            <button class="cta-button" ng-click="goToBanking()">add/update payment info</button>
+          </div>
+          <!--<div class='sendFinDataButton col-xs-4 col-xs-offset-2' ng-click='sendFinData()'>Send Financial Data as Email</div> -->
         </div>
       </div>
     </div>

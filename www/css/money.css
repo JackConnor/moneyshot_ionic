@@ -1,0 +1,112 @@
+
+/****** Money Tab ******/
+
+.earnings-bar {
+  height: 60px;
+  padding: 0px 15px;
+  background-color: #F6FAF5;
+  border-bottom: 1px solid #EAF6E7;
+  display: flex;
+  justify-content: space-between;
+}
+
+.earnings-bar-label {
+  font-size: 14px;
+  color: #8B8B8B;
+  letter-spacing: 1px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.earnings-bar-amount{
+  font-size: 22px;
+  color: #42B17A;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+
+/****** Sold Photos List ******/
+
+.finCell {
+  height: auto;
+  width: 100%;
+  display: flex;
+  padding: 10px 15px;
+  border-bottom: 1px solid #f3eeee;
+}
+
+.finPhoto {
+	flex: 0 0 80px;
+  padding: 0px;
+  height: 80px;
+  background-color: #acacac;
+}
+
+.finPhoto img {
+  width: auto;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.finDetails {
+	flex-grow: 1;
+  margin-left: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.finPrice{
+	font-size: 18px;
+	color: #42b17a;
+	margin-bottom: 2px;
+}
+
+.finDate{
+	color: #b2b2b2;
+}
+
+.finOpenImage {
+  font-size: 14px;
+}
+
+.finOpenHolder {
+  height: 30px;
+  margin: 0 0 10px 0;
+  padding: 0px;
+  background-color: #c8cfd6;
+}
+
+
+/****** CTA ******/
+
+.cta-container{
+	margin: 50px 0;
+	padding: 20px 0;
+	background: #F6FAF5;
+	border: 1px solid #EAF6E7;
+	border-width: 1px 0;
+	text-align: center;
+}
+
+.cta-text{
+	font-size: 18px;
+	color: #5D5D5D;
+	text-align: center;
+	margin-bottom: 15px;
+}
+
+.cta-button{
+	font-size: 13px;
+	border: 1px solid #42B17A;
+	color: #42B17A;
+	border-radius: 3px;
+	padding: 5px 15px;
+	background: transparent;
+}
+
+
