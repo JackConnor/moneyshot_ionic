@@ -1,6 +1,12 @@
 angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCordova', 'ngFileUpload'])
 
-  .controller('cameraCtrl', cameraCtrl);
+  .controller('cameraCtrl', cameraCtrl)
+
+  .filter('trustUrl', function ($sce) {
+    return function(url) {
+      return $sce.trustAsResourceUrl(url);
+    };
+  });
 
   cameraCtrl.$inject = ['$http', '$state', '$scope', 'singlePhoto', 'Upload', '$q', '$cordovaCamera', '$cordovaFile', '$cordovaFileTransfer', 'signup', 'signin', 'newToken', '$cordovaCapture', 'Upload', '$cordovaStatusbar', '$timeout'];
   function cameraCtrl($http, $state, $scope, singlePhoto, Upload, $q, $cordovaCamera, $cordovaFile, $cordovaFileTransfer, signup, signin, newToken, $cordovaCapture, Upload, $cordovaStatusbar, $timeout){
@@ -462,8 +468,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
               console.log($('.submitPhoto0').height());
             }
             ,built: function(){
-              console.log('uououou');
-              alert('yo')
+
             }
           });
       });

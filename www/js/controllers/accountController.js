@@ -121,6 +121,7 @@ angular.module('accountController', [])
       .then(function(decToken){
         userPhotos(decToken.data.userId)
         .then(function(userInfo){
+          console.log(userInfo);
           if(userInfo.data === null){
             var userPhotos = [];
             $scope.userInfo = [];
@@ -148,27 +149,22 @@ angular.module('accountController', [])
               var offeredPhotos = [];
               for (var i = 0; i < photoLength; i++) {
                 if(userPhotos[i].status === 'sold'){
-                  console.log('sold one');
                   soldPhotos.push(userPhotos[i]);
                   $scope.totalEarned += userPhotos[i].price;
                   if(i == userPhotos.length-1){
                     $scope.allSoldPhotos = offeredPhotos.concat(soldPhotos.reverse());
-                    console.log($scope.allSoldPhotos);
                   }
                 }
                 else if(userPhotos[i].status === 'offered for sale'){
-                  console.log('new p');
                   offeredPhotos.push(userPhotos[i]);
                   $scope.totalEarned += userPhotos[i].price;
                   if(i === userPhotos.length-1){
                     $scope.allSoldPhotos = offeredPhotos.concat(soldPhotos.reverse());
-                    console.log($scope.allSoldPhotos);
                   }
                 }
                 else {
                   if(i === userPhotos.length-1){
                     $scope.allSoldPhotos = offeredPhotos.concat(soldPhotos.reverse());
-                    console.log($scope.allSoldPhotos);
                   }
                 }
               }
@@ -345,7 +341,7 @@ angular.module('accountController', [])
       $scope.singleSubmission = subInfo;
       $scope.singleSubmissionModal = true;
       setTimeout(function(){
-        limitSubmissionModalScroll();
+        // limitSubmissionModalScroll();
       }, 200);
       $('.repeatContainer').css({
         opacity: 0
@@ -454,16 +450,12 @@ angular.module('accountController', [])
 
     ///////function to accept or reject price
     function buyRejectPhoto(status, photo){
-      console.log(status);
-      console.log(photo);
       $http({
         method: "POST"
         ,url: 'https://moneyshotapi.herokuapp.com/api/photopurchase'
         ,data: {status: status, photoId: photo._id, userId: $scope.userInfo._id, refresh_token: $scope.userInfo.refresh_token, price: photo.price}
       })
       .then(function(updatedPhoto){
-        console.log('check status below');
-        console.log(updatedPhoto);
         $scope.sellModal = false;
         $ionicScrollDelegate.freezeScroll(false);
         window.location.reload();
@@ -485,7 +477,6 @@ angular.module('accountController', [])
         ,data: {email: $scope.userInfo.email}
       })
       .then(function(data){
-        console.log(data);
         alert('Your Financial Data Has been Sent To Your Email');
       })
     }
@@ -498,10 +489,8 @@ angular.module('accountController', [])
         ,data: {userId: $scope.userInfo._id}
       })
       .then(function(allTrans){
-        console.log(allTrans);
         var length = allTrans.data.length;
         for (var i = 0; i < length; i++) {
-          console.log(allTrans.data[i].photos[0].thumbnail);
           allTrans.data[i].date = moment(allTrans.data[i].date).format('MMM Do YYYY');
           allTrans.data[i].photos[0].date = moment(allTrans.data[i].photos[0].date).format('MMM Do YYYY');
           if(i === length-1){
@@ -514,7 +503,6 @@ angular.module('accountController', [])
     ////////////////////////////////////////
     ////functions to open financial cells///
     function openFin(evt, transData){
-      console.log(transData);
       var isOpen = $(evt.currentTarget).hasClass('opened');
       var parentEl = $(evt.currentTarget).parent();
       if(!isOpen){
@@ -558,6 +546,26 @@ angular.module('accountController', [])
       }
     }
     $scope.openFin = openFin;
+
+    /////function to see if photos from a submission have any non-embargoed photos
+    function checkPhotos(allPhotos){
+      console.log(allPhotos);
+      var length = 0;
+      var allPhotos = allPhotos;
+      for (var i = 0; i < allPhotos.length; i++) {
+        if(allPhotos[i].status == 'sold'){
+          length++;
+        }
+        else if(allPhotos[i].status == 'rejected'){
+          length++
+        }
+        else if(allPhotos[i].status == 'offered for sale'){
+          length++
+        }
+      }
+      return length;
+    }
+    $scope.checkPhotos = checkPhotos;
 
     ////end functions to open financial cells///
     ////////////////////////////////////////////

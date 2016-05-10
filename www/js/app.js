@@ -29,6 +29,7 @@ angular.module('starter', ['ionic', 'ngCordova', 'ngRoute', 'facebook', 'ngFileU
   // Learn more here: https://github.com/angular-ui/ui-router
   // Set up the various states which the app can be in.
   // Each state's controller can be found in controllers.js
+  // $compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|ftp|mailto|content|file|assets-library):|data:image\//);
   $stateProvider
 
   // setup an abstract state for the tabs directive
