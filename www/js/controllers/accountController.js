@@ -505,20 +505,22 @@ angular.module('accountController', [])
     function openFin(evt, transData){
       var isOpen = $(evt.currentTarget).hasClass('opened');
       var parentEl = $(evt.currentTarget).parent();
+      console.log(parentEl);
       if(!isOpen){
+        console.log($(evt.currentTarget));
         parentEl.animate({
           height: "160px"
         }, 1000);
-        $(evt.currentTarget).animate({
-          marginTop: "130px"
-        }, 1000);
-        parentEl.prepend(
-          "<div class='finMoreDetails'>"+
-            "<div class='tempFinInfo'>"+
-              "Coming Soon"+
-            "</div>"+
-          "</div>"
-        );
+        // $(evt.currentTarget).animate({
+        //   marginTop: "130px"
+        // }, 1000);
+        // parentEl.prepend(
+        //   "<div class='finMoreDetails'>"+
+        //     "<div class='tempFinInfo'>"+
+        //       "Coming Soon"+
+        //     "</div>"+
+        //   "</div>"
+        // );
         $(evt.currentTarget).addClass('opened');
         $(evt.currentTarget).text('Close Details');
         setTimeout(function(){
@@ -529,27 +531,27 @@ angular.module('accountController', [])
       }
       else if(isOpen) {
         parentEl.animate({
-          height: "30px"
+          height: "80px"
         }, 1000);
-        $(evt.currentTarget).animate({
-          marginTop: "0px"
-        }, 1000);
+        console.log($(evt.currentTarget));
+        // $(evt.currentTarget).animate({
+        //   marginTop: "0px"
+        // }, 1000);
         $(evt.currentTarget).removeClass('opened');
         $(evt.currentTarget).text('More Details');
-        $('.finMoreDetails').animate({
-          opacity: 0
-        }, 100);
-        setTimeout(function(){
-          var moreDetails = $(evt.currentTarget).siblings()[0];
-          $(moreDetails).remove();
-        }, 1000);
+        // $('.finMoreDetails').animate({
+        //   opacity: 0
+        // }, 100);
+        // setTimeout(function(){
+        //   var moreDetails = $(evt.currentTarget).siblings()[0];
+        //   $(moreDetails).remove();
+        // }, 1000);
       }
     }
     $scope.openFin = openFin;
 
     /////function to see if photos from a submission have any non-embargoed photos
     function checkPhotos(allPhotos){
-      console.log(allPhotos);
       var length = 0;
       var allPhotos = allPhotos;
       for (var i = 0; i < allPhotos.length; i++) {

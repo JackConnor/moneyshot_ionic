@@ -53,11 +53,11 @@
 }
 
 .finDetails {
-	flex-grow: 1;
+	/*flex-grow: 1;
   margin-left: 20px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: center;*/
 }
 
 .finPrice{
@@ -205,7 +205,7 @@
   color: #4daf7c;
 }
 
-.bankPass {  
+.bankPass {
 	margin: 0 auto 10px;
   font-size: 20px;
   border: 1px solid #cccccc;
