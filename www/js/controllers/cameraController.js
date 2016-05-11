@@ -44,7 +44,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         var dragEnabled = false; //enable preview box drag across the screen
         var toBack = false; //send preview box to the back of the webview
         // console.log(cordova.plugins.camerapreview);
-        var rect = {x: 0, y: 40, width: 375, height: 420};
+        var rect = {x: 0, y: 50, width: 375, height: 400};
         cordova.plugins.camerapreview.startCamera(rect, 'back', tapEnabled, dragEnabled, toBack);
         cordova.plugins.camerapreview.show();
         cordova.plugins.camerapreview.setOnPictureTakenHandler(function(result){
@@ -125,8 +125,9 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
           popoverOptions: CameraPopoverOptions,
           saveToPhotoAlbum: false,
       };
-      $cordovaCamera.getPicture({})
+      $cordovaCamera.getPicture(options)
       .then(function(result){
+        console.log(result);
         $scope.mediaCache.push({
           type: "photo"
           ,link: result
@@ -227,6 +228,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       $scope.set = set;
       var thisEl = document.getElementsByClassName('submitButton')[0];
       animateClick(thisEl, "#6d8383", '#013220');
+      cordova.plugins.camerapreview.hide();
       $scope.submitPhotoModal = true;
       $scope.submitBar        = false;
     }
@@ -239,6 +241,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       }, 200);
       setTimeout(function(){
         $scope.submitPhotoModal = false;
+        cordova.plugins.camerapreview.show();
         $scope.submitBar        = false;
       }, 200);
     }
@@ -516,15 +519,16 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     function submitModalOpen(){
       var thisEl = $('.submitSetDiv')[0];
       animateClick(thisEl, '#8CDD81', 'transparent');
+      console.log($scope.mediaCache);
       for (var i = 0; i < $scope.mediaCache.length; i++) {
-        document.getElementById('submit'+i).src = $scope.mediaCache[i].link
-      }
-      setTimeout(function(){
+        console.log('yo yo '+i);
         $scope.submitModalVar = true;
-        setTimeout(function(){
-          cordova.plugins.camerapreview.hide();
-        }, 100);
-      }, 150);
+        // document.getElementById('submit'+i).src = $scope.mediaCache[i].link
+        console.log(document.getElementById('submit'+i));
+        document.getElementById('submit'+i).src = "http://lovelace-media.imgix.net/uploads/191/0f832b40-d622-0132-cea9-0e01949ad350.jpg";
+        console.log('hide that camera!');
+        cordova.plugins.camerapreview.hide();
+      }
     }
 
     $scope.submitModalOpen = submitModalOpen;

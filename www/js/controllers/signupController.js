@@ -79,6 +79,7 @@ angular.module('signupController', [])
       }
       else {
         window.location.hash = "#/tab/camera";
+        window.location.reload();
       }
     }
     checkIntro();
@@ -122,7 +123,7 @@ angular.module('signupController', [])
     }
     $scope.exitIntro = exitIntro;
 
-    // Intro dots 
+    // Intro dots
     function dotActive(number){
       return $scope.introCounter === number ? true : false;
     }
