@@ -23,8 +23,13 @@ angular.module('starter', ['ionic', 'ngCordova', 'ngRoute', 'facebook', 'ngFileU
   });
 })
 
-.config(function($stateProvider, $urlRouterProvider) {
-
+.config(function($stateProvider, $urlRouterProvider, $sceDelegateProvider) {
+  $sceDelegateProvider.resourceUrlWhitelist([
+    'assets-library://',
+  ])
+  $sceDelegateProvider.resourceUrlBlacklist([
+    'http://',
+  ])
   // Ionic uses AngularUI Router which uses the concept of states
   // Learn more here: https://github.com/angular-ui/ui-router
   // Set up the various states which the app can be in.

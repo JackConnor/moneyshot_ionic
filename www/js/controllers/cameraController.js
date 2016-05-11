@@ -48,11 +48,24 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         cordova.plugins.camerapreview.startCamera(rect, 'back', tapEnabled, dragEnabled, toBack);
         cordova.plugins.camerapreview.show();
         cordova.plugins.camerapreview.setOnPictureTakenHandler(function(result){
-          var picResult = result[0]
-          $scope.mediaCache.push({
-            type: "photo"
-            ,link: picResult
-            ,date: new Date()
+          console.log(result);
+          console.log(result.files);
+          console.log(result.file);
+          resolveLocalFileSystemURL(result[0], function(fileEntry) {
+              fileEntry.file(function(file) {
+                  var reader = new FileReader();
+                  reader.onloadend = function(event) {
+                      console.log(event.target.result.byteLength);
+                  };
+                  console.log('Reading file: ' + file.name);
+                  reader.readAsArrayBuffer(file);
+                  console.log(file);
+                  $scope.mediaCache.push({
+                    type: "photo"
+                    ,link: file.localURL
+                    ,date: new Date()
+                  });
+              });
           });
         });
 
