@@ -194,20 +194,34 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     $scope.takePicture = takePicture;
     // takePicture();
     function getPic(){
+      console.log($cordovaCapture);
+      $cordovaCapture.captureVideo({})
+      .then(function(result){
+        console.log(result);
+        var pathFull = result[0].fullPath;///////this is what we need to add to our cache
+        /////next, we push the video plus some extra data to the media cache, where it waits to be submitted
+        $scope.mediaCache.push({
+          type: "video"
+          ,link: pathFull
+          ,date: new Date()
+        })
+      });
       var thisEl = $('.outCameraModal')[0];
       animateClick(thisEl, 'white', 'transparent');
-      setTimeout(function(){
-        $cordovaCapture.captureVideo({})
-        .then(function(result){
-          var pathFull = result[0].fullPath;///////this is what we need to add to our cache
-          /////next, we push the video plus some extra data to the media cache, where it waits to be submitted
-          $scope.mediaCache.push({
-            type: "video"
-            ,link: pathFull
-            ,date: new Date()
-          })
-        });
-      }, 300);
+      // $timeout(function(){
+      //   navigator.camera.getvideo();
+      //   $cordovaCapture.captureVideo({})
+      //   .then(function(result){
+      //     console.log(result);
+      //     var pathFull = result[0].fullPath;///////this is what we need to add to our cache
+      //     /////next, we push the video plus some extra data to the media cache, where it waits to be submitted
+      //     $scope.mediaCache.push({
+      //       type: "video"
+      //       ,link: pathFull
+      //       ,date: new Date()
+      //     })
+      //   });
+      // }, 300);
     }
     $scope.getPic = getPic;
 
