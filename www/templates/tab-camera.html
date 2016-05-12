@@ -6,8 +6,29 @@
           <i class='fa fa-times'></i>
         </div>
         <div class="photoNameHolder" ng-if='!submitBar'>
+          <p class='dateInputHead'>
+            When were these photos taken?
+          </p>
+          <input class='dateInput' type="date" style='display:inline-block' value="2016-05-12">
+          <span class='dateInputAt'>&nbspat&nbsp</span>
+          <input class='dateInputTime' type="time" style='display:inline-block' value="09:55">
+          <p class='dateInputHead'>
+            Where?
+          </p>
+          <input class='locationInput' type="text" name="name" placeholder="type in location">
+          <p class='dateInputHead'>
+            And what happened?
+          </p>
           <input class='photoNameInput' type="textarea" name="name" placeholder="Who and what is in these photos">
-          <div class='submitPhotoName' ng-click='submitPhotoName()'>Add Name</div>
+          <div class='submitCheck'>
+            <input class='submitAgree' type="checkbox" name="name" value="">
+            <p>I agree to all terms and conditions</p>
+          </div>
+          <div class='submitNameButt'>
+            <div style='width:100%; height: 100%' ng-click='submitPhotoName()'>
+              Send your Photos!
+            </div>
+          </div>
         </div>
         <div class="submitBarHolder" ng-if='submitBar'>
           <div class="submitPhotoModalContent">

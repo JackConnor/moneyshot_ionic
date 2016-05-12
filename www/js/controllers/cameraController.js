@@ -56,6 +56,12 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
           $timeout(function(){
             document.getElementsByTagName('html')[0].style.opacity = '1'
           }, 1600);
+          $timeout(function(){
+            document.getElementsByTagName('html')[0].style.opacity = '1'
+          }, 1900);
+          $timeout(function(){
+            document.getElementsByTagName('html')[0].style.opacity = '1'
+          }, 2500);
           cordova.plugins.camerapreview.show();
           $('html').animate({
             opacity: 1
@@ -115,7 +121,27 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       if(!$scope.cameraLaunched){
         uploadPhotos();
       }
+    }, 500);
+    $timeout(function(){
+      if(!$scope.cameraLaunched){
+        uploadPhotos();
+      }
     }, 1500);
+    $timeout(function(){
+      if(!$scope.cameraLaunched){
+        uploadPhotos();
+      }
+    }, 2500);
+    $timeout(function(){
+      if(!$scope.cameraLaunched){
+        uploadPhotos();
+      }
+    }, 3500);
+    $timeout(function(){
+      if(!$scope.cameraLaunched){
+        uploadPhotos();
+      }
+    }, 5000);
 
     function outPhotoModal(){
       $scope.cameraModal = false;
@@ -239,13 +265,16 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
     function submitPhotoName(){
       var nameInfo = $(".photoNameInput").val();
+      var locationInfo = $(".locationInput").val();
+      var agreeChecked = $('.submitAgree')[0].checked
+      console.log(agreeChecked);
       console.log(nameInfo);
-      if(nameInfo.length > 1){
+      if(nameInfo.length > 1 && locationInfo.length > 1 && agreeChecked){
         $scope.submitBar = true;
         submitNameAndPhotos();
       }
       else {
-        alert('Please add a little more info about these photos before you submit, so we can help you earn more money')
+        alert('You seem to have missed a field')
       }
     }
     $scope.submitPhotoName = submitPhotoName;
@@ -268,8 +297,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       }, 200);
       setTimeout(function(){
         $scope.submitPhotoModal = false;
-        cordova.plugins.camerapreview.show();
-        $scope.submitBar        = false;
+        $scope.submitBar        = true;
       }, 200);
     }
     $scope.closeLoadingModal = closeLoadingModal;
