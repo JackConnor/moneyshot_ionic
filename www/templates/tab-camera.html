@@ -3,7 +3,7 @@
     <div class="submitPhotoBacking" ng-if='submitPhotoModal'>
       <div class="submitPhotoModal">
         <div class="submitPhotoXHolder" ng-click='closeLoadingModal()' ng-if='!submitBar'>
-          <i class="fa fa-arrow-left"></i><span>Account</span>
+          <i class='fa fa-times'></i>
         </div>
         <div class="photoNameHolder" ng-if='!submitBar'>
           <p class='dateInputHead'>
@@ -42,7 +42,7 @@
     </div>
     <div class="cameraModal" ng-show='cameraModal==true'>
       <div class="cameraBack">
-        <i class='fa fa-times longArrow' ng-click='leaveCamera()'></i>
+        <i class="fa fa-arrow-left"></i><span>Account</span>
       </div>
       <div class="cameraViewToggle">
         <i class='fa fa-repeat toggleCameraIcon' ng-click='toggleView($event)'></i>
