@@ -38,7 +38,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     function uploadPhotos() {
         setTimeout(function(){
           $scope.activePhoto = false;
-        }, 750);
+        }, 1000);
         $scope.cameraLaunched = true;
         var tapEnabled = false; //enable tap take picture
         var dragEnabled = false; //enable preview box drag across the screen
@@ -572,13 +572,24 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     }, 500)
 
     function submitModalOpen(){
-      var thisEl = $('.submitSetDiv')[0];
-      animateClick(thisEl, '#8CDD81', 'transparent');
-      console.log($scope.mediaCache);
-      for (var i = 0; i < $scope.mediaCache.length; i++) {
-        $scope.submitModalVar = true;
-        document.getElementById('submit'+i).src = $scope.mediaCache[i].link
+      console.log(($scope.mediaCache));
+      console.log($scope.activePhoto);
+      $scope.mediaCache = $scope.mediaCache;
+      if($scope.activePhoto === false){
+        var thisEl = $('.submitSetDiv')[0];
+        animateClick(thisEl, '#8CDD81', 'transparent');
+        console.log($scope.mediaCache);
         cordova.plugins.camerapreview.hide();
+        $scope.submitModalVar = true;
+        var mediaLength = $scope.mediaCache.length;
+        console.log(mediaLength);
+        for (var i = 0; i <= mediaLength-1; i++) {
+          var thisLink = $scope.mediaCache[i].link
+          var thisEl = $("#submit"+i)
+          console.log(thisLink);
+          console.log(thisEl);
+          thisEl.attr('src', thisLink);
+        }
       }
     }
 
