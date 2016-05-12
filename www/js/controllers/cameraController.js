@@ -10,11 +10,11 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
   cameraCtrl.$inject = ['$http', '$state', '$scope', 'singlePhoto', 'Upload', '$q', '$cordovaCamera', '$cordovaFile', '$cordovaFileTransfer', 'signup', 'signin', 'newToken', '$cordovaCapture', 'Upload', '$cordovaStatusbar', '$timeout'];
   function cameraCtrl($http, $state, $scope, singlePhoto, Upload, $q, $cordovaCamera, $cordovaFile, $cordovaFileTransfer, signup, signin, newToken, $cordovaCapture, Upload, $cordovaStatusbar, $timeout){
-    function removeTabs(){
+    function removeTabsAndBar(){
       $('ion-tabs').addClass('tabs-item-hide');
+      ionic.Platform.showStatusBar(false);
     }
-    removeTabs();
-    ionic.Platform.showStatusBar(false);
+    removeTabsAndBar();
     ////////////////////////////
     /////////global variables///
     // $scope.mediaCache = [{type: 'photo', link: 'http://www.kaplaninternational.com/blog/wp-content/uploads/2011/08/blah-290x300.jpg'}, {type:'photo', link: '/img/adam.jpg'}, {type:'photo', link: '/img/ben.png'}];
@@ -46,7 +46,21 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         // console.log(cordova.plugins.camerapreview);
         var rect = {x: 0, y: 50, width: 375, height: 400};
         cordova.plugins.camerapreview.startCamera(rect, 'back', tapEnabled, dragEnabled, toBack);
-        cordova.plugins.camerapreview.show();
+        $timeout(function(){
+          $timeout(function(){
+            document.getElementsByTagName('html')[0].style.opacity = '1'
+          }, 1000);
+          $timeout(function(){
+            document.getElementsByTagName('html')[0].style.opacity = '1'
+          }, 1300);
+          $timeout(function(){
+            document.getElementsByTagName('html')[0].style.opacity = '1'
+          }, 1600);
+          cordova.plugins.camerapreview.show();
+          $('html').animate({
+            opacity: 1
+          }, 700);
+        }, 850);
         cordova.plugins.camerapreview.setOnPictureTakenHandler(function(result){
           console.log(result);
           console.log(result.files);

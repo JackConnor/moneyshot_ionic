@@ -73,6 +73,19 @@ angular.module('signupController', [])
     function checkIntro(){
       if(!window.localStorage.webToken || window.localStorage.webToken == "" || window.localStorage.webToken == null){
         $scope.introModal = true;
+        $timeout(function(){
+          document.getElementsByTagName('html')[0].style.opacity = '1'
+        }, 1000);
+        $timeout(function(){
+          document.getElementsByTagName('html')[0].style.opacity = '1'
+        }, 1300);
+        $timeout(function(){
+          document.getElementsByTagName('html')[0].style.opacity = '1'
+        }, 1600);
+        $('html').animate({
+          opacity: 1
+        }, 700);
+
         $('.tab-nav').css({
           height: 0+"px"
         })
@@ -82,7 +95,19 @@ angular.module('signupController', [])
         window.location.reload();
       }
     }
-    checkIntro();
+    document.addEventListener("deviceready", function(){
+      checkIntro();
+    });
+    $timeout(function(){
+      checkIntro();
+    }, 1000);
+    $timeout(function(){
+      checkIntro();
+    }, 2000);
+    $timeout(function(){
+      checkIntro();
+    }, 3000);
+
     function introSwipeLeft(){
       if($scope.introCounter < 3 && $scope.introCounter >=0){
         $scope.introCounter++;

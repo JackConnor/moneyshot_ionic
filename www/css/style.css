@@ -5,6 +5,10 @@ body {
   font-weight: 300;
 }
 
+html {
+  opacity: 0;
+}
+
 
 /*body, ion-tabs, .pane, .tab-nav, .tabs, html, ion-pane, ion-content, ion-view, ion-nav-view, .scroll, .platform-ios, .view, .platform-ios, .cameraModal {
   background-color: transparent;
