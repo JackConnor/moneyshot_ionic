@@ -41,8 +41,8 @@
       </div>
     </div>
     <div class="cameraModal" ng-show='cameraModal==true'>
-      <div class="cameraBack">
-        <i class="fa fa-arrow-left"></i><span>Account</span>
+      <div class="cameraBack" ng-click='leaveCamera()'>
+        <i class="fa fa-chevron-left" ng-click='leaveCamera()'></i><span ng-click='leaveCamera()'>&nbspAccount</span>
       </div>
       <div class="cameraViewToggle">
         <i class='fa fa-repeat toggleCameraIcon' ng-click='toggleView($event)'></i>

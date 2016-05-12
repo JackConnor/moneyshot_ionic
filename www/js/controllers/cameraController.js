@@ -44,7 +44,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         var dragEnabled = false; //enable preview box drag across the screen
         var toBack = false; //send preview box to the back of the webview
         // console.log(cordova.plugins.camerapreview);
-        var rect = {x: 0, y: 50, width: 375, height: 400};
+        var rect = {x: 0, y: 40, width: 375, height: 435};
         cordova.plugins.camerapreview.startCamera(rect, 'back', tapEnabled, dragEnabled, toBack);
         $timeout(function(){
           $timeout(function(){
@@ -85,6 +85,9 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                     ,link: file.localURL
                     ,date: new Date()
                   });
+                  // $scope.submitModalVar = true;
+                  // $scope.submitModalVar = false;
+                  // $scope.submitModalVar = true;
               });
           });
         });
@@ -294,11 +297,11 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     function closeLoadingModal(){
       $(".submitPhotoBacking").animate({
         opacity: 0
-      }, 200);
-      setTimeout(function(){
+      }, 250);
+      $timeout(function(){
         $scope.submitPhotoModal = false;
         $scope.submitBar        = true;
-      }, 200);
+      }, 251);
     }
     $scope.closeLoadingModal = closeLoadingModal;
 
@@ -577,7 +580,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       $scope.mediaCache = $scope.mediaCache;
       if($scope.activePhoto === false){
         var thisEl = $('.submitSetDiv')[0];
-        animateClick(thisEl, '#8CDD81', 'transparent');
+        animateClick(thisEl, '#4DAF7C', 'transparent');
         console.log($scope.mediaCache);
         cordova.plugins.camerapreview.hide();
         $scope.submitModalVar = true;
