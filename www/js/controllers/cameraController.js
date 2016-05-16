@@ -36,7 +36,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     /////functions to upload photos////
     //function to launch camera and take photos
     function uploadPhotos() {
-        setTimeout(function(){
+        $timeout(function(){
           $scope.activePhoto = false;
         }, 1000);
         $scope.cameraLaunched = true;
@@ -170,28 +170,28 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     }
     $scope.flipCamera = flipCamera;
 
-    function takePicture(){
-      var options = {
-          quality : 95,
-          destinationType : Camera.DestinationType.FILE_URI,
-          sourceType : Camera.PictureSourceType.Camera ,
-          allowEdit : true,
-          encodingType: Camera.EncodingType.PNG,
-          correctOrientation: true,
-          popoverOptions: CameraPopoverOptions,
-          saveToPhotoAlbum: false,
-      };
-      $cordovaCamera.getPicture(options)
-      .then(function(result){
-        console.log(result);
-        $scope.mediaCache.push({
-          type: "photo"
-          ,link: result
-          ,date: new Date()
-        })
-      })
-    }
-    $scope.takePicture = takePicture;
+    // function takePicture(){
+    //   var options = {
+    //       quality : 95,
+    //       destinationType : Camera.DestinationType.FILE_URI,
+    //       sourceType : Camera.PictureSourceType.Camera ,
+    //       allowEdit : true,
+    //       encodingType: Camera.EncodingType.PNG,
+    //       correctOrientation: true,
+    //       popoverOptions: CameraPopoverOptions,
+    //       saveToPhotoAlbum: false,
+    //   };
+    //   $cordovaCamera.getPicture(options)
+    //   .then(function(result){
+    //     console.log(result);
+    //     $scope.mediaCache.push({
+    //       type: "photo"
+    //       ,link: result
+    //       ,date: new Date()
+    //     })
+    //   })
+    // }
+    // $scope.takePicture = takePicture;
     // takePicture();
     function getPic(){
       console.log($cordovaCapture);
@@ -327,19 +327,19 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       var zeroProgress = 0;
       var progressPercentage = 100/setLength;
       //////through our if-statement below, we'll need to add different options so that photos and videos get processed correctly
-      var photoOptions = {
-          quality : 95,
-          destinationType : Camera.DestinationType.FILE_URI,
-          sourceType : Camera.PictureSourceType.Camera ,
-          allowEdit : true,
-          encodingType: Camera.EncodingType.JPEG,
-          popoverOptions: CameraPopoverOptions,
-          saveToPhotoAlbum: false,
-          params: {naturalWidth: 0, naturalHeight: 0}
-      };
-      var videoOptions = {
-
-      }
+      // var photoOptions = {
+      //     quality : 95,
+      //     destinationType : Camera.DestinationType.FILE_URI,
+      //     sourceType : Camera.PictureSourceType.Camera ,
+      //     allowEdit : true,
+      //     encodingType: Camera.EncodingType.JPEG,
+      //     popoverOptions: CameraPopoverOptions,
+      //     saveToPhotoAlbum: false,
+      //     params: {naturalWidth: 0, naturalHeight: 0}
+      // };
+      // var videoOptions = {
+      //
+      // }
       var submissionData = {photos: [], videos: [], userId: ''};
       //////first we need to find the users ID, so we can use it to make the post requests
       $http({
@@ -351,6 +351,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         submissionData.userId = userFullId;
 
         ////now iterate through to submit to backend
+        //////set === mediacache
         for (var i = 0; i <= set.length; i++) {
           if(set[i].type === "video"){
             $cordovaFileTransfer.upload('https://moneyshotapi.herokuapp.com/api/upload/video', set[i].link, {})
@@ -361,9 +362,6 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                 progressElement.animate({
                   width: zeroProgress+"%"
                 }, 200);
-              }
-              else {
-
               }
               var splitUrl = callbackImage.response.split('');
               var sliced = splitUrl.slice(1, callbackImage.response.split('').length - 1);
@@ -385,7 +383,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                     ,data: submissionData
                   })
                   .then(function(newSubmission){
-                    setTimeout(function(){
+                    $timeout(function(){
                       $scope.submitModalVar = false;
                       $scope.cameraModal = false;
                       window.location.hash = "#/tab/account"
@@ -406,24 +404,24 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                 saveToPhotoAlbum: false,
                 params: {naturalWidth: 0, naturalHeight: 0}
             };
-            function addCrop(){
-              if(set[i].cropData){
-                photoOptions.params.cloudCropImageWidth = set[i].cropData.cloudCropImageWidth;
-                photoOptions.params.cloudCropImageHeight = set[i].cropData.cloudCropImageHeight;
-                photoOptions.params.cloudCropImageX = set[i].cropData.cloudCropImageX;
-                photoOptions.params.cloudCropImageY = set[i].cropData.cloudCropImageY;
-                photoOptions.params.naturalWidth = set[i].cropData.imageNaturalWidth;
-                photoOptions.params.naturalHeight = set[i].cropData.imageNaturalHeight;
-              }
-              else {
-                var el = $('body').append(
-                  "<img src='"+set[i].link+"' class='tempImage'></img>"
-                )
-                photoOptions.params.naturalWidth = $('.tempImage').naturalWidth;
-                photoOptions.params.naturalHeight = $('.tempImage').naturalHeight;
-              }
-            }
-            addCrop();
+            // function addCrop(){
+            //   if(set[i].cropData){
+            //     photoOptions.params.cloudCropImageWidth = set[i].cropData.cloudCropImageWidth;
+            //     photoOptions.params.cloudCropImageHeight = set[i].cropData.cloudCropImageHeight;
+            //     photoOptions.params.cloudCropImageX = set[i].cropData.cloudCropImageX;
+            //     photoOptions.params.cloudCropImageY = set[i].cropData.cloudCropImageY;
+            //     photoOptions.params.naturalWidth = set[i].cropData.imageNaturalWidth;
+            //     photoOptions.params.naturalHeight = set[i].cropData.imageNaturalHeight;
+            //   }
+            //   else {
+            //     var el = $('body').append(
+            //       "<img src='"+set[i].link+"' class='tempImage'></img>"
+            //     )
+            //     photoOptions.params.naturalWidth = $('.tempImage').naturalWidth;
+            //     photoOptions.params.naturalHeight = $('.tempImage').naturalHeight;
+            //   }
+            // }
+            // addCrop();
             $cordovaFileTransfer.upload('https://moneyshotapi.herokuapp.com/api/newimage', set[i].link, photoOptions)
             .then(function(callbackImage){
               var progressElement = $('.submitProgressBar');
@@ -432,9 +430,6 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                 progressElement.animate({
                   width: zeroProgress+"%"
                 }, 200);
-              }
-              else {
-                return;
               }
               var parsedPhoto = JSON.parse(callbackImage.response);
               $http({
@@ -469,105 +464,105 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       });
     }
 
-    function cropPhoto(photoData, evt, index){
-      // console.log(photoData);
-      $('.submitCropContainer').animate({
-        marginLeft: 0
-      }, 400);
-      // console.log($('.cropHolder'));
-      // $scope.cropPhotoImage = photoData.link;
-      var photoOptions = {
-          quality : 95,
-          destinationType : Camera.DestinationType.FILE_URI,
-          sourceType : Camera.PictureSourceType.Camera ,
-          allowEdit : true,
-          encodingType: Camera.EncodingType.png,
-          popoverOptions: CameraPopoverOptions,
-          saveToPhotoAlbum: false,
-          checkOrientation: true,
-          params: {naturalWidth: 0, naturalHeight: 0}
-      };
-      $cordovaFileTransfer.upload('https://moneyshotapi.herokuapp.com/crop/photo', photoData.link, {}, true)
-      .then(function(result){
-        // console.log(result);
-        var parsedPhoto = JSON.parse(result.response);
-        $('.cropHolder').append(
-          "<img id='image' src='"+parsedPhoto.secure_url+"'></img>"
-        )
-        $('#image').cropper({
-            aspectRatio: 1 / 1,
-            background: false,
-            modal: true,
-            autoCrop: true,
-            checkOrientation: false,
-            viewMode: 1,
-            crop: function(e) {
-              // Output the result data for cropping image.
-            }
-            ,cropmove: function(e){
-              $scope.cropData = e;
-              // console.log(e);
-              // console.log(JSON.parse(e));
-              console.log('cropData');
-              var cropData = $("#image").cropper('getData');
-              console.log(cropData);
-              console.log('imge data');
-              var imageData = $("#image").cropper('getImageData');
-              console.log(imageData);
+    // function cropPhoto(photoData, evt, index){
+    //   // console.log(photoData);
+    //   $('.submitCropContainer').animate({
+    //     marginLeft: 0
+    //   }, 400);
+    //   // console.log($('.cropHolder'));
+    //   // $scope.cropPhotoImage = photoData.link;
+    //   var photoOptions = {
+    //       quality : 95,
+    //       destinationType : Camera.DestinationType.FILE_URI,
+    //       sourceType : Camera.PictureSourceType.Camera ,
+    //       allowEdit : true,
+    //       encodingType: Camera.EncodingType.png,
+    //       popoverOptions: CameraPopoverOptions,
+    //       saveToPhotoAlbum: false,
+    //       checkOrientation: true,
+    //       params: {naturalWidth: 0, naturalHeight: 0}
+    //   };
+    //   $cordovaFileTransfer.upload('https://moneyshotapi.herokuapp.com/crop/photo', photoData.link, {}, true)
+    //   .then(function(result){
+    //     // console.log(result);
+    //     var parsedPhoto = JSON.parse(result.response);
+    //     $('.cropHolder').append(
+    //       "<img id='image' src='"+parsedPhoto.secure_url+"'></img>"
+    //     )
+    //     $('#image').cropper({
+    //         aspectRatio: 1 / 1,
+    //         background: false,
+    //         modal: true,
+    //         autoCrop: true,
+    //         checkOrientation: false,
+    //         viewMode: 1,
+    //         crop: function(e) {
+    //           // Output the result data for cropping image.
+    //         }
+    //         ,cropmove: function(e){
+    //           $scope.cropData = e;
+    //           // console.log(e);
+    //           // console.log(JSON.parse(e));
+    //           console.log('cropData');
+    //           var cropData = $("#image").cropper('getData');
+    //           console.log(cropData);
+    //           console.log('imge data');
+    //           var imageData = $("#image").cropper('getImageData');
+    //           console.log(imageData);
+    //
+    //           var imageNumbers = {
+    //             cropWidth: cropData.width
+    //             ,cropHeight: cropData.height
+    //             ,cropOffsetX: cropData.x
+    //             ,cropOffsetY: cropData.y
+    //             ,imageWidth: imageData.width
+    //             ,imageHeight: imageData.height
+    //             ,imageNaturalWidth: imageData.naturalWidth
+    //             ,imageNaturalHeight: imageData.naturalHeight
+    //             ,naturalConversionMultiple: imageData.naturalWidth/imageData.width
+    //             ,cloudCropImageWidth: cropData.width*(imageData.naturalWidth/imageData.width)
+    //             ,cloudCropImageHeight:cropData.height*(imageData.naturalWidth/imageData.width)
+    //             ,cloudCropImageX: cropData.x*(imageData.naturalWidth/imageData.width)
+    //             ,cloudCropImageY:cropData.y*(imageData.naturalWidth/imageData.width)
+    //             ,DOMImageWidth: $('.submitPhoto').width()
+    //             ,conversionMultiple: $('.submitPhoto').width()/cropData.width
+    //             ,newImageWidth: imageData.naturalWidth*$('.submitPhoto').width()/cropData.width
+    //             ,newImageHeight: imageData.naturalHeight*$('.submitPhoto').width()/cropData.width
+    //             ,newImageX: (cropData.x*$('.submitPhoto').width())/(cropData.width)
+    //             ,newImageY:  (cropData.y*$('.submitPhoto').width())/(cropData.width)
+    //             ,index: index
+    //           }
+    //           $scope.imageNumbers = imageNumbers;
+    //           console.log(imageNumbers);
+    //           console.log('element height');
+    //           console.log($('.submitPhoto0').height());
+    //         }
+    //         ,built: function(){
+    //
+    //         }
+    //       });
+    //   });
+    // }
+    // $scope.cropPhoto = cropPhoto;
 
-              var imageNumbers = {
-                cropWidth: cropData.width
-                ,cropHeight: cropData.height
-                ,cropOffsetX: cropData.x
-                ,cropOffsetY: cropData.y
-                ,imageWidth: imageData.width
-                ,imageHeight: imageData.height
-                ,imageNaturalWidth: imageData.naturalWidth
-                ,imageNaturalHeight: imageData.naturalHeight
-                ,naturalConversionMultiple: imageData.naturalWidth/imageData.width
-                ,cloudCropImageWidth: cropData.width*(imageData.naturalWidth/imageData.width)
-                ,cloudCropImageHeight:cropData.height*(imageData.naturalWidth/imageData.width)
-                ,cloudCropImageX: cropData.x*(imageData.naturalWidth/imageData.width)
-                ,cloudCropImageY:cropData.y*(imageData.naturalWidth/imageData.width)
-                ,DOMImageWidth: $('.submitPhoto').width()
-                ,conversionMultiple: $('.submitPhoto').width()/cropData.width
-                ,newImageWidth: imageData.naturalWidth*$('.submitPhoto').width()/cropData.width
-                ,newImageHeight: imageData.naturalHeight*$('.submitPhoto').width()/cropData.width
-                ,newImageX: (cropData.x*$('.submitPhoto').width())/(cropData.width)
-                ,newImageY:  (cropData.y*$('.submitPhoto').width())/(cropData.width)
-                ,index: index
-              }
-              $scope.imageNumbers = imageNumbers;
-              console.log(imageNumbers);
-              console.log('element height');
-              console.log($('.submitPhoto0').height());
-            }
-            ,built: function(){
-
-            }
-          });
-      });
-    }
-    $scope.cropPhoto = cropPhoto;
-
-    function cropAway(){
-      $('.submitPhoto'+$scope.imageNumbers.index).css({
-        width: $scope.imageNumbers.newImageWidth
-        ,height: $scope.imageNumbers.newImageHeight
-        ,marginLeft: -($scope.imageNumbers.newImageX)
-        ,marginTop: -($scope.imageNumbers.newImageY)
-      })
-      $('.submitCropContainer').animate({
-        marginLeft: 100+"%"
-      }, 700);
-      setTimeout(function(){
-        $('#image').remove();
-        $('.cropper-container').remove();
-      }, 700);
-      $scope.mediaCache[$scope.imageNumbers.index]["cropData"] = $scope.imageNumbers;
-      console.log($scope.imageNumbers);
-    }
-    $scope.cropAway = cropAway;
+    // function cropAway(){
+    //   $('.submitPhoto'+$scope.imageNumbers.index).css({
+    //     width: $scope.imageNumbers.newImageWidth
+    //     ,height: $scope.imageNumbers.newImageHeight
+    //     ,marginLeft: -($scope.imageNumbers.newImageX)
+    //     ,marginTop: -($scope.imageNumbers.newImageY)
+    //   })
+    //   $('.submitCropContainer').animate({
+    //     marginLeft: 100+"%"
+    //   }, 700);
+    //   setTimeout(function(){
+    //     $('#image').remove();
+    //     $('.cropper-container').remove();
+    //   }, 700);
+    //   $scope.mediaCache[$scope.imageNumbers.index]["cropData"] = $scope.imageNumbers;
+    //   console.log($scope.imageNumbers);
+    // }
+    // $scope.cropAway = cropAway;
 
     function backToSubmit(){
       $('.submitCropContainer').animate({
