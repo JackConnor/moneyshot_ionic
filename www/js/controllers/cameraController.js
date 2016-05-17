@@ -8,8 +8,8 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     };
   });
 
-  cameraCtrl.$inject = ['$http', '$state', '$scope', 'singlePhoto', 'Upload', '$q', '$cordovaCamera', '$cordovaFile', '$cordovaFileTransfer', 'signup', 'signin', 'newToken', '$cordovaCapture', 'Upload', '$cordovaStatusbar', '$timeout'];
-  function cameraCtrl($http, $state, $scope, singlePhoto, Upload, $q, $cordovaCamera, $cordovaFile, $cordovaFileTransfer, signup, signin, newToken, $cordovaCapture, Upload, $cordovaStatusbar, $timeout){
+  cameraCtrl.$inject = ['$http', '$state', '$scope', 'singlePhoto', 'Upload', '$q', '$cordovaCamera', '$cordovaFile', '$cordovaFileTransfer', 'signup', 'signin', 'newToken', '$cordovaCapture', 'Upload', '$cordovaStatusbar', '$timeout', '$ionicGesture'];
+  function cameraCtrl($http, $state, $scope, singlePhoto, Upload, $q, $cordovaCamera, $cordovaFile, $cordovaFileTransfer, signup, signin, newToken, $cordovaCapture, Upload, $cordovaStatusbar, $timeout, $ionicGesture){
     function removeTabsAndBar(){
       $('ion-tabs').addClass('tabs-item-hide');
       ionic.Platform.showStatusBar(false);
@@ -91,6 +91,16 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
               });
           });
         });
+
+        /////burst mode pictures
+        // function burstPics(){
+        //   console.log('yooyoy')
+        // }
+
+        $('.takePhotoButton').mousedown(function(){
+          // takeCordovaPicture();
+          console.log('yo');
+        })
 
         function takeCordovaPicture(){
           if($scope.activePhoto === false){
@@ -291,11 +301,10 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
     function submitPhotoName(){
       var nameInfo = $(".photoNameInput").val();
-      var locationInfo = $(".locationInput").val();
       var agreeChecked = $('.submitAgree')[0].checked
       console.log(agreeChecked);
       console.log(nameInfo);
-      if(nameInfo.length > 1 && locationInfo.length > 1 && agreeChecked){
+      if(nameInfo.length > 1 && agreeChecked){
         $scope.submitBar = true;
         submitNameAndPhotos();
       }
@@ -353,7 +362,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       // var videoOptions = {
       //
       // }
-      var submissionData = {photos: [], videos: [], userId: '', metaData: {dateTaken: $('.dateInput').val(), timeTaken: $('.dateInputTime').val(), location: $('.locationInput').val()}};
+      var submissionData = {photos: [], videos: [], userId: '', metaData: {}};
       //////first we need to find the users ID, so we can use it to make the post requests
       $http({
         method: "GET"
@@ -362,16 +371,22 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       .then(function(decodedToken){
         var userFullId = decodedToken.data.userId;
         navigator.geolocation.getCurrentPosition(function(position){
-          submissionData.location = position;
+          submissionData.metaData.latitude = position.coords.latitude;
+          submissionData.metaData.longitude = position.coords.longitude;
+          console.log(submissionData);
         });
         submissionData.userId = userFullId;
 
         ////now iterate through to submit to backend
         //////set === mediacache
-        for (var i = 0; i <= set.length; i++) {
+        console.log(set);
+        for (var i = 0; i < set.length; i++) {
+          console.log(set[i]);
           if(set[i].type === "video"){
-            $cordovaFileTransfer.upload('https://moneyshotapi.herokuapp.com/api/upload/video', set[i].link, {})
+            console.log(set[i]);
+            $cordovaFileTransfer.upload('http://192.168.0.11:5555/api/upload/video', set[i].link, {})
             .then(function(callbackImage){
+              console.log(callbackImage);
               var progressElement = $('.submitProgressBar');
               if(zeroProgress <= 100){
                 zeroProgress += progressPercentage;
@@ -380,21 +395,25 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                 }, 200);
               }
               var splitUrl = callbackImage.response.split('');
-              var sliced = splitUrl.slice(1, callbackImage.response.split('').length - 1);
-              console.log(set[i].info);
-              set[i].info.remove(function(sucessInfo){
-                //////if successful, we just removed this file
-                console.log("success marker", successInfo);
-              }, function(err){
-                console.log('ERR is', err);
-              })
+              var sliced = splitUrl.slice(1, callbackImage.response.split('').length - 1).join('');
+              // console.log(set[i].info);
+              console.log(sliced);
+              // var thumb = sliced.split('').splice(0, sliced.length-4+'.jpg');
+              // console.log(thumb);
+              // set[i].info.remove(function(sucessInfo){
+              //   //////if successful, we just removed this file
+              //   console.log("success marker", successInfo);
+              // }, function(err){
+              //   console.log('ERR is', err);
+              // })
               ////////this is where we're having data problems, you need to figure out why our string result doesnt work to call the video
               $http({
                 method: "POST"
-                ,url: "http://192.168.0.20/api/createphotos"
-                ,data: {url: sliced.join(''), userId: userFullId, isVid: true}
+                ,url: "http://192.168.0.11:5555/api/createphotos"
+                ,data: {url: sliced, userId: userFullId, isVid: true}
               })
               .then(function(newVid){
+                console.log(newVid);
                 submissionData.videos.push(newVid.data._id);
                 var vids = submissionData.videos.length;
                 var phots = submissionData.photos.length;
@@ -403,10 +422,11 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                   console.log(submissionData);
                   $http({
                     method: "POST"
-                    ,url: "https://moneyshotapi.herokuapp.com/api/new/submission"
+                    ,url: "http://192.168.0.11:5555/api/new/submission"
                     ,data: submissionData
                   })
                   .then(function(newSubmission){
+                    console.log(newSubmission);
                     $timeout(function(){
                       $scope.submitModalVar = false;
                       $scope.cameraModal = false;
@@ -419,6 +439,8 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
           }
           else if(set[i].type === "photo"){
             console.log(set[i]);
+            console.log(submissionData);
+
 
             function photoIife(currentP){
               var currentPhoto = currentP;
@@ -482,12 +504,14 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                 console.log("fullpath", currentPhoto.info.fullPath);
                 window.resolveLocalFileSystemURL("cdvfile://localhost/assets-library://"+currentPhoto.info.fullPath, onSuccess, onError);
                 var parsedPhoto = JSON.parse(callbackImage.response);
+                console.log(submissionData);
                 $http({
                   method: "POST"
-                  ,url: "https://moneyshotapi.herokuapp.com/api/createphotos"
+                  ,url: "http://192.168.0.20:5555/api/createphotos"
                   ,data: {url: parsedPhoto.secure_url, thumbnail: parsedPhoto.thumbnail, userId: userFullId, isVid: false}
                 })
                 .then(function(newPhoto){
+                  console.log(submissionData);
                   submissionData.photos.push(newPhoto.data._id);
                   var vids = submissionData.videos.length;
                   var phots = submissionData.photos.length;
@@ -496,11 +520,12 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                     console.log(submissionData);
                     $http({
                       method: "POST"
-                      ,url: "http://192.168.0.11:5555/api/new/submission"
+                      ,url: "http://192.168.0.20:5555/api/new/submission"
                       ,data: submissionData
                     })
                     .then(function(newSubmission){
                       // console.log(newSubmission);
+                      console.log(submissionData);
                       setTimeout(function(){
                         $scope.submitModalVar = false;
                         $scope.cameraModal = false;
