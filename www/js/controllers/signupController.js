@@ -311,7 +311,7 @@ angular.module('signupController', [])
       var email = $('.signupEmail').val().toLowerCase();
       $http({
         method: "POST"
-        ,url: "https://moneyshotapi.herokuapp.com/api/newpw/request"
+        ,url: "http://192.168.0.12:5555/api/newpw/request"
         ,data: {userEmail: email}
       })
       .then(function(pwCall){
