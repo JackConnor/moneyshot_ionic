@@ -361,6 +361,9 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       })
       .then(function(decodedToken){
         var userFullId = decodedToken.data.userId;
+        navigator.geolocation.getCurrentPosition(function(position){
+          submissionData.location = position;
+        });
         submissionData.userId = userFullId;
 
         ////now iterate through to submit to backend
@@ -388,7 +391,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
               ////////this is where we're having data problems, you need to figure out why our string result doesnt work to call the video
               $http({
                 method: "POST"
-                ,url: "https://moneyshotapi.herokuapp.com/api/createphotos"
+                ,url: "http://192.168.0.20/api/createphotos"
                 ,data: {url: sliced.join(''), userId: userFullId, isVid: true}
               })
               .then(function(newVid){
