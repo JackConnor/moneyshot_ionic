@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'ngCordova', 'ngRoute', 'facebook', 'ngFileUpload', 'starter.services', 'accountController', 'cameraController', 'uploadController', 'signupController', 'allPhotosFactory', 'singlePhotoFactory', 'navbarHolderFactory', 'signupFactory', 'signinFactory', 'newTokenFactory', 'userPhotosFactory', 'decodeTokenFactory', 'ngTouch', 'bankController'])
+angular.module('starter', ['ionic', 'ngCordova', 'ngRoute', 'facebook', 'ngFileUpload', 'starter.services', 'accountController', 'cameraController', 'uploadController', 'signupController', 'allPhotosFactory', 'singlePhotoFactory', 'navbarHolderFactory', 'signupFactory', 'signinFactory', 'newTokenFactory', 'userPhotosFactory', 'decodeTokenFactory', 'ngTouch', 'bankController', 'testing'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -21,6 +21,7 @@ angular.module('starter', ['ionic', 'ngCordova', 'ngRoute', 'facebook', 'ngFileU
       StatusBar.styleDefault();
     }
   });
+
 })
 
 .config(function($stateProvider, $urlRouterProvider, $sceDelegateProvider) {
@@ -100,9 +101,16 @@ angular.module('starter', ['ionic', 'ngCordova', 'ngRoute', 'facebook', 'ngFileU
         ,templateUrl: "templates/banking.html"
         ,controller: "bankCtrl"
       })
+      .state('test', {
+        url: '/gtest',
+        cache: false,
+        templateUrl: 'templates/gtest.html',
+        controller: 'testCtrl',
+        controllerAs: 'vm'
+      })
 
 
     // if none of the above states are matched, use this as the fallback
-    $urlRouterProvider.otherwise('/signin');
+    $urlRouterProvider.otherwise('/gtest');
 
   });

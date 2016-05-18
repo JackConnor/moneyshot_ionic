@@ -11,6 +11,7 @@ angular.module('signupController', [])
   signupCtrl.$inject = ['$scope', '$http', '$state', 'signup', 'signin', 'newToken', '$cordovaStatusbar', '$window', 'Facebook', '$timeout', '$interval', '$animateCss']
 
   function signupCtrl($scope, $http, $state, signup, signin, newToken, $cordovaStatusbar, $window, Facebook, $timeout, $interval, $animateCss){
+    console.log('Sign Loaded')
     ionic.Platform.fullScreen();////hides status bar
     ///////////////global variables//////
     $scope.signupModalVar   = false;
