@@ -88,7 +88,7 @@
         </div>
         <div class="singleImageHolder" >
           <img class='singleImage' ng-src="{{singlePhotoData.url}}" ng-if="!singlePhotoData.isVideo" />
-          <video ng-src="{{singlePhotoData.url | trustUrl}}" class="singleImage col-xs-12" controls ng-if="singlePhotoData.isVideo"></video>
+          <video ng-src="{{singlePhotoData.url | trustUrl}}" class="singleImage col-xs-12" controls ng-if="singlePhotoData.isVideo" poster='{{singlePhotoData.thumbnail}}'></video>
           <div class="singleInfoHolder col-xs-12">
             <div class="singleWho">
               Who: <span class="text-dark">{{singlePhotoData.photosubjects[0]}}, {{singlePhotoData.photosubjects[1]}}, {{singlePhotoData.photosubjects[2]}}</span>
@@ -109,7 +109,7 @@
         </div>
         <div class="submissionRepeatContainer">
           <div class="subRepeat gallery-item" ng-repeat="photo in singleSubmission.photos" ng-if='photo.status=="rejected" || photo.status=="offered for sale" || photo.status=="sold"'>
-            <video ng-src="{{photo.url | trustUrl}}" controls ng-if="photo.isVideo" ng-click='openSingle(photo, "sold")'></video>
+            <video ng-src="{{photo.url | trustUrl}}" controls ng-if="photo.isVideo" ng-click='openSingle(photo, "sold")' poster='{{photo.thumbnail}}'></video>
             <img ng-src="{{photo.url | trustUrl}}" ng-if="!photo.isVideo" ng-click='openSingle(photo, "sold")'/>
           </div>
         </div>
@@ -126,7 +126,7 @@
               <div class="sellModalContent col-xs-8 col-xs-offset-2">
                 <div class="sellPhotoHolder col-sm-8 col-sm-offset-2 col-xs-12 col-xs-offset-0">
                   <img ng-src="{{singlePhotoData.url}}" ng-if="!singlePhotoData.isVideo" />
-                  <video ng-src="{{singlePhotoData.url | trustUrl}}" class="col-xs-12" controls ng-if="singlePhotoData.isVideo"></video>
+                  <video ng-src="{{singlePhotoData.url | trustUrl}}" class="col-xs-12" controls ng-if="singlePhotoData.isVideo" poster='{{singlePhotoData.thumbnail}}'></video>
                 </div>
                 <div class="sellPrice col-xs-12">
                   Sell this photo for {{singlePhotoData.price | currency}}?
@@ -168,7 +168,7 @@
                 <img src="{{submission.photos[0].thumbnail}}" alt="" />
               </div>
               <div class="subPhotoCell subPhoto0" ng-if='submission.photos[0] && submission.photos[0].isVideo'>
-                <img src="https://s-media-cache-ak0.pinimg.com/736x/8a/31/71/8a3171fc490597cf02e89d7ad1fc4e35.jpg" alt=""/>
+                <video src="https://s-media-cache-ak0.pinimg.com/736x/8a/31/71/8a3171fc490597cf02e89d7ad1fc4e35.jpg" poster='{{submission.photos[0].thumbnail}}'></video>
               </div>
             </div>
             <div class="submissionInfo" >

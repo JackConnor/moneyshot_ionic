@@ -384,7 +384,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
           console.log(set[i]);
           if(set[i].type === "video"){
             console.log(set[i]);
-            $cordovaFileTransfer.upload('http://192.168.0.11:5555/api/upload/video', set[i].link, {})
+            $cordovaFileTransfer.upload('https://moneyshotapi.herokuapp.com/api/upload/video', set[i].link, {})
             .then(function(callbackImage){
               console.log(callbackImage);
               var progressElement = $('.submitProgressBar');
@@ -409,7 +409,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
               ////////this is where we're having data problems, you need to figure out why our string result doesnt work to call the video
               $http({
                 method: "POST"
-                ,url: "http://192.168.0.11:5555/api/createphotos"
+                ,url: "https://moneyshotapi.herokuapp.com/api/createphotos"
                 ,data: {url: sliced, userId: userFullId, isVid: true}
               })
               .then(function(newVid){
@@ -422,7 +422,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                   console.log(submissionData);
                   $http({
                     method: "POST"
-                    ,url: "http://192.168.0.11:5555/api/new/submission"
+                    ,url: "https://moneyshotapi.herokuapp.com/api/new/submission"
                     ,data: submissionData
                   })
                   .then(function(newSubmission){
@@ -507,7 +507,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                 console.log(submissionData);
                 $http({
                   method: "POST"
-                  ,url: "http://192.168.0.20:5555/api/createphotos"
+                  ,url: "https://moneyshotapi.herokuapp.com/api/createphotos"
                   ,data: {url: parsedPhoto.secure_url, thumbnail: parsedPhoto.thumbnail, userId: userFullId, isVid: false}
                 })
                 .then(function(newPhoto){
@@ -520,7 +520,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                     console.log(submissionData);
                     $http({
                       method: "POST"
-                      ,url: "http://192.168.0.20:5555/api/new/submission"
+                      ,url: "https://moneyshotapi.herokuapp.com/api/new/submission"
                       ,data: submissionData
                     })
                     .then(function(newSubmission){

@@ -18,6 +18,12 @@
   border-radius: 2px;
 }
 
+.subPhotoCell video{
+  width: 100%;
+  height: 100%;
+  border-radius: 2px;
+}
+
 .submitPhotosHolder {
   padding: 0px;
   flex: 0 0 80px;
@@ -177,5 +183,3 @@
 .singleWho .text-dark, .singlePrice .text-dark {
   color: #ffffff;
 }
-
-
