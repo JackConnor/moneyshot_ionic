@@ -82,6 +82,7 @@ ion-content {
   font-weight: 300;
   text-align: left;
   padding-left: 5px;
+  padding-right: 0px;
   padding-top: 5px;
   /*border-right: 2px solid #587272;*/
 }
@@ -400,7 +401,7 @@ ion-content {
   height: 30px;
   text-align: center;
   padding-top: 5px;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 700;
 }
 
@@ -703,7 +704,7 @@ ion-content {
 
 .submitAddInfoContainer {
   height: 50%;
-  border: 2px solid blue;
+  /*border: 2px solid blue;*/
 }
 
 .signupBlack {
@@ -767,9 +768,10 @@ ion-content {
 .submitCellImageHolder {
   overflow: hidden;
   padding: 0px;
-  width: 90%;
-  height: 90%;
-  margin: 5% 0 0 5%;
+  width: 100%;
+  height: 100%;
+  margin: 0% 0 0 0%;
+  border: 1px solid white;
 }
 
 .submitCheck {
@@ -815,7 +817,7 @@ ion-content {
   width: 100%;
   height: 660px;
   position: fixed;
-  background-color: gray;
+  background-color: #939393;
   z-index: 16;
   position: absolute;
 }
@@ -889,7 +891,8 @@ ion-content {
 .submitRepeat{
   padding: 0px;
   height: 45%;
-  border: 2px solid black;
+  border: 1px solid #545454;
+  background-color: #e9e9e9;
   overflow: hidden;
   overflow-y: scroll;
 }
