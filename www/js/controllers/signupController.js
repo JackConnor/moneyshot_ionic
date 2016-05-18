@@ -98,15 +98,15 @@ angular.module('signupController', [])
     document.addEventListener("deviceready", function(){
       checkIntro();
     });
-    $timeout(function(){
-      checkIntro();
-    }, 1000);
-    $timeout(function(){
-      checkIntro();
-    }, 2000);
-    $timeout(function(){
-      checkIntro();
-    }, 3000);
+    // $timeout(function(){
+    //   checkIntro();
+    // }, 1000);
+    // $timeout(function(){
+    //   checkIntro();
+    // }, 2000);
+    // $timeout(function(){
+    //   checkIntro();
+    // }, 3000);
 
     function introSwipeLeft(){
       if($scope.introCounter < 3 && $scope.introCounter >=0){

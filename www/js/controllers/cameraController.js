@@ -67,6 +67,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
             opacity: 1
           }, 700);
         }, 850);
+
         cordova.plugins.camerapreview.setOnPictureTakenHandler(function(result){
           /////////result - picture
           console.log(result);
