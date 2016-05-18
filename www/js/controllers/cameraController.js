@@ -70,19 +70,12 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
         cordova.plugins.camerapreview.setOnPictureTakenHandler(function(result){
           /////////result - picture
-          console.log(result);
-          console.log(result.files);
-          console.log(result.file);
           resolveLocalFileSystemURL(result[0], function(fileEntry) {
-            console.log(fileEntry);
               fileEntry.file(function(file) {
                   var reader = new FileReader();
                   reader.onloadend = function(event) {
-                      console.log(event.target.result.byteLength);
                   };
-                  console.log('Reading file: ' + file.name);
                   reader.readAsArrayBuffer(file);
-                  console.log(file);
                   $scope.mediaCache.push({
                     type: "photo"
                     ,link: file.localURL
@@ -654,13 +647,13 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     }
     $scope.backToSubmit = backToSubmit;
 
-    setInterval(function(){
-      var width = $('.submitCell').width();
-      // console.log(width);
-      $('.submitCell').css({
-        height: width*(5/4)+"px"
-      })
-    }, 500)
+    // setInterval(function(){
+    //   var width = $('.submitCell').width();
+    //   // console.log(width);
+    //   $('.submitCell').css({
+    //     height: width*(5/4)+"px"
+    //   })
+    // }, 500)
 
     function submitModalOpen(){
       console.log(($scope.mediaCache));

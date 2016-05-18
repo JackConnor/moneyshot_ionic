@@ -693,6 +693,11 @@ ion-content {
   color: white;
 }
 
+.submitAddInfoContainer {
+  height: 50%;
+  border: 2px solid blue;
+}
+
 .signupBlack {
   position: absolute;
   z-index: 1;
@@ -723,7 +728,7 @@ ion-content {
 }
 
 .submitCell {
-  height: 200px;
+  height: 100px;
   padding: 0px;
   overflow: hidden;
 }
@@ -874,6 +879,10 @@ ion-content {
 
 .submitRepeat{
   padding: 0px;
+  height: 50%;
+  border: 2px solid black;
+  overflow: hidden;
+  overflow-y: scroll;
 }
 
 .submitSetDiv {
