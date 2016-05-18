@@ -129,9 +129,14 @@
 	margin-bottom: 10px;
 }
 
-.gallery-item img, .gallery-image video{
+.gallery-item img {
 	width: 100%;
 	height: auto;
+}
+
+.subRepeat video{
+  width: 100%;
+  height: auto;
 }
 
 

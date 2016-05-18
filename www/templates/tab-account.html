@@ -168,7 +168,7 @@
                 <img src="{{submission.photos[0].thumbnail}}" alt="" />
               </div>
               <div class="subPhotoCell subPhoto0" ng-if='submission.photos[0] && submission.photos[0].isVideo'>
-                <video src="https://s-media-cache-ak0.pinimg.com/736x/8a/31/71/8a3171fc490597cf02e89d7ad1fc4e35.jpg" poster='{{submission.photos[0].thumbnail}}'></video>
+                <img ng-src={{submission.photos[0].thumbnail}}></img>
               </div>
             </div>
             <div class="submissionInfo" >
