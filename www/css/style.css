@@ -726,6 +726,34 @@ ion-content {
   margin-top: 20px;
 }
 
+.submitBarBlack {
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  opacity: 0.85;
+  position: absolute;
+  z-index: 4999;
+}
+
+.submitBarContainer {
+  width: 100%;
+  height: 750px;
+  position: absolute;
+}
+
+.submitBarHolder {
+  position: absolute;
+  background-color: white;
+  border: 3px solid white;
+  border-radius: 3px;
+  opacity: 0.7;
+  margin-top: 25px;
+  z-index: 5000;
+  padding-bottom: 15px;
+  width: 80%;
+  margin-left: 10%;
+}
+
 .submitButton {
   height: 45px;
   color: white;
@@ -860,15 +888,16 @@ ion-content {
 }
 
 .submitNameButt {
-  width: 90%;
-  margin-left: 5%;
+  width: 70%;
+  margin-left: 15%;
   text-align: center;
-  height: 35px;
+  height: 45px;
   font-size: 15px;
-  color: white;
+  color: black;
+  background-color: #4DAF7C;
   margin-top: 5px;
-  border: 2px solid white;
-  padding-top: 5px;
+  border: 1px solid black;
+  padding-top: 10px;
   border-radius: 3px;
 }
 
@@ -876,7 +905,7 @@ ion-content {
   width: 90%;
   margin-left: 5%;
   margin-top: 35px;
-  color: white;
+  color: black;
   font-size: 24px;
   font-weight: 900;
   text-align: center;
@@ -915,7 +944,7 @@ ion-content {
   margin-left: 10%;
   margin-top: 50px;
   height: 40px;
-  border: 1px solid white;
+  border: 2px solid gray;
   border-radius: 5px;
   overflow: hidden;
 }

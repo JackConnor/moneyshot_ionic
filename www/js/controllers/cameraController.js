@@ -8,8 +8,8 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     };
   });
 
-  cameraCtrl.$inject = ['$http', '$state', '$scope', 'singlePhoto', 'Upload', '$q', '$cordovaCamera', '$cordovaFile', '$cordovaFileTransfer', 'signup', 'signin', 'newToken', '$cordovaCapture', '$cordovaStatusbar', '$timeout', '$ionicGesture'];
-  function cameraCtrl($http, $state, $scope, singlePhoto, Upload, $q, $cordovaCamera, $cordovaFile, $cordovaFileTransfer, signup, signin, newToken, $cordovaCapture, $cordovaStatusbar, $timeout, $ionicGesture){
+  cameraCtrl.$inject = ['$http', '$state', '$scope', 'singlePhoto', 'Upload', '$q', '$cordovaCamera', '$cordovaFile', '$cordovaFileTransfer', 'signup', 'signin', 'newToken', '$cordovaCapture', '$cordovaStatusbar', '$timeout', '$ionicGesture', '$ionicScrollDelegate'];
+  function cameraCtrl($http, $state, $scope, singlePhoto, Upload, $q, $cordovaCamera, $cordovaFile, $cordovaFileTransfer, signup, signin, newToken, $cordovaCapture, $cordovaStatusbar, $timeout, $ionicGesture, $ionicScrollDelegate){
     console.log('Camera Loaded')
     function removeTabsAndBar(){
       $('ion-tabs').addClass('tabs-item-hide');
@@ -297,8 +297,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     function submitPhotoName(){
       var nameInfo = $(".photoNameInput").val();
       var agreeChecked = $('.submitAgree')[0].checked
-      console.log(agreeChecked);
-      console.log(nameInfo);
+      $ionicScrollDelegate.scrollTo(0, 0, true);
       if(nameInfo.length > 1 && agreeChecked){
         $scope.submitBar = true;
         submitNameAndPhotos();
@@ -336,7 +335,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     function submitNameAndPhotos(){
       console.log($('.dateInput').val());
       var submissionData;
-      var set = $scope.set;
+      var set = $scope.mediaCache;
       console.log(set[0]);
       console.log(set[0].info);
       console.log(set);
