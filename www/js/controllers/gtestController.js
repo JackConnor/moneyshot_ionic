@@ -25,13 +25,13 @@
 			})
 			.then(function(data){
 				console.log('Back', data)
-				setTimeout( vm.camera, 1500 )
+				vm.camera()
 			})
 		}
 
 		function checkLocal() {
 			var token = localStorage.webToken
-				token ? checkToken(token) : setTimeout( vm.signin, 1500 )
+				token ? checkToken(token) : vm.signin()
 		}
 
 		checkLocal()

@@ -682,7 +682,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
     function backToPhotos(){
       var thisEl = $(".backToPhotos")[0];
-      animateClick(thisEl, "#6d8383", '#013220');
+      animateClick(thisEl, "#6d8383", 'transparent');
       $scope.submitModalVar = false;
       cordova.plugins.camerapreview.show();
       // setTimeout(function(){

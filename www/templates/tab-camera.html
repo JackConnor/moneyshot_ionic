@@ -69,7 +69,7 @@
       </div>
     </div>
     <div class="submitModal" ng-show='submitModalVar'>
-      <div class="submitCropContainer">
+      <!-- <div class="submitCropContainer">
         <div class="backToSubmit col-xs-6" ng-click='backToSubmit()'>
           Back
         </div>
@@ -79,15 +79,18 @@
         <div class="cropHolder">
 
         </div>
-      </div>
+      </div> -->
       <div class="submitModalContainer">
         <div class="submitModalTabHolder col-xs-12">
-          <div class="backToPhotos col-xs-4" ng-click='backToPhotos()'>
-            Back
+          <div class="backToPhotos col-xs-3" ng-click='backToPhotos()'>
+            <p class="fa fa-chevron-left"></p>&nbspBack
           </div>
-          <div class="submitDelete col-xs-4" ng-click='deletePhotos()'>
+          <div class="finalizeMophos col-xs-6">
+            Finalize MoPhos
+          </div>
+          <!-- <div class="submitDelete col-xs-4" ng-click='deletePhotos()'>
             Delete Selected
-          </div>
+          </div> -->
         </div>
         <ion-scroll class="submitRepeat">
           <div class="submitCell col-xs-3" ng-repeat='media in mediaCache'>
