@@ -45,7 +45,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         var dragEnabled = false; //enable preview box drag across the screen
         var toBack = false; //send preview box to the back of the webview
         // console.log(cordova.plugins.camerapreview);
-        var rect = {x: 0, y: 40, width: 375, height: 435};
+        var rect = {x: 0, y: 40, width: 375, height: 415};
         cordova.plugins.camerapreview.startCamera(rect, 'back', tapEnabled, dragEnabled, toBack);
         // $timeout(function(){
         //   $timeout(function(){
@@ -70,8 +70,9 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         // }, 850);
 
         cordova.plugins.camerapreview.setOnPictureTakenHandler(function(result){
+          console.log('Hndler called!');
           /////////result - picture
-          resolveLocalFileSystemURL(result[0], function(fileEntry) {
+          resolveLocalFileSystemURL(result[1], function(fileEntry) {
               fileEntry.file(function(file) {
                   var reader = new FileReader();
                   reader.onloadend = function(event) {
@@ -83,6 +84,11 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                     ,date: new Date()
                     ,info: fileEntry
                   });
+                  $scope.activePhoto = false;
+                  console.log('photo done boom');
+                  $('.takePhotoButton').css({
+                     backgroundColor: "blue"
+                   });
               });
           });
         });
@@ -92,73 +98,130 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         //   console.log('yooyoy')
         // }
 
-        $('.takePhotoButton').mousedown(function(){
-          // takeCordovaPicture();
-          console.log('yo');
-        })
+        // $('.takePhotoButton').mousedown(function(){
+        //   // takeCordovaPicture();
+        //   console.log('yo');
+        // })
 
-        function takeCordovaPicture(){
-          if($scope.activePhoto === false){
-            $scope.activePhoto = true;
-            setTimeout(function(){
-              $scope.activePhoto = false;
-            }, 600);
-            cordova.plugins.camerapreview.takePicture({maxWidth:2000, maxHeight:2000});
-            console.log(LocalFileSystem);
-            console.log(LocalFileSystem.TEMPORARY);
-            window.requestFileSystem(LocalFileSystem.TEMPORARY, 0, onSuccess, onError);
-            function onSuccess(file){
-              console.log(file);
-            }
-            function onError(err){
-              console.log(err);
-            }
-            $('.takePhotoButton').css({
-              backgroundColor: "red"
-            })
-            setTimeout(function(){
-              $('.takePhotoButton').css({
-                backgroundColor: "blue"
-              });
-            }, 300)
-            $('.cameraModal').css({
-              backgroundColor: "#7f0000"
-            })
-            setTimeout(function(){
-              $('.cameraModal').css({
-                backgroundColor: ""
-              })
-            }, 200);
-          }
-        }
-        $scope.takeCordovaPicture = takeCordovaPicture;
+        // function takeCordovaPicture(){
+        //   if($scope.activePhoto === false){
+        //     console.log('taking photo boom');
+        //     $scope.activePhoto = false;
+        //     // setTimeout(function(){
+        //     //   $scope.activePhoto = false;
+        //     // }, 600);
+        //     cordova.plugins.camerapreview.takePicture({maxWidth:2000, maxHeight:2000});
+        //     // window.requestFileSystem(LocalFileSystem.TEMPORARY, 0, onSuccess, onError);
+        //     // function onSuccess(file){
+        //     //   console.log(file);
+        //     // }
+        //     // function onError(err){
+        //     //   console.log(err);
+        //     // }
+        //     $('.takePhotoButton').css({
+        //       backgroundColor: "red"
+        //     })
+        //     // setTimeout(function(){
+        //     //   $('.takePhotoButton').css({
+        //     //     backgroundColor: "blue"
+        //     //   });
+        //     // }, 300)
+        //     // $('.cameraModal').css({
+        //     //   backgroundColor: "#7f0000"
+        //     // })
+        //     // setTimeout(function(){
+        //     //   $('.cameraModal').css({
+        //     //     backgroundColor: ""
+        //     //   })
+        //     // }, 200);
+        //   }
+        // }
     }
-    document.addEventListener("deviceready", uploadPhotos);
-    $timeout(function(){
-      if(!$scope.cameraLaunched){
-        uploadPhotos();
+    uploadPhotos();
+
+    $(window).unload(function(){
+      cordova.plugins.camerapreview.stopCamera();
+    })
+
+
+    $scope.takeCordovaPicture = function(){
+      if($scope.activePhoto === false){
+        console.log('taking photo boom');
+        $scope.activePhoto = false;
+        // setTimeout(function(){
+        //   $scope.activePhoto = false;
+        // }, 600);
+        cordova.plugins.camerapreview.takePicture({maxWidth:2000, maxHeight:2000});
+        // window.requestFileSystem(LocalFileSystem.TEMPORARY, 0, onSuccess, onError);
+        // function onSuccess(file){
+        //   console.log(file);
+        // }
+        // function onError(err){
+        //   console.log(err);
+        // }
+        $('.takePhotoButton').css({
+          backgroundColor: "red"
+        })
+        // setTimeout(function(){
+        //   $('.takePhotoButton').css({
+        //     backgroundColor: "blue"
+        //   });
+        // }, 300)
+        // $('.cameraModal').css({
+        //   backgroundColor: "#7f0000"
+        // })
+        // setTimeout(function(){
+        //   $('.cameraModal').css({
+        //     backgroundColor: ""
+        //   })
+        // }, 200);
       }
-    }, 500);
-    $timeout(function(){
-      if(!$scope.cameraLaunched){
-        uploadPhotos();
-      }
-    }, 1500);
-    $timeout(function(){
-      if(!$scope.cameraLaunched){
-        uploadPhotos();
-      }
-    }, 2500);
-    $timeout(function(){
-      if(!$scope.cameraLaunched){
-        uploadPhotos();
-      }
-    }, 3500);
-    $timeout(function(){
-      if(!$scope.cameraLaunched){
-        uploadPhotos();
-      }
-    }, 5000);
+    }
+    var photoInt = setInterval(
+      function(){
+        $scope.takeCordovaPicture();
+      }, 250
+    )
+
+    $scope.photoInt = photoInt;
+
+    function clearPhotoInt(){
+      clearInterval(photoInt);
+    }
+    $scope.clearPhotoInt = clearPhotoInt;
+    $('.takePhotoButton').mousedown(function(){
+      photoInt();
+    });
+
+    $('.takePhotoButton').mouseup(function(){
+      clearPhotoInt();
+    });
+    // document.addEventListener("deviceready", uploadPhotos);
+    // $timeout(function(){
+    //   if(!$scope.cameraLaunched){
+    //     uploadPhotos();
+    //   }
+    // }, 500);
+    // $timeout(function(){
+    //   if(!$scope.cameraLaunched){
+    //     uploadPhotos();
+    //   }
+    // }, 1500);
+    // $timeout(function(){
+    //   if(!$scope.cameraLaunched){
+    //     uploadPhotos();
+    //   }
+    // }, 2500);
+    // $timeout(function(){
+    //   if(!$scope.cameraLaunched){
+    //     uploadPhotos();
+    //   }
+    // }, 3500);
+    // $timeout(function(){
+    //   if(!$scope.cameraLaunched){
+    //     uploadPhotos();
+    //   }
+    // }, 5000);
 
     function outPhotoModal(){
       $scope.cameraModal = false;

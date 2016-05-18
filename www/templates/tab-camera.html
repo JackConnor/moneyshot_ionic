@@ -51,7 +51,7 @@
           </div>
         </div>
         <div class="buttonDiv col-xs-4">
-          <div class="takePhotoButton" ng-click='takeCordovaPicture()'></div>
+          <div class="takePhotoButton" ng-click='takeCordovaPicture()' ></div>
         </div>
         <div class="col-xs-4 cameraButtonCell">
           <div class="outCameraModal" ng-click='getPic()'>
@@ -61,6 +61,11 @@
       </div>
     </div>
     <div class="submitModal" ng-show='submitModalVar'>
+      <!-- <div class="submitCropContainer">
+=======
+    <div class="submitModal" ng-if='submitModalPhoto'>
+      <div class="submitCropContainer">
+>>>>>>> d4d4331bac5d837a49cedf2fa05d89c79a20657e
         <div class="backToSubmit col-xs-6" ng-click='backToSubmit()'>
           Back
         </div>

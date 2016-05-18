@@ -148,7 +148,7 @@ ion-content {
   width: 100%;
   display: block;
   position: absolute;
-  height: 90px;
+  height: 110px;
   padding: 0px;
   z-index: 17;
   bottom: 0;
@@ -167,6 +167,10 @@ ion-content {
   z-index: 15;
 }
 
+.cameraToggleContainer {
+  color: white;
+  text-align: center;
+}
 
 .cameraViewToggle{
 	position: absolute;
