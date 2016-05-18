@@ -47,27 +47,27 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         // console.log(cordova.plugins.camerapreview);
         var rect = {x: 0, y: 40, width: 375, height: 435};
         cordova.plugins.camerapreview.startCamera(rect, 'back', tapEnabled, dragEnabled, toBack);
-        $timeout(function(){
-          $timeout(function(){
-            document.getElementsByTagName('html')[0].style.opacity = '1'
-          }, 1000);
-          $timeout(function(){
-            document.getElementsByTagName('html')[0].style.opacity = '1'
-          }, 1300);
-          $timeout(function(){
-            document.getElementsByTagName('html')[0].style.opacity = '1'
-          }, 1600);
-          $timeout(function(){
-            document.getElementsByTagName('html')[0].style.opacity = '1'
-          }, 1900);
-          $timeout(function(){
-            document.getElementsByTagName('html')[0].style.opacity = '1'
-          }, 2500);
+        // $timeout(function(){
+        //   $timeout(function(){
+        //     document.getElementsByTagName('html')[0].style.opacity = '1'
+        //   }, 1000);
+        //   $timeout(function(){
+        //     document.getElementsByTagName('html')[0].style.opacity = '1'
+        //   }, 1300);
+        //   $timeout(function(){
+        //     document.getElementsByTagName('html')[0].style.opacity = '1'
+        //   }, 1600);
+        //   $timeout(function(){
+        //     document.getElementsByTagName('html')[0].style.opacity = '1'
+        //   }, 1900);
+        //   $timeout(function(){
+        //     document.getElementsByTagName('html')[0].style.opacity = '1'
+        //   }, 2500);
           cordova.plugins.camerapreview.show();
-          $('html').animate({
-            opacity: 1
-          }, 700);
-        }, 850);
+        //   $('html').animate({
+        //     opacity: 1
+        //   }, 700);
+        // }, 850);
 
         cordova.plugins.camerapreview.setOnPictureTakenHandler(function(result){
           /////////result - picture
