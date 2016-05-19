@@ -177,25 +177,25 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         // }, 200);
       }
     }
-    var photoInt = setInterval(
-      function(){
-        $scope.takeCordovaPicture();
-      }, 250
-    )
-
-    $scope.photoInt = photoInt;
-
-    function clearPhotoInt(){
-      clearInterval(photoInt);
-    }
-    $scope.clearPhotoInt = clearPhotoInt;
-    $('.takePhotoButton').mousedown(function(){
-      photoInt();
-    });
-
-    $('.takePhotoButton').mouseup(function(){
-      clearPhotoInt();
-    });
+    // var photoInt = setInterval(
+    //   function(){
+    //     $scope.takeCordovaPicture();
+    //   }, 250
+    // )
+    //
+    // $scope.photoInt = photoInt;
+    //
+    // function clearPhotoInt(){
+    //   clearInterval(photoInt);
+    // }
+    // $scope.clearPhotoInt = clearPhotoInt;
+    // $('.takePhotoButton').mousedown(function(){
+    //   photoInt();
+    // });
+    //
+    // $('.takePhotoButton').mouseup(function(){
+    //   clearPhotoInt();
+    // });
     // document.addEventListener("deviceready", uploadPhotos);
     // $timeout(function(){
     //   if(!$scope.cameraLaunched){
