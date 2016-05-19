@@ -17,6 +17,9 @@ function init($ionicPlatform) {
       cordova.plugins.Keyboard.disableScroll(true);
 
     } else {
+      console.log(cnt);
+      // alert('rerunning......... ' + cnt);
+      // alert(window.cordova.plugins.camerapreview)
       cnt++
       if ( cnt >= 3 ) {
         ionic.Platform.exitApp()

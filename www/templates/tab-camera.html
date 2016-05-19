@@ -46,7 +46,7 @@
       <div class="cameraButtonsContainer">
         <div class="cameraBlackLayer"></div>
         <div class="col-xs-4 cameraButtonCell">
-          <div class="submitSetDiv" ng-click='submitModalOpen()'>
+          <div class="submitSetDiv" ng-click='submitModalOpen(mediaCache)'>
             Submit
           </div>
         </div>
@@ -60,7 +60,7 @@
         </div>
       </div>
     </div>
-    <div class="submitModal" ng-if='submitModalPhoto'>
+    <div class="submitModal" ng-if='submitModalVar'>
       <!-- <div class="submitCropContainer">
 =======
     <div class="submitModal" ng-if='submitModalPhoto'>
