@@ -1,4 +1,4 @@
-angular.module('accountController', [])
+angular.module('accountController', ['persistentPhotosFactory'])
 
   .controller('accountCtrl', acctCtrl)
 
@@ -8,9 +8,9 @@ angular.module('accountController', [])
     };
   })
 
-  acctCtrl.$inject = ['$http', '$state', '$scope', 'navbar', 'userPhotos', 'decodeToken', '$cordovaStatusbar', '$ionicScrollDelegate'];
+  acctCtrl.$inject = ['$http', '$state', '$scope', 'navbar', 'userPhotos', 'decodeToken', '$cordovaStatusbar', '$ionicScrollDelegate', 'persistentPhotos'];
 
-  function acctCtrl($http, $state, $scope, navbar, userPhotos, decodeToken, $cordovaStatusbar, $ionicScrollDelegate){
+  function acctCtrl($http, $state, $scope, navbar, userPhotos, decodeToken, $cordovaStatusbar, $ionicScrollDelegate, persistentPhotos){
     ionic.Platform.showStatusBar(true);/////removes the status bar from the app
     document.addEventListener("deviceready", function(){
       onDeviceReady();
@@ -424,6 +424,7 @@ angular.module('accountController', [])
 
     /////signout option
     function hamburgerSignout(){
+      persistentPhotos('empty');
       window.localStorage.webToken = '';
       window.location.hash = "/signin"
     }

@@ -77,7 +77,7 @@ angular.module('bankController', [])
             $scope.bankPassword = false;
             $scope.bankAccountVar = true;
             console.log('linking');
-            window.location.hash = "#/tab/account"
+            // window.location.hash = "#/tab/account"
             cordova.InAppBrowser.open("https://connect.stripe.com/oauth/authorize?response_type=code&client_id="+$scope.stripeStuff+"&scope=read_write&state="+$scope.userInfo._id, "_system");
             console.log('linking');
             // window.location.reload();

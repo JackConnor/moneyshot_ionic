@@ -10,6 +10,11 @@ html {
 }
 
 
+
+@font-face {
+  font-family: 'SF-UI-Text';
+  src: url('fonts/SF-UI-Text-Regular.otf')
+}
 /*body, ion-tabs, .pane, .tab-nav, .tabs, html, ion-pane, ion-content, ion-view, ion-nav-view, .scroll, .platform-ios, .view, .platform-ios, .cameraModal {
   background-color: transparent;
 }*/
@@ -120,9 +125,11 @@ ion-content {
 
 .cameraBack {
   position: absolute;
-  margin-top: 11px;
-  margin-left: 10px;
+	margin-top: 11px;
+	right: 12px;
+	text-align: right;
   color: white;
+  font-size: 23px;
 }
 
 .cameraBackground {
@@ -173,10 +180,10 @@ ion-content {
 }
 
 .cameraViewToggle{
-	position: absolute;
-	margin-top: 11px;
-	right: 12px;
-	text-align: right;
+  position: absolute;
+  margin-top: 11px;
+  margin-left: 10px;
+  color: white;
 }
 
 .carouselHolders {
@@ -578,6 +585,11 @@ ion-content {
   /*margin-bottom: 55px;*/
 }
 
+.opPhoto {
+  font-size: 19px;
+  font-weight: 900;
+}
+
 .optionDelete {
   background-color: red;
   color: white;
@@ -611,6 +623,21 @@ ion-content {
   margin-right: auto;
 }
 
+.photoCount {
+  width: 30px;
+  height: 30px;
+  background-color: red;
+  color: white;
+  font-weight: 700;
+  position: absolute;
+  border-radius: 50%;
+  padding-left: 7px;
+  padding-top: 2px;
+  margin-left: -3px;
+  margin-top: -3px;
+  border: 1px solid gray;
+}
+
 .photoNameInput {
   height: 60px;
   width: 90%;
@@ -622,6 +649,7 @@ ion-content {
   color: white;
   text-align: center;
   height: 20px;
+  font-size: 16px;
 }
 
 .pwX {
@@ -937,14 +965,17 @@ ion-content {
 }
 
 .submitSetDiv {
-  height: 60px;
+  height: 30px;
   width: 60px;
-  border-radius: 50%;
-  border: 2px solid #4DAF7C;
-  color: #4DAF7C;
+  border-radius: 5px;
+  color: white;
+  border: 2px solid white;
+  background-color: red;
+  font-weight: 900;
   font-size: 14px;
-  padding-top: 17px;
+  padding-top: 3px;
   text-align: center;
+  margin-top: 15px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -979,9 +1010,19 @@ ion-content {
   height: 75px;
   border-radius: 50%;
   border: 2px solid gray;
-  background-color: #4d0000;
+  background-color: white;
   margin-left: auto;
   margin-right: auto;
+}
+
+.takeBurstButtonInner {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 3px solid black;
+  background-color: #4d0000;
+  margin-left: 5px;
+  margin-top: 5px;
 }
 
 .takePhotoButton {
@@ -992,6 +1033,15 @@ ion-content {
   background-color: white;
   margin-left: auto;
   margin-right: auto;
+}
+
+.takePhotoButtonInner {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 3px solid black;
+  margin-left: 5px;
+  margin-top: 5px;
 }
 
 .takeVideoButton {
@@ -1022,6 +1072,11 @@ ion-content {
   font-size:23px;
   opacity: 0.75;
 }
+
+.toggleCameraIcon img{
+  /*filter: invert();*/
+}
+
 
 .xOutSignup {
   font-size: 30px;

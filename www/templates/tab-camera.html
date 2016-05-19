@@ -34,10 +34,11 @@
     </div>
     <div class="cameraModal" ng-show='cameraModal==true'>
       <div class="cameraBack" ng-click='leaveCamera()'>
-        <i class="fa fa-chevron-left" ng-click='leaveCamera()'></i><span ng-click='leaveCamera()'>&nbspAccount</span>
+        <i class="fa fa-times" ng-click='leaveCamera()'></i><span ng-click='leaveCamera()'></span>
       </div>
       <div class="cameraViewToggle">
         <i class='fa fa-repeat toggleCameraIcon' ng-click='toggleView($event)'></i>
+        <!-- <i class='fa fa-repeat toggleCameraIcon' ng-click='toggleView($event)'></i> -->
       </div>
       <div class="cameraLensHolder">
         <canvas id="camera"></canvas>
@@ -45,13 +46,13 @@
       </div>
       <div class="cameraButtonsContainer">
         <div class="photoToggleContainer">
-          <div class="col-xs-4" ng-click='switchCamera("burst")'>
+          <div class="col-xs-4 opBurst" ng-click='switchCamera("burst")'>
             Burst
           </div>
-          <div class="col-xs-4" ng-click='switchCamera("photo")'>
+          <div class="col-xs-4 opPhoto" ng-click='switchCamera("photo")'>
             Photo
           </div>
-          <div class="col-xs-4" ng-click='getPic()'>
+          <div class="col-xs-4 opVideo" ng-click='getPic()'>
             Video
           </div>
         </div>
@@ -62,8 +63,19 @@
           </div> -->
         </div>
         <div class="buttonDiv col-xs-4">
-          <div class="takePhotoButton" ng-click='takeCordovaPicture()' ng-if='cameraMode==="photo" || cameraMode==="video"'></div>
-          <div class="takeBurstButton" ng-click='takeCordovaPicture()' ng-if='cameraMode==="burst"' ></div>
+          <div class="photoCount">
+            {{photoListLength}}
+          </div>
+          <div class="takePhotoButton" ng-click='takeCordovaPicture()' ng-if='cameraMode==="photo" || cameraMode==="video"'>
+            <div class="takePhotoButtonInner">
+
+            </div>
+          </div>
+          <div class="takeBurstButton" on-release='clearPhotoInt()' on-touch='photoInt()' ng-if='cameraMode==="burst"' >
+            <div class="takeBurstButtonInner">
+
+            </div>
+          </div>
           <!-- <div class="takeVideoButton"  ng-if='cameraMode==="video"'></div> -->
         </div>
         <div class="col-xs-4 cameraButtonCell">
@@ -73,7 +85,7 @@
         </div>
       </div>
     </div>
-    <div class="submitModal" ng-if='submitModalVar'>
+    <div class="submitModal" ng-show='submitModalVar'>
       <!-- <div class="submitCropContainer">
 =======
     <div class="submitModal" ng-if='submitModalPhoto'>

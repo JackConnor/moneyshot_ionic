@@ -36,7 +36,7 @@ function init($ionicPlatform) {
 }
 
 
-angular.module('starter', ['ionic', 'ngCordova', 'ngRoute', 'facebook', 'ngFileUpload', 'starter.services', 'accountController', 'cameraController', 'uploadController', 'signupController', 'allPhotosFactory', 'singlePhotoFactory', 'navbarHolderFactory', 'signupFactory', 'signinFactory', 'newTokenFactory', 'userPhotosFactory', 'decodeTokenFactory', 'ngTouch', 'bankController', 'testing'])
+angular.module('starter', ['ionic', 'ngCordova', 'ngRoute', 'facebook', 'ngFileUpload', 'starter.services', 'accountController', 'cameraController', 'uploadController', 'signupController', 'allPhotosFactory', 'singlePhotoFactory', 'navbarHolderFactory', 'signupFactory', 'signinFactory', 'newTokenFactory', 'userPhotosFactory', 'decodeTokenFactory', 'ngTouch', 'bankController', 'testing', 'persistentPhotosFactory'])
 
 .run(init)
 
