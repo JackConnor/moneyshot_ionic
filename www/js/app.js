@@ -5,9 +5,10 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'ngCordova', 'ngRoute', 'facebook', 'ngFileUpload', 'starter.services', 'accountController', 'cameraController', 'uploadController', 'signupController', 'allPhotosFactory', 'singlePhotoFactory', 'navbarHolderFactory', 'signupFactory', 'signinFactory', 'newTokenFactory', 'userPhotosFactory', 'decodeTokenFactory', 'ngTouch', 'bankController', 'testing'])
+var cnt = 0;
 
-.run(function($ionicPlatform) {
+
+function init($ionicPlatform) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -15,6 +16,13 @@ angular.module('starter', ['ionic', 'ngCordova', 'ngRoute', 'facebook', 'ngFileU
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
       cordova.plugins.Keyboard.disableScroll(true);
 
+    } else {
+      cnt++
+      if ( cnt >= 3 ) {
+        ionic.Platform.exitApp()
+        throw 'Loading sucking ass'
+      }
+      init($ionicPlatform)
     }
     if (window.StatusBar) {
       // org.apache.cordova.statusbar required
@@ -22,7 +30,14 @@ angular.module('starter', ['ionic', 'ngCordova', 'ngRoute', 'facebook', 'ngFileU
     }
   });
 
-})
+}
+
+
+angular.module('starter', ['ionic', 'ngCordova', 'ngRoute', 'facebook', 'ngFileUpload', 'starter.services', 'accountController', 'cameraController', 'uploadController', 'signupController', 'allPhotosFactory', 'singlePhotoFactory', 'navbarHolderFactory', 'signupFactory', 'signinFactory', 'newTokenFactory', 'userPhotosFactory', 'decodeTokenFactory', 'ngTouch', 'bankController', 'testing'])
+
+.run(init)
+
+
 
 .config(function($stateProvider, $urlRouterProvider, $sceDelegateProvider) {
   $sceDelegateProvider.resourceUrlWhitelist([
