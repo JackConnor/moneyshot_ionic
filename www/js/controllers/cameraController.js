@@ -26,6 +26,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     $scope.cameraToggle         = true;
     $scope.submitPhotoModal     = false;
     $scope.activePhoto          = true;
+    $scope.cameraMode           = 'photo';
     $scope.cropper              = {};
     $scope.cropper.croppedImage = '';
     var eraseSubmitArr          = [];
@@ -199,11 +200,11 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     //   clearInterval(photoInt);
     // }
     // $scope.clearPhotoInt = clearPhotoInt;
-    // $('.takePhotoButton').mousedown(function(){
+    // $('.takeBurstButton').mousedown(function(){
     //   photoInt();
     // });
     //
-    // $('.takePhotoButton').mouseup(function(){
+    // $('.takeBurstButton').mouseup(function(){
     //   clearPhotoInt();
     // });
     // document.addEventListener("deviceready", uploadPhotos);
@@ -799,4 +800,11 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         backgroundColor: color2
       }, 350);
     }
+
+    function switchCamera(mode){
+      console.log('yooooo');
+      console.log(mode);
+      $scope.cameraMode = mode;
+    }
+    $scope.switchCamera = switchCamera;
   }

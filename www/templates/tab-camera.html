@@ -44,18 +44,31 @@
         <canvas id="bigCamera" width="1500" height="1200"></canvas>
       </div>
       <div class="cameraButtonsContainer">
+        <div class="photoToggleContainer">
+          <div class="col-xs-4" ng-click='switchCamera("burst")'>
+            Burst
+          </div>
+          <div class="col-xs-4" ng-click='switchCamera("photo")'>
+            Photo
+          </div>
+          <div class="col-xs-4" ng-click='getPic()'>
+            Video
+          </div>
+        </div>
         <div class="cameraBlackLayer"></div>
+        <div class="col-xs-4 cameraButtonCell">
+          <!-- <div class="submitSetDiv" ng-click='submitModalOpen(mediaCache)'>
+            Submit
+          </div> -->
+        </div>
+        <div class="buttonDiv col-xs-4">
+          <div class="takePhotoButton" ng-click='takeCordovaPicture()' ng-if='cameraMode==="photo" || cameraMode==="video"'></div>
+          <div class="takeBurstButton" ng-click='takeCordovaPicture()' ng-if='cameraMode==="burst"' ></div>
+          <!-- <div class="takeVideoButton"  ng-if='cameraMode==="video"'></div> -->
+        </div>
         <div class="col-xs-4 cameraButtonCell">
           <div class="submitSetDiv" ng-click='submitModalOpen(mediaCache)'>
             Submit
-          </div>
-        </div>
-        <div class="buttonDiv col-xs-4">
-          <div class="takePhotoButton" ng-click='takeCordovaPicture()' ></div>
-        </div>
-        <div class="col-xs-4 cameraButtonCell">
-          <div class="outCameraModal" ng-click='getPic()'>
-            Video
           </div>
         </div>
       </div>

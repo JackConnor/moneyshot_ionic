@@ -19,14 +19,15 @@
 		}
 
 		function checkToken(token) {
-			$http({
-				method: 'GET',
-				url: 'http://192.168.0.12:5555/checkToken'
-			})
-			.then(function(data){
-				console.log('Back', data)
-				vm.camera()
-			})
+			// $http({
+			// 	method: 'GET',
+			// 	url: 'https://moneyshotapi.herokuapp.com/checkToken'
+			// })
+			// .then(function(data){
+			// 	console.log('Back', data)
+			// 	vm.camera()
+			// })
+			vm.camera();
 		}
 
 		function checkLocal() {

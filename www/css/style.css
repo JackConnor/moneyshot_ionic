@@ -618,6 +618,12 @@ ion-content {
   text-align: center;
 }
 
+.photoToggleContainer {
+  color: white;
+  text-align: center;
+  height: 20px;
+}
+
 .pwX {
   position: absolute;
   margin-left: 88%;
@@ -968,7 +974,27 @@ ion-content {
   height: 100%;
 }
 
+.takeBurstButton {
+  width: 75px;
+  height: 75px;
+  border-radius: 50%;
+  border: 2px solid gray;
+  background-color: #4d0000;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .takePhotoButton {
+  width: 75px;
+  height: 75px;
+  border-radius: 50%;
+  border: 2px solid gray;
+  background-color: white;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.takeVideoButton {
   width: 75px;
   height: 75px;
   border-radius: 50%;
