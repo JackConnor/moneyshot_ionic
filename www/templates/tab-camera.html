@@ -36,11 +36,11 @@
       <div class="cameraViewToggle">
         <img class='toggleCameraIcon' src="./img/assets/camReverseLogo@3x.png" ng-click='toggleView($event)'/>
       </div>
-      <div class="cameraLogo col-xs-4 col-xs-offset-4">
-        <img class='' src="./img/assets/mOPHO@3x.png" alt="" />
-      </div>
       <div class="cameraBack" ng-click='leaveCamera()'>
         <img ng-click='leaveCamera()' src="./img/assets/x@3x.png"/></i><span ng-click='leaveCamera()'></span>
+      </div>
+      <div class="cameraLogo">
+        <img class='' src="./img/assets/mOPHO@3x.png" alt="" />
       </div>
       <div class="cameraLensHolder">
         <canvas id="camera"></canvas>
@@ -138,7 +138,7 @@
             </div> -->
             <div class="submitCellImageHolder">
               <img class='submitPhoto submitPhoto{{$index}}' id='submit{{$index}}' src="" ng-if='media.type=="photo"'/>
-              <video id='submit{{$index}}'ng-if='media.type=="video"' poster='https://s-media-cache-ak0.pinimg.com/736x/8a/31/71/8a3171fc490597cf02e89d7ad1fc4e35.jpg'>
+              <video id='submit{{$index}}'ng-if='media.type=="video"' poster='{{media.thumb}}'>
                 <source ng-src="{{media.link}}" type="video/mp4">
                   (Your Browser Doesn't Support Video)
               </video>
