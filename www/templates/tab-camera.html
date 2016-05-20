@@ -33,13 +33,14 @@
       </div>
     </div>
     <div class="cameraModal" ng-show='cameraModal==true'>
+      <div class="cameraViewToggle">
+        <img class='toggleCameraIcon' src="./img/assets/camReverseLogo@3x.png" ng-click='toggleView($event)'/>
+      </div>
+      <div class="cameraLogo col-xs-4 col-xs-offset-4">
+        <img class='' src="./img/assets/mOPHO@3x.png" alt="" />
+      </div>
       <div class="cameraBack" ng-click='leaveCamera()'>
         <img ng-click='leaveCamera()' src="./img/assets/x@3x.png"/></i><span ng-click='leaveCamera()'></span>
-      </div>
-      <div class="cameraViewToggle">
-        <!-- <i class='fa fa-repeat toggleCameraIcon' ng-click='toggleView($event)'></i> -->
-        <img class='toggleCameraIcon' src="./img/assets/camReverseLogo@3x.png" ng-click='toggleView($event)'/>
-        <!-- <i class='fa fa-repeat toggleCameraIcon' ng-click='toggleView($event)'></i> -->
       </div>
       <div class="cameraLensHolder">
         <canvas id="camera"></canvas>

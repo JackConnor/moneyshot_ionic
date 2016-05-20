@@ -174,6 +174,17 @@ ion-content {
   width: 100%;
 }
 
+.cameraLogo{
+}
+
+.cameraLogo img {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 17px;
+  width: 101px;
+  height: 20px;
+}
+
 .cameraModal {
   width: 100%;
   height: 568px;
