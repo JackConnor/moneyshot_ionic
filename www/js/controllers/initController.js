@@ -1,10 +1,10 @@
 (function(ang) {
-	ang.module('testing', [])
-	.controller( 'testCtrl', testCtrl )
+	ang.module('initLoad', [])
+	.controller( 'initCtrl', initCtrl )
 
-	testCtrl.$inject = ['$state', '$http'];
+	initCtrl.$inject = ['$state', '$http'];
 
-	function testCtrl($state, $http) {
+	function initCtrl($state, $http) {
 		var vm = this;
 		vm.poop = 'this works'
 
@@ -20,14 +20,20 @@
 
 		function checkToken(token) {
 			$http({
-				method: 'GET',
-				url: 'https://moneyshotapi.herokuapp.com/checkToken'
+				method: 'POST',
+				url: 'https://moneyshotapi.herokuapp.com/api/bank/addStripe',
+				data: {
+					check : true,
+					token : token
+				}
 			})
-			.then(function(data){
-				alert('Back', data)
-				vm.camera()
+			.then(function(response){
+				if (response.data.token) {
+					vm.camera()
+				} else {
+					vm.signin()
+				}
 			})
-			// vm.camera();
 		}
 
 		function checkLocal() {

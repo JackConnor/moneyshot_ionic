@@ -542,6 +542,18 @@ ion-content {
   height: 200px;
 }
 
+.intro-load {
+  position:absolute;
+  width: 80%;
+  height: auto;
+  margin-left: 10%;
+  margin-top: 50%;
+  /*top:50%;*/
+  /*left:50%;*/
+  /*margin-top: 50%;  this is half the height of your div*/
+  /*margin-left: 50%; this is half of width of your div*/
+}
+
 .ion-content {
   margin: 0px;
   padding: 0px;
