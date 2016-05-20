@@ -303,35 +303,54 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     // }
     // $scope.takePicture = takePicture;
     // takePicture();
+    $scope.cnt = 0;
     function getPic(){
       console.log($cordovaCapture);
       $cordovaCapture.captureVideo({})
       .then(function(result){
         console.log(result);
         var pathFull = result[0].fullPath;///////this is what we need to add to our cache
-        /////next, we push the video plus some extra data to the media cache, where it waits to be submitted
-        $scope.mediaCache.push({
-          type: "video"
-          ,link: pathFull
-          ,date: new Date()
-        })
-      });
-      var thisEl = $('.outCameraModal')[0];
-      animateClick(thisEl, 'white', 'transparent');
-      // $timeout(function(){
-      //   navigator.camera.getvideo();
-      //   $cordovaCapture.captureVideo({})
-      //   .then(function(result){
-      //     console.log(result);
-      //     var pathFull = result[0].fullPath;///////this is what we need to add to our cache
-      //     /////next, we push the video plus some extra data to the media cache, where it waits to be submitted
-      //     $scope.mediaCache.push({
-      //       type: "video"
-      //       ,link: pathFull
-      //       ,date: new Date()
-      //     })
-      //   });
-      // }, 300);
+
+
+        var thumbOpts = {
+          mode: 'file'
+          ,quality: 1
+        }
+
+        console.log(window.PKVideoThumbnail);
+
+        window.PKVideoThumbnail.createThumbnail ( result[0].localURL, 'cdvfile://localhost/temporary/capture-T0x12ee04780.tmp.7h2hZr/' + $scope.cnt++ + 'test.jpg', thumbOpts )
+          .then( function( thumbnail ){
+            console.log('THUMBNAIL', thumbnail);
+            $scope.photoListLength++;
+            /////next, we push the video plus some extra data to the media cache, where it waits to be submitted
+            $scope.mediaCache.push({
+              type: "video"
+              ,link: pathFull
+              ,thumb: thumbnail
+              ,date: new Date()
+            })
+           })//Didnt' formant still testing
+           .catch( function(err){
+             console.log('Thumbnail Error======================', err)
+           })
+          });
+          var thisEl = $('.outCameraModal')[0];
+          animateClick(thisEl, 'white', 'transparent');
+          // $timeout(function(){
+          //   navigator.camera.getvideo();
+          //   $cordovaCapture.captureVideo({})
+          //   .then(function(result){
+          //     console.log(result);
+          //     var pathFull = result[0].fullPath;///////this is what we need to add to our cache
+          //     /////next, we push the video plus some extra data to the media cache, where it waits to be submitted
+          //     $scope.mediaCache.push({
+          //       type: "video"
+          //       ,link: pathFull
+          //       ,date: new Date()
+          //     })
+          //   });
+          // }, 300);
     }
     $scope.getPic = getPic;
 
@@ -521,7 +540,8 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                       $scope.submitModalVar = false;
                       $scope.cameraModal = false;
                       persistentPhotos('empty');
-                      window.location.hash = "#/tab/account"
+                      window.location.hash = "#/tab/account";
+                      $scope.cnt = 0;
                     }, 1000);
                   })
                 }
@@ -622,6 +642,8 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                         $scope.cameraModal = false;
                         persistentPhotos("empty");
                         window.location.hash = "#/tab/account"
+                        $scope.cnt = 0;
+
                       }, 100);
                     })
                   }

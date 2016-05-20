@@ -175,13 +175,16 @@ ion-content {
 }
 
 .cameraLogo{
+  width: 200px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .cameraLogo img {
-  margin-left: auto;
-  margin-right: auto;
+
   margin-top: 17px;
-  width: 101px;
+  margin-left: 50px;
+  width: 100px;
   height: 20px;
 }
 
