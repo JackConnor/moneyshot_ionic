@@ -34,10 +34,11 @@
     </div>
     <div class="cameraModal" ng-show='cameraModal==true'>
       <div class="cameraBack" ng-click='leaveCamera()'>
-        <i class="fa fa-times" ng-click='leaveCamera()'></i><span ng-click='leaveCamera()'></span>
+        <img ng-click='leaveCamera()' src="./img/assets/x@3x.png"/></i><span ng-click='leaveCamera()'></span>
       </div>
       <div class="cameraViewToggle">
-        <i class='fa fa-repeat toggleCameraIcon' ng-click='toggleView($event)'></i>
+        <!-- <i class='fa fa-repeat toggleCameraIcon' ng-click='toggleView($event)'></i> -->
+        <img class='toggleCameraIcon' src="./img/assets/camReverseLogo@3x.png" ng-click='toggleView($event)'/>
         <!-- <i class='fa fa-repeat toggleCameraIcon' ng-click='toggleView($event)'></i> -->
       </div>
       <div class="cameraLensHolder">

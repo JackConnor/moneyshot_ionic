@@ -118,6 +118,7 @@ ion-content {
 
 .buttonDiv {
   margin-top: 10px;
+  height: 102px;
 }
 
 #camera {
@@ -130,6 +131,11 @@ ion-content {
 	text-align: right;
   color: white;
   font-size: 23px;
+}
+
+.cameraBack img {
+  width: 30px;
+  height: 30px;
 }
 
 .cameraBackground {
@@ -149,13 +155,15 @@ ion-content {
 
 .cameraButtonCell {
   margin-top: 5px;
+  height: 102px;
 }
 
 .cameraButtonsContainer {
   width: 100%;
   display: block;
   position: absolute;
-  height: 110px;
+  /*border: 2px solid red;*/
+  height: 144px;
   padding: 0px;
   z-index: 17;
   bottom: 0;
@@ -588,6 +596,18 @@ ion-content {
 .opPhoto {
   font-size: 19px;
   font-weight: 900;
+  padding-top: 14px;
+  height: 100%;
+}
+
+.opBurst {
+  padding-top: 14px;
+  height: 100%;
+}
+
+.opVideo {
+  padding-top: 14px;
+  height: 100%;
 }
 
 .optionDelete {
@@ -648,8 +668,8 @@ ion-content {
 .photoToggleContainer {
   color: white;
   text-align: center;
-  height: 20px;
-  font-size: 16px;
+  height: 39px;
+  font-size: 14px;
 }
 
 .pwX {
@@ -1069,8 +1089,9 @@ ion-content {
 
 .toggleCameraIcon {
   color: white;
-  font-size:23px;
-  opacity: 0.75;
+  /*font-size:23px;*/
+  height: 30px;
+  /*opacity: 0.75;*/
 }
 
 .toggleCameraIcon img{

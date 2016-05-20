@@ -10,6 +10,8 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
   cameraCtrl.$inject = ['$http', '$state', '$scope', 'singlePhoto', 'Upload', '$q', '$cordovaCamera', '$cordovaFile', '$cordovaFileTransfer', 'signup', 'signin', 'newToken', '$cordovaCapture', '$cordovaStatusbar', '$timeout', '$ionicGesture', '$ionicScrollDelegate', '$interval', 'persistentPhotos'];
   function cameraCtrl($http, $state, $scope, singlePhoto, Upload, $q, $cordovaCamera, $cordovaFile, $cordovaFileTransfer, signup, signin, newToken, $cordovaCapture, $cordovaStatusbar, $timeout, $ionicGesture, $ionicScrollDelegate, $interval, persistentPhotos){
+    // console.log($cordovaInAppBrowser);
+
     console.log('Camera Loaded');
     function removeTabsAndBar(){
       $('ion-tabs').addClass('tabs-item-hide');
@@ -50,7 +52,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         var dragEnabled = false; //enable preview box drag across the screen
         var toBack = false; //send preview box to the back of the webview
         // console.log(cordova.plugins.camerapreview);
-        var rect = {x: 0, y: 40, width: 375, height: 415};
+        var rect = {x: 0, y: 51, width: 375, height: 375};
         cordova.plugins.camerapreview.startCamera(rect, 'back', tapEnabled, dragEnabled, toBack);
         // $timeout(function(){
         //   $timeout(function(){
