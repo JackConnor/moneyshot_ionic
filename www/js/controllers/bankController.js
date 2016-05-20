@@ -1,96 +1,48 @@
-angular.module('bankController', [])
+(function() {
+  angular.module('bankController', [])
 
   .controller('bankCtrl', bankCtrl);
 
-  bankCtrl.$inject = ["$scope", "decodeToken", "$http", "signin", '$stateParams'];
+  bankCtrl.$inject = ["$scope", "decodeToken", "$http", "signin", "$state", '$stateParams'];
 
-  function bankCtrl($scope, decodeToken, $http, signin, $stateParams){
-    // setTimeout(function(){
-    //   history.back();
-    // }, 3000);
-    console.log($stateParams);
-    console.log('location coming soooooon');
-    console.log(window.localStorage);
+  function bankCtrl($scope, decodeToken, $http, signin, $state, $stateParams){
+    console.log( 'PAGE', $stateParams )
+    var token =  localStorage.webToken
+
+    // If no token make them signin
+    if (!token) {
+      $state.go('signin')
+    }
+    // 4
+    // Check state params for response from stripe
+    if ( $stateParams.stripe_data ) {
+      $http({
+        method: 'POST',
+        url: 'http://localhost:5555/api/bank/addStripe',
+        data: {
+          token: token,
+          stripe: $stateParams.stripe_data
+        }
+      }).then(function(response){
+        console.log("BACK from addStripe", response )
+        alert( 'Success!' )
+        // window.open( response.data )
+        $state.go('tab.account')
+      })
+    }
+    console.log('BANKING')
     ////global variables
     $scope.bankStart = true;
     $scope.bankPassword = false;
     $scope.bankAccountVar = false;
     $scope.editVar = false;
-
-
-    ///functino to get Stripe ID
-    function getStripe(){
-      $http({
-        method: "GET"
-        ,url: 'https://moneyshotapi.herokuapp.com/api/bankroute'
-      })
-      .then(function(stripeStuff){
-        console.log(stripeStuff.data);
-        $scope.stripeStuff = stripeStuff.data;
-      })
-    }
-    getStripe();
-
-    var userToken = window.localStorage.webToken;
-    decodeToken(userToken)
-    .then(function(userInfo){
-      $http({
-        method: "POST"
-        ,url: "https://moneyshotapi.herokuapp.com/api/userinfo"
-        ,data: {userId: userInfo.data.userId}
-      })
-      .then(function(userData){
-        $scope.userInfo = userData.data;
-        console.log($scope.userInfo);
-      })
-    })
+    $scope.confirmed = false;
 
     function provePassword(){
       $scope.bankStart = false;
       $scope.bankPassword = true;
     }
     $scope.provePassword = provePassword;
-
-
-    /////function to check passwords
-    function verifyPassword(){
-      var stripeId = '';
-      console.log($scope.userInfo);
-      var pass1 = $('.bankPass1').val();
-      var pass2 = $('.bankPass2').val();
-      console.log(pass1);
-      console.log(pass2);
-      // window.open('https://moneyshotapi.herokuapp.com/');
-      if(pass1 === pass2){
-        console.log('first challenge');
-        console.log($scope.userInfo.email + " email");
-        signin($scope.userInfo.email, pass2)
-        .then(function(userData){
-          console.log(userData);
-          if(userData.data == "incorrect password"){
-            alert('Sorry, password incorrect, please try again');
-            $('.bankPass1').val("");
-            $('.bankPass2').val("");
-          }
-          else {
-            console.log('password valid');
-            $scope.bankPassword = false;
-            $scope.bankAccountVar = true;
-            console.log('linking');
-            window.location.hash = "#/tab/account"
-            cordova.InAppBrowser.open("https://connect.stripe.com/oauth/authorize?response_type=code&client_id="+$scope.stripeStuff+"&scope=read_write&state="+$scope.userInfo._id, "_system");
-            console.log('linking');
-            // window.location.reload();
-          }
-        })
-      }
-      else {
-        alert('Sorry, but your passwords do not match. Please try gain');
-        $('.bankPass1').val("");
-        $('.bankPass2').val("");
-      }
-    }
-    $scope.verifyPassword = verifyPassword;
 
     //////back button out of banking
     function bankBack(){
@@ -118,18 +70,54 @@ angular.module('bankController', [])
     }
     $scope.openPassword = openPassword;
 
-    function deleteBank(){
-      $http({
-        method: "POST"
-        ,url: "https://moneyshotapi.herokuapp.com/api/delete/bank"
-        ,data: {userId: $scope.userInfo._id}
-      })
-      .then(function(updatedUser){
-        console.log(updatedUser);
-        $scope.editVar = false;
-        $scope.userInfo = updatedUser.data;
+
+    /////BANK STUFF/////////
+    // 3
+    function goStripe() {
+      console.log('CLick')
+      window.open('https://connect.stripe.com/oauth/authorize?response_type=code&client_id=ca_85XIIrajUKuhChdWZQFJ9zu1lmuzul3F&scope=read_write')
+    }
+    $scope.goStripe = goStripe
+
+    // 1
+    function verifyPassword(password, rePass) {
+      if ( password === rePass ) {
+        genToken(password)
+      } else {
+        alert('Password dont match')
+      }
+    }
+    $scope.verifyPassword = verifyPassword
+
+    // 2
+    function genToken(password){
+      decodeToken(token).then( function(token) {
+        console.log('STUFF', token)
+        // Get one of our jwts
+        return $http({
+            method: 'POST',
+            url: 'http://localhost:5555/api/bank/genToken',
+            data: {
+              // TODO resolve issue with token from different server! so no need for email either store email on client side
+              userId   : token.data.userId,
+              password: password
+            }
+          })
+        })
+        .then( function(response) {
+          console.log('RES', response)
+          localStorage.webToken = response.data.token
+          if ( response.data.token ) {
+              $scope.bankPassword = false;
+              $scope.confirmed = true;
+          } else {
+            alert('Uh oh wrong password')
+          }
+        })
+      .catch( function(err) {
+        console.log( 'Error', err)
       })
     }
-    $scope.deleteBank = deleteBank;
-  ////////////end bank controller//////
+
   }
+})()
