@@ -23,7 +23,7 @@ function init($ionicPlatform) {
 }
 
 
-angular.module('starter', ['ionic', 'ngCordova', 'ngRoute', 'facebook', 'ngFileUpload', 'starter.services', 'accountController', 'cameraController', 'uploadController', 'signupController', 'allPhotosFactory', 'singlePhotoFactory', 'navbarHolderFactory', 'signupFactory', 'signinFactory', 'newTokenFactory', 'userPhotosFactory', 'decodeTokenFactory', 'ngTouch', 'bankController', 'testing', 'persistentPhotosFactory'])
+angular.module('starter', ['ionic', 'ngCordova', 'ngRoute', 'facebook', 'ngFileUpload', 'starter.services', 'accountController', 'cameraController', 'uploadController', 'signupController', 'allPhotosFactory', 'singlePhotoFactory', 'navbarHolderFactory', 'signupFactory', 'signinFactory', 'newTokenFactory', 'userPhotosFactory', 'decodeTokenFactory', 'ngTouch', 'bankController', 'initLoad', 'persistentPhotosFactory'])
 
 .run(init)
 
@@ -108,16 +108,16 @@ angular.module('starter', ['ionic', 'ngCordova', 'ngRoute', 'facebook', 'ngFileU
         ,controller: "bankCtrl"
       })
 
-      .state('test', {
-        url: '/gtest',
+      .state('init', {
+        url: '/init',
         cache: false,
-        templateUrl: 'templates/gtest.html',
-        controller: 'testCtrl',
+        templateUrl: 'templates/init.html',
+        controller: 'initCtrl',
         controllerAs: 'vm'
       })
 
 
     // if none of the above states are matched, use this as the fallback
-    $urlRouterProvider.otherwise('/gtest');
+    $urlRouterProvider.otherwise('/init');
 
   });
