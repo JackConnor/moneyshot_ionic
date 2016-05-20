@@ -11,6 +11,9 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
   cameraCtrl.$inject = ['$http', '$state', '$scope', 'singlePhoto', 'Upload', '$q', '$cordovaCamera', '$cordovaFile', '$cordovaFileTransfer', 'signup', 'signin', 'newToken', '$cordovaCapture', '$cordovaStatusbar', '$timeout', '$ionicGesture', '$ionicScrollDelegate', '$interval', 'persistentPhotos'];
   function cameraCtrl($http, $state, $scope, singlePhoto, Upload, $q, $cordovaCamera, $cordovaFile, $cordovaFileTransfer, signup, signin, newToken, $cordovaCapture, $cordovaStatusbar, $timeout, $ionicGesture, $ionicScrollDelegate, $interval, persistentPhotos){
+    $('html').css({
+      opacity: 0
+    });
     // console.log($cordovaInAppBrowser);
 
     console.log('Camera Loaded');
@@ -56,6 +59,9 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         // console.log(cordova.plugins.camerapreview);
         var rect = {x: 0, y: 51, width: 375, height: 375};
         cordova.plugins.camerapreview.startCamera(rect, 'back', tapEnabled, dragEnabled, toBack);
+        $('html').animate({
+          opacity: 1
+        }, 200);
         // $timeout(function(){
         //   $timeout(function(){
         //     document.getElementsByTagName('html')[0].style.opacity = '1'

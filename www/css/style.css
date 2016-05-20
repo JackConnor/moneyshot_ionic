@@ -548,6 +548,14 @@ ion-content {
   height: 200px;
 }
 
+.intro-load {
+  position: absolute;
+  width: 80%;
+  margin-left: 10%;
+  margin-top: 55%;
+  height: auto;
+}
+
 .ion-content {
   margin: 0px;
   padding: 0px;
