@@ -309,12 +309,27 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       .then(function(result){
         console.log(result);
         var pathFull = result[0].fullPath;///////this is what we need to add to our cache
+
+
+        var thunbOpts = {
+          quality: 1,
+
+        }
+        window.PKVideoThumbnail.createThumbnail ( pathfull, thumbPath, thunbOpts )
+          .then( function( thumbnail ){
+            console.log('THUMBNAIL', thumbnail)
+
         /////next, we push the video plus some extra data to the media cache, where it waits to be submitted
         $scope.mediaCache.push({
           type: "video"
           ,link: pathFull
+          ,thumb: thumbnail
           ,date: new Date()
         })
+       })//Didnt' formant still testing
+       .catch( function(err){
+         console.log('Thumbnail Error======================', err)
+       })
       });
       var thisEl = $('.outCameraModal')[0];
       animateClick(thisEl, 'white', 'transparent');
