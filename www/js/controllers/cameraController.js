@@ -1,3 +1,4 @@
+var testCnt = 0
 angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCordova', 'ngFileUpload', 'persistentPhotosFactory'])
 
   .controller('cameraCtrl', cameraCtrl)
@@ -30,6 +31,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     $scope.submitPhotoModal     = false;
     $scope.activePhoto          = true;
     $scope.cameraMode           = 'photo';
+    var count = 0;
     $scope.cropper              = {};
     $scope.cropper.croppedImage = '';
     var eraseSubmitArr          = [];
@@ -77,13 +79,12 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         // }, 850);
 
         cordova.plugins.camerapreview.setOnPictureTakenHandler(function(result){
+          // console.log(result);
+          count++
+          testCnt--
           /////////result - picture
           resolveLocalFileSystemURL(result[0], function(fileEntry) {
               fileEntry.file(function(file) {
-                  // var reader = new FileReader();
-                  // reader.onloadend = function(event) {
-                  // };
-                  // reader.readAsArrayBuffer(file);
                   $scope.mediaCache.push({
                     type: "photo"
                     ,link: file.localURL
@@ -156,15 +157,53 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
 
     $scope.takeCordovaPicture = function(){
-      if($scope.activePhoto === false){
-        $scope.activePhoto = true;
-        $scope.photoListLength++;
-        console.log($scope.photoCount);
-        console.log('taking photo boom');
+      // if($scope.activePhoto === false){
+        // $scope.activePhoto = true;
+
+        // console.log($scope.photoCount);
+        // console.log('taking photo boom');
         // setTimeout(function(){
         //   $scope.activePhoto = false;
         // }, 600);
-        cordova.plugins.camerapreview.takePicture({maxWidth:1200, maxHeight:1200});
+        if ( testCnt < 3 ) {
+          $scope.photoListLength++;
+          testCnt++;
+          cordova.plugins.camerapreview.takePicture({maxWidth:1000, maxHeight:1000});
+          // $('.takePhotoButtonInner').css({
+          //   backgroundColor: "gray"
+          // })
+          // $('.takeBurstButtonInner').css({
+          //   backgroundColor: "gray"
+          // })
+          $('.cameraModal').css({
+            backgroundColor: "red"
+          });
+          // $('.takePhotoButtonInner').animate({
+          //   backgroundColor: "white"
+          // }, 50);
+          // $('.takeBurstButtonInner').animate({
+          //   backgroundColor: " #4d0000"
+          // }, 50);
+          $('.cameraModal').animate({
+            backgroundColor: "black"
+          }, 50);
+          // cordova.plugins.camerapreview.hide();
+
+          // $timeout(function(){
+          //   // cordova.plugins.camerapreview.show();
+          //   $('.takePhotoButtonInner').css({
+          //     backgroundColor: "white"
+          //   });
+          //   $('.takeBurstButtonInner').css({
+          //     backgroundColor: " #4d0000"
+          //   });
+          //   $('.cameraModal').css({
+          //     backgroundColor: "black"
+          //   });
+          // }, 30);
+        } else {
+          console.log('Nope ' + testCnt);
+        }
         // window.requestFileSystem(LocalFileSystem.TEMPORARY, 0, onSuccess, onError);
         // function onSuccess(file){
         //   console.log(file);
@@ -172,24 +211,6 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         // function onError(err){
         //   console.log(err);
         // }
-
-        $('.takePhotoButtonInner').css({
-          backgroundColor: "gray"
-        })
-        $('.takeBurstButtonInner').css({
-          backgroundColor: "gray"
-        })
-        cordova.plugins.camerapreview.hide();
-
-        $timeout(function(){
-          cordova.plugins.camerapreview.show();
-          $('.takePhotoButtonInner').css({
-            backgroundColor: "white"
-          })
-          $('.takeBurstButtonInner').css({
-            backgroundColor: " #4d0000"
-          })
-        }, 70);
         // setTimeout(function(){
         //   $('.takePhotoButton').css({
         //     backgroundColor: "blue"
@@ -203,7 +224,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         //     backgroundColor: ""
         //   })
         // }, 200);
-      }
+      // }
     }
 
     var photoInt = function(){
@@ -303,7 +324,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     // }
     // $scope.takePicture = takePicture;
     // takePicture();
-    $scope.cnt = 0;
+    $scope.cntPhoto = 0;
     function getPic(){
       console.log($cordovaCapture);
       $cordovaCapture.captureVideo({})
@@ -311,25 +332,29 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         console.log(result);
         var pathFull = result[0].fullPath;///////this is what we need to add to our cache
 
-
         var thumbOpts = {
           mode: 'file'
           ,quality: 1
         }
 
         console.log(window.PKVideoThumbnail);
-
-        window.PKVideoThumbnail.createThumbnail ( result[0].localURL, 'cdvfile://localhost/temporary/capture-T0x12ee04780.tmp.7h2hZr/' + $scope.cnt++ + 'test.jpg', thumbOpts )
+        console.log('PATH:', result[0].localURL);
+        var source = result[0].localURL
+        var fPath = source.split(result[0].name)[0] + $scope.cntPhoto++ + 'test.jpg'
+        console.log( 'PATHS: ', source, fPath)
+        window.PKVideoThumbnail.createThumbnail ( source, fPath, thumbOpts )
           .then( function( thumbnail ){
             console.log('THUMBNAIL', thumbnail);
             $scope.photoListLength++;
             /////next, we push the video plus some extra data to the media cache, where it waits to be submitted
+            console.log($scope.mediaCache);
             $scope.mediaCache.push({
               type: "video"
               ,link: pathFull
               ,thumb: thumbnail
               ,date: new Date()
-            })
+            });
+            console.log($scope.mediaCache);
            })//Didnt' formant still testing
            .catch( function(err){
              console.log('Thumbnail Error======================', err)
@@ -776,27 +801,23 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     // }, 500)
 
     function submitModalOpen(set){
-      console.log(($scope.mediaCache));
-      console.log($scope.activePhoto);
       if($scope.activePhoto === false){
         var thisEl = $('.submitSetDiv')[0];
         animateClick(thisEl, '#4DAF7C', 'red');
-        console.log($scope.mediaCache);
         var set = $scope.mediaCache;
         cordova.plugins.camerapreview.hide();
         $scope.submitModalVar = true;
         var mediaLength = set.length;
-        console.log(mediaLength);
         $timeout(function(){
           for (var i = 0; i < mediaLength; i++) {
             var thisLink = set[i].link
             var subEl = $(".submitPhoto"+i);
             // var subEl = document.querySelector('#submit'+i);
-            console.log(thisLink);
-            console.log(subEl);
+            // console.log(thisLink);
+            // console.log(subEl);
             subEl.attr('src', thisLink);
           }
-        }, 200);
+        }, 500);
       }
     }
 

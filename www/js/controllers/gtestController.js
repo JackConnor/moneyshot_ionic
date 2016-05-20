@@ -24,7 +24,7 @@
 				url: 'https://moneyshotapi.herokuapp.com/checkToken'
 			})
 			.then(function(data){
-				console.log('Back', data)
+				alert('Back', data)
 				vm.camera()
 			})
 			// vm.camera();
@@ -32,6 +32,7 @@
 
 		function checkLocal() {
 			var token = localStorage.webToken
+			console.log(token);
 				token ? checkToken(token) : vm.signin()
 		}
 

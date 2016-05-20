@@ -162,8 +162,9 @@ ion-content {
   width: 100%;
   display: block;
   position: absolute;
+  border-top: 0px solid red;
   /*border: 2px solid red;*/
-  height: 144px;
+  height: 142px;
   padding: 0px;
   z-index: 17;
   bottom: 0;
@@ -919,7 +920,7 @@ ion-content {
   width: 100%;
   height: 660px;
   position: fixed;
-  background-color: #939393;
+  background-color: black;
   z-index: 16;
   position: absolute;
 }
@@ -1056,7 +1057,7 @@ ion-content {
   height: 60px;
   border-radius: 50%;
   border: 3px solid black;
-  background-color: #4d0000;
+  background-color: #907070;
   margin-left: 5px;
   margin-top: 5px;
 }
@@ -1303,4 +1304,8 @@ animation: emailSlideUp ease-in 1;
 animation-fill-mode: forwards;
 -webkit-animation-duration: 350ms;
 animation-duration: 350ms;
+}
+
+.zStyle {
+  background-color: red
 }
