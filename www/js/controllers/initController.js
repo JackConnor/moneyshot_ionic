@@ -41,7 +41,7 @@
 				token ? checkToken(token) : vm.signin()
 		}
 
-		// checkLocal()
+		checkLocal()
 
 	}
 })(angular);
