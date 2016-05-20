@@ -83,6 +83,7 @@ ion-content {
 
 .backToPhotos {
   height: 30px;
+  color: white;
   font-size: 16px;
   font-weight: 300;
   text-align: left;
@@ -90,6 +91,10 @@ ion-content {
   padding-right: 0px;
   padding-top: 5px;
   /*border-right: 2px solid #587272;*/
+}
+
+.backToPhotos p {
+  color: white;
 }
 
 .backToSubmit {
@@ -433,6 +438,7 @@ ion-content {
 
 .finalizeMophos {
   height: 30px;
+  color: white;
   text-align: center;
   padding-top: 5px;
   font-size: 16px;
@@ -540,18 +546,6 @@ ion-content {
 #image {
   width: 200px;
   height: 200px;
-}
-
-.intro-load {
-  position:absolute;
-  width: 80%;
-  height: auto;
-  margin-left: 10%;
-  margin-top: 50%;
-  /*top:50%;*/
-  /*left:50%;*/
-  /*margin-top: 50%;  this is half the height of your div*/
-  /*margin-left: 50%; this is half of width of your div*/
 }
 
 .ion-content {
