@@ -45,13 +45,16 @@
         Confirm Password
       </div>
       <div class="bankSignin">
-        <input class="bankPass bankPass1" type="text" placeholder="password">
-        <input class="bankPass bankPass2" type="text" placeholder="re-type password">
-        <div class="bankNext" ng-click='verifyPassword()'>
+        <input class="bankPass bankPass1" ng-model="password" type="text" placeholder="password">
+        <input class="bankPass bankPass2" ng-model="rePass"type="text" placeholder="re-type password">
+        <div class="bankNext" ng-click='verifyPassword(password, rePass)'>
           NEXT
         </div>
       </div>
     </div>
+      <div ng-click="goStripe()" class="StripeBtn col-sm-8 col-sm-offset-2 col-xs-10 col-xs-offset-1" ng-if="confirmed">
+        <img src="/img/light-on-light/light-on-light@2x.png">
+      </div>
     <div class="BankAccount" ng-if="bankAccountVar">
       <p style="font-size: 50px; color: white; padding-top: 50px">
         Add your bank account info
