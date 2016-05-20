@@ -518,6 +518,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                     $timeout(function(){
                       $scope.submitModalVar = false;
                       $scope.cameraModal = false;
+                      persistentPhotos('empty');
                       window.location.hash = "#/tab/account"
                     }, 1000);
                   })
@@ -617,7 +618,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                       setTimeout(function(){
                         $scope.submitModalVar = false;
                         $scope.cameraModal = false;
-                        persistentPhotos($scope.mediaCache);
+                        persistentPhotos("empty");
                         window.location.hash = "#/tab/account"
                       }, 100);
                     })
