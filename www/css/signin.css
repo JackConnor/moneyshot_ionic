@@ -1,67 +1,6 @@
-.signinLogo {
-  background: rgba(255,255,255,.8);
-  padding: 15px 0;
-  margin-top: 30px;
-  z-index: 5;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
 
-.signinLogo img{
-  width: 180px;
-  height: auto;
-}
 
-.swipeIntro {
-  width: 100%;
-  height: 100%;
-  position: fixed;
-  position: fixed;
-  z-index: 20;
-}
 
-.swipeCell {
-  height: 100%;
-  padding: 0px;
-  background-size: cover;
-  background-repeat: no-repeat;
-}
-
-.swipeCell h4 {
-  font-size: 30px;
-  font-family: 'Helvetica Neue';
-  font-weight: 300;
-  letter-spacing: 1px;
-  color: #ffffff;
-  text-align: center;
-  width: 100%;
-  position: absolute;
-  z-index: 11;
-  bottom: 190px;
-}
-
-.introSignin {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  z-index: 10;
-  color: white;
-  text-align: center;
-  font-size: 22px;
-}
-
-.introButton {
-  background-color: #4DAF7C;
-  padding: 12px 20px;
-  color: #ffffff;
-  font-family: 'Helvetica Neue', arial, san-serif;
-  letter-spacing: 2px;
-  border-radius: 3px;
-  font-weight: 300;
-  font-size: 18px;
-}
 
 .goToSigninHolder{
 	position: absolute;
