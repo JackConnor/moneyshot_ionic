@@ -5,6 +5,7 @@
 	initCtrl.$inject = ['$state', '$http'];
 
 	function initCtrl($state, $http) {
+		// alert('here');
 		var vm = this;
 		vm.poop = 'this works'
 
@@ -21,19 +22,21 @@
 		function checkToken(token) {
 			$http({
 				method: 'POST',
-				url: 'https://moneyshotapi.herokuapp.com/api/bank/addStripe',
+				url: 'http://192.168.0.13:5555/api/bank/addStripe',
 				data: {
 					check : true,
 					token : token
 				}
 			})
 			.then(function(response){
+				console.log(response)
 				if (response.data.token) {
 					vm.camera()
 				} else {
 					vm.signin()
 				}
 			})
+			// vm.signin();
 		}
 
 		function checkLocal() {

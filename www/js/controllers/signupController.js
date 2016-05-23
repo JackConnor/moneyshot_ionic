@@ -475,34 +475,5 @@ angular.module('signupController', [])
     $scope.checkValidEmail = checkValidEmail;
 
 
-    ////////////////////////////////////
-    /////////////begin fb stuff////////
-    FB.init({
-        appId: '219996151696499',
-        status: true,
-        cookie: true,
-        xfbml: true,
-        version: 'v2.4'
-    });
-    function launchFB(){
-
-      // Facebook.getLoginStatus(function(response){
-      //   console.log(response);
-      // })
-      // FB.getLoginStatus(function(response){
-      //   console.log(response);
-      //   if(response.status == 'unknown' || response.status == 'not_authorized'){
-      //     FB.login(function(loginResponse){
-      //       console.log(loginResponse);
-      //     })
-      //   }
-      //   else {
-      //     console.log('already logged in, it would seem');
-      //   }
-      // })
-    }
-    $scope.launchFB = launchFB;
-
-    ///////end facebook shit//
-    //////////////////////////
+  
   }
