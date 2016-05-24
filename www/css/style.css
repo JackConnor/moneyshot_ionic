@@ -548,6 +548,29 @@ ion-content {
   height: 200px;
 }
 
+
+.intro-dot-container{
+  margin-top: 45px;
+  /*margin-bottom: 40px;*/
+
+  /*display: flex;
+  justify-content: center;*/
+}
+
+.intro-dot-item{
+  /*background-color: #ffffff;*/
+  margin: 0 10px;
+  width: 15px;
+  height: 15px;
+  border: 2px solid white;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.intro-dot-item-active{
+  background-color: white;
+}
+
 .intro-load {
   position: absolute;
   width: 80%;
@@ -558,13 +581,23 @@ ion-content {
 
 .introButton {
   background-color: #4DAF7C;
-  padding: 12px 20px;
+  padding: 10px 20px;
   color: #ffffff;
-  font-family: 'Helvetica Neue', arial, san-serif;
+  /*font-family: 'Helvetica Neue', arial, san-serif;*/
   letter-spacing: 2px;
   border-radius: 3px;
-  font-weight: 300;
-  font-size: 18px;
+  font-weight: 900;
+  font-size: 16px;
+  width: 40%;
+  height: 45px;
+  border-radius: 4px;
+  position: absolute;
+}
+
+.introButtonHolder {
+  width: 100%;
+  height: 25pt;
+  /*outline: 2px solid blue;*/
 }
 
 .introSignin {
@@ -575,6 +608,20 @@ ion-content {
   color: white;
   text-align: center;
   font-size: 22px;
+}
+
+.introSigninButton {
+  background: rgba(255,255,255,.7);
+  color: #000000;
+  margin-left: 53.33%;
+  border: 1px solid black;
+}
+
+.introSignupButton {
+  margin-left: 6.66%;
+  background-color: #FF0000;
+  border: 1px solid white;
+  /*margin-bottom: 15px;*/
 }
 
 .ion-content {
@@ -828,10 +875,11 @@ ion-content {
   height:  79.4px;
   font-size: 15pt;
   letter-spacing: -0.2pt;
-  margin-top: 30px;
+  margin-top: 33px;
   margin-left: 10px;
   color: black;
   text-align: center;
+  padding: 0 10px;
 }
 
 .signout {

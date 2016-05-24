@@ -9,35 +9,6 @@
 	right: 0;
 }
 
-.introSignupButton {
-  margin-bottom: 15px;
-}
-
-.introSigninButton {
-  background: rgba(255,255,255,.7);
-  color: #000000;
-}
-
-.intro-dot-container{
-  margin-bottom: 40px;
-  display: flex;
-  justify-content: center;
-}
-
-.intro-dot-item{
-  background-color: #ffffff;
-  margin: 0 10px;
-  width: 8px;
-  height: 8px;
-  opacity: .5;
-  border-radius: 50%;
-}
-
-.intro-dot-item-active{
-  opacity: 1;
-}
-
-
 /****** Sign up / Sign in ******/
 
 .signupModal {

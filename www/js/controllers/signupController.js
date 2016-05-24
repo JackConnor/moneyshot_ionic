@@ -22,83 +22,50 @@ angular.module('signupController', [])
     $scope.newPwModal       = false;
     $scope.pwHide           = false;
     $scope.introCounter     = 0;
+    $scope.introTag = "Shoot Awesome Photos";
 
     //////function to control our photo carousel
     ////////////////////////////////////////////
     $scope.photo1;
     $scope.photo2;
-    function moveCarousel(arr, speed){
-      $scope.photo1 = arr[0];
-      $scope.photo2 = arr[1];
-      $interval(function(){
-        if(carCounter === 'heads'){
-          $('.carouselImageHolder2').removeClass('slideLeftStep2');
-          $('.carouselImageHolder1').removeClass('slideLeftStep');
-          $('.carouselImageHolder1').addClass('slideLeft0');
-          $('.carouselImageHolder2').addClass('slideLeft0');
-          $timeout(function(){
-            $scope.photo1 = $scope.photoArray[2];
-            var endOfLine = $scope.photoArray.slice(0,1);
-            $scope.photoArray.shift();
-            $scope.photoArray[$scope.photoArray.length] = endOfLine[0];
-          }, 1100);
-          carCounter = 'tails';
-        }
-        else if(carCounter === 'tails'){
-          $('.carouselImageHolder1').removeClass('slideLeft0');
-          $('.carouselImageHolder2').removeClass('slideLeft0');
-          $('.carouselImageHolder2').addClass('slideLeftStep2');
-          $('.carouselImageHolder1').addClass('slideLeftStep');
-          $timeout(function(){
-            $scope.photo2 = $scope.photoArray[2];
-            var endOfLine = $scope.photoArray.slice(0,1);
-            $scope.photoArray.shift();
-            $scope.photoArray[$scope.photoArray.length] = endOfLine[0];
-          }, 1100);
-          carCounter = 'heads';
-        }
-      }, 2000);
-    }
-    //////our initial seed photos for the carousel
-    var photoArray = ['http://www.eonline.com/eol_images/Entire_Site/2013925/rs_634x1024-131025103438-634.kanye-west-kim-kardashian-dream-africa.ls.102513_copy.jpg', 'http://a1.files.biography.com/image/upload/c_fit,cs_srgb,dpr_1.0,q_80,w_620/MTE5NTU2MzE2MTA0MTk3NjQz.jpg', 'http://popcrush.com/files/2015/11/Siafacegallery1.jpg?w=600&h=0&zc=1&s=0&a=t&q=89', 'https://i.ytimg.com/vi/eiKxjLkV8sA/maxresdefault.jpg'];
-    $scope.photoArray = photoArray;
-    var carCounter = 'heads';
-    moveCarousel(photoArray, 3000);
-    //////////end carousel//////////////////////
-    ////////////////////////////////////////////
-
-    ////
 
     ///////////////////////////////
     ////////intro swipe modal stuff
-    function checkIntro(){
-      if(!window.localStorage.webToken || window.localStorage.webToken == "" || window.localStorage.webToken == null){
-        $scope.introModal = true;
-        $timeout(function(){
-          document.getElementsByTagName('html')[0].style.opacity = '1'
-        }, 1000);
-        $timeout(function(){
-          document.getElementsByTagName('html')[0].style.opacity = '1'
-        }, 1300);
-        $timeout(function(){
-          document.getElementsByTagName('html')[0].style.opacity = '1'
-        }, 1600);
-        $('html').animate({
-          opacity: 1
-        }, 700);
+    // function checkIntro(){
+    //   if(!window.localStorage.webToken || window.localStorage.webToken == "" || window.localStorage.webToken == null){
+    //     $scope.introModal = true;
+    //     $timeout(function(){
+    //       document.getElementsByTagName('html')[0].style.opacity = '1'
+    //     }, 1000);
+    //     $timeout(function(){
+    //       document.getElementsByTagName('html')[0].style.opacity = '1'
+    //     }, 1300);
+    //     $timeout(function(){
+    //       document.getElementsByTagName('html')[0].style.opacity = '1'
+    //     }, 1600);
+    //     $('html').animate({
+    //       opacity: 1
+    //     }, 700);
+    //
+    //     $('.tab-nav').css({
+    //       height: 0+"px"
+    //     })
+    //   }
+    //   else {
+    //     window.location.hash = "#/tab/camera";
+    //     window.location.reload();
+    //   }
+    // }
+    // document.addEventListener("deviceready", function(){
+    //   checkIntro();
+    // });
 
-        $('.tab-nav').css({
-          height: 0+"px"
-        })
-      }
-      else {
-        window.location.hash = "#/tab/camera";
-        window.location.reload();
-      }
+    function backToIntro(){
+      console.log('yooyo');
+      $scope.signinModalVar = false;
+      $scope.signinModalVar = false;
     }
-    document.addEventListener("deviceready", function(){
-      checkIntro();
-    });
+    $scope.backToIntro = backToIntro();
     // $timeout(function(){
     //   checkIntro();
     // }, 1000);
@@ -110,6 +77,7 @@ angular.module('signupController', [])
     // }, 3000);
 
     function introSwipeLeft(){
+      addTagline();
       if($scope.introCounter < 3 && $scope.introCounter >=0){
         $scope.introCounter++;
         $('.swipeIntroRow').animate({
@@ -117,17 +85,64 @@ angular.module('signupController', [])
         }, 200);
       }
       else if($scope.introCounter >= 3){
-        $('.swipeIntroRow').animate({
-          marginLeft: 0+'px'
-        }, 200);
         $scope.introCounter = 0;
+        addTagline();
+        $('.swipeIntroRow').css({
+          marginLeft: '-3px'
+        });
+        $scope.introCounter = 1;
+        $('.swipeIntroRow').animate({
+          marginLeft: -($scope.introCounter*100)+"%"
+        }, 200);
+
       }
     }
     $scope.introSwipeLeft = introSwipeLeft;
 
     var swipeInterval = setInterval(function(){
       introSwipeLeft();
-    }, 4000);
+    }, 2500);
+
+    function addTagline(){
+      console.log($scope.introCounter);
+
+      if($scope.introCounter == 0){
+        console.log('yaaa');
+        $('.signinTaglineText').animate({
+          opacity: 0
+        }, 100);
+        $timeout(function(){
+          $('.signinTaglineText').text('Earn Lots of Money');
+          $('.signinTaglineText').animate({
+            opacity: 1
+          }, 100);
+        }, 100)
+      }
+      else if($scope.introCounter == 1){
+        console.log('yaaa');
+        $('.signinTaglineText').animate({
+          opacity: 0
+        }, 100);
+        $timeout(function(){
+          $('.signinTaglineText').text('Publish Your Photos');
+          $('.signinTaglineText').animate({
+            opacity: 1
+          }, 100);
+        }, 100)
+      }
+      else if($scope.introCounter == 2){
+        console.log('yaaa');
+        $('.signinTaglineText').animate({
+          opacity: 0
+        }, 100);
+        $timeout(function(){
+          $('.signinTaglineText').text('Take Awesome Photos');
+          $('.signinTaglineText').animate({
+            opacity: 1
+          }, 100);
+        }, 100)
+      }
+    }
 
     function introSwipeRight(){
       if($scope.introCounter > 0){
@@ -475,5 +490,5 @@ angular.module('signupController', [])
     $scope.checkValidEmail = checkValidEmail;
 
 
-  
+
   }

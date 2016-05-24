@@ -10,37 +10,42 @@
         </div>
       </div>
       <div class="goToSigninHolder">
+          <div class="introButtonHolder">
+            <div class="introSignupButton introButton" ng-click='toSignup()'>
+              Sign Up
+            </div>
+            <div class="introSigninButton introButton" ng-click='toSignin()'>
+              Sign In
+            </div>
+          </div>
           <div class="intro-dot-container">
             <div ng-class="{'intro-dot-item-active': dotActive(0)}" class="intro-dot-item"></div>
             <div ng-class="{'intro-dot-item-active': dotActive(1)}" class="intro-dot-item"></div>
             <div ng-class="{'intro-dot-item-active': dotActive(2)}" class="intro-dot-item"></div>
           </div>
-          <div class="introSignupButton introButton col-xs-10 col-xs-offset-1" ng-click='toSignup()'>
-            Get started
-          </div>
-          <div class="introSigninButton introButton col-xs-10 col-xs-offset-1" ng-click='toSignin()'>
-            Sign in
-          </div>
       </div>
     </div>
     <div class="swipeIntroRow">
-      <div class="col-xs-3 swipeCell swipe1" ng-swipe-left='introSwipeLeft()' ng-swipe-right='introSwipeRight()' style="background-image: linear-gradient(to top, rgba(0,0,0,.2), rgba(0,0,0,.2)), url('./img/sexy_girl.jpg')">
+      <div class="col-xs-3 swipeCell swipe1" ng-swipe-left='introSwipeLeft()' ng-swipe-right='introSwipeRight()' style="background-image: linear-gradient(to top, rgba(0,0,0,.2), rgba(0,0,0,.2)), url('./img/assets/parisHiltonAndNickyHiltonSeenAsTheyArrivingAtSexyFishRestaurant12@3x.png')">
         <!-- <h4>Spot a celeb</h4> -->
       </div>
-      <div class="col-xs-3 swipeCell swipe2" ng-swipe-left='introSwipeLeft()' ng-swipe-right='introSwipeRight()' style="background-image: linear-gradient(to top, rgba(0,0,0,.2), rgba(0,0,0,.2)), url('./img/girl_photo.jpg')">
+      <div class="col-xs-3 swipeCell swipe2" ng-swipe-left='introSwipeLeft()' ng-swipe-right='introSwipeRight()' style="background-image: linear-gradient(to top, rgba(0,0,0,.2), rgba(0,0,0,.2)), url('./img/sexy_girl.jpg')">
         <!-- <h4>Snap a photo</h4 ng-swipe-left='introSwipeLeft()' ng-swipe-right='introSwipeRight()'> -->
       </div>
-      <div class="col-xs-3 swipeCell swipe3" ng-swipe-left='introSwipeLeft()' ng-swipe-right='introSwipeRight()' style="background-image: linear-gradient(to top, rgba(0,0,0,.2), rgba(0,0,0,.2)), url('./img/girl_with_cash.jpg')">
+      <div class="col-xs-3 swipeCell swipe3" ng-swipe-left='introSwipeLeft()' ng-swipe-right='introSwipeRight()' style="background-image: linear-gradient(to top, rgba(0,0,0,.2), rgba(0,0,0,.2)), url('./img/girl_photo.jpg')">
         <!-- <h4>Earn some cash</h4> -->
       </div>
-      <div class="col-xs-3 swipeCell swipe4">
-        <!-- <h4>
+      <div class="col-xs-3 swipeCell swipe4" ng-swipe-left='introSwipeLeft()' ng-swipe-right='introSwipeRight()' style="background-image: linear-gradient(to top, rgba(0,0,0,.2), rgba(0,0,0,.2)), url('./img/assets/parisHiltonAndNickyHiltonSeenAsTheyArrivingAtSexyFishRestaurant12@3x.png')">
+        <!-- <h4>Spot a celeb</h4> -->
+      </div>
+      <!-- <div class="col-xs-3 swipeCell swipe4">
+        <h4>
           Earn Money
-        </h4> -->
+        </h4>
         <div class="introPhoto">
           <img src="https://upload.wikimedia.org/wikipedia/commons/5/55/Twenty_dollar_bills.JPG" alt="" />
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
   <ion-content>
@@ -51,6 +56,7 @@
       <div class='getPwButton' ng-click='retrievePW()' ng-show="!newPwModal">Get Password</div>
     </div>
     <div class="credentialContainer">
+      <!-- <i class='fa fa-chevron-left' ng-click='backToIntro()' ng-if='signinModalVar || signupModalVar'></i> -->
       <div class="signupModal" ng-if='signupModalVar'>
         <div class="signupInputHolder">
           <h1>Sign up</h1>
@@ -58,12 +64,12 @@
           <input type="password" class='signupPassword splashInput' placeholder='Password'>
           <input type="password" class='signupConfirmPassword splashInput' placeholder='Confirm Password'>
           <div class='submitSignup' ng-click='submitSignup()'>GET STARTED</div>
-          <p class='introOr2 col-xs-12'>
+          <!-- <p class='introOr2 col-xs-12'>
             ---------------- OR --------------------
           </p>
           <div class="goToSignin" ng-click='toggleSigns($event)'>
             Have An Account?
-          </div>
+          </div> -->
         </div>
       </div>
       <div class="signinModal" ng-if='signinModalVar'>
@@ -75,12 +81,12 @@
           <div class="forgotPassword" ng-click='getPassword()'>
             Forgot Password?
           </div>
-          <p class='introOr col-xs-12'>
+          <!-- <p class='introOr col-xs-12'>
             ---------------- OR --------------------
           </p>
           <div class="goToSignup" ng-click='toggleSigns($event)'>
             Need to Create an Account?
-          </div>
+          </div> -->
         </div>
       </div>
       <!-- <div class="carouselHolders">
