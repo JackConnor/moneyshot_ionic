@@ -96,8 +96,28 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
         cordova.plugins.camerapreview.setOnPictureTakenHandler(function(result){
           // cordova.plugins.CameraPlus.startCamera();
-          console.log('photocoming');
-          console.log(result);
+          // console.log('photocoming');
+          // console.log(result);
+          // console.log(result[0]);
+          // console.log(result[1]);
+          // var convertedImg = window.atob(result[0]);
+          // console.log(convertedImg);
+          // var newArray = [];
+          // console.log(newArray);
+          // var arrLength = convertedImg.length;
+          // for (var i = 0; i < arrLength; i++) {
+          //   newArray[i] = convertedImg[i];
+          // }
+          // console.log(newArray);
+          // var byteArray = new Uint8Array(newArray);
+          // var blob = new Blob([byteArray], {type: 'image/jpeg'});
+          // console.log(byteArray);
+          // console.log(blob);
+          // var fileUrl = URL.createObjectURL(blob);
+          // console.log(fileUrl);
+          $scope.mediaCache.push({type: 'photo', link: 'data:image/jpeg;base64,'+result[0], date: new Date()})
+
+          // var bytes = Convert.from()
           // console.log(result);
           /////////result - picture
           $scope.activePhoto = false;
@@ -107,17 +127,16 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         $('.takePhotoButtonInner').animate({
           backgroundColor: "white"
         }, 200);
-          resolveLocalFileSystemURL(result[0], function(fileEntry) {
-              fileEntry.file(function(file) {
-                  $scope.mediaCache.push({
-                    type: "photo"
-                    ,link: file.localURL
-                    ,date: new Date()
-                    ,info: fileEntry
-                  });
-              });
-              // $timeout(function(){
-          });
+          // resolveLocalFileSystemURL(result[0], function(fileEntry) {
+          //     fileEntry.file(function(file) {
+          //         $scope.mediaCache.push({
+          //           type: "photo"
+          //           ,link: file.localURL
+          //           ,date: new Date()
+          //           ,info: fileEntry
+          //         });
+          //     });
+          // });
         });
 
         /////burst mode pictures

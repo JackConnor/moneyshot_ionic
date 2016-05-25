@@ -278,9 +278,26 @@
 
                          /////////dude, so if we could send ourselves th ebitmap from here, then do all the converting on the frontend, we'd be in business
                          NSMutableArray *params = [[NSMutableArray alloc] init];
-                         [params addObject:[NSValue valueWithPointer:finalImage]];
-                        //  [params addObject:@"j"];
-                         [params addObject:@"k"];
+                        //  NSString *base64 = [[NSString alloc] initWithData:capturedImage encoding:NSUTF8StringEncoding];
+                        ////the following work to convert to byte file (but it's huge)
+
+                        // NSData *imageData2 = UIImagePNGRepresentation(capturedImage);
+                        // NSString *imageString = [[NSString alloc] initWithBytes: [imageData2 bytes] length:[imageData2 length] encoding:NSUTF8StringEncoding];
+                        // //  NSLog(@"base64: %@", imageData2);
+                        //  UIImage *myImage = [[UIImage alloc] initWithCGImage:finalImage];
+                        //  NSLog(@"attempted String translation: %@", base64);
+                        //  NSLog(@'captured: %@', imageData);
+                        // CGImageRef cgImage = [self cgImageMethod];
+                        NSValue *cgImageValue = [NSValue valueWithBytes:finalImage objCType:@encode(CGImageRef)];
+                        // NSLog(@"imagevalue: %@", cgImageValue);
+                        // [params addObject:cgImageValue];
+                        // NSLog(@"imageData: %@", imageData);
+                        NSString* newStr = [imageData base64EncodedStringWithOptions:0];
+                        // NSLog(@"string: %@", newStr);
+
+                        ////return value
+                        [params addObject:newStr];
+                        [params addObject:@"k"];
 
                          NSLog(@"could this be the final image?: %@", finalImage);
                          CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsArray:params];
