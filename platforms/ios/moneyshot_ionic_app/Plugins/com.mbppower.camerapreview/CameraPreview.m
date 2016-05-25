@@ -92,7 +92,7 @@
 }
 
 - (void) hideCamera:(CDVInvokedUrlCommand*)command {
-        NSLog(@"hideCamera");
+        // NSLog(@"hideCamera");
         CDVPluginResult *pluginResult;
 
         if (self.cameraRenderController != nil) {
@@ -106,7 +106,7 @@
 }
 
 - (void) showCamera:(CDVInvokedUrlCommand*)command {
-        NSLog(@"showCamera");
+        // NSLog(@"showCamera");
         CDVPluginResult *pluginResult;
 
         if (self.cameraRenderController != nil) {
@@ -134,7 +134,7 @@
 }
 
 - (void) takePicture:(CDVInvokedUrlCommand*)command {
-        NSLog(@"takePicture");
+        // NSLog(@"takePicture");
         CDVPluginResult *pluginResult;
 
         if (self.cameraRenderController != NULL) {
@@ -198,20 +198,9 @@
         AVCaptureConnection *connection = [self.sessionManager.stillImageOutput connectionWithMediaType:AVMediaTypeVideo];
         [self.sessionManager.stillImageOutput captureStillImageAsynchronouslyFromConnection:connection completionHandler:^(CMSampleBufferRef sampleBuffer, NSError *error) {
 
-                NSLog(@"1");
-
-                 NSLog(@"Done creating still image");
-                 NSLog(@"tempDirectory");
-                //  NSString *tmpDirectory = NSTemporaryDirectory();
-                //  NSString *tmpFile = [tmpDirectory
-                //  stringByAppendingPathComponent:@"temp.jpg"];
-                //  NSURL *fileURL = [NSURL fileURLWithPath:tmpFile];
-                //  NSURL *tempFileUrl = [NSURL fileURLWithPath:[NSTemporaryDirectory().stringByAppendingPathComponents];
-
                  if (error) {
                          NSLog(@"%@", error);
                  } else {
-                   NSLog(@"2");
 
                          [self.cameraRenderController.renderLock lock];
                          CIImage *previewCImage = self.cameraRenderController.latestFrame;
@@ -223,9 +212,7 @@
 
                          CIImage *capturedCImage;
                          //image resize
-                         NSLog(@"3");
                          if(maxWidth > 0 && maxHeight > 0) {
-                           NSLog(@"4");
 
                                  CGFloat scaleHeight = maxWidth/capturedImage.size.height;
                                  CGFloat scaleWidth = maxHeight/capturedImage.size.width;
@@ -236,11 +223,9 @@
                                  [resizeFilter setValue:[NSNumber numberWithFloat:1.0f] forKey:@"inputAspectRatio"];
                                  [resizeFilter setValue:[NSNumber numberWithFloat:scale] forKey:@"inputScale"];
                                  capturedCImage = [resizeFilter outputImage];
-                                 NSLog(@"5");
                          }
                          else{
                                  capturedCImage = [[CIImage alloc] initWithCGImage:[capturedImage CGImage]];
-                                 NSLog(@"6");
                          }
 
                          CIImage *imageToFilter;
@@ -248,23 +233,19 @@
 
                          //fix front mirroring
                          if (self.sessionManager.defaultCamera == AVCaptureDevicePositionFront) {
-                           NSLog(@"7");
                                  CGAffineTransform matrix = CGAffineTransformTranslate(CGAffineTransformMakeScale(1, -1), 0, capturedCImage.extent.size.height);
                                  imageToFilter = [capturedCImage imageByApplyingTransform:matrix];
                          } else {
-                           NSLog(@"7");
                                  imageToFilter = capturedCImage;
                          }
 
                          CIFilter *filter = [self.sessionManager ciFilter];
                          if (filter != nil) {
-                           NSLog(@"8");
                                  [self.sessionManager.filterLock lock];
                                  [filter setValue:imageToFilter forKey:kCIInputImageKey];
                                  finalCImage = [filter outputImage];
                                  [self.sessionManager.filterLock unlock];
                          } else {
-                           NSLog(@"8");
                                  finalCImage = imageToFilter;
                          }
 
@@ -293,13 +274,11 @@
                         // [params addObject:cgImageValue];
                         // NSLog(@"imageData: %@", imageData);
                         NSString* newStr = [imageData base64EncodedStringWithOptions:0];
-                        NSLog(@"string: %@", newStr);
 
                         ////return value
                         [params addObject:newStr];
                         [params addObject:@"k"];
 
-                         NSLog(@"could this be the final image?: %@", finalImage);
                          CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsArray:params];
                          [pluginResult setKeepCallbackAsBool:true];
                          [self.commandDelegate sendPluginResult:pluginResult callbackId:self.onPictureTakenHandlerId];

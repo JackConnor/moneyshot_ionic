@@ -12,9 +12,9 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
   cameraCtrl.$inject = ['$http', '$state', '$scope', 'singlePhoto', 'Upload', '$q', '$cordovaCamera', '$cordovaFile', '$cordovaFileTransfer', 'signup', 'signin', 'newToken', '$cordovaCapture', '$cordovaStatusbar', '$timeout', '$ionicGesture', '$ionicScrollDelegate', '$interval', 'persistentPhotos'];
   function cameraCtrl($http, $state, $scope, singlePhoto, Upload, $q, $cordovaCamera, $cordovaFile, $cordovaFileTransfer, signup, signin, newToken, $cordovaCapture, $cordovaStatusbar, $timeout, $ionicGesture, $ionicScrollDelegate, $interval, persistentPhotos){
     // alert(window.plugin.CanvasCamera);
-    // $('html').css({
-    //   opacity: 0
-    // });
+    $('html').css({
+      opacity: 0
+    });
     // console.log($cordovaInAppBrowser);
 
     console.log('Camera Loaded');
@@ -67,126 +67,52 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         // window.plugin.CanvasCamera.initialize(objCanvas);
 
 
-        var rect2 = {x: 0, y: 51, width: 375, height: 375};
-        cordova.plugins.camerapreview.startCamera(rect2, 'back', tapEnabled, dragEnabled, toBack);
+        var rect = {x: 0, y: 51, width: 375, height: 375};
+        cordova.plugins.camerapreview.startCamera(rect, 'back', tapEnabled, dragEnabled, toBack);
+        cordova.plugins.camerapreview.show();
         $('html').animate({
           opacity: 1
         }, 200);
-        // $timeout(function(){
-        //   $timeout(function(){
-        //     document.getElementsByTagName('html')[0].style.opacity = '1'
-        //   }, 1000);
-        //   $timeout(function(){
-        //     document.getElementsByTagName('html')[0].style.opacity = '1'
-        //   }, 1300);
-        //   $timeout(function(){
-        //     document.getElementsByTagName('html')[0].style.opacity = '1'
-        //   }, 1600);
-        //   $timeout(function(){
-        //     document.getElementsByTagName('html')[0].style.opacity = '1'
-        //   }, 1900);
-        //   $timeout(function(){
-        //     document.getElementsByTagName('html')[0].style.opacity = '1'
-        //   }, 2500);
-          // cordova.plugins.camerapreview.show();
-          // $('html').animate({
-          //   opacity: 1
-          // }, 700);
-        // }, 850);
 
         cordova.plugins.camerapreview.setOnPictureTakenHandler(function(result){
-          // cordova.plugins.CameraPlus.startCamera();
-          // console.log('photocoming');
-          // console.log(result);
+          // var file = new File(['data:image/png;base64,'+result[0]], './img/assets/blob/imageFileName.png');
+          // console.log(file);
           // console.log(result[0]);
-          // console.log(result[1]);
-          // var convertedImg = window.atob(result[0]);
-          // console.log(convertedImg);
-          // var newArray = [];
-          // console.log(newArray);
-          // var arrLength = convertedImg.length;
-          // for (var i = 0; i < arrLength; i++) {
-          //   newArray[i] = convertedImg[i];
+          // var atobber = window.atob(result[0]);
+          // // console.log(atobber);
+          // // console.log('yo');
+          // var byteNumbers = [];
+          // var atobLength = atobber.length;
+          // for (var i = 0; i < atobLength; i++) {
+          //     byteNumbers[i] = atobber.charCodeAt(i);
           // }
-          // console.log(newArray);
-          // var byteArray = new Uint8Array(newArray);
-          // var blob = new Blob([byteArray], {type: 'image/jpeg'});
+          // console.log(byteNumbers);
+          // var byteArray = new Uint8Array(byteNumbers);
           // console.log(byteArray);
+          // var blob = new Blob([byteArray], {type: 'image/png'});
           // console.log(blob);
-          // var fileUrl = URL.createObjectURL(blob);
-          // console.log(fileUrl);
-          $scope.mediaCache.push({type: 'photo', link: 'data:image/jpeg;base64,'+result[0], date: new Date()})
+          // var imgUrl = URL.createObjectURL(blob);
+          // console.log(imgU);
 
-          // var bytes = Convert.from()
-          // console.log(result);
-          /////////result - picture
+          $scope.mediaCache.push({type: 'photo', link: 'data:image/png;base64,'+result[0], date: new Date()});
+          // $scope.submitModalVar = true;
+          // $timeout(function(){
+          //   $scope.submitModalVar = false;
+          // }, 10);
+
+          cordova.plugins.camerapreview.show();
           $scope.activePhoto = false;
           count++
           testCnt--
-          cordova.plugins.camerapreview.show();
-        $('.takePhotoButtonInner').animate({
-          backgroundColor: "white"
-        }, 200);
-          // resolveLocalFileSystemURL(result[0], function(fileEntry) {
-          //     fileEntry.file(function(file) {
-          //         $scope.mediaCache.push({
-          //           type: "photo"
-          //           ,link: file.localURL
-          //           ,date: new Date()
-          //           ,info: fileEntry
-          //         });
-          //     });
-          // });
+          $('.takePhotoButtonInner').animate({
+            backgroundColor: "white"
+          }, 100);
         });
-
-        /////burst mode pictures
-        // function burstPics(){
-        //   console.log('yooyoy')
-        // }
-
-        // $('.takePhotoButton').mousedown(function(){
-        //   // takeCordovaPicture();
-        //   console.log('yo');
-        // })
-
-        // function takeCordovaPicture(){
-        //   if($scope.activePhoto === false){
-        //     console.log('taking photo boom');
-        //     $scope.activePhoto = false;
-        //     // setTimeout(function(){
-        //     //   $scope.activePhoto = false;
-        //     // }, 600);
-        //     cordova.plugins.camerapreview.takePicture({maxWidth:2000, maxHeight:2000});
-        //     // window.requestFileSystem(LocalFileSystem.TEMPORARY, 0, onSuccess, onError);
-        //     // function onSuccess(file){
-        //     //   console.log(file);
-        //     // }
-        //     // function onError(err){
-        //     //   console.log(err);
-        //     // }
-        //     $('.takePhotoButton').css({
-        //       backgroundColor: "red"
-        //     })
-        //     // setTimeout(function(){
-        //     //   $('.takePhotoButton').css({
-        //     //     backgroundColor: "blue"
-        //     //   });
-        //     // }, 300)
-        //     // $('.cameraModal').css({
-        //     //   backgroundColor: "#7f0000"
-        //     // })
-        //     // setTimeout(function(){
-        //     //   $('.cameraModal').css({
-        //     //     backgroundColor: ""
-        //     //   })
-        //     // }, 200);
-        //   }
-        // }
     }
     $timeout(function(){
       uploadPhotos();
       ionic.Platform.showStatusBar(false);
-    }, 100);
+    }, 250);
     $timeout(function(){
       if(!$scope.cameraLaunched){
         uploadPhotos();
@@ -200,80 +126,23 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
 
     $scope.takeCordovaPicture = function(){
-      if($scope.activePhoto === false){
+      if($scope.activePhoto === false && $scope.mediaCache.length < 25){
         $scope.activePhoto = true;
-
-        // console.log($scope.photoCount);
-        // console.log('taking photo boom');
-        // setTimeout(function(){
-        //   $scope.activePhoto = false;
-        // }, 600);
-        if ( testCnt < 3 ) {
-          $scope.photoListLength++;
-          testCnt++;
-          cordova.plugins.camerapreview.takePicture({maxWidth: 2000, maxHeight: 2000});
-          $('.takePhotoButtonInner').css({
-            backgroundColor: "red"
-          });
-          cordova.plugins.camerapreview.hide();
-          // $('.takeBurstButtonInner').css({
-          //   backgroundColor: "gray"
-          // })
-          // $('.cameraModal').css({
-          //   backgroundColor: "red"
-          // });
-          // $('.takeBurstButtonInner').animate({
-          //   backgroundColor: " #4d0000"
-          // }, 50);
-          // $('.cameraModal').animate({
-          //   backgroundColor: "black"
-          // }, 50);
-          // cordova.plugins.camerapreview.hide();
-
-          // $timeout(function(){
-          //   // cordova.plugins.camerapreview.show();
-          //   $('.takePhotoButtonInner').css({
-          //     backgroundColor: "white"
-          //   });
-          //   $('.takeBurstButtonInner').css({
-          //     backgroundColor: " #4d0000"
-          //   });
-          //   $('.cameraModal').css({
-          //     backgroundColor: "black"
-          //   });
-          // }, 30);
-        } else {
-          console.log('Nope ' + testCnt);
-        }
-        // window.requestFileSystem(LocalFileSystem.TEMPORARY, 0, onSuccess, onError);
-        // function onSuccess(file){
-        //   console.log(file);
-        // }
-        // function onError(err){
-        //   console.log(err);
-        // }
-        // setTimeout(function(){
-        //   $('.takePhotoButton').css({
-        //     backgroundColor: "blue"
-        //   });
-        // }, 300)
-        // $('.cameraModal').css({
-        //   backgroundColor: "#7f0000"
-        // })
-        // setTimeout(function(){
-        //   $('.cameraModal').css({
-        //     backgroundColor: ""
-        //   })
-        // }, 200);
+        // console.log(testCnt);
+        $scope.photoListLength++;
+        testCnt++;
+        cordova.plugins.camerapreview.takePicture({maxWidth: 1000, maxHeight: 1000});
+        $('.takePhotoButtonInner').css({
+          backgroundColor: "red"
+        });
+        cordova.plugins.camerapreview.hide();
       }
     }
 
     var photoInt = function(){
        var photoInterval = $interval(function(){
-         if($scope.activePhoto === false){
-           $scope.takeCordovaPicture();
-         }
-       }, 300);
+         $scope.takeCordovaPicture();
+       }, 150);
 
        function clearPhotoInt(){
          $interval.cancel(photoInterval);
@@ -422,6 +291,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
     //////function to open the submit modal
     function openSubmitModal(){
+      console.log('opening baby');
       $scope.submitModalVar = true;
     }
     $scope.openSubmitModal = openSubmitModal;
@@ -649,7 +519,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
               // }
               // addCrop();
               console.log('about to send to backend');
-              $cordovaFileTransfer.upload('http://192.168.0.12:5555/api/newimage', currentPhoto.link, photoOptions)
+              $cordovaFileTransfer.upload('https://moneyshotapi.herokuapp.com/api/newimage', currentPhoto.link, photoOptions)
               .then(function(callbackImage){
                 console.log('sent to backend');
                 console.log(callbackImage.response);
@@ -852,16 +722,16 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         cordova.plugins.camerapreview.hide();
         $scope.submitModalVar = true;
         var mediaLength = set.length;
-        $timeout(function(){
-          for (var i = 0; i < mediaLength; i++) {
-            var thisLink = set[i].link
-            var subEl = $(".submitPhoto"+i);
-            // var subEl = document.querySelector('#submit'+i);
-            // console.log(thisLink);
-            // console.log(subEl);
-            subEl.attr('src', thisLink);
-          }
-        }, 500);
+        // $timeout(function(){
+        //   for (var i = 0; i < mediaLength; i++) {
+        //     var thisLink = set[i].link
+        //     var subEl = $(".submitPhoto"+i);
+        //     // var subEl = document.querySelector('#submit'+i);
+        //     // console.log(thisLink);
+        //     // console.log(subEl);
+        //     subEl.attr('src', thisLink);
+        //   }
+        // }, 500);
       }
     }
 

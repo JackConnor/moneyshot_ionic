@@ -87,7 +87,7 @@
         </div>
       </div>
     </div>
-    <div class="submitModal" ng-show='submitModalVar'>
+    <div class="submitModal" ng-if='submitModalVar'>
       <!-- <div class="submitCropContainer">
 =======
     <div class="submitModal" ng-if='submitModalPhoto'>
@@ -137,7 +137,7 @@
               <div class='fa fa-crop'></div>
             </div> -->
             <div class="submitCellImageHolder">
-              <img class='submitPhoto submitPhoto{{$index}}' id='submit{{$index}}' src="" ng-if='media.type=="photo"'/>
+              <img class='submitPhoto submitPhoto{{$index}}' id='submit{{$index}}' ng-src="{{media.link}}" ng-if='media.type=="photo"'/>
               <video id='submit{{$index}}'ng-if='media.type=="video"' poster='{{media.thumb}}'>
                 <source ng-src="{{media.link}}" type="video/mp4">
                   (Your Browser Doesn't Support Video)
