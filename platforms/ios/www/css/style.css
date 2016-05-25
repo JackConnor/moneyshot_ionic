@@ -1,0 +1,1463 @@
+/* Empty. Add your own CSS if you like */
+
+body {
+  font-family: 'Helvetica Neue', arial, san-serif;
+  font-weight: 300;
+}
+
+html {
+  opacity: 1;
+}
+
+
+
+@font-face {
+  font-family: 'SF-UI-Text';
+  src: url('fonts/SF-UI-Text-Regular.otf')
+}
+/*body, ion-tabs, .pane, .tab-nav, .tabs, html, ion-pane, ion-content, ion-view, ion-nav-view, .scroll, .platform-ios, .view, .platform-ios, .cameraModal {
+  background-color: transparent;
+}*/
+
+/*ion-content {
+  height: auto;
+}
+
+ion-view {
+  height: auto;
+}*/
+
+ion-content {
+}
+
+.accountBody {
+  padding: 0px;
+  position: absolute;
+  overflow: hidden;
+  margin-top: 75px;
+  height: auto;
+  min-height: 714px;
+}
+
+.accountTab {
+  height: 100%;
+  padding: 0px;
+  color: white;
+  font-size: 18px;
+  padding: 38px 5px 0;
+  text-align: center;
+  flex-grow: 1;
+  font-weight: 200;
+  letter-spacing: 2px;
+}
+
+.account-tab-active {
+  border-bottom: 5px solid rgba(255,255,255,.5);
+}
+
+.account-tab-active > span {
+  font-weight: 300;
+}
+
+.accountTabHolder {
+  background-color: #4DAF7C;
+  padding: 0px;
+  height: 75px;
+  z-index: 10;
+  position: absolute;
+  display: flex;
+  justify-content: space-between;
+}
+
+.backgroundImage {
+  height: auto;
+  padding: 0px;
+  position: absolute;
+}
+
+.backgroundImage img {
+  width: 100%;
+  margin-top: -6px;
+  opacity: .8;
+}
+
+.backToPhotos {
+  height: 30px;
+  color: white;
+  font-size: 16px;
+  font-weight: 300;
+  text-align: left;
+  padding-left: 5px;
+  padding-right: 0px;
+  padding-top: 5px;
+  /*border-right: 2px solid #587272;*/
+}
+
+.backToPhotos p {
+  color: white;
+}
+
+.backToSubmit {
+  height: 60px;
+  background-color: magenta;
+  z-index: 12;
+  font-size: 22px;
+  color: white;
+  padding-top: 12px;
+}
+
+
+
+.blackLayerPwModal {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  opacity: 0.8;
+  background-color: black;
+  z-index: -1
+}
+
+.blankSpace {
+  height: 15px;
+}
+
+.buttonDiv {
+  margin-top: 10px;
+  height: 102px;
+}
+
+#camera {
+}
+
+.cameraBack {
+  position: absolute;
+	margin-top: 11px;
+	right: 12px;
+	text-align: right;
+  color: white;
+  font-size: 23px;
+}
+
+.cameraBack img {
+  width: 30px;
+  height: 30px;
+}
+
+.cameraBackground {
+  background-color: black;
+  width: 100%;
+  height: 670px;
+  position: absolute;
+}
+
+.cameraBlackLayer {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  opacity: 0.4
+}
+
+.cameraButtonCell {
+  margin-top: 5px;
+  height: 102px;
+}
+
+.cameraButtonsContainer {
+  width: 100%;
+  display: block;
+  position: absolute;
+  border-top: 0px solid red;
+  /*border: 2px solid red;*/
+  height: 142px;
+  padding: 0px;
+  z-index: 17;
+  bottom: 0;
+}
+
+.cameraLensHolder {
+  height: 100%;
+  width: 100%;
+}
+
+.cameraLogo{
+  width: 200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.cameraLogo img {
+
+  margin-top: 17px;
+  margin-left: 50px;
+  width: 100px;
+  height: 20px;
+}
+
+.cameraModal {
+  width: 100%;
+  height: 568px;
+  position: fixed;
+  background-color: black;
+  z-index: 15;
+}
+
+.cameraToggleContainer {
+  color: white;
+  text-align: center;
+}
+
+.cameraViewToggle{
+  position: absolute;
+  margin-top: 11px;
+  margin-left: 10px;
+  color: white;
+}
+
+.carouselHolders {
+  width: 300%;
+  height: 667px;
+  opacity: 0.7
+}
+
+.carouselImageHolder1 {
+  position: absolute;
+  margin-left: -0%;
+  width: 100%;
+  height: 100%;
+  padding: 0%;
+}
+
+.carouselImageHolder2 {
+  margin-left: 100%;
+  position: absolute;
+  width: auto;
+  height: auto;
+  padding: 0px;
+}
+
+.carouselImageHolder1 img{
+  padding: 0px;
+  height: 667px;
+  width: 375px;
+}
+
+.carouselImageHolder2 img{
+  padding: 0px;
+  height: 667px;
+  width: 375px;
+  /*opacity: 0.2;*/
+}
+
+.circleBlack {
+  position: absolute;
+  width: 52px;
+  height: 50px;
+  margin-left: -5%;
+  margin-top: -5%;
+  background-color: black;
+  opacity: 0.1;
+  border-bottom-right-radius: 8px;
+}
+
+.circleHolder {
+  /*overflow: hidden;*/
+  padding: 0px;
+  margin-top: 7%;
+  margin-left: 7%;
+  height: 30%;
+  position: absolute;
+  z-index: 2;
+}
+
+.cropHolder {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  padding: 0px;
+  /*margin-top: 60px;*/
+}
+
+.cropHolder img {
+  height: auto;
+  width: 75%;
+  margin-left: 12.5%;
+  margin-top: 50px;
+}
+
+.cropIconHolder {
+  position: absolute;
+  width: 100%;
+  padding-top: 15px;
+  height: 120px;
+  text-align: center;
+  color: white;
+  margin-top: 80px;
+  font-size: 50px;
+  opacity: 0.5;
+  z-index: 2;
+}
+
+.cropImage {
+  padding-top: 60px;
+  height: 400px;
+  /*margin-left: auto;
+  margin-right: auto;*/
+}
+
+.cropper-container img{
+  outline: 5px solid green;
+  height: 600px;
+  width: auto;
+}
+
+.cropPhoto {
+  height: 60px;
+  background-color: orange;
+  text-align: center;
+  z-index: 12;
+  font-size: 22px;
+  color: white;
+  padding-top: 12px;
+}
+
+.cropper-container {
+  height: 500px;
+  width: 100%;
+}
+
+.dateInput {
+  width: 100px;
+  display: inline-block;
+  margin-left: 5%;
+  margin-right: auto;
+}
+
+.dateInputAt {
+  color: white;
+}
+
+.dateInputHead {
+  margin-left: 5%;
+  margin-top: 15px;
+  margin-bottom: 3px;
+  font-size: 12px;
+  color: white;
+}
+
+.dateInputTime {
+  width: 70px;
+  display: inline-block;
+  margin-left: 5px;
+}
+
+.dollarIcon {
+  margin-top: 20px;
+  margin-bottom: 40px;
+  height: 100px;
+  text-align: center;
+}
+
+.dollarIcon i {
+  font-size: 90px;
+  color: white;
+  height: 100%;
+}
+
+.editAcct {
+  text-align: center;
+  background-color: #660000;
+  opacity: .4;
+  color: white;
+  height: 100%;
+  padding: 15px;
+  font-size: 25px
+}
+
+.editAcctTitle {
+  color: white;
+  height: 100%;
+  padding: 7px 0 0 0;
+  font-size: 18px
+}
+
+.editBlackLayer {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 999;
+  background-color: black;
+  opacity: .8
+}
+
+.editModal {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  z-index: 1000;
+}
+
+.editOptions {
+  margin-top: 160px;
+  height: 150px;
+  border: 2px solid white;
+  padding: 0px;
+  opacity: 1;
+  z-index: 1000;
+}
+
+.endIntroButton {
+  width: 30%;
+  margin-left: 35%;
+  height: 40px;
+  margin-top: 455px;
+  position: absolute;
+  outline: 2px solid white;
+  text-align: center;
+  padding-top: 7px;
+  font-size: 20px;
+  color: white;
+}
+
+.fbSignin {
+  padding-top: 15px;
+  height: auto;
+  width: 40px;
+  margin: 0 auto;
+}
+
+.fbSignin img{
+  height: 100%;
+  width: 100%;
+}
+
+.fbText {
+  text-align: center;
+  font-size: 25px;
+}
+
+.finalizeMophos {
+  height: 30px;
+  color: white;
+  text-align: center;
+  padding-top: 5px;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.getPasswordModal {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+}
+
+.getPwButton {
+  width: 160px;
+  height: 45px;
+  margin-top: 15px;
+  background-color: green;
+  color: white;
+  text-align: center;
+  padding-top: 10px;
+  font-size: 25px;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 4px;
+}
+
+.getPwEmail {
+  width: 90%;
+  margin-left: 5%;
+  text-align: center;
+  margin-top: 35%;
+  border-radius: 4px;
+}
+
+.jr-crop-img {
+  width: 70%;
+  margin-left: 15%;
+  margin-top: 0px;
+  height: auto;
+}
+
+.jr-crop-img img{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.hamburgerHolder {
+  text-align: left;
+  color: white;
+  top: 0;
+  padding: 35px 15px 0;
+  flex: 0 0 53px;
+}
+
+.hamburgerIcon {
+  font-size: 27px;
+  /*margin-top: 5px;*/
+}
+
+.hamburgerMenu {
+  position: absolute;
+  height: auto;
+  background-color: #4DAF7C;
+  box-shadow: 0 3px 4px 1px rgba(0,0,0,.15);
+  opacity: 1;
+  z-index: 30;
+  padding: 0px;
+  top: 80px;
+  right: 5px;
+  width: 200px;
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.hamburgerCell {
+  color: #ffffff;
+  font-size: 16px;
+  line-height: 2.8;
+  border-bottom: 1px solid rgba(255,255,255,.2);
+  padding: 0 15px;
+  cursor: pointer;
+  font-weight: 200;
+  letter-spacing: 1px;
+}
+
+.hamburgerCell i {
+  margin-right: 10px;
+  color: rgba(255,255,255,.5);
+}
+
+.hamburgerCell:last-child {
+  border-bottom: none;
+}
+
+.hamburgerBackground {
+  position: absolute;
+  width: 100%;
+  height: 1000px;
+  z-index: 17;
+  top: 75px;
+}
+
+#image {
+  width: 200px;
+  height: 200px;
+}
+
+
+.intro-dot-container{
+  margin-top: 45px;
+  /*margin-bottom: 40px;*/
+
+  /*display: flex;
+  justify-content: center;*/
+}
+
+.intro-dot-item{
+  /*background-color: #ffffff;*/
+  margin: 0 10px;
+  width: 15px;
+  height: 15px;
+  border: 2px solid white;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.intro-dot-item-active{
+  background-color: white;
+}
+
+.intro-load {
+  position: absolute;
+  width: 80%;
+  margin-left: 10%;
+  margin-top: 55%;
+  height: auto;
+}
+
+.introButton {
+  background-color: #4DAF7C;
+  padding: 10px 20px;
+  color: #ffffff;
+  /*font-family: 'Helvetica Neue', arial, san-serif;*/
+  letter-spacing: 2px;
+  border-radius: 3px;
+  font-weight: 900;
+  font-size: 16px;
+  width: 40%;
+  height: 45px;
+  border-radius: 4px;
+  position: absolute;
+}
+
+.introButtonHolder {
+  width: 100%;
+  height: 25pt;
+  /*outline: 2px solid blue;*/
+}
+
+.introSignin {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  color: white;
+  text-align: center;
+  font-size: 22px;
+}
+
+.introSigninButton {
+  background: rgba(255,255,255,.7);
+  color: #000000;
+  margin-left: 53.33%;
+  border: 1px solid black;
+}
+
+.introSignupButton {
+  margin-left: 6.66%;
+  background-color: #FF0000;
+  border: 1px solid white;
+  /*margin-bottom: 15px;*/
+}
+
+.ion-content {
+  margin: 0px;
+  padding: 0px;
+}
+
+
+
+.loadSpinner {
+  width: 50px;
+  height: 88px;
+  top: 220px;
+  left: 50%;
+  margin-left: -25px;
+  position: fixed;
+  z-index: 20;
+  animation-name: spin;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+  timing-function: linear;
+  z-index: 50;
+}
+
+@keyframes spin {
+  from {transform:rotate(0deg);}
+  to {transform:rotate(360deg);}
+}
+
+.loadSpinnerBlack {
+  width: 100%;
+  height: 115%;
+  margin-top: -15%;
+  position: absolute;
+  background-color: #ffffff;
+  opacity: 0.8;
+  z-index: 50;
+}
+
+.loadSpinner img{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.locationInput {
+  width: 90%;
+  margin-left: 5%;
+}
+
+.longArrow {
+  font-size: 40px;
+  opacity: .75;
+}
+
+.nameTag {
+  height: 45px;
+  padding-top: 10px;
+  color: white;
+}
+
+.navBar {
+  width: 100%;
+  height: 55px;
+  text-align: center;
+  font-size: 25px;
+  background-color: #005d00;
+  /*margin-bottom: 55px;*/
+}
+
+.opPhoto {
+  font-size: 19px;
+  font-weight: 900;
+  padding-top: 14px;
+  height: 100%;
+}
+
+.opBurst {
+  padding-top: 14px;
+  height: 100%;
+}
+
+.opVideo {
+  padding-top: 14px;
+  height: 100%;
+}
+
+.optionDelete {
+  background-color: red;
+  color: white;
+  font-size: 26px;
+  text-align: center;
+  padding-top: 50px;
+}
+
+.optionEdit{
+  background-color: green;
+  color: white;
+  font-size: 22px;
+  text-align: center;
+  padding-top: 35px;
+}
+
+.optionOption {
+  height: 100%;
+}
+
+.outCameraModal {
+  height: 60px;
+  width: 60px;
+  border-radius: 50%;
+  border: 2px solid white;
+  color: white;
+  font-size: 14px;
+  padding-top: 17px;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.photoCount {
+  width: 30px;
+  height: 30px;
+  background-color: red;
+  color: white;
+  font-weight: 700;
+  position: absolute;
+  border-radius: 50%;
+  padding-left: 7px;
+  padding-top: 2px;
+  margin-left: -3px;
+  margin-top: -3px;
+  border: 1px solid gray;
+}
+
+.photoNameInput {
+  height: 60px;
+  width: 90%;
+  margin-left: 5%;
+  text-align: center;
+}
+
+.photoToggleContainer {
+  color: white;
+  text-align: center;
+  height: 39px;
+  font-size: 14px;
+}
+
+.pwX {
+  position: absolute;
+  margin-left: 88%;
+  font-size: 35px;
+  color: white;
+  margin-top: 15px;
+}
+
+.repeatContainer {
+  padding: 0px;
+  min-height: 100%;
+}
+
+.sendFinDataButton {
+  padding: 20px 0 0 0px;
+  height: 100%;
+  background-color: #696969;
+  color: white;
+  font-size: 18px;
+  float: right;
+  text-align: center;
+}
+
+.shootButton {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  color: white;
+  background-color: red;
+  margin: 20px auto 0 auto;
+  padding-top: 45px;
+  text-align: center;
+  font-size: 20px;
+}
+
+.signBackground {
+  width: 100%;
+  height: auto;
+}
+
+.signin {
+  height: 100%;
+  display: inline-block;
+  font-size: 30px;
+  text-align: center;
+  padding-top: 15px;
+  color: white;
+}
+
+.signinLogo {
+  /*background: rgba(255,255,255,.8);*/
+  /*padding: 15px 0;*/
+  margin-top: 105px;
+  z-index: 5;
+  /*display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;*/
+}
+
+.signinLogo img{
+  width: 100%;
+  height: auto;
+}
+
+.signinModal {
+  margin-top: 135px;
+  position: absolute;
+  width: 100%;
+  height: auto;
+  color: white;
+  z-index: 2;
+}
+
+.signinOr {
+  text-align: center;
+  font-size: 22px;
+  margin-top: 20px;
+}
+
+.signinTabs {
+  height: 60px;
+  width: 100%;
+}
+
+.signinTaglineBubble {
+  width: 93.5pt;
+  height: 93.5pt;
+  background-color: white;
+  opacity: 0.58;
+  border-radius: 50%;
+  z-index: 6;
+  margin-top: -35px;
+  margin-left: 4px;
+  line-height: 17pt;
+  position: absolute;
+  z-index: -1;
+}
+
+.signinTaglineText {
+  width: 79.4pt;
+  height:  79.4px;
+  font-size: 15pt;
+  letter-spacing: -0.2pt;
+  margin-top: 33px;
+  margin-left: 10px;
+  color: black;
+  text-align: center;
+  padding: 0 10px;
+}
+
+.signout {
+  height: 100%;
+  background-color: purple;
+  display: inline-block;
+  font-size: 30px;
+  text-align: center;
+  padding-top: 15px;
+  color: white;
+}
+
+.signup {
+  height: 100%;
+  display: inline-block;
+  font-size: 30px;
+  text-align: center;
+  padding-top: 15px;
+  color: white;
+}
+
+.submitAddInfoContainer {
+  height: 50%;
+  /*border: 2px solid blue;*/
+}
+
+.signupBlack {
+  position: absolute;
+  z-index: 1;
+  background-color: black;
+  opacity: 0.12;
+  height: 330px;
+  width: 100%;
+  margin-top: -330px;
+  /*bottom: 0;*/
+}
+
+.soldSign {
+  color: red;
+  border: white;
+  border-radius: 4px;
+  font-size: 40px;
+  margin-top: 20px;
+}
+
+.submitBarBlack {
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  opacity: 0.85;
+  position: absolute;
+  z-index: 4999;
+}
+
+.submitBarContainer {
+  width: 100%;
+  height: 750px;
+  position: absolute;
+}
+
+.submitBarHolder {
+  position: absolute;
+  background-color: white;
+  border: 3px solid white;
+  border-radius: 3px;
+  opacity: 0.7;
+  margin-top: 25px;
+  z-index: 5000;
+  padding-bottom: 15px;
+  width: 80%;
+  margin-left: 10%;
+}
+
+.submitButton {
+  height: 45px;
+  color: white;
+  font-size: 20px;
+  text-align: center;
+  padding-top: 3px;
+  border-right: 2px solid #587272;
+  background-color: #013220;
+}
+
+.submitCell {
+  height: 100px;
+  padding: 0px;
+  overflow: hidden;
+}
+
+.submitCell i {
+  position: absolute;
+  margin-top: 5px;
+  margin-left: 5px;
+  font-size: 35px;
+  font-weight: 100;
+  color: white;
+  border: black;
+}
+
+.submitCell img{
+  /*position: absolute;*/
+  width: 100%;
+  height: auto;
+}
+
+.submitCell video{
+  padding: 0px;
+  width: 90%;
+  height: 90%;
+  margin: 5% 0 0 5%;
+}
+
+.submitCellImageHolder {
+  overflow: hidden;
+  padding: 0px;
+  width: 100%;
+  height: 100%;
+  margin: 0% 0 0 0%;
+  border: 1px solid white;
+}
+
+.submitCheck {
+  display: block;
+  margin-left: 5%;
+  margin-top: 25px;
+}
+
+.submitCheck input{
+  padding-top: 5px;
+}
+
+.submitCheck p{
+  color: white;
+  font-size: 9px;
+  margin-left: 5px;
+  position: absolute;
+  display: inline-block;
+
+}
+
+.submitCropContainer {
+  outline: 2px solid blue;
+  width: 100%;
+  height: 400px;
+  margin-left: 100%;
+  /*margin-top: 100px;*/
+  position: fixed;
+  z-index: 11;
+  background-color: gray;
+}
+
+.submitDelete {
+  height: 30px;
+  /*color: white;*/
+  font-size: 20px;
+  text-align: center;
+  padding-top: 3px;
+  /*background-color: #013220;*/
+}
+
+.submitModal {
+  width: 100%;
+  height: 660px;
+  position: fixed;
+  background-color: black;
+  z-index: 16;
+  position: absolute;
+}
+
+.submitModalContainer {
+  width: 100%;
+  height: 100%;
+}
+
+.submitModalTabHolder {
+  height: 30px;
+  padding: 0px;
+}
+
+.submitPhotoBacking {
+  width: 100%;
+  height: 800px;
+  position: absolute;
+  z-index: 99999;
+}
+
+.submitPhotoModal {
+  width: 80%;
+  margin-left: 10%;
+  margin-top: 55px;
+  height: 435px;
+  background-color: #1c2f2f;
+  border-radius: 5px;
+  /*border: 2px solid white;*/
+  position: absolute;
+  z-index: 18;
+}
+
+.submitPhotoXHolder {
+  width: 20%;
+  color: white;
+  font-size: 21px;
+  padding-left: 15px;
+  padding-top: 15px;
+}
+
+.submitNameButt {
+  width: 70%;
+  margin-left: 15%;
+  text-align: center;
+  height: 45px;
+  font-size: 15px;
+  color: black;
+  background-color: #4DAF7C;
+  margin-top: 5px;
+  border: 1px solid black;
+  padding-top: 10px;
+  border-radius: 3px;
+}
+
+.submitPhotoModalContent {
+  width: 90%;
+  margin-left: 5%;
+  margin-top: 35px;
+  color: black;
+  font-size: 24px;
+  font-weight: 900;
+  text-align: center;
+}
+
+.submitProgressBar {
+  height: 100%;
+  width: 10px;
+  background-color: teal;
+}
+
+.submitRepeat{
+  padding: 0px;
+  height: 45%;
+  border: 1px solid #545454;
+  background-color: #e9e9e9;
+  overflow: hidden;
+  overflow-y: scroll;
+}
+
+.submitSetDiv {
+  height: 30px;
+  width: 60px;
+  border-radius: 5px;
+  color: white;
+  border: 2px solid white;
+  background-color: red;
+  font-weight: 900;
+  font-size: 14px;
+  padding-top: 3px;
+  text-align: center;
+  margin-top: 15px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.submitStatusBar {
+  width: 80%;
+  margin-left: 10%;
+  margin-top: 50px;
+  height: 40px;
+  border: 2px solid gray;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.swipeCell {
+  height: 100%;
+  padding: 0px;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.swipeCell h4 {
+  font-size: 30px;
+  font-family: 'Helvetica Neue';
+  font-weight: 300;
+  letter-spacing: 1px;
+  color: #ffffff;
+  text-align: center;
+  width: 100%;
+  position: absolute;
+  z-index: 11;
+  bottom: 190px;
+}
+
+.swipeIntro {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  position: fixed;
+  z-index: 20;
+}
+
+.swipeIntro1 {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  background-color: red;
+  position: fixed;
+  z-index: 31;
+}
+
+.swipeIntroRow {
+  width: 400%;
+  border: 2px solid black;
+  height: 100%;
+}
+
+.takeBurstButton {
+  width: 75px;
+  height: 75px;
+  border-radius: 50%;
+  border: 2px solid gray;
+  background-color: white;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.takeBurstButtonInner {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 3px solid black;
+  background-color: #907070;
+  margin-left: 5px;
+  margin-top: 5px;
+}
+
+.takePhotoButton {
+  width: 75px;
+  height: 75px;
+  border-radius: 50%;
+  border: 2px solid gray;
+  background-color: white;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.takePhotoButtonInner {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 3px solid black;
+  margin-left: 5px;
+  margin-top: 5px;
+}
+
+.takeVideoButton {
+  width: 75px;
+  height: 75px;
+  border-radius: 50%;
+  border: 2px solid gray;
+  background-color: blue;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.tempFinInfo {
+  font-size: 50px;
+  color: white;
+  text-align: center;
+  padding-top: 50px;
+  opacity: 0.3;
+}
+
+.testing {
+  width: 100px;
+  height: 100px;
+}
+
+.toggleCameraIcon {
+  color: white;
+  /*font-size:23px;*/
+  height: 30px;
+  /*opacity: 0.75;*/
+}
+
+.toggleCameraIcon img{
+  /*filter: invert();*/
+}
+
+
+.xOutSignup {
+  font-size: 30px;
+  float: right;
+  margin-right: 10px;
+  margin-top: 10px;
+}
+
+
+/*/////animation stuff*/
+/*//////////////////////////////*/
+@-webkit-keyframes slideInSmooth0 {
+  0% {
+    -webkit-transform: translate3d(0%,0,0);
+  }
+
+  50% {
+    -webkit-transform: translate3d(-50%,0,0);
+  }
+
+  100% {
+    -webkit-transform: translate3d(-100%,0,0);
+  }
+}
+
+@-webkit-keyframes slideStep2Smooth {
+  0% {
+    -webkit-transform: translate3d(100%,0,0);
+  }
+
+  10% {
+    -webkit-transform: translate3d(90%,0,0);
+  }
+
+  20% {
+    -webkit-transform: translate3d(80%,0,0);
+  }
+
+  30% {
+    -webkit-transform: translate3d(70%,0,0);
+  }
+
+  40% {
+    -webkit-transform: translate3d(60%,0,0);
+  }
+
+  50% {
+    -webkit-transform: translate3d(50%,0,0);
+  }
+
+  60% {
+    -webkit-transform: translate3d(40%,0,0);
+  }
+
+  70% {
+    -webkit-transform: translate3d(30%,0,0);
+  }
+
+  80% {
+    -webkit-transform: translate3d(20%,0,0);
+  }
+  90% {
+    -webkit-transform: translate3d(10%,0,0);
+  }
+
+  100% {
+    -webkit-transform: translate3d(0%,0,0);
+  }
+}
+
+@-webkit-keyframes slideStep2Smooth2 {
+  0% {
+    -webkit-transform: translate3d(-100%,0,0);
+  }
+
+  10% {
+    -webkit-transform: translate3d(-110%,0,0);
+  }
+
+  20% {
+    -webkit-transform: translate3d(-120%,0,0);
+  }
+
+  30% {
+    -webkit-transform: translate3d(-130%,0,0);
+  }
+
+  40% {
+    -webkit-transform: translate3d(-140%,0,0);
+  }
+
+  50% {
+    -webkit-transform: translate3d(-150%,0,0);
+  }
+
+  60% {
+    -webkit-transform: translate3d(-160%,0,0);
+  }
+
+  70% {
+    -webkit-transform: translate3d(-170%,0,0);
+  }
+
+  80% {
+    -webkit-transform: translate3d(-180%,0,0);
+  }
+  90% {
+    -webkit-transform: translate3d(-190%,0,0);
+  }
+
+  100% {
+    -webkit-transform: translate3d(-200%,0,0);
+  }
+}
+
+.slideLeft0{
+  -webkit-animation: slideInSmooth0 ease-in 1;
+  animation: slideInSmooth0 ease-in 1;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+  -webkit-animation-duration: 1000ms;
+  animation-duration: 1000ms;
+}
+
+.slideLeftStep{
+  -webkit-animation: slideStep2Smooth linear 1;
+  animation: slideStep2Smooth linear 1;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+  -webkit-animation-duration: 1000ms;
+  animation-duration: 1000ms;
+}
+
+.slideLeftStep2{
+  -webkit-animation: slideStep2Smooth2 linear 1;
+  animation: slideStep2Smooth2 linear 1;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+  -webkit-animation-duration: 1000ms;
+  animation-duration: 1000ms;
+}
+
+
+/*/////angular animations/////*/
+
+/*@-webkit-keyframes hideEmail {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.0;
+  }
+}
+
+.ng-hide-remove {
+  -webkit-animation: hideEmail ease-in 1;
+animation: hideEmail ease-in 1;
+-webkit-animation-fill-mode: forwards;
+animation-fill-mode: forwards;
+-webkit-animation-duration: 750ms;
+animation-duration: 750ms;
+}*/
+
+/*//////makes the button slide up*/
+@-webkit-keyframes emailSlideUp {
+  0% {
+    margin-top: 65px;
+  }
+  25% {
+    margin-top: 52px
+  }
+  50% {
+    margin-top: 41px;
+  }
+  75% {
+    margin-top: 32px
+  }
+  100% {
+    margin-top: 25px;
+  }
+}
+
+.slideUpPw {
+  -webkit-animation: emailSlideUP ease-in 1;
+animation: emailSlideUp ease-in 1;
+-webkit-animation-fill-mode: forwards;
+animation-fill-mode: forwards;
+-webkit-animation-duration: 350ms;
+animation-duration: 350ms;
+}
+
+.zStyle {
+  background-color: red
+}

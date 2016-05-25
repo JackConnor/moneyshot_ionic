@@ -1,0 +1,128 @@
+
+
+
+
+.goToSigninHolder{
+	position: absolute;
+	bottom: 30px;
+	left: 0;
+	right: 0;
+}
+
+/****** Sign up / Sign in ******/
+
+.signupModal {
+  color: #000000;
+  z-index: 2;
+  padding-top: 80px;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.signin {
+  height: 100%;
+  display: inline-block;
+  font-size: 30px;
+  text-align: center;
+  padding-top: 15px;
+  color: white;
+}
+
+.signinModal {
+  margin-top: 80px;
+  position: absolute;
+  width: 100%;
+  height: auto;
+  color: white;
+  z-index: 2;
+}
+
+.signupInputHolder {
+  width: 90%;
+  margin: 0 auto;
+}
+
+.signupInputHolder h1{
+  margin-bottom: 30px;
+  font-size: 34px;
+  font-weight: 300;
+  text-align: center;
+}
+
+.signupInputHolder input {
+  text-align: left;
+  padding: 5px 15px;
+  margin-top: 10px;
+  border-radius: 3px;
+  font-size: 20px;
+  background: transparent;
+  border: 1px solid #000000;
+  line-height: 1.4;
+  height: auto;
+  width: 100%;
+}
+
+.forgotPassword {
+  margin-top: 15px;
+  width: 130px;
+  float: right;
+  font-size: 15px;
+  color: #000000;
+  text-align: right;
+}
+
+.submitSignup {
+  color: #ffffff;
+  margin-top: 25px;
+  background-color: #4DAF7C;
+  font-size: 20px;
+  padding: 10px 20px;
+  font-family: 'Helvetica Neue';
+  border-radius: 3px;
+  text-align: center;
+  display: block;
+}
+
+.introOr {
+  color: #cccccc;
+  margin-top: 10px;
+  text-align: center;
+  font-family: 'Helvetica Neue', arial, san-serif;
+}
+
+.introOr2 {
+  color: #cccccc;
+  margin-top: 40px;
+  text-align: center;
+  font-family: 'Helvetica Neue', arial, san-serif;
+}
+
+.goToSignin {
+  margin-top: 15px;
+  background-color: transparent;
+  border: 1px solid #4DAF7C;
+  color: #4DAF7C;
+  font-size: 22px;
+  padding: 10px 20px;
+  width: 100%;
+  text-align: center;
+  font-family: 'Helvetica Neue', arial, san-serif;
+  border-radius: 3px;
+  display: inline-block;
+}
+
+.goToSignup {
+  margin-top: 15px;
+  background-color: transparent;
+  border: 1px solid #4DAF7C;
+  color: #4DAF7C;
+  text-align: center;
+  font-size: 22px;
+  padding: 10px 20px;
+  width: 100%;
+  font-family: 'Helvetica Neue', arial, san-serif;
+  border-radius: 3px;
+  display: inline-block;
+}

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title></title>
+
+    <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
+    <link href="css/ionic.app.css" rel="stylesheet">
+    -->
+
+    <!-- //////phonegap plugins -->
+    <!-- <gap:plugin name="com.mbppower.camerapreview" version="0.0.8" source="plugins.cordova.io" /> -->
+
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" media="screen" title="no title" charset="utf-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css">
+    <link  href="https://cdnjs.cloudflare.com/ajax/libs/cropper/2.3.0/cropper.css" rel="stylesheet">
+
+    <!-- angular animate -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/animatecss/3.5.1/animate.min.css" media="screen" title="no title" charset="utf-8">
+
+    <!-- css files -->
+    <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/signin.css" rel="stylesheet">
+    <link href="css/camera.css" rel="stylesheet">
+    <link href="css/ionic_styles.css" rel="stylesheet">
+    <link href="css/submitted.css" rel="stylesheet">
+    <link href="css/money.css" rel="stylesheet">
+    <link href="css/sold.css" rel="stylesheet">
+    
+    <!-- <link href="css/fonts/SF-UI-Text-Regular.otf" rel="stylesheet"> -->
+
+    <!-- darkroom -->
+    <!-- <link rel="stylesheet" href="./css/darkroom.css"> -->
+    <!-- <link rel="stylesheet" href="/lib/ng-cropper/dist/ngCropper.all.css" media="screen" title="no title" charset="utf-8"> -->
+    <!-- <link rel="stylesheet" href="/css/croppic.css" media="screen" title="no title" charset="utf-8"> -->
+    <!-- <link href="./#/bower_components/ng-img-crop/compile/minified/ng-img-crop.css"  rel="stylesheet" type="text/css"> -->
+    <!-- <link href="css/ng-img-crop.css"  rel="stylesheet" type="text/css"> -->
+    <!-- <link href="css/jr-crop.css"  rel="stylesheet" type="text/css"> -->
+  </head>
+  <body ng-app="starter" style="background-color='transparent'" class="platform-ios platform-cordova platform-webview">
+    <!--
+      The nav bar that will be updated as we navigate between views.
+    -->
+    <!-- <ion-nav-bar class="bar-stable">
+      <ion-nav-back-button>
+      </ion-nav-back-button>
+    </ion-nav-bar> -->
+    <!--
+      The views will be rendered in the <ion-nav-view> directive below
+      Templates are in the /templates folder (but you could also
+      have templates inline in this html file if you'd like).
+    -->
+    <ion-nav-view></ion-nav-view>
+  </body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.0/jquery.min.js" charset="utf-8"></script>
+  <!-- ionic/angularjs js -->
+  <script src="lib/ionic/js/ionic.bundle.js"></script>
+  <!-- <script src="../ng-cordova-oauth/dist/ng-cordova-oauth.min.js"></script> -->
+
+  <!-- cordova script (this will be a 404 during development) -->
+  <script src="cordova.js"></script>
+  <script src="lib/angular-facebook.js" charset="utf-8"></script>
+  <!-- <script src="http://connect.facebook.net/en_US/all.js"></script> -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/danialfarid-angular-file-upload/12.0.1/ng-file-upload.min.js"></script> <!-- for no html5 browsers support -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/danialfarid-angular-file-upload/12.0.1/ng-file-upload-shim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ng-cordova/0.1.23-alpha/ng-cordova.min.js" charset="utf-8"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0-beta.1/angular-sanitize.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.4/angular-route.js"></script>
+  <script src="https://cdn.bootcss.com/angular-touch/1.5.0/angular-touch.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/jquery.cloudinary/1.0.18/jquery.cloudinary.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/jquery.fileupload/9.9.0/js/jquery.fileupload.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/blueimp-file-upload/9.5.7/jquery.iframe-transport.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/blueimp-file-upload/9.5.7/jquery.fileupload-ui.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/cropper/2.3.0/cropper.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.12.0/moment.min.js"></script>
+
+
+
+
+  <!-- <script src="js/canvascamera.js"></script> -->
+  <!-- <script src="js/controllers.js"></script> -->
+  <script src="js/controllers/accountController.js"></script>
+  <script src="js/controllers/cameraController.js"></script>
+  <script src="js/controllers/uploadController.js"></script>
+  <script src="js/controllers/signupController.js"></script>
+  <script src="js/controllers/bankController.js"></script>
+  <script src="js/controllers/initController.js"></script>
+  <script src="js/services.js"></script>
+
+  <!-- your app's js -->
+  <script src="js/app.js"></script>
+  <script src="../cordova.js"></script>
+
+  <!-- Factories -->
+  <script src="js/factories/allPhotosFactory.js" charset="utf-8"></script>
+  <script src="js/factories/takesinglephotofactory.js" charset="utf-8"></script>
+  <script src="js/factories/signupFactory.js" charset="utf-8"></script>
+  <script src="js/factories/signinFactory.js" charset="utf-8"></script>
+  <script src="js/factories/newTokenFactory.js" charset="utf-8"></script>
+  <script src="js/factories/navbarHolderFactory.js" charset="utf-8"></script>
+  <script src="js/factories/userPhotosFactory.js" charset="utf-8"></script>
+  <script src="js/factories/decodeTokenFactory.js" charset="utf-8"></script>
+  <script src="js/factories/persistentPhotosFactory.js" charset="utf-8"></script>
+</html>

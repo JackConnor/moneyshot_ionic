@@ -1,0 +1,238 @@
+<ion-view view-title="Account">
+  <ion-content overflow-scroll='false'>
+    <div class="accountTabHolder col-xs-12">
+      <div class="accountTab soldTab" ng-click='showSoldFunc(); tabUi($event)'>
+        <span class='soldTabInner'>Sold</span>
+      </div>
+      <div class="accountTab submittedTab" ng-click='showSubmittedFunc(); tabUi($event)'>
+        <span class='submittedTabInner'>Submitted</span>
+      </div>
+      <div class="accountTab moneyTab" ng-click='showFinanceFunc(); tabUi($event)'>
+        <span class='moneyTabInner'>Money</span>
+      </div>
+      <div class="hamburgerHolder" ng-click="openHamburger()">
+        <p class='fa fa-bars hamburgerIcon'></p>
+      </div>
+    </div>
+    <div class="accountBody col-xs-12">
+      <div class="loadSpinnerBlack" ng-if='loadingModal'></div>
+      <div class="loadSpinner" ng-if='loadingModal'>
+        <img src="./img/MoPho_Logo_No_Background.png" alt="" ng-if='loadingModal'/>
+      </div>
+      <div class="backgroundImage col-xs-12">
+        <img src="https://i.imgsafe.org/017d610.png" ng-repeat='photo in backgroundMultiple'/>
+      </div>
+      <div class="swipeIntro" ng-if="introModal">
+        <div class="swipeIntroRow" >
+          <div class="col-xs-3 swipeCell swipe1">
+            <p>
+              Step 1
+            </p>
+            <h4>
+              Take a Photo
+            </h4>
+            <div class="introPhoto" ng-swipe-left='introSwipeLeft()' ng-swipe-right='introSwipeRight()'>
+              <img src="http://static2.businessinsider.com/image/507c6ebf69bedd185e000001-480/iphone-taking-pictures-pic-photo-photography-camera-cell-phone-bi-dng.jpg" alt="" />
+            </div>
+            <div class="endIntroButton" ng-click='exitIntro()'>
+              Exit
+            </div>
+          </div>
+          <div class="col-xs-3 swipeCell swipe2">
+            <p>
+              Step 2
+            </p>
+            <h4>
+              Edit your Photos
+            </h4>
+            <div class="introPhoto" ng-swipe-left='introSwipeLeft()' ng-swipe-right='introSwipeRight()'>
+              <img src="http://s11.postimg.org/a71hakfn7/IMG_6075.png" alt="" />
+            </div>
+            <div class="endIntroButton" ng-click='exitIntro()'>
+              Exit
+            </div>
+          </div>
+          <div class="col-xs-3 swipeCell swipe3">
+            <p>
+              Step 3
+            </p>
+            <h4>
+              Upload a Photo Set
+            </h4>
+            <div class="introPhoto" ng-swipe-left='introSwipeLeft()' ng-swipe-right='introSwipeRight()'>
+              <img src="http://s15.postimg.org/fqwjso0kb/submit.png" alt="" />
+            </div>
+            <div class="endIntroButton" ng-click='exitIntro()'>
+              Exit
+            </div>
+          </div>
+          <div class="col-xs-3 swipeCell swipe4">
+            <p>
+              Step 4
+            </p>
+            <h4>
+              Earn Money
+            </h4>
+            <div class="introPhoto" ng-swipe-left='introSwipeLeft()' ng-swipe-right='introSwipeRight()'>
+              <img src="https://upload.wikimedia.org/wikipedia/commons/5/55/Twenty_dollar_bills.JPG" alt="" />
+            </div>
+            <div class="endIntroButton" ng-click='exitIntro()'>
+              Exit
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="singleImageModal col-xs-12">
+        <div class="backButton backButtonClose" ng-click='backToRepeat("single")'>
+          <i class='fa fa-times'></i>
+        </div>
+        <div class="singleImageHolder" >
+          <img class='singleImage' ng-src="{{singlePhotoData.url}}" ng-if="!singlePhotoData.isVideo" />
+          <video ng-src="{{singlePhotoData.url | trustUrl}}" class="singleImage col-xs-12" controls ng-if="singlePhotoData.isVideo" poster='{{singlePhotoData.thumbnail}}'></video>
+          <div class="singleInfoHolder col-xs-12">
+            <div class="singleWho">
+              Who: <span class="text-dark">{{singlePhotoData.photosubjects[0]}}, {{singlePhotoData.photosubjects[1]}}, {{singlePhotoData.photosubjects[2]}}</span>
+            </div>
+            <div class="singleWho">
+              When: <span class="text-dark">{{singlePhotoData.date | date}}</span>
+            </div>
+            <div class="singlePrice" ng-if='singlePhotoData.price'>
+              You earned: <span class="text-dark">{{singlePhotoData.price | currency}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="singleSubmissionModal col-xs-12" ng-if='singleSubmissionModal'>
+        <div class="singleSubmissionBackground" ng-click='backToRepeat("submission")'></div>
+        <div class="backButton" ng-click='backToRepeat("submission")'>
+          <i class="fa fa-angle-left" aria-hidden="true"></i> Back
+        </div>
+        <div class="submissionRepeatContainer">
+          <div class="subRepeat gallery-item" ng-repeat="photo in singleSubmission.photos" ng-if='photo.status=="rejected" || photo.status=="offered for sale" || photo.status=="sold"'>
+            <video ng-src="{{photo.url | trustUrl}}" controls ng-if="photo.isVideo" ng-click='openSingle(photo, "sold")' poster='{{photo.thumbnail}}'></video>
+            <img ng-src="{{photo.url | trustUrl}}" ng-if="!photo.isVideo" ng-click='openSingle(photo, "sold")'/>
+          </div>
+        </div>
+      </div>
+
+      <!-- /////begin repeat-photo container -->
+      <div class="repeatContainer col-xs-12 " id='repeatContainer'>
+        <!-- /////begin tab for sold photos//// -->
+        <!-- <div class="" > -->
+          <div class="soldPhotosRepeatContainer col-xs-12" ng-if='showSold'>
+            <div class="sellPhotoModal" ng-if="sellModal">
+              <div class="sellX fa fa-times" ng-click='closeSellModal()'></div>
+              <div class="sellModalBlack" ng-click='closeSellModal()'></div>
+              <div class="sellModalContent col-xs-8 col-xs-offset-2">
+                <div class="sellPhotoHolder col-sm-8 col-sm-offset-2 col-xs-12 col-xs-offset-0">
+                  <img ng-src="{{singlePhotoData.url}}" ng-if="!singlePhotoData.isVideo" />
+                  <video ng-src="{{singlePhotoData.url | trustUrl}}" class="col-xs-12" controls ng-if="singlePhotoData.isVideo" poster='{{singlePhotoData.thumbnail}}'></video>
+                </div>
+                <div class="sellPrice col-xs-12">
+                  Sell this photo for {{singlePhotoData.price | currency}}?
+                </div>
+                <div class="sellButtonContainer col-xs-12">
+                  <div class="sellButton sellYes col-xs-6" ng-click='buyRejectPhoto("sold", singlePhotoData)'>
+                    Yes, Sell Photo
+                  </div>
+                  <div class="sellButton sellNo col-xs-6" ng-click='buyRejectPhoto("rejected", singlePhotoData)'>
+                    Reject Offer
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="soldPhotosRepeat col-md-6 col-xs-12" ng-repeat='soldPhoto in allSoldPhotos'>
+              <div class="soldInnerHolder">
+                <div class="blackLayerSingleModal"></div>
+                <div class="priceLayer" ng-click='openSingle(soldPhoto, soldPhoto.status)'>
+                  <div class="priceInfo">
+                    {{soldPhoto.price | currency}} offered
+                  </div>
+                  <div class="ifSold" ng-if="soldPhoto.status == 'offered for sale'">
+                    Accept Offer
+                  </div>
+                  <div class='ifPaid' ng-if='soldPhoto.status == "sold"'>
+                    Sold!
+                  </div>
+                </div>
+                <img class='allSoldPhotosRepeat' ng-src="{{soldPhoto.url}}" ng-if='!soldPhoto.isVideo' />
+                <video ng-src="{{soldPhoto.url | trustUrl}}" class="col-xs-12" controls ng-if="soldPhoto.isVideo"></video>
+              </div>
+            </div>
+          </div>
+        <!-- </div> -->
+        <div class="showSubmittedHolder" ng-if='showSubmitted'>
+          <div class="submittedRow submittedRow{{$index}}" ng-repeat='submission in userSubmissions' ng-click='openSubmission(submission, $event)' ng-if='checkPhotos(submission.photos)'>
+            <div class="submitPhotosHolder">
+              <div class="subPhotoCell subPhoto0" ng-if='submission.photos[0] && !submission.photos[0].isVideo'>
+                <img src="{{submission.photos[0].thumbnail}}" alt="" />
+              </div>
+              <div class="subPhotoCell subPhoto0" ng-if='submission.photos[0] && submission.photos[0].isVideo'>
+                <img ng-src={{submission.photos[0].thumbnail}}></img>
+              </div>
+            </div>
+            <div class="submissionInfo" >
+              <div class="submissionInfo-shots-number">{{submission.photos.length}} {{submission.photos.length > 1 ? 'shots' : 'shot'}}</div>
+              <div class="submissionInfo-date">Submitted on <span class="text-dark">{{submission.photos[0].date | date}}</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="" ng-if='showFinance'>
+          <div class="earnings-bar">
+            <div class="earnings-bar-label">
+              Total Money Earned
+            </div>
+            <div class="earnings-bar-amount">
+              {{totalEarned | currency}}
+            </div>
+          </div>
+          <div class="finCell" ng-repeat='soldPhoto in allTransactions'>
+            <div class="finPhoto">
+              <img src="{{soldPhoto.photos[0].thumbnail}}" ng-click='openSingle(soldPhoto.photos[0], "sold")'/>
+            </div>
+            <div class="finDetails">
+              <div class="finPrice">
+                {{soldPhoto.price | currency}}
+              </div>
+              <div class="finDate">
+                Sold on <span class="text-dark">{{soldPhoto.photos[0].date}}</span>
+              </div>
+              <div class="finOpenImage" ng-click='openFin($event, soldPhoto)'>
+                More Details <i class="fa fa-angle-down" aria-hidden="true"></i>
+              </div>
+            </div>
+          </div>
+          <div class="cta-container">
+            <div class="cta-text">Let us know how to pay you</div>
+            <button class="cta-button" ng-click="goToBanking()">add/update payment info</button>
+          </div>
+          <!--<div class='sendFinDataButton col-xs-4 col-xs-offset-2' ng-click='sendFinData()'>Send Financial Data as Email</div> -->
+        </div>
+      </div>
+    </div>
+    <div class="">
+      <div class="hamburgerBackground" ng-click='closeHamburgerBody($event)' ng-if="hamburgerOpen">
+      </div>
+      <div class="hamburgerMenu" ng-if="hamburgerOpen">
+        <div class="hamburgerCell hamburgerSignout">
+          <i class="fa fa-fw fa-cog" aria-hidden="true"></i> Profile Settings
+        </div>
+        <div class="hamburgerCell hamburgerSignout" ng-click="goToBanking()">
+          <i class="fa fa-fw fa-credit-card" aria-hidden="true"></i> Banks & Cards
+        </div>
+        <div class="hamburgerCell hamburgerSignout" ng-click="openIntro()">
+          <i class="fa fa-fw fa-question-circle-o" aria-hidden="true"></i> View Tutorial
+        </div>
+        <div class="hamburgerCell hamburgerSignout" ng-click="hamburgerSignout()">
+          <i class="fa fa-fw fa-sign-out" aria-hidden="true"></i> Sign Out
+        </div>
+      </div>
+      <!-- <div class="col-xs-8 col-xs-offset-2 nameTag">
+        MoPho
+      </div>
+      <div class="col-xs-2 hamburgerHolder" ng-click="openHamburger()">
+        <p class='fa fa-bars hamburgerIcon'></p>
+      </div> -->
+    </div>
+  </ion-content>
+</ion-view>
