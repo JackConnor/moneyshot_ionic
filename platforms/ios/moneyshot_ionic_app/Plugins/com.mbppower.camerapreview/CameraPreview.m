@@ -293,7 +293,7 @@
                         // [params addObject:cgImageValue];
                         // NSLog(@"imageData: %@", imageData);
                         NSString* newStr = [imageData base64EncodedStringWithOptions:0];
-                        // NSLog(@"string: %@", newStr);
+                        NSLog(@"string: %@", newStr);
 
                         ////return value
                         [params addObject:newStr];

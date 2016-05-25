@@ -211,7 +211,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         if ( testCnt < 3 ) {
           $scope.photoListLength++;
           testCnt++;
-          cordova.plugins.camerapreview.takePicture({maxWidth: 1200, maxHeight: 1200});
+          cordova.plugins.camerapreview.takePicture({maxWidth: 2000, maxHeight: 2000});
           $('.takePhotoButtonInner').css({
             backgroundColor: "red"
           });
@@ -342,28 +342,28 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     }
     $scope.flipCamera = flipCamera;
 
-    function takePicture(){
-      var options = {
-          quality : 95,
-          destinationType : Camera.DestinationType.FILE_URI,
-          sourceType : Camera.PictureSourceType.Camera ,
-          allowEdit : true,
-          encodingType: Camera.EncodingType.PNG,
-          correctOrientation: true,
-          popoverOptions: CameraPopoverOptions,
-          saveToPhotoAlbum: false,
-      };
-      $cordovaCamera.getPicture(options)
-      .then(function(result){
-        console.log(result);
-        $scope.mediaCache.push({
-          type: "photo"
-          ,link: result
-          ,date: new Date()
-        })
-      })
-    }
-    $scope.takePicture = takePicture;
+    // function takePicture(){
+    //   var options = {
+    //       quality : 95,
+    //       destinationType : Camera.DestinationType.FILE_URI,
+    //       sourceType : Camera.PictureSourceType.Camera ,
+    //       allowEdit : true,
+    //       encodingType: Camera.EncodingType.PNG,
+    //       correctOrientation: true,
+    //       popoverOptions: CameraPopoverOptions,
+    //       saveToPhotoAlbum: false,
+    //   };
+    //   $cordovaCamera.getPicture(options)
+    //   .then(function(result){
+    //     console.log(result);
+    //     $scope.mediaCache.push({
+    //       type: "photo"
+    //       ,link: result
+    //       ,date: new Date()
+    //     })
+    //   })
+    // }
+    // $scope.takePicture = takePicture;
     // takePicture();
     $scope.cntPhoto = 0;
     function getPic(){
@@ -628,8 +628,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                   allowEdit : true,
                   encodingType: Camera.EncodingType.JPEG,
                   popoverOptions: CameraPopoverOptions,
-                  saveToPhotoAlbum: false,
-                  params: {naturalWidth: 0, naturalHeight: 0}
+                  saveToPhotoAlbum: false
               };
               // function addCrop(){
               //   if(set[i].cropData){
@@ -649,9 +648,13 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
               //   }
               // }
               // addCrop();
-              $cordovaFileTransfer.upload('https://moneyshotapi.herokuapp.com/api/newimage', currentPhoto.link, photoOptions)
+              console.log('about to send to backend');
+              $cordovaFileTransfer.upload('http://192.168.0.12:5555/api/newimage', currentPhoto.link, photoOptions)
               .then(function(callbackImage){
-                console.log('THIS IS IN THE CALLBACK', currentPhoto);
+                console.log('sent to backend');
+                console.log(callbackImage.response);
+                console.log(callbackImage.response.secureUrl);
+                // console.log('THIS IS IN THE CALLBACK', currentPhoto);
                 var progressElement = $('.submitProgressBar');
                 if(zeroProgress <= 100){
                   zeroProgress += progressPercentage;
@@ -666,20 +669,20 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                 // }, function(err){
                 //   console.log('ERR is', err);
                 // })
-                var onSuccess = function(entry){
-                  console.log(entry);
-                  entry.remove( function(sucessInfo){
-                  //   //////if successful, we just removed this file
-                    console.log("success marker", successInfo);
-                  }, function(err){
-                    console.log('ERR is', err);
-                  })
-                }
-                var onError = function(error){
-                  console.log(error);
-                }
-                console.log("fullpath", currentPhoto.info.fullPath);
-                window.resolveLocalFileSystemURL("cdvfile://localhost/assets-library://"+currentPhoto.info.fullPath, onSuccess, onError);
+                // var onSuccess = function(entry){
+                //   console.log(entry);
+                //   entry.remove( function(sucessInfo){
+                //   //   //////if successful, we just removed this file
+                //     console.log("success marker", successInfo);
+                //   }, function(err){
+                //     console.log('ERR is', err);
+                //   })
+                // }
+                // var onError = function(error){
+                //   console.log(error);
+                // }
+                // console.log("fullpath", currentPhoto.info.fullPath);
+                // window.resolveLocalFileSystemURL("cdvfile://localhost/assets-library://"+currentPhoto.info.fullPath, onSuccess, onError);
                 var parsedPhoto = JSON.parse(callbackImage.response);
                 console.log(submissionData);
                 $http({
