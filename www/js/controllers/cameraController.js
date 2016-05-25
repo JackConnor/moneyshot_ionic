@@ -11,6 +11,9 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
   cameraCtrl.$inject = ['$http', '$state', '$scope', 'singlePhoto', 'Upload', '$q', '$cordovaCamera', '$cordovaFile', '$cordovaFileTransfer', 'signup', 'signin', 'newToken', '$cordovaCapture', '$cordovaStatusbar', '$timeout', '$ionicGesture', '$ionicScrollDelegate', '$interval', 'persistentPhotos'];
   function cameraCtrl($http, $state, $scope, singlePhoto, Upload, $q, $cordovaCamera, $cordovaFile, $cordovaFileTransfer, signup, signin, newToken, $cordovaCapture, $cordovaStatusbar, $timeout, $ionicGesture, $ionicScrollDelegate, $interval, persistentPhotos){
+    // navigator.shreenshot.save(function(data){
+    //   console.log('yo');
+    // })
     // alert(window.plugin.CanvasCamera);
     // $('html').css({
     //   opacity: 0
@@ -72,6 +75,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         $('html').animate({
           opacity: 1
         }, 200);
+        cordova.plugins.camerapreview.show();
         // $timeout(function(){
         //   $timeout(function(){
         //     document.getElementsByTagName('html')[0].style.opacity = '1'
@@ -192,7 +196,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         if ( testCnt < 3 ) {
           $scope.photoListLength++;
           testCnt++;
-          cordova.plugins.camerapreview.takePicture({maxWidth: 1200, maxHeight: 1200});
+          cordova.plugins.camerapreview.takePicture({maxWidth: 50, maxHeight: 50});
           $('.takePhotoButtonInner').css({
             backgroundColor: "red"
           });

@@ -5,7 +5,6 @@
 	initCtrl.$inject = ['$state', '$http'];
 
 	function initCtrl($state, $http) {
-		alert('here');
 		var vm = this;
 
 		vm.signin = function() {
