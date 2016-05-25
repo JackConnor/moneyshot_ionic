@@ -49,6 +49,8 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     //   console.log(window.plugin.cameraplus);
     // }
     function uploadPhotos() {
+        $ionicScrollDelegate.scrollTop(true);
+        $ionicScrollDelegate.freezeScroll(true);
         $scope.mediaCache = persistentPhotos();
         $scope.photoListLength = $scope.mediaCache.length;
         $timeout(function(){
@@ -292,6 +294,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     //////function to open the submit modal
     function openSubmitModal(){
       console.log('opening baby');
+      $ionicScrollDelegate.freezeScroll(false);
       $scope.submitModalVar = true;
     }
     $scope.openSubmitModal = openSubmitModal;
@@ -375,6 +378,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       $(".submitPhotoBacking").animate({
         opacity: 0
       }, 250);
+      $ionicScrollDelegate.freezeScroll(true);
       $timeout(function(){
         $scope.submitPhotoModal = false;
         $scope.submitBar        = true;
