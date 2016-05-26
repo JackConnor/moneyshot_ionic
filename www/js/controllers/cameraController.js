@@ -353,8 +353,9 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
     function submitPhotoName(){
       var nameInfo = $(".photoNameInput").val();
+      var personInfo = $('.photoNameDesc').val();
       $ionicScrollDelegate.scrollTo(0, 0, true);
-      if(nameInfo.length > 1){
+      if(nameInfo.length > 1 && personInfo.length > 1){
         $scope.submitBar = true;
         submitNameAndPhotos();
       }
@@ -424,6 +425,10 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         navigator.geolocation.getCurrentPosition(function(position){
           submissionData.metaData.latitude = position.coords.latitude;
           submissionData.metaData.longitude = position.coords.longitude;
+          submissionData.metaData.address = $scope.returnPlace;
+          submissionData.metaData.date = $scope.returnDate();
+          submissionData.metaData.who = $('.photoNameInput').val();
+          submissionData.metaData.what = $('.photoNameDesc').val();
           console.log(submissionData);
         });
         submissionData.userId = userFullId;
