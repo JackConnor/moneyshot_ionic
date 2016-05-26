@@ -243,12 +243,12 @@ angular.module('signupController', [])
           if(signedInUser.data == 'no user found with that email address'){
             alert('We could not find your email address')
             $('.signupPassword').val('');
-            $('.signupConfirmPassword').val('');
+            $('.signupEmail').val('');
           }
           else if(signedInUser.data == 'incorrect password'){
             alert('wrong password, please try again');
             $('.signupPassword').val('');
-            $('.signupConfirmPassword').val('');
+            $('.signupEmail').val('');
           }
           else {
             $scope.signupModalTabs = false;

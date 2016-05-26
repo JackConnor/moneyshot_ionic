@@ -243,12 +243,12 @@ angular.module('signupController', [])
           if(signedInUser.data == 'no user found with that email address'){
             alert('We could not find your email address')
             $('.signupPassword').val('');
-            $('.signupConfirmPassword').val('');
+            $('.signupEmail').val('');
           }
           else if(signedInUser.data == 'incorrect password'){
             alert('wrong password, please try again');
             $('.signupPassword').val('');
-            $('.signupConfirmPassword').val('');
+            $('.signupEmail').val('');
           }
           else {
             $scope.signupModalTabs = false;
@@ -274,30 +274,28 @@ angular.module('signupController', [])
       //////new version of what this does
       if($scope.pwHide === false){
         $('.signupPassword').hide();
-        $('.submitSignup').css({
+        $('.forgotPassword').css({
           marginTop: 65+'px'
         });
         $timeout(function(){
           console.log('yoooooo');
-          $('.submitSignup').text('Get Password');
-          $(".forgotPassword").text('Back to Sign in');
+          $('.forgotPassword').text('Recalled your password?')
         }, 20);
-        $('.submitSignup').animate({
+        $('.forgotPassword').animate({
           marginTop: 10+'px'
-        }, 350);
+        }, 200);
       }
       else if($scope.pwHide){
-        $('.submitSignup').animate({
+        $('.forgotPassword').animate({
           marginTop: 65+'px'
-        }, 350);
-        $('.submitSignup').text('Sign In');
+        }, 200);
         $(".forgotPassword").text('Forgot Password?');
         setTimeout(function(){
           $('.signupPassword').show();
-          $('.submitSignup').css({
+          $('.forgotPassword').css({
             marginTop: 10+'px'
           });
-        }, 360);
+        }, 210);
       }
       $scope.pwHide = !$scope.pwHide;
     }
