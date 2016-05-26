@@ -12,6 +12,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
   cameraCtrl.$inject = ['$http', '$state', '$scope', 'singlePhoto', 'Upload', '$q', '$cordovaCamera', '$cordovaFile', '$cordovaFileTransfer', 'signup', 'signin', 'newToken', '$cordovaCapture', '$cordovaStatusbar', '$timeout', '$ionicGesture', '$ionicScrollDelegate', '$interval', 'persistentPhotos'];
   function cameraCtrl($http, $state, $scope, singlePhoto, Upload, $q, $cordovaCamera, $cordovaFile, $cordovaFileTransfer, signup, signin, newToken, $cordovaCapture, $cordovaStatusbar, $timeout, $ionicGesture, $ionicScrollDelegate, $interval, persistentPhotos){
     console.log(returnDate());
+    var googId = 'AIzaSyDspcymxHqhUaiLh2YcwV67ZNhlGd4FyxQ';
     // alert(window.plugin.CanvasCamera);
     // $('html').css({
     //   opacity: 0
@@ -40,6 +41,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     $scope.cropper              = {};
     $scope.cropper.croppedImage = '';
     var eraseSubmitArr          = [];
+
     /////end global variables///
     ////////////////////////////
 
@@ -719,6 +721,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     // }, 500)
 
     function submitModalOpen(set){
+      returnPlace();
       if($scope.activePhoto === false){
         var thisEl = $('.submitSetDiv')[0];
         animateClick(thisEl, '#4DAF7C', 'red');
@@ -819,4 +822,27 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       return moment().format('MMMM Do YYYY, h:mm:ss a');
     }
     $scope.returnDate = returnDate;
+
+    function returnPlace(){
+      var curr = navigator.geolocation.getCurrentPosition(function(pos){
+        var longitude = pos.coords.longitude;
+        var latitude = pos.coords.latitude;
+        var url = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location='+latitude+','+longitude+'&radius=100&rankBy=distance&types=establishment&key=AIzaSyDspcymxHqhUaiLh2YcwV67ZNhlGd4FyxQ'
+        console.log(url);
+        $http({
+          method: "GET"
+          ,url: url
+          ,dataType: 'jsonp',
+        })
+        .then(function(posData){
+          console.log(posData);
+          console.log(posData.data.results[0]);
+          console.log(posData.data.results[0].vicinity);
+          $scope.returnPlace = posData.data.results[0].vicinity;
+        })
+
+      });
+      console.log(curr);
+    }
+
   }
