@@ -8,6 +8,7 @@
     "angular-facebook": "0.0.2",
     "angular-image-cropper": "^1.1.7",
     "angular-img-cropper": "0.0.2",
+    "angular-momentjs": "^0.2.2",
     "angular-route": "^1.5.0",
     "bcrypt": "^0.8.5",
     "blueimp-file-upload": "^9.12.1",

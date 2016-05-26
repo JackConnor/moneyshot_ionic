@@ -11,10 +11,11 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
   cameraCtrl.$inject = ['$http', '$state', '$scope', 'singlePhoto', 'Upload', '$q', '$cordovaCamera', '$cordovaFile', '$cordovaFileTransfer', 'signup', 'signin', 'newToken', '$cordovaCapture', '$cordovaStatusbar', '$timeout', '$ionicGesture', '$ionicScrollDelegate', '$interval', 'persistentPhotos'];
   function cameraCtrl($http, $state, $scope, singlePhoto, Upload, $q, $cordovaCamera, $cordovaFile, $cordovaFileTransfer, signup, signin, newToken, $cordovaCapture, $cordovaStatusbar, $timeout, $ionicGesture, $ionicScrollDelegate, $interval, persistentPhotos){
+    console.log(returnDate());
     // alert(window.plugin.CanvasCamera);
-    $('html').css({
-      opacity: 0
-    });
+    // $('html').css({
+    //   opacity: 0
+    // });
     // console.log($cordovaInAppBrowser);
 
     console.log('Camera Loaded');
@@ -350,9 +351,8 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
     function submitPhotoName(){
       var nameInfo = $(".photoNameInput").val();
-      var agreeChecked = $('.submitAgree')[0].checked
       $ionicScrollDelegate.scrollTo(0, 0, true);
-      if(nameInfo.length > 1 && agreeChecked){
+      if(nameInfo.length > 1){
         $scope.submitBar = true;
         submitNameAndPhotos();
       }
@@ -814,4 +814,9 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       }
     }
     $scope.switchCamera = switchCamera;
+
+    function returnDate(){
+      return moment().format('MMMM Do YYYY, h:mm:ss a');
+    }
+    $scope.returnDate = returnDate;
   }
