@@ -218,7 +218,9 @@ angular.module('signupController', [])
         }
       }
       else {
-        console.log('password issues');
+        alert('sorry, your password must be at least 6 characters');
+        $('.signupPassword').val('');
+        $('.signupConfirmPassword').val('');
       }
     }
     $scope.submitSignup = signupUser;
@@ -229,29 +231,39 @@ angular.module('signupController', [])
       console.log('signing in');
       var email = $('.signupEmail').val();
       var password = $('.signupPassword').val();
-      signin(email, password)
-      .then(function(signedInUser){
-        if(signedInUser.data == 'no user found with that email address'){
-          alert('we could not find your email address')
-          window.location.reload();
-        }
-        else if(signedInUser.data == 'incorrect password'){
-          alert('wrong password, please try again');
-          window.location.reload();
-        }
-        else {
-          $scope.signupModalTabs = false;
-          newToken(signedInUser.data._id)
-          .then(function(ourToken){
-            var token = ourToken.data;
-            $scope.signupModalVar = false;
-            $scope.signinModalVar = false;
+      if(email.length < 1){
+        alert('Please include your email');
+      }
+      else if(!checkPassword()){
+        alert('Please create a password of at least 6 charcters in length');
+      }
+      else {
+        signin(email, password)
+        .then(function(signedInUser){
+          if(signedInUser.data == 'no user found with that email address'){
+            alert('We could not find your email address')
+            $('.signupPassword').val('');
+            $('.signupConfirmPassword').val('');
+          }
+          else if(signedInUser.data == 'incorrect password'){
+            alert('wrong password, please try again');
+            $('.signupPassword').val('');
+            $('.signupConfirmPassword').val('');
+          }
+          else {
             $scope.signupModalTabs = false;
-            window.localStorage.webToken = token;
-            $state.go('tab.camera');
-          })
-        }
-      })
+            newToken(signedInUser.data._id)
+            .then(function(ourToken){
+              var token = ourToken.data;
+              $scope.signupModalVar = false;
+              $scope.signinModalVar = false;
+              $scope.signupModalTabs = false;
+              window.localStorage.webToken = token;
+              $state.go('tab.camera');
+            })
+          }
+        })
+      }
     }
     $scope.signinUser = signinUser;
 
@@ -432,9 +444,6 @@ angular.module('signupController', [])
       var pwArr = passwordAttempt.split('');
       //////check for length////
       if(pwArr.length < 6){
-        alert('sorry, your password must be at least 6 characters');
-        $('.signupPassword').val('');
-        $('.signupConfirmPassword').val('');
         return false;
       }
       else{
@@ -494,5 +503,25 @@ angular.module('signupController', [])
       // }, 600);
     }
     $scope.backToSliderFunc = backToSliderFunc;
+
+    function highlightSignin(e){
+      console.log(e);
+      var pwLength = $('.signupPassword').val().length;
+      console.log(pwLength);
+      var validPW = checkPassword();
+
+      if(pwLength > 5 && validPW){
+        console.log('larger');
+        $('.mophoSignin').css({
+          color: '#3375dd'
+        });
+      }
+      else if(pwLength <= 5){
+        $('.mophoSignin').css({
+          color: 'gray'
+        });
+      }
+    }
+    $scope.highlightSignin = highlightSignin;
 
   }

@@ -79,11 +79,14 @@
         <div class="mophoSigninLogo">
           MoPho
         </div>
+        <div class="mophoSignin" ng-click='signinToggleButton()'>
+          Sign in
+        </div>
         <div class="signupInputHolder">
           <!-- <h1>Sign in</h1> -->
           <!-- <input type="text" class='signupEmail splashInput form-control' placeholder='Email'> -->
           <textarea style='background-color:transparent' class='signupEmail splashInput form-control' placeholder='Email' type='text'></textarea>
-          <textarea style='background-color:transparent' type="password" class='signupPassword splashInput form-control' placeholder='Password'></textarea>
+          <textarea style='background-color:transparent' type="password" class='signupPassword splashInput form-control' placeholder='Password' ng-keyup='highlightSignin($event)'></textarea>
           <!-- <input type="password" class='signupPassword splashInput' placeholder='Password'> -->
           <!-- <div class='submitSignup subSignup' ng-click='signinToggleButton()'>SIGN IN</div> -->
           <div class="forgotPassword" ng-click='getPassword()'>
