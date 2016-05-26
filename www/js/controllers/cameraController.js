@@ -297,6 +297,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     //////function to open the submit modal
     function openSubmitModal(){
       console.log('opening baby');
+      $ionicScrollDelegate.scrollTop(true);
       $ionicScrollDelegate.freezeScroll(false);
       $scope.submitModalVar = true;
     }

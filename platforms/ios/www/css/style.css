@@ -10,7 +10,6 @@ html {
 }
 
 
-
 @font-face {
   font-family: 'SF-UI-Text';
   src: url('fonts/SF-UI-Text-Regular.otf')
@@ -95,6 +94,13 @@ ion-content {
 
 .backToPhotos p {
   color: white;
+}
+
+.backToSlider {
+  position: absolute;
+  margin-top: -76px;
+  margin-left: 10px;
+  font-size: 25px;
 }
 
 .backToSubmit {
@@ -453,6 +459,14 @@ ion-content {
   font-weight: 700;
 }
 
+.forgotPassword {
+  margin-top: 15px;
+  width: 100%;
+  font-size: 15px;
+  color:white;
+  text-align: center;
+}
+
 .getPasswordModal {
   position: absolute;
   width: 100%;
@@ -692,6 +706,18 @@ ion-content {
   opacity: .75;
 }
 
+.mophoSigninLogo {
+  position: absolute;
+  width: 60%;
+  margin-left: 20%;
+  text-align: center;
+  font-size: 35px;
+  font-weight: 900;
+  color: white;
+  font-style: italic;
+  margin-top: -70px;
+}
+
 .nameTag {
   height: 45px;
   padding-top: 10px;
@@ -861,11 +887,12 @@ ion-content {
 }
 
 .signinModal {
-  margin-top: 135px;
+  padding-top: 91px;
   position: absolute;
   width: 100%;
-  height: auto;
+  height: 750px;
   color: white;
+  background-color: black;
   z-index: 2;
 }
 
@@ -923,6 +950,31 @@ ion-content {
   text-align: center;
   padding-top: 15px;
   color: white;
+}
+
+
+.signupInputHolder {
+  width: 90%;
+  margin-left: 5%;
+  margin-top: 100px;
+}
+
+.signupInputHolder h1{
+  margin-bottom: 30px;
+  font-size: 34px;
+  font-weight: 300;
+  text-align: center;
+  color: white;
+}
+
+.signupInputHolder textarea {
+  margin-top: 10px;
+  height: 45px;
+  font-size: 14px;
+  font-weight: 900;
+  width: 90%;
+  padding-top: 10px;
+  margin-left: 5%;
 }
 
 .submitAddInfoContainer {

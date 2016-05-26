@@ -30,48 +30,6 @@
   color: white;
 }
 
-.signinModal {
-  margin-top: 80px;
-  position: absolute;
-  width: 100%;
-  height: auto;
-  color: white;
-  z-index: 2;
-}
-
-.signupInputHolder {
-  width: 90%;
-  margin: 0 auto;
-}
-
-.signupInputHolder h1{
-  margin-bottom: 30px;
-  font-size: 34px;
-  font-weight: 300;
-  text-align: center;
-}
-
-.signupInputHolder input {
-  text-align: left;
-  padding: 5px 15px;
-  margin-top: 10px;
-  border-radius: 3px;
-  font-size: 20px;
-  background: transparent;
-  border: 1px solid #000000;
-  line-height: 1.4;
-  height: auto;
-  width: 100%;
-}
-
-.forgotPassword {
-  margin-top: 15px;
-  width: 130px;
-  float: right;
-  font-size: 15px;
-  color: #000000;
-  text-align: right;
-}
 
 .submitSignup {
   color: #ffffff;

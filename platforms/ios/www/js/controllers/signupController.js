@@ -295,14 +295,8 @@ angular.module('signupController', [])
     /////////functions to go to the signup and signin modals
     function toSignin(){
       $scope.signinModalVar   = true;
-      // $scope.pwHide = false;
-      $('.swipeIntro').animate({
-        opacity: 0
-      }, 600);
       clearInterval(swipeInterval);
-      setTimeout(function(){
-        $scope.introModal       = false;
-      }, 700);
+      $scope.introModal       = false;
     }
     $scope.toSignin = toSignin;
 
@@ -489,6 +483,16 @@ angular.module('signupController', [])
     }
     $scope.checkValidEmail = checkValidEmail;
 
-
+    function backToSliderFunc(){
+      $scope.signinModalVar   = true;
+      // $scope.pwHide = false;
+      // setTimeout(function(){
+        $scope.introModal = true;
+        var swipeInterval = setInterval(function(){
+          introSwipeLeft();
+        }, 2500);
+      // }, 600);
+    }
+    $scope.backToSliderFunc = backToSliderFunc;
 
   }
