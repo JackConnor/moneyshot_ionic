@@ -1,8 +1,12 @@
 <ion-view view-title="Camera">
   <ion-content class="">
     <div class="photoCarouselModal" ng-if='photoCarouselBool'>
+      <div class="photoCarouselBack" ng-click='photoCarouselBack()'>
+        <i class='fa fa-chevron-left'></i>
+      </div>
       <div class="mainPhotoHolder">
         <img ng-src="{{photoCarouselObject.link}}" alt="" />
+        <i class='fa fa-trash-o' ng-click='erasePhoto()'></i>
       </div>
       <ion-scroll direction='x' class="photoCarouselHolder">
         <div class="photoCarouselInner row">

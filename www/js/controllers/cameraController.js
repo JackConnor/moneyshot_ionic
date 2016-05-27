@@ -858,16 +858,59 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       $scope.photoCarouselObject = mediaData;////this is always the centerpiece photo
       $scope.photoCarouselBool = true;
       $timeout(function(){
+        var width = $($('.mainPhotoHolder').children()[0]).width();
+        var outerWidth = $('.mainPhotoHolder').width();
+        console.log(outerWidth);
+        var marginL = (outerWidth - width)/2;
+        console.log(marginL);
+        console.log(width);
+        $($('.mainPhotoHolder').children()[0]).css({
+          width: width+"px"
+        })
+        $($('.mainPhotoHolder').children()[0]).css({
+          marginLeft: marginL
+        });
         $('.photoCarouselInner').css({
           width: 'auto'
         })
-      }, 500);
+      }, 15);
     }
     $scope.goToCarousel = goToCarousel;
+
+    function photoCarouselBack(){
+      $scope.photoCarouselBool = false;
+    }
+    $scope.photoCarouselBack = photoCarouselBack;
 
     function openNewCarouselPhoto(mediaData){
       $scope.photoCarouselObject = mediaData;
     }
     $scope.openNewCarouselPhoto = openNewCarouselPhoto;
+
+    function erasePhoto(){
+      console.log($scope.photoCarouselObject);
+      console.log($scope.mediaCache);
+      var mediaLength = $scope.mediaCache.length;
+      var testLink1 = $scope.photoCarouselObject.link;
+      for (var i = 0; i < mediaLength; i++) {
+        var testLink2 = $scope.mediaCache[i].link;
+        if(testLink1 === testLink2){
+          $scope.mediaCache.splice(i, 1);
+          $scope.photoListLength--;
+          if($scope.mediaCache[0]){
+            $scope.photoCarouselObject = $scope.mediaCache[0];
+          }
+          else {
+            $scope.photoCarouselObject = '';
+            $timeout(function(){
+              $scope.photoCarouselBool = false;
+            })
+          }
+        }
+      }
+      console.log($scope.mediaCache);
+
+    }
+    $scope.erasePhoto = erasePhoto;
 
   }
