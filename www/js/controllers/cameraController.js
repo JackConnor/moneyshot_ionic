@@ -31,6 +31,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     $scope.photoListLength      = 0;
     $scope.croppedPhoto         = '';
     $scope.submitModalVar       = false;
+    $scope.photoCarouselBool    = false;
     $scope.cameraModal          = true;
     $scope.cameraLaunched       = false;
     $scope.cameraToggle         = true;
@@ -488,8 +489,8 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                       $scope.submitModalVar = false;
                       $scope.cameraModal = false;
                       persistentPhotos('empty');
-                      window.location.hash = "#/tab/account";
                       $scope.cnt = 0;
+                      $state.go('tab.account');
                     }, 1000);
                   })
                 }
@@ -592,8 +593,8 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                         $scope.submitModalVar = false;
                         $scope.cameraModal = false;
                         persistentPhotos("empty");
-                        window.location.hash = "#/tab/account"
                         $scope.cnt = 0;
+                        $state.go('tab.account');
 
                       }, 100);
                     })
@@ -850,5 +851,23 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       });
       console.log(curr);
     }
+
+    ///////begin photo carousel animation work
+    function goToCarousel(mediaData){
+      console.log(mediaData);
+      $scope.photoCarouselObject = mediaData;////this is always the centerpiece photo
+      $scope.photoCarouselBool = true;
+      $timeout(function(){
+        $('.photoCarouselInner').css({
+          width: 'auto'
+        })
+      }, 500);
+    }
+    $scope.goToCarousel = goToCarousel;
+
+    function openNewCarouselPhoto(mediaData){
+      $scope.photoCarouselObject = mediaData;
+    }
+    $scope.openNewCarouselPhoto = openNewCarouselPhoto;
 
   }

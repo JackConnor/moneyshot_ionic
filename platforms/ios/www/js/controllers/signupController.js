@@ -249,6 +249,7 @@ angular.module('signupController', [])
     function signinUser(){
       console.log('signing in');
       var email = $('.signupEmail').val();
+      console.log(email);
       var password = $('.signupPassword').val();
       if(email.length < 1){
         alert('Please include your email');

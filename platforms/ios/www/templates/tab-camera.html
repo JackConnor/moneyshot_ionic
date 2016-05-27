@@ -1,5 +1,18 @@
 <ion-view view-title="Camera">
   <ion-content class="">
+    <div class="photoCarouselModal" ng-if='photoCarouselBool'>
+      <div class="mainPhotoHolder">
+        <img ng-src="{{photoCarouselObject.link}}" alt="" />
+      </div>
+      <ion-scroll direction='x' class="photoCarouselHolder">
+        <div class="photoCarouselInner row">
+          <div class="col-xs-2 photoCarouselCell" ng-repeat="media in mediaCache">
+            <img ng-src="{{media.link}}" alt="" ng-click='openNewCarouselPhoto(media)'/>
+          </div>
+        </div>
+      </ion-scroll>
+
+    </div>
     <!-- <div class="submitPhotoBacking" ng-if='submitPhotoModal'> -->
       <!-- <div class="submitPhotoModal">
         <div class="submitPhotoXHolder" ng-click='closeLoadingModal()' ng-if='!submitBar'>
@@ -107,7 +120,7 @@
         <div class="submitBarBlack"></div>
         <div class="submitBarHolder" >
           <div class="submitPhotoModalContent">
-            Sending Your Photos to MoPho
+            Uploading your <br>Mopho set
           </div>
           <div class="submitStatusBar">
             <div class="submitProgressBar"></div>
@@ -137,7 +150,7 @@
               <div class='fa fa-crop'></div>
             </div> -->
             <div class="submitCellImageHolder">
-              <img class='submitPhoto submitPhoto{{$index}}' id='submit{{$index}}' ng-src="{{media.link}}" ng-if='media.type=="photo"'/>
+              <img class='submitPhoto submitPhoto{{$index}}' id='submit{{$index}}' ng-src="{{media.link}}" ng-if='media.type=="photo"' ng-click='goToCarousel(media)'/>
               <video id='submit{{$index}}'ng-if='media.type=="video"' poster='{{media.thumb}}'>
                 <source ng-src="{{media.link}}" type="video/mp4">
                   (Your Browser Doesn't Support Video)
