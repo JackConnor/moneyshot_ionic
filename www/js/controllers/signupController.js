@@ -183,15 +183,27 @@ angular.module('signupController', [])
         if(password == repassword){
           signup(email, password)
           .then(function(newUser){
+            console.log(newUser);
             if(newUser.data == 'email already in use'){
               alert('that email is already in the system, please try another one or login using your password');
-              window.location.reload();
+              $('.signupEmail').val('');
+              $('.signupPassword').val('');
+              $('.signupConfirmPassword').val('');
               return;
             }
             else if(newUser.data == 'please send a password'){
               alert('you forgot your password');
-              window.location.reload();
               return;
+            }
+            else if(email.split('@').length < 2){
+              alert('You need an @');
+              $('.signupPassword').val('');
+              $('.signupConfirmPassword').val('');
+            }
+            else if(email.split('.').length < 2){
+              alert('Your email needs a proper ending');
+              $('.signupPassword').val('');
+              $('.signupConfirmPassword').val('');
             }
             else {
               newToken(newUser.data._id)
@@ -201,24 +213,31 @@ angular.module('signupController', [])
                 $scope.signinModalVar = false;
                 $scope.signupModalTabs = false;
                 window.localStorage.webToken = token;
-                $http({
-                  method: "POST"
-                  ,url: "https://moneyshotapi.herokuapp.com/api/signup/email"
-                  ,data: {userEmail: email}
-                })
-                .then(function(mailCallback){
-                  window.location.hash = "#/tab/camera";
-                })
+                $state.go('tab.camera');
+                // $http({
+                //   method: "POST"
+                //   ,url: "http://192.168.0.7:5555/api/signup/email"
+                //   ,data: {userEmail: email}
+                // })
+                // .then(function(mailCallback){
+                //   console.log(mailCallback);
+                //   window.location.hash = "#/tab/camera";
+                //   window.reload();
+                // })
               })
             }
           })
         }
         else {
           alert('passwords dont match');
+          $('.signupEmail').val('');
+          $('.signupPassword').val('');
+          $('.signupConfirmPassword').val('');
         }
       }
       else {
         alert('sorry, your password must be at least 6 characters');
+        $('.signupEmail').val('');
         $('.signupPassword').val('');
         $('.signupConfirmPassword').val('');
       }
@@ -312,16 +331,10 @@ angular.module('signupController', [])
 
     ////function to go to signup page
     function toSignup(){
-      $scope.signupModalVar   = true;
-      $('.swipeIntro').animate({
-        opacity: 0
-      }, 600);
       clearInterval(swipeInterval);
       $scope.signinModalVar   = false;
-      setTimeout(function(){
-        $scope.introModal       = false;
-        $scope.signupModalVar   = true;
-      }, 700);
+      $scope.introModal       = false;
+      $scope.signupModalVar   = true;
     }
     $scope.toSignup = toSignup;
 
@@ -504,21 +517,44 @@ angular.module('signupController', [])
 
     function highlightSignin(e){
       console.log(e);
+      var pw = $('.signupPassword').val();
+      var repw = $('.signupConfirmPassword').val();
       var pwLength = $('.signupPassword').val().length;
+      var rePwLength = $('.signupConfirmPassword').val().length;
       console.log(pwLength);
-      var validPW = checkPassword();
+      // var validPW = checkPassword();
 
-      if(pwLength > 5 && validPW){
-        console.log('larger');
-        $('.mophoSignin').css({
-          color: '#3375dd'
-        });
+      if($scope.signinModalVar){
+          console.log('signin');
+        if(pwLength > 5){
+          console.log('larger');
+          $('.mophoSignin').css({
+            color: '#3375dd'
+          });
+        }
+        else if(pwLength <= 5){
+          $('.mophoSignin').css({
+            color: 'gray'
+          });
+        }
       }
-      else if(pwLength <= 5){
-        $('.mophoSignin').css({
-          color: 'gray'
-        });
+      else if($scope.signupModalVar){
+        console.log('signup');
+        console.log(pw);
+        console.log(repw);
+        if(pwLength > 5 &&  pw == repw){
+          console.log('larger');
+          $('.mophoSignin').css({
+            color: '#3375dd'
+          });
+        }
+        else if(pwLength <= 5 || pw !== repw){
+          $('.mophoSignin').css({
+            color: 'gray'
+          });
+        }
       }
+
     }
     $scope.highlightSignin = highlightSignin;
 

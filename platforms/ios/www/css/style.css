@@ -1007,6 +1007,16 @@ ion-content {
   /*bottom: 0;*/
 }
 
+.signupModal {
+  padding-top: 91px;
+  position: absolute;
+  width: 100%;
+  height: 750px;
+  color: white;
+  background-color: black;
+  z-index: 2;
+}
+
 .soldSign {
   color: red;
   border: white;

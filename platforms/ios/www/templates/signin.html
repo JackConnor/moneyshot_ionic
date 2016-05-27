@@ -58,18 +58,23 @@
     <div class="credentialContainer">
       <!-- <i class='fa fa-chevron-left' ng-click='backToIntro()' ng-if='signinModalVar || signupModalVar'></i> -->
       <div class="signupModal" ng-if='signupModalVar'>
+        <p class='fa fa-chevron-left backToSlider' ng-click='backToSliderFunc()'>
+
+        </p>
+        <div class="mophoSigninLogo">
+          MoPho
+        </div>
+        <div class="mophoSignin" ng-click='submitSignup()'>
+          Sign up
+        </div>
         <div class="signupInputHolder">
-          <h1>Sign up</h1>
-          <input type="text" class='signupEmail splashInput' placeholder='Email' ng-blur='checkValidEmail()'>
-          <input type="password" class='signupPassword splashInput' placeholder='Password'>
-          <input type="password" class='signupConfirmPassword splashInput' placeholder='Confirm Password'>
-          <div class='submitSignup' ng-click='submitSignup()'>GET STARTED</div>
-          <!-- <p class='introOr2 col-xs-12'>
-            ---------------- OR --------------------
-          </p>
-          <div class="goToSignin" ng-click='toggleSigns($event)'>
-            Have An Account?
-          </div> -->
+          <!-- <h1>Sign in</h1> -->
+          <!-- <input type="text" class='signupEmail splashInput form-control' placeholder='Email'> -->
+          <textarea style='background-color:transparent' class='signupEmail splashInput form-control' placeholder='Email' type='text'></textarea>
+          <textarea style='background-color:transparent' type="password" class='signupPassword splashInput form-control' placeholder='Password' ng-keyup='highlightSignin($event)'></textarea>
+          <textarea style='background-color:transparent' type="password" class='signupConfirmPassword splashInput form-control' placeholder='Confirm password' ng-keyup='highlightSignin($event)'></textarea>
+          <!-- <input type="password" class='signupPassword splashInput' placeholder='Password'> -->
+          <!-- <div class='submitSignup subSignup' ng-click='signinToggleButton()'>SIGN IN</div> -->
         </div>
       </div>
       <div class="signinModal" ng-if='signinModalVar'>
