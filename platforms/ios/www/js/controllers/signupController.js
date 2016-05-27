@@ -325,13 +325,11 @@ angular.module('signupController', [])
     function toSignin(){
       $scope.introModal       = false;
       $scope.signinModalVar   = true;
-      clearInterval(swipeInterval);
     }
     $scope.toSignin = toSignin;
 
     ////function to go to signup page
     function toSignup(){
-      clearInterval(swipeInterval);
       $scope.signinModalVar   = false;
       $scope.introModal       = false;
       $scope.signupModalVar   = true;
@@ -508,21 +506,25 @@ angular.module('signupController', [])
       // $scope.pwHide = false;
       // setTimeout(function(){
         $scope.introModal = true;
-        var swipeInterval = setInterval(function(){
-          introSwipeLeft();
-        }, 2500);
+        // swipeInterval();
+        // var swipeInterval = setInterval(function(){
+        //   introSwipeLeft();
+        // }, 2500);
       // }, 600);
     }
     $scope.backToSliderFunc = backToSliderFunc;
 
     function highlightSignin(e){
       console.log(e);
+      var pw = $('.signupPassword').val();
+      var repw = $('.signupConfirmPassword').val();
       var pwLength = $('.signupPassword').val().length;
       var rePwLength = $('.signupConfirmPassword').val().length;
       console.log(pwLength);
       // var validPW = checkPassword();
 
       if($scope.signinModalVar){
+          console.log('signin');
         if(pwLength > 5){
           console.log('larger');
           $('.mophoSignin').css({
@@ -535,14 +537,17 @@ angular.module('signupController', [])
           });
         }
       }
-      else if ($scope.signupModalVar){
-        if(pwLength > 5 &&  $('.signupPassword').val() === $('.signupConfirmPassword')){
+      else if($scope.signupModalVar){
+        console.log('signup');
+        console.log(pw);
+        console.log(repw);
+        if(pwLength > 5 &&  pw == repw){
           console.log('larger');
           $('.mophoSignin').css({
             color: '#3375dd'
           });
         }
-        else if(pwLength <= 5 || $('.signupPassword').val() !== $('.signupConfirmPassword')){
+        else if(pwLength <= 5 || pw !== repw){
           $('.mophoSignin').css({
             color: 'gray'
           });

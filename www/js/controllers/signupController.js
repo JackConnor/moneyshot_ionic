@@ -325,13 +325,11 @@ angular.module('signupController', [])
     function toSignin(){
       $scope.introModal       = false;
       $scope.signinModalVar   = true;
-      clearInterval(swipeInterval);
     }
     $scope.toSignin = toSignin;
 
     ////function to go to signup page
     function toSignup(){
-      clearInterval(swipeInterval);
       $scope.signinModalVar   = false;
       $scope.introModal       = false;
       $scope.signupModalVar   = true;
@@ -508,9 +506,10 @@ angular.module('signupController', [])
       // $scope.pwHide = false;
       // setTimeout(function(){
         $scope.introModal = true;
-        var swipeInterval = setInterval(function(){
-          introSwipeLeft();
-        }, 2500);
+        // swipeInterval();
+        // var swipeInterval = setInterval(function(){
+        //   introSwipeLeft();
+        // }, 2500);
       // }, 600);
     }
     $scope.backToSliderFunc = backToSliderFunc;
