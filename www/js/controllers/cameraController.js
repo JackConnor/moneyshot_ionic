@@ -369,12 +369,14 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
     //////function to submit all cached photos from your session to the db
     function submitAllPhotos(set){
-      $scope.set = set;
-      var thisEl = document.getElementsByClassName('submitButton')[0];
-      animateClick(thisEl, "#6d8383", '#013220');
       cordova.plugins.camerapreview.hide();
-      $scope.submitPhotoModal = true;
-      $scope.submitBar        = false;
+      $scope.set = set;
+      $timeout(function(){
+        var thisEl = document.getElementsByClassName('submitButton')[0];
+        animateClick(thisEl, "#6d8383", '#013220');
+        $scope.submitPhotoModal = true;
+        $scope.submitBar        = false;
+      }, 15);
     }
     $scope.submitAllPhotos = submitAllPhotos;
 
@@ -899,12 +901,16 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
           $scope.photoListLength--;
           if($scope.mediaCache[0]){
             $scope.photoCarouselObject = $scope.mediaCache[0];
+            // $('.photoCarouselInner').animate({
+            //   marginLeft: '10px'
+            // });
+            $ionicScrollDelegate.scrollTo(10, null, true);
           }
           else {
             $scope.photoCarouselObject = '';
             $timeout(function(){
               $scope.photoCarouselBool = false;
-            })
+            }, 500);
           }
         }
       }
