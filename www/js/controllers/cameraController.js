@@ -372,8 +372,6 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       cordova.plugins.camerapreview.hide();
       $scope.set = set;
       $timeout(function(){
-        var thisEl = document.getElementsByClassName('submitButton')[0];
-        animateClick(thisEl, "#6d8383", '#013220');
         $scope.submitPhotoModal = true;
         $scope.submitBar        = false;
       }, 15);
@@ -833,26 +831,30 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     $scope.returnDate = returnDate;
 
     function returnPlace(){
+      $('.locationHolder').children('i');
+      $($('.locationHolder').children('i')[0]).css({
+        color: 'red'
+      })
+      $('.locationHolder').children('i').animate({
+        color: 'white'
+      }, 500);
       var curr = navigator.geolocation.getCurrentPosition(function(pos){
         var longitude = pos.coords.longitude;
         var latitude = pos.coords.latitude;
         var url = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location='+latitude+','+longitude+'&radius=100&rankBy=distance&types=establishment&key=AIzaSyDspcymxHqhUaiLh2YcwV67ZNhlGd4FyxQ'
-        console.log(url);
         $http({
           method: "GET"
           ,url: url
           ,dataType: 'jsonp',
         })
         .then(function(posData){
-          console.log(posData);
-          console.log(posData.data.results[0]);
-          console.log(posData.data.results[0].vicinity);
           $scope.returnPlace = posData.data.results[0].vicinity;
         })
 
       });
       console.log(curr);
     }
+    $scope.findNewPlace = returnPlace;
 
     ///////begin photo carousel animation work
     function goToCarousel(mediaData){
