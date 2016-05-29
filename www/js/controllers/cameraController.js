@@ -857,17 +857,25 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     $scope.findNewPlace = returnPlace;
 
     ///////begin photo carousel animation work
-    function goToCarousel(mediaData){
+    function goToCarousel(mediaData, index){
+      console.log(index);
       console.log(mediaData);
+      console.log(index);
       $scope.photoCarouselObject = mediaData;////this is always the centerpiece photo
       $scope.photoCarouselBool = true;
+      // $($('.photoCarouselCell')[index]).css({
+      //   border: '5px solid white'
+      // })
       $timeout(function(){
+        $('.photoCarouselInner').animate({
+          marginLeft: index*-100+112.5+"px"
+        }, 300);
+        $($('.photoCarouselCell')[index]).css({
+          border: '5px solid white'
+        });
         var width = $($('.mainPhotoHolder').children()[0]).width();
         var outerWidth = $('.mainPhotoHolder').width();
-        console.log(outerWidth);
         var marginL = (outerWidth - width)/2;
-        console.log(marginL);
-        console.log(width);
         $($('.mainPhotoHolder').children()[0]).css({
           width: width+"px"
         })
@@ -886,10 +894,60 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     }
     $scope.photoCarouselBack = photoCarouselBack;
 
-    function openNewCarouselPhoto(mediaData){
+    function openNewCarouselPhoto(mediaData, index){
       $scope.photoCarouselObject = mediaData;
+      var mediaLength = $('.photoCarouselCell').length;
+      $('.photoCarouselCell').css({
+        border: '2px solid white'
+      });
+      $($('.photoCarouselCell')[index]).css({
+        border: '5px solid white'
+      });
+      $('.photoCarouselInner').animate({
+        marginLeft: index*-100+112.5+"px"
+      }, 300);
     }
     $scope.openNewCarouselPhoto = openNewCarouselPhoto;
+
+    //////carousel swipe functions
+    function photoCarouselSwipeLeft(){
+      var centerP = findCenterPhoto();
+      if(centerP.index+1 < $scope.mediaCache.length){
+        openNewCarouselPhoto($scope.mediaCache[centerP.index+1], centerP.index+1);
+      }
+    }
+    $scope.photoCarouselSwipeLeft = photoCarouselSwipeLeft;
+
+    function photoCarouselSwipeRight(){
+      var centerP = findCenterPhoto();
+      if(centerP.index > 0){
+        openNewCarouselPhoto($scope.mediaCache[centerP.index-1], centerP.index-1)
+      }
+    }
+    $scope.photoCarouselSwipeRight = photoCarouselSwipeRight;
+
+    function centerPhoto(){
+      console.log('centering');
+      var currP = findCenterPhoto();
+      console.log(currP);
+    }
+    $scope.centerPhoto = centerPhoto;
+
+    function findCenterPhoto(){
+      var carou = $('.photoCarouselCell')
+      console.log(carou);
+      console.log($(carou).css('border'));
+      var photoCarouselLength = carou.length;
+      for (var i = 0; i < photoCarouselLength; i++) {
+        var bStyle = $($(carou)[i]).css('border');
+        if(bStyle === "5px solid rgb(255, 255, 255)"){
+          console.log('this one');
+          console.log(carou[i]);
+          var activeEl = carou[i];
+          return {activeEl: activeEl, index: i}
+        }
+      }
+    }
 
     function erasePhoto(){
       console.log($scope.photoCarouselObject);
@@ -899,25 +957,33 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       for (var i = 0; i < mediaLength; i++) {
         var testLink2 = $scope.mediaCache[i].link;
         if(testLink1 === testLink2){
-          $scope.mediaCache.splice(i, 1);
-          $scope.photoListLength--;
-          if($scope.mediaCache[0]){
-            $scope.photoCarouselObject = $scope.mediaCache[0];
-            // $('.photoCarouselInner').animate({
-            //   marginLeft: '10px'
-            // });
-            $ionicScrollDelegate.scrollTo(10, null, true);
+          if(i > 0){
+            $scope.photoCarouselObject = $scope.mediaCache[i-1];
+            $scope.mediaCache.splice(i, 1);
+            $scope.photoListLength--;
+            if($scope.mediaCache[0]){
+              photoCarouselSwipeRight();
+            }
+          }
+          else if(i === 0){
+            photoCarouselSwipeLeft();
+            $scope.mediaCache.splice(i, 1);
+            // $scope.photoCarouselObject = $scope.mediaCache[i];
+            $scope.photoListLength--;
+
+            // if($scope.mediaCache[0]){
+            //   photoCarouselSwipeLeft();
+            // }
           }
           else {
             $scope.photoCarouselObject = '';
             $timeout(function(){
               $scope.photoCarouselBool = false;
-            }, 500);
+            }, 100);
           }
         }
       }
       console.log($scope.mediaCache);
-
     }
     $scope.erasePhoto = erasePhoto;
 
