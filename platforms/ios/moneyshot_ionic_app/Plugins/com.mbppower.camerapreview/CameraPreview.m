@@ -282,7 +282,7 @@
                          CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsArray:params];
                          [pluginResult setKeepCallbackAsBool:true];
                          [self.commandDelegate sendPluginResult:pluginResult callbackId:self.onPictureTakenHandlerId];
-                         NSLog(@"13");
+                        //  NSLog(@"13");
                          return;
                          ////cutoffffff!!!!
 

@@ -132,12 +132,12 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
 
     $scope.takeCordovaPicture = function(){
-      if($scope.activePhoto === false && $scope.mediaCache.length < 25){
+      if($scope.activePhoto === false && $scope.mediaCache.length < 15){
         $scope.activePhoto = true;
         // console.log(testCnt);
         $scope.photoListLength++;
         testCnt++;
-        cordova.plugins.camerapreview.takePicture({maxWidth: 1000, maxHeight: 1000});
+        cordova.plugins.camerapreview.takePicture({maxWidth: 1500, maxHeight: 1500});
         $('.takePhotoButtonInner').css({
           backgroundColor: "red"
         });
@@ -148,7 +148,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     var photoInt = function(){
        var photoInterval = $interval(function(){
          $scope.takeCordovaPicture();
-       }, 150);
+       }, 80);
 
        function clearPhotoInt(){
          $interval.cancel(photoInterval);
