@@ -137,6 +137,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         // console.log(testCnt);
         $scope.photoListLength++;
         testCnt++;
+        
         cordova.plugins.camerapreview.takePicture({maxWidth: 1500, maxHeight: 1500});
         $('.takePhotoButtonInner').css({
           backgroundColor: "red"
