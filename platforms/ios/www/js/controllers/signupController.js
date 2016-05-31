@@ -234,6 +234,7 @@ angular.module('signupController', [])
       else {
         signin(email, password)
         .then(function(signedInUser){
+          console.log(signedInUser);
           if(signedInUser.data == 'no user found with that email address'){
             alert('We could not find your email address')
             $('.signupPassword').val('');
@@ -321,7 +322,7 @@ angular.module('signupController', [])
       var email = $('.signupEmail').val().toLowerCase();
       $http({
         method: "POST"
-        ,url: "http://192.168.0.12:5555/api/newpw/request"
+        ,url: "https://moneyshotapi.herokuapp.com/api/newpw/request"
         ,data: {userEmail: email}
       })
       .then(function(pwCall){

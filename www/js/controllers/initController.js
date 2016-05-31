@@ -2,11 +2,11 @@
 	ang.module('initLoad', [])
 	.controller( 'initCtrl', initCtrl )
 
-	initCtrl.$inject = ['$state', '$http'];
+	initCtrl.$inject = ['$state', '$http', '$timeout'];
 
-	function initCtrl($state, $http) {
+	function initCtrl($state, $http, $timeout) {
 		var vm = this;
-		console.log(vm);
+
 
 		vm.signin = function() {
 			console.log('CLick')
@@ -19,7 +19,9 @@
 		}
 
 		function checkToken(token) {
-			var toke = window.localStorage.webToken;
+			if(window.localStorage.webToken){
+				var toke = window.localStorage.webToken;	
+			}
 			if(toke && toke.length > 3){
 				vm.camera();
 			}

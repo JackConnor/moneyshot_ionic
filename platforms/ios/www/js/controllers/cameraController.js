@@ -138,7 +138,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         $scope.photoListLength++;
         testCnt++;
 
-        cordova.plugins.camerapreview.takePicture({maxWidth: 1500, maxHeight: 1500});
+        cordova.plugins.camerapreview.takePicture({maxWidth: 1000, maxHeight: 1000});
         $('.takePhotoButtonInner').css({
           backgroundColor: "red"
         });
@@ -809,6 +809,11 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     $scope.returnDate = returnDate;
 
     function returnPlace(){
+      $('.fa-refresh').addClass("fa-spin");
+      $scope.returnPlace = '- - - - - - - - - - - - - - - - - - - - '
+      $timeout(function(){
+        $('.fa-refresh').removeClass("fa-spin");
+      }, 1000);
       $('.locationHolder').children('i');
       $($('.locationHolder').children('i')[0]).css({
         color: 'red'
@@ -843,7 +848,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       });
       $(evt.currentTarget).animate({
         opacity: 1
-      }, 200);
+      }, 169);
       $timeout(function(){
         $scope.photoCarouselBool = true;
         $timeout(function(){
