@@ -70,13 +70,13 @@ angular.module('signupController', [])
     function addTagline(){
       console.log($scope.introCounter);
       if($scope.introCounter == 0 || $scope.introCounter == 3){
-        $($('.intro-dot-item')[1]).addClass('fa-circle-o');
-        $($('.intro-dot-item')[1]).removeClass('fa-circle');
+        $($('.intro-dot-item')[0]).addClass('fa-circle-o');
+        $($('.intro-dot-item')[0]).removeClass('fa-circle');
         $($('.intro-dot-item')[2]).addClass('fa-circle-o');
         $($('.intro-dot-item')[2]).removeClass('fa-circle');
 
-        $($('.intro-dot-item')[0]).removeClass('fa-circle-o');
-        $($('.intro-dot-item')[0]).addClass('fa-circle');
+        $($('.intro-dot-item')[1]).removeClass('fa-circle-o');
+        $($('.intro-dot-item')[1]).addClass('fa-circle');
         $('.signinTaglineText').animate({
           opacity: 0
         }, 100);
@@ -90,11 +90,11 @@ angular.module('signupController', [])
       else if($scope.introCounter == 1){
         $($('.intro-dot-item')[0]).addClass('fa-circle-o');
         $($('.intro-dot-item')[0]).removeClass('fa-circle');
-        $($('.intro-dot-item')[2]).addClass('fa-circle-o');
-        $($('.intro-dot-item')[2]).removeClass('fa-circle');
+        $($('.intro-dot-item')[1]).addClass('fa-circle-o');
+        $($('.intro-dot-item')[1]).removeClass('fa-circle');
 
-        $($('.intro-dot-item')[1]).removeClass('fa-circle-o');
-        $($('.intro-dot-item')[1]).addClass('fa-circle');
+        $($('.intro-dot-item')[2]).removeClass('fa-circle-o');
+        $($('.intro-dot-item')[2]).addClass('fa-circle');
         $('.signinTaglineText').animate({
           opacity: 0
         }, 100);
@@ -106,13 +106,13 @@ angular.module('signupController', [])
         }, 100)
       }
       else if($scope.introCounter == 2){
-        $($('.intro-dot-item')[1]).addClass('fa-circle-o');
-        $($('.intro-dot-item')[1]).removeClass('fa-circle');
+        $($('.intro-dot-item')[2]).addClass('fa-circle-o');
+        $($('.intro-dot-item')[2]).removeClass('fa-circle');
         $($('.intro-dot-item')[0]).addClass('fa-circle-o');
         $($('.intro-dot-item')[0]).removeClass('fa-circle');
 
-        $($('.intro-dot-item')[2]).removeClass('fa-circle-o');
-        $($('.intro-dot-item')[2]).addClass('fa-circle');
+        $($('.intro-dot-item')[0]).removeClass('fa-circle-o');
+        $($('.intro-dot-item')[0]).addClass('fa-circle');
         $('.signinTaglineText').animate({
           opacity: 0
         }, 100);

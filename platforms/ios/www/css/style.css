@@ -569,13 +569,11 @@ html {
 
 
 .intro-dot-item{
-  /*background-color: #ffffff;*/
+  opacity: 0.75;
   color: white;
   margin: 0 10px;
   width: 15px;
   height: 15px;
-  /*border: 2px solid white;*/
-  /*border-radius: 50%;*/
   display: inline-block;
 }
 

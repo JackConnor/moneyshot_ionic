@@ -841,13 +841,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       console.log(index);
       $scope.photoCarouselObject = mediaData;////this is always the centerpiece photo
       $scope.photoCarouselBool = true;
-      // $($('.photoCarouselCell')[index]).css({
-      //   border: '5px solid white'
-      // })
       $timeout(function(){
-        $('.photoCarouselInner').animate({
-          marginLeft: index*-100+112.5+"px"
-        }, 300);
         $($('.photoCarouselCell')[index]).css({
           border: '5px solid white'
         });
@@ -862,13 +856,20 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         });
         $('.photoCarouselInner').css({
           width: 'auto'
-        })
+        });
       }, 15);
+      $timeout(function(){
+        $('.photoCarouselInner').animate({
+          marginLeft: index*-100+112.5+"px"
+        }, 200);
+      }, 150);
     }
     $scope.goToCarousel = goToCarousel;
 
     function photoCarouselBack(){
-      $scope.photoCarouselBool = false;
+      $timeout(function(){
+        $scope.photoCarouselBool = false;
+      }, 200);
     }
     $scope.photoCarouselBack = photoCarouselBack;
 
@@ -997,6 +998,17 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       }, 200);
     }
     $scope.animateBack = animateBack;
+
+    //////back button animation
+    function animateBackCarousel(){
+      $('.photoCarouselBack').css({
+        opacity: 0.25
+      });
+      $('.photoCarouselBack').animate({
+        opacity: 1
+      }, 200);
+    }
+    $scope.animateBackCarousel = animateBackCarousel;
 
     //////toggle animation
     function animateToggle(){
