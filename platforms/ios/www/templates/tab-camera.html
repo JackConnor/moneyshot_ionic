@@ -50,9 +50,9 @@
     </div>
     <div class="cameraModal" ng-show='cameraModal==true'>
       <div class="cameraViewToggle">
-        <img class='toggleCameraIcon' src="./img/assets/camReverseLogo@3x.png" ng-click='toggleView($event)'/>
+        <img class='toggleCameraIcon' src="./img/assets/camReverseLogo@3x.png" ng-click='animateToggle(); toggleView($event)'/>
       </div>
-      <div class="cameraBack" ng-click='leaveCamera()'>
+      <div class="cameraBack" ng-click='leaveCamera(); animateX()'>
         <img ng-click='leaveCamera()' src="./img/assets/x@3x.png"/></i><span ng-click='leaveCamera()'></span>
       </div>
       <div class="cameraLogo">
@@ -97,7 +97,7 @@
           <!-- <div class="takeVideoButton"  ng-if='cameraMode==="video"'></div> -->
         </div>
         <div class="col-xs-4 cameraButtonCell">
-          <div class="submitSetDiv" ng-click='submitModalOpen(mediaCache)'>
+          <div class="submitSetDiv" ng-click='animateSubmit(); submitModalOpen(mediaCache)'>
             Submit
           </div>
         </div>
@@ -133,7 +133,7 @@
 
       <div class="submitModalContainer">
         <div class="submitModalTabHolder col-xs-12">
-          <div class="backToPhotos col-xs-3" ng-click='backToPhotos()'>
+          <div class="backToPhotos col-xs-3" ng-click='animateBack(); backToPhotos()'>
             <p class="fa fa-chevron-left"></p>&nbspBack
           </div>
           <div class="finalizeMophos col-xs-6">

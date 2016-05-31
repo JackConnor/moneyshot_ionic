@@ -137,7 +137,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         // console.log(testCnt);
         $scope.photoListLength++;
         testCnt++;
-        
+
         cordova.plugins.camerapreview.takePicture({maxWidth: 1500, maxHeight: 1500});
         $('.takePhotoButtonInner').css({
           backgroundColor: "red"
@@ -392,7 +392,6 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     }
     $scope.closeLoadingModal = closeLoadingModal;
 
-    ////animations and actual submissionData
     function submitNameAndPhotos(){
       console.log($('.dateInput').val());
       var submissionData;
@@ -731,53 +730,31 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     function submitModalOpen(set){
       returnPlace();
       if($scope.activePhoto === false){
-        var thisEl = $('.submitSetDiv')[0];
-        animateClick(thisEl, '#4DAF7C', 'red');
-        var set = $scope.mediaCache;
-        cordova.plugins.camerapreview.hide();
-        $scope.submitModalVar = true;
-        var mediaLength = set.length;
-        // $timeout(function(){
-        //   for (var i = 0; i < mediaLength; i++) {
-        //     var thisLink = set[i].link
-        //     var subEl = $(".submitPhoto"+i);
-        //     // var subEl = document.querySelector('#submit'+i);
-        //     // console.log(thisLink);
-        //     // console.log(subEl);
-        //     subEl.attr('src', thisLink);
-        //   }
-        // }, 500);
+        $timeout(function(){
+          var set = $scope.mediaCache;
+          cordova.plugins.camerapreview.hide();
+          $scope.submitModalVar = true;
+          var mediaLength = set.length;
+        }, 150);
       }
     }
 
     $scope.submitModalOpen = submitModalOpen;
 
     function backToPhotos(){
-      var thisEl = $(".backToPhotos")[0];
-      animateClick(thisEl, "#6d8383", 'transparent');
-      $scope.submitModalVar = false;
-      cordova.plugins.camerapreview.show();
-      // setTimeout(function(){
-      //   $scope.submitModalVar = false;
-      //   setTimeout(function(){
-      //     cordova.plugins.camerapreview.show();
-      //   }, 500);
-      // }, 100);
+      $timeout(function(){
+        $scope.submitModalVar = false;
+        cordova.plugins.camerapreview.show();
+      }, 200);
     }
     $scope.backToPhotos = backToPhotos;
 
     function toggleView(evt){
-      console.log('fffff');
-      var thisEl = $(evt.currentTarget);
-      console.log(thisEl);
-      animateClick(thisEl, '#c0caca', 'transparent');
       cordova.plugins.camerapreview.switchCamera();
     }
     $scope.toggleView = toggleView;
 
     function leaveCamera(){
-      var thisEl = $('.longArrow');
-      animateClick(thisEl, '#c0caca', 'transparent');
       setTimeout(function(){
         cordova.plugins.camerapreview.hide();
         window.location.hash = "#/tab/account"
@@ -987,5 +964,49 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       console.log($scope.mediaCache);
     }
     $scope.erasePhoto = erasePhoto;
+
+    //////x button animation
+    function animateX(){
+      $('.cameraBack').css({
+        opacity: 0.25
+      });
+      $('.cameraBack').animate({
+        opacity: 1
+      }, 200);
+    }
+    $scope.animateX = animateX;
+
+    //////x button animation
+    function animateSubmit(){
+      $('.cameraButtonCell').css({
+        opacity: 0.25
+      });
+      $('.cameraButtonCell').animate({
+        opacity: 1
+      }, 200);
+    }
+    $scope.animateSubmit = animateSubmit;
+
+    //////back button animation
+    function animateBack(){
+      $('.backToPhotos').css({
+        opacity: 0.25
+      });
+      $('.backToPhotos').animate({
+        opacity: 1
+      }, 200);
+    }
+    $scope.animateBack = animateBack;
+
+    //////toggle animation
+    function animateToggle(){
+      $('.toggleCameraIcon').css({
+        opacity: 0.25
+      });
+      $('.toggleCameraIcon').animate({
+        opacity: 1
+      }, 200);
+    }
+    $scope.animateToggle = animateToggle;
 
   }
