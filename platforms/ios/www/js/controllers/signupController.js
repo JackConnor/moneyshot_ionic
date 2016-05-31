@@ -33,7 +33,6 @@ angular.module('signupController', [])
     ////////intro swipe modal stuff
 
     function backToIntro(){
-      console.log('yooyo');
       $scope.signinModalVar = false;
       $scope.signinModalVar = false;
     }
@@ -69,7 +68,15 @@ angular.module('signupController', [])
 
     ///adds text bubble to intro
     function addTagline(){
-      if($scope.introCounter == 0){
+      console.log($scope.introCounter);
+      if($scope.introCounter == 0 || $scope.introCounter == 3){
+        $($('.intro-dot-item')[1]).addClass('fa-circle-o');
+        $($('.intro-dot-item')[1]).removeClass('fa-circle');
+        $($('.intro-dot-item')[2]).addClass('fa-circle-o');
+        $($('.intro-dot-item')[2]).removeClass('fa-circle');
+
+        $($('.intro-dot-item')[0]).removeClass('fa-circle-o');
+        $($('.intro-dot-item')[0]).addClass('fa-circle');
         $('.signinTaglineText').animate({
           opacity: 0
         }, 100);
@@ -81,6 +88,13 @@ angular.module('signupController', [])
         }, 100)
       }
       else if($scope.introCounter == 1){
+        $($('.intro-dot-item')[0]).addClass('fa-circle-o');
+        $($('.intro-dot-item')[0]).removeClass('fa-circle');
+        $($('.intro-dot-item')[2]).addClass('fa-circle-o');
+        $($('.intro-dot-item')[2]).removeClass('fa-circle');
+
+        $($('.intro-dot-item')[1]).removeClass('fa-circle-o');
+        $($('.intro-dot-item')[1]).addClass('fa-circle');
         $('.signinTaglineText').animate({
           opacity: 0
         }, 100);
@@ -92,6 +106,13 @@ angular.module('signupController', [])
         }, 100)
       }
       else if($scope.introCounter == 2){
+        $($('.intro-dot-item')[1]).addClass('fa-circle-o');
+        $($('.intro-dot-item')[1]).removeClass('fa-circle');
+        $($('.intro-dot-item')[0]).addClass('fa-circle-o');
+        $($('.intro-dot-item')[0]).removeClass('fa-circle');
+
+        $($('.intro-dot-item')[2]).removeClass('fa-circle-o');
+        $($('.intro-dot-item')[2]).addClass('fa-circle');
         $('.signinTaglineText').animate({
           opacity: 0
         }, 100);
@@ -123,12 +144,6 @@ angular.module('signupController', [])
       $scope.introModal = false;
     }
     $scope.exitIntro = exitIntro;
-
-    // Intro dots
-    function dotActive(number){
-      return $scope.introCounter === number ? true : false;
-    }
-    $scope.dotActive = dotActive;
 
     // exitIntro();/////need to take this out to reactivate the intro modal
     ////////end intro swipe modal stuff

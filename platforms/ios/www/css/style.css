@@ -565,19 +565,17 @@ html {
 
 .intro-dot-container{
   margin-top: 45px;
-  /*margin-bottom: 40px;*/
-
-  /*display: flex;
-  justify-content: center;*/
 }
+
 
 .intro-dot-item{
   /*background-color: #ffffff;*/
+  color: white;
   margin: 0 10px;
   width: 15px;
   height: 15px;
-  border: 2px solid white;
-  border-radius: 50%;
+  /*border: 2px solid white;*/
+  /*border-radius: 50%;*/
   display: inline-block;
 }
 
