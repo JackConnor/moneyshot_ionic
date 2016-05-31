@@ -30,6 +30,11 @@
   font-weight: normal;
   font-style: normal; }
 
+  @font-face {
+      font-family: 'SF-UI';
+      src: url('./www/lib/ionic/fonts/SF-UI/SF-UI-Display-Black.ttf') format('truetype')
+  }
+
 .ion, .ionicons,
 .ion-alert:before,
 .ion-alert-circled:before,

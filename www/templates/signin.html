@@ -52,8 +52,8 @@
     <div class="getPasswordModal" ng-if='getPasswordModal'>
       <div class="blackLayerPwModal"></div>
       <div class="pwX fa fa-times" ng-click='closePwModal()'></div>
-      <input type="text" name="name" placeholder="enter email" ng-show="!newPwModal"  class='getPwEmail' style='height:45px; font-size: 23px; padding-top: 12px'>
-      <div class='getPwButton' ng-click='retrievePW()' ng-show="!newPwModal">Get Password</div>
+      <input type="text" name="name" placeholder="enter email" ng-if="!newPwModal"  class='getPwEmail' style='height:45px; font-size: 23px; padding-top: 12px'>
+      <div class='getPwButton' ng-click='retrievePW()' ng-if="!newPwModal">Get Password</div>
     </div>
     <div class="credentialContainer">
       <!-- <i class='fa fa-chevron-left' ng-click='backToIntro()' ng-if='signinModalVar || signupModalVar'></i> -->
@@ -70,9 +70,9 @@
         <div class="signupInputHolder">
           <!-- <h1>Sign in</h1> -->
           <!-- <input type="text" class='signupEmail splashInput form-control' placeholder='Email'> -->
-          <textarea style='background-color:transparent' class='signupEmail splashInput form-control' placeholder='Email' type='text'></textarea>
-          <textarea style='background-color:transparent' type="password" class='signupPassword splashInput form-control' placeholder='Password' ng-keyup='highlightSignin($event)'></textarea>
-          <textarea style='background-color:transparent' type="password" class='signupConfirmPassword splashInput form-control' placeholder='Confirm password' ng-keyup='highlightSignin($event)'></textarea>
+          <input style='background-color:transparent' class='signupEmail splashInput form-control' placeholder='Email' type='text'></input>
+          <input style='background-color:transparent' type="password" class='signupPassword splashInput form-control' placeholder='Password' ng-keyup='highlightSignup($event)'></input>
+          <input style='background-color:transparent' type="password" class='signupConfirmPassword splashInput form-control' placeholder='Confirm password' ng-keyup='highlightSignup($event)'></input>
           <!-- <input type="password" class='signupPassword splashInput' placeholder='Password'> -->
           <!-- <div class='submitSignup subSignup' ng-click='signinToggleButton()'>SIGN IN</div> -->
         </div>
@@ -90,8 +90,8 @@
         <div class="signupInputHolder">
           <!-- <h1>Sign in</h1> -->
           <!-- <input type="text" class='signupEmail splashInput form-control' placeholder='Email'> -->
-          <textarea style='background-color:transparent' class='signupEmail splashInput form-control' placeholder='Email' type='text'></textarea>
-          <textarea style='background-color:transparent' type="password" class='signupPassword splashInput form-control' placeholder='Password' ng-keyup='highlightSignin($event)'></textarea>
+          <input style='background-color:transparent' class='signinEmail splashInput form-control' placeholder='Email' type='text'></input>
+          <input style='background-color:transparent' type="password" class='signinPassword splashInput form-control' placeholder='Password' ng-keyup='highlightSignin($event)'></input>
           <!-- <input type="password" class='signupPassword splashInput' placeholder='Password'> -->
           <!-- <div class='submitSignup subSignup' ng-click='signinToggleButton()'>SIGN IN</div> -->
           <div class="forgotPassword" ng-click='getPassword()'>

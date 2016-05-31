@@ -1,16 +1,16 @@
 angular.module('signupController', [])
 
-  .config(function(FacebookProvider) {
-     // Set your appId through the setAppId method or
-     // use the shortcut in the initialize method directly.
-     FacebookProvider.init('219996151696499');
-  })
+  // .config(function(FacebookProvider) {
+  //    // Set your appId through the setAppId method or
+  //    // use the shortcut in the initialize method directly.
+  //    FacebookProvider.init('219996151696499');
+  // })
 
   .controller('signupCtrl', signupCtrl);
 
-  signupCtrl.$inject = ['$scope', '$http', '$state', 'signup', 'signin', 'newToken', '$cordovaStatusbar', '$window', 'Facebook', '$timeout', '$interval', '$animateCss']
+  signupCtrl.$inject = ['$scope', '$http', '$state', 'signup', 'signin', 'newToken', '$cordovaStatusbar', '$window', '$timeout', '$interval', '$animateCss']
 
-  function signupCtrl($scope, $http, $state, signup, signin, newToken, $cordovaStatusbar, $window, Facebook, $timeout, $interval, $animateCss){
+  function signupCtrl($scope, $http, $state, signup, signin, newToken, $cordovaStatusbar, $window, $timeout, $interval, $animateCss){
     console.log('Sign Loaded')
     ionic.Platform.fullScreen();////hides status bar
     ///////////////global variables//////
@@ -31,34 +31,6 @@ angular.module('signupController', [])
 
     ///////////////////////////////
     ////////intro swipe modal stuff
-    // function checkIntro(){
-    //   if(!window.localStorage.webToken || window.localStorage.webToken == "" || window.localStorage.webToken == null){
-    //     $scope.introModal = true;
-    //     $timeout(function(){
-    //       document.getElementsByTagName('html')[0].style.opacity = '1'
-    //     }, 1000);
-    //     $timeout(function(){
-    //       document.getElementsByTagName('html')[0].style.opacity = '1'
-    //     }, 1300);
-    //     $timeout(function(){
-    //       document.getElementsByTagName('html')[0].style.opacity = '1'
-    //     }, 1600);
-    //     $('html').animate({
-    //       opacity: 1
-    //     }, 700);
-    //
-    //     $('.tab-nav').css({
-    //       height: 0+"px"
-    //     })
-    //   }
-    //   else {
-    //     window.location.hash = "#/tab/camera";
-    //     window.location.reload();
-    //   }
-    // }
-    // document.addEventListener("deviceready", function(){
-    //   checkIntro();
-    // });
 
     function backToIntro(){
       console.log('yooyo');
@@ -66,15 +38,7 @@ angular.module('signupController', [])
       $scope.signinModalVar = false;
     }
     $scope.backToIntro = backToIntro();
-    // $timeout(function(){
-    //   checkIntro();
-    // }, 1000);
-    // $timeout(function(){
-    //   checkIntro();
-    // }, 2000);
-    // $timeout(function(){
-    //   checkIntro();
-    // }, 3000);
+
 
     function introSwipeLeft(){
       addTagline();
@@ -103,11 +67,9 @@ angular.module('signupController', [])
       introSwipeLeft();
     }, 2500);
 
+    ///adds text bubble to intro
     function addTagline(){
-      console.log($scope.introCounter);
-
       if($scope.introCounter == 0){
-        console.log('yaaa');
         $('.signinTaglineText').animate({
           opacity: 0
         }, 100);
@@ -119,7 +81,6 @@ angular.module('signupController', [])
         }, 100)
       }
       else if($scope.introCounter == 1){
-        console.log('yaaa');
         $('.signinTaglineText').animate({
           opacity: 0
         }, 100);
@@ -131,7 +92,6 @@ angular.module('signupController', [])
         }, 100)
       }
       else if($scope.introCounter == 2){
-        console.log('yaaa');
         $('.signinTaglineText').animate({
           opacity: 0
         }, 100);
@@ -248,14 +208,13 @@ angular.module('signupController', [])
     /////function to sign in a user
     function signinUser(){
       console.log('signing in');
-      var email = $('.signupEmail').val();
+      var email = $('.signinEmail').val();
       console.log(email);
-      var password = $('.signupPassword').val();
+      console.log(email);
+      var password = $('.signinPassword').val();
+      console.log(password);
       if(email.length < 1){
         alert('Please include your email');
-      }
-      else if(!checkPassword()){
-        alert('Please create a password of at least 6 charcters in length');
       }
       else {
         signin(email, password)
@@ -515,30 +474,13 @@ angular.module('signupController', [])
     }
     $scope.backToSliderFunc = backToSliderFunc;
 
-    function highlightSignin(e){
+    function highlightSignup(e){
       console.log(e);
       var pw = $('.signupPassword').val();
       var repw = $('.signupConfirmPassword').val();
       var pwLength = $('.signupPassword').val().length;
       var rePwLength = $('.signupConfirmPassword').val().length;
-      console.log(pwLength);
-      // var validPW = checkPassword();
-
-      if($scope.signinModalVar){
-          console.log('signin');
-        if(pwLength > 5){
-          console.log('larger');
-          $('.mophoSignin').css({
-            color: '#3375dd'
-          });
-        }
-        else if(pwLength <= 5){
-          $('.mophoSignin').css({
-            color: 'gray'
-          });
-        }
-      }
-      else if($scope.signupModalVar){
+      if($scope.signupModalVar){
         console.log('signup');
         console.log(pw);
         console.log(repw);
@@ -554,7 +496,24 @@ angular.module('signupController', [])
           });
         }
       }
+    }
+    $scope.highlightSignup = highlightSignup;
 
+    function highlightSignin(e){
+      console.log(e);
+      var pw = $('.signinPassword').val();
+      var pwLength = pw.length;
+      console.log(pwLength);
+      if(pwLength > 5){
+        $('.mophoSignin').css({
+          color: '#3375dd'
+        });
+      }
+      else if(pwLength <= 5){
+        $('.mophoSignin').css({
+          color: 'gray'
+        });
+      }
     }
     $scope.highlightSignin = highlightSignin;
 

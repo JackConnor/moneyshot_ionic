@@ -152,9 +152,9 @@
             <!-- <div class="cropIconHolder" ng-click='cropPhoto(mediaCache[$index], $event, $index)' ng-if='media.type=="photo"'>
               <div class='fa fa-crop'></div>
             </div> -->
-            <div class="submitCellImageHolder">
+            <div class="submitCellImageHolder" >
               <img class='submitPhoto submitPhoto{{$index}}' id='submit{{$index}}' ng-src="{{media.link}}" ng-if='media.type=="photo"' ng-click='goToCarousel(media, $index)'/>
-              <video id='submit{{$index}}'ng-if='media.type=="video"' poster='{{media.thumb}}'>
+              <video id='submit{{$index}}' ng-if='media.type=="video"' poster='{{media.thumb}}'>
                 <source ng-src="{{media.link}}" type="video/mp4">
                   (Your Browser Doesn't Support Video)
               </video>

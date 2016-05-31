@@ -1,7 +1,15 @@
 /* Empty. Add your own CSS if you like */
 
+
+@font-face {
+    font-family: 'sfns_displayregular';
+    src: url('../fonts/SF-UI/SF-UI-Text-Medium.otf') format('opentype');
+    src: url('../fonts/SF-UI/SF-UI-Text-Heavy.otf') format('opentype'),
+     url('../fonts/SF-UI/SF-UI-Display-BoldIalic.otf') format('opentype')
+  }
+
 body {
-  font-family: 'Helvetica Neue', arial, san-serif;
+  font-family: 'Helvetica', sans serif;
   font-weight: 300;
 }
 
@@ -9,25 +17,6 @@ html {
   opacity: 1;
 }
 
-
-@font-face {
-  font-family: 'SF-UI-Text';
-  src: url('fonts/SF-UI-Text-Regular.otf')
-}
-/*body, ion-tabs, .pane, .tab-nav, .tabs, html, ion-pane, ion-content, ion-view, ion-nav-view, .scroll, .platform-ios, .view, .platform-ios, .cameraModal {
-  background-color: transparent;
-}*/
-
-/*ion-content {
-  height: auto;
-}
-
-ion-view {
-  height: auto;
-}*/
-
-ion-content {
-}
 
 .accountBody {
   padding: 0px;
@@ -1050,14 +1039,15 @@ ion-content {
   color: white;
 }
 
-.signupInputHolder textarea {
+.signupInputHolder input {
   margin-top: 10px;
   height: 45px;
   font-size: 14px;
   font-weight: 900;
-  width: 90%;
+  width: 95%;
   padding-top: 10px;
-  margin-left: 5%;
+  margin-left: 2.5%;
+  color: white;
 }
 
 .submitAddInfoContainer {
@@ -1600,7 +1590,7 @@ animation-duration: 750ms;
 }*/
 
 /*//////makes the button slide up*/
-@-webkit-keyframes emailSlideUp {
+/*@-webkit-keyframes emailSlideUp {
   0% {
     margin-top: 65px;
   }
@@ -1629,4 +1619,4 @@ animation-duration: 350ms;
 
 .zStyle {
   background-color: red
-}
+}*/
