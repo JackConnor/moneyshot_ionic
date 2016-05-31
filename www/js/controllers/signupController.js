@@ -32,9 +32,14 @@ angular.module('signupController', [])
     ///////////////////////////////
     ////////intro swipe modal stuff
 
+    $scope.swipeInterval = $interval(function(){
+      introSwipeLeft();
+    }, 1750);
+
     function backToIntro(){
       $scope.signinModalVar = false;
       $scope.signinModalVar = false;
+      $scope.introCounter   = 0;
     }
     $scope.backToIntro = backToIntro();
 
@@ -61,10 +66,6 @@ angular.module('signupController', [])
       }
     }
     $scope.introSwipeLeft = introSwipeLeft;
-
-    var swipeInterval = setInterval(function(){
-      introSwipeLeft();
-    }, 2500);
 
     ///adds text bubble to intro
     function addTagline(){
@@ -222,19 +223,14 @@ angular.module('signupController', [])
 
     /////function to sign in a user
     function signinUser(){
-      console.log('signing in');
       var email = $('.signinEmail').val();
-      console.log(email);
-      console.log(email);
       var password = $('.signinPassword').val();
-      console.log(password);
       if(email.length < 1){
         alert('Please include your email');
       }
       else {
         signin(email, password)
         .then(function(signedInUser){
-          console.log(signedInUser);
           if(signedInUser.data == 'no user found with that email address'){
             alert('We could not find your email address')
             $('.signupPassword').val('');
@@ -299,6 +295,8 @@ angular.module('signupController', [])
 
     /////////functions to go to the signup and signin modals
     function toSignin(){
+      $interval.cancel($scope.swipeInterval);
+      $scope.swipeInterval = null;
       $timeout(function(){
         $scope.introModal       = false;
         $scope.signinModalVar   = true;
@@ -308,6 +306,8 @@ angular.module('signupController', [])
 
     ////function to go to signup page
     function toSignup(){
+      $interval.cancel($scope.swipeInterval);
+      $scope.swipeInterval = null;
       $timeout(function(){
         $scope.signinModalVar   = false;
         $scope.introModal       = false;
@@ -487,6 +487,11 @@ angular.module('signupController', [])
       $timeout(function(){
         $scope.signinModalVar   = true;
         $scope.introModal = true;
+        if($scope.swipeInterval === null){
+          $scope.swipeInterval = $interval(function(){
+            introSwipeLeft();
+          }, 1750);
+        }
       }, 160);
     }
     $scope.backToSliderFunc = backToSliderFunc;

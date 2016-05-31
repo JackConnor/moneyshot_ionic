@@ -222,19 +222,14 @@ angular.module('signupController', [])
 
     /////function to sign in a user
     function signinUser(){
-      console.log('signing in');
       var email = $('.signinEmail').val();
-      console.log(email);
-      console.log(email);
       var password = $('.signinPassword').val();
-      console.log(password);
       if(email.length < 1){
         alert('Please include your email');
       }
       else {
         signin(email, password)
         .then(function(signedInUser){
-          console.log(signedInUser);
           if(signedInUser.data == 'no user found with that email address'){
             alert('We could not find your email address')
             $('.signupPassword').val('');
@@ -308,6 +303,7 @@ angular.module('signupController', [])
 
     ////function to go to signup page
     function toSignup(){
+      $interval.cancel(swipeInterval);
       $timeout(function(){
         $scope.signinModalVar   = false;
         $scope.introModal       = false;
