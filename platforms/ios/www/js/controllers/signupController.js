@@ -12,7 +12,6 @@ angular.module('signupController', [])
 
   function signupCtrl($scope, $http, $state, signup, signin, newToken, $cordovaStatusbar, $window, $timeout, $interval, $animateCss){
     console.log('Sign Loaded')
-    ionic.Platform.fullScreen();////hides status bar
     ///////////////global variables//////
     $scope.signupModalVar   = false;
     $scope.signinModalVar   = false;
@@ -29,12 +28,21 @@ angular.module('signupController', [])
     $scope.photo1;
     $scope.photo2;
 
+    document.on('deviceready', function(){
+      ionic.Platform.fullScreen();
+    })
+
     ///////////////////////////////
     ////////intro swipe modal stuff
+
+    $scope.swipeInterval = $interval(function(){
+      introSwipeLeft();
+    }, 1750);
 
     function backToIntro(){
       $scope.signinModalVar = false;
       $scope.signinModalVar = false;
+      $scope.introCounter   = 0;
     }
     $scope.backToIntro = backToIntro();
 
@@ -61,10 +69,6 @@ angular.module('signupController', [])
       }
     }
     $scope.introSwipeLeft = introSwipeLeft;
-
-    var swipeInterval = setInterval(function(){
-      introSwipeLeft();
-    }, 2500);
 
     ///adds text bubble to intro
     function addTagline(){
@@ -294,6 +298,8 @@ angular.module('signupController', [])
 
     /////////functions to go to the signup and signin modals
     function toSignin(){
+      $interval.cancel($scope.swipeInterval);
+      $scope.swipeInterval = null;
       $timeout(function(){
         $scope.introModal       = false;
         $scope.signinModalVar   = true;
@@ -303,7 +309,8 @@ angular.module('signupController', [])
 
     ////function to go to signup page
     function toSignup(){
-      $interval.cancel(swipeInterval);
+      $interval.cancel($scope.swipeInterval);
+      $scope.swipeInterval = null;
       $timeout(function(){
         $scope.signinModalVar   = false;
         $scope.introModal       = false;
@@ -483,6 +490,11 @@ angular.module('signupController', [])
       $timeout(function(){
         $scope.signinModalVar   = true;
         $scope.introModal = true;
+        if($scope.swipeInterval === null){
+          $scope.swipeInterval = $interval(function(){
+            introSwipeLeft();
+          }, 1750);
+        }
       }, 160);
     }
     $scope.backToSliderFunc = backToSliderFunc;

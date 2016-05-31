@@ -12,7 +12,6 @@ angular.module('signupController', [])
 
   function signupCtrl($scope, $http, $state, signup, signin, newToken, $cordovaStatusbar, $window, $timeout, $interval, $animateCss){
     console.log('Sign Loaded')
-    ionic.Platform.fullScreen();////hides status bar
     ///////////////global variables//////
     $scope.signupModalVar   = false;
     $scope.signinModalVar   = false;
@@ -28,6 +27,10 @@ angular.module('signupController', [])
     ////////////////////////////////////////////
     $scope.photo1;
     $scope.photo2;
+
+    document.on('deviceready', function(){
+      ionic.Platform.fullScreen();
+    })
 
     ///////////////////////////////
     ////////intro swipe modal stuff
