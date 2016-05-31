@@ -728,14 +728,14 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     // }, 500)
 
     function submitModalOpen(set){
-      returnPlace();
       if($scope.activePhoto === false){
+        cordova.plugins.camerapreview.hide();
         $timeout(function(){
           var set = $scope.mediaCache;
-          cordova.plugins.camerapreview.hide();
           $scope.submitModalVar = true;
           var mediaLength = set.length;
-        }, 150);
+          returnPlace();
+        }, 20);
       }
     }
 
@@ -835,34 +835,40 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     $scope.findNewPlace = returnPlace;
 
     ///////begin photo carousel animation work
-    function goToCarousel(mediaData, index){
-      console.log(index);
-      console.log(mediaData);
-      console.log(index);
+    function goToCarousel(mediaData, index, evt){
       $scope.photoCarouselObject = mediaData;////this is always the centerpiece photo
-      $scope.photoCarouselBool = true;
+      console.log(evt.currentTarget);
+      $(evt.currentTarget).css({
+        opacity: 0.1
+      });
+      $(evt.currentTarget).animate({
+        opacity: 1
+      }, 200);
       $timeout(function(){
-        $($('.photoCarouselCell')[index]).css({
-          border: '5px solid white'
-        });
-        var width = $($('.mainPhotoHolder').children()[0]).width();
-        var outerWidth = $('.mainPhotoHolder').width();
-        var marginL = (outerWidth - width)/2;
-        $($('.mainPhotoHolder').children()[0]).css({
-          width: width+"px"
-        })
-        $($('.mainPhotoHolder').children()[0]).css({
-          marginLeft: marginL
-        });
-        $('.photoCarouselInner').css({
-          width: 'auto'
-        });
-      }, 15);
+        $scope.photoCarouselBool = true;
+        $timeout(function(){
+          $($('.photoCarouselCell')[index]).css({
+            border: '5px solid white'
+          });
+          var width = $($('.mainPhotoHolder').children()[0]).width();
+          var outerWidth = $('.mainPhotoHolder').width();
+          var marginL = (outerWidth - width)/2;
+          $($('.mainPhotoHolder').children()[0]).css({
+            width: width+"px"
+          })
+          $($('.mainPhotoHolder').children()[0]).css({
+            marginLeft: marginL
+          });
+          $('.photoCarouselInner').css({
+            width: 'auto'
+          });
+        }, 50);
+      }, 170);
       $timeout(function(){
         $('.photoCarouselInner').animate({
           marginLeft: index*-100+112.5+"px"
         }, 200);
-      }, 150);
+      }, 300);
     }
     $scope.goToCarousel = goToCarousel;
 
