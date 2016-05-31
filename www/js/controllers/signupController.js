@@ -252,7 +252,7 @@ angular.module('signupController', [])
       // $scope.getPasswordModal = true;
       //////new version of what this does
       if($scope.pwHide === false){
-        $('.signupPassword').hide();
+        $('.signinPassword').hide();
         $('.forgotPassword').css({
           marginTop: 65+'px'
         });
@@ -270,7 +270,7 @@ angular.module('signupController', [])
         }, 200);
         $(".forgotPassword").text('Forgot Password?');
         setTimeout(function(){
-          $('.signupPassword').show();
+          $('.signinPassword').show();
           $('.forgotPassword').css({
             marginTop: 10+'px'
           });
@@ -283,16 +283,20 @@ angular.module('signupController', [])
 
     /////////functions to go to the signup and signin modals
     function toSignin(){
-      $scope.introModal       = false;
-      $scope.signinModalVar   = true;
+      $timeout(function(){
+        $scope.introModal       = false;
+        $scope.signinModalVar   = true;
+      }, 200);
     }
     $scope.toSignin = toSignin;
 
     ////function to go to signup page
     function toSignup(){
-      $scope.signinModalVar   = false;
-      $scope.introModal       = false;
-      $scope.signupModalVar   = true;
+      $timeout(function(){
+        $scope.signinModalVar   = false;
+        $scope.introModal       = false;
+        $scope.signupModalVar   = true;
+      }, 200);
     }
     $scope.toSignup = toSignup;
 
@@ -356,7 +360,9 @@ angular.module('signupController', [])
 
 
     function closePwModal(){
-      $scope.getPasswordModal = false;
+      $timeout(function(){
+        $scope.getPasswordModal = false;
+      })
     }
     $scope.closePwModal = closePwModal;
 
@@ -462,15 +468,10 @@ angular.module('signupController', [])
     $scope.checkValidEmail = checkValidEmail;
 
     function backToSliderFunc(){
-      $scope.signinModalVar   = true;
-      // $scope.pwHide = false;
-      // setTimeout(function(){
+      $timeout(function(){
+        $scope.signinModalVar   = true;
         $scope.introModal = true;
-        // swipeInterval();
-        // var swipeInterval = setInterval(function(){
-        //   introSwipeLeft();
-        // }, 2500);
-      // }, 600);
+      }, 160);
     }
     $scope.backToSliderFunc = backToSliderFunc;
 
@@ -516,5 +517,45 @@ angular.module('signupController', [])
       }
     }
     $scope.highlightSignin = highlightSignin;
+
+    //////////animations
+    ////animate click
+    function signinClick(){
+      $('.introSigninButton').css({
+        opacity: 1
+        ,color: 'white'
+      });
+      $('.introSigninButton').animate({
+        opacity: 0.7
+        ,color: 'black'
+      }, 200);
+    }
+    $scope.signinClick = signinClick;
+
+    ////clicking signup button
+    function signupClick(){
+      $('.introSignupButton').css({
+        opacity: 1
+        ,color: 'red'
+      });
+      $('.introSignupButton').animate({
+        opacity: 0.7
+        ,color: 'white'
+      }, 200);
+    }
+    $scope.signupClick = signupClick;
+
+    ////clicking back button
+    function pwXClick(){
+      $('.backToSlider').css({
+        color: 'black'
+      });
+      $('.backToSlider').animate({
+        color: 'white'
+      }, 200);
+    }
+    $scope.pwXClick = pwXClick;
+
+
 
   }

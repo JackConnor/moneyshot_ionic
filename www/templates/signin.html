@@ -11,10 +11,10 @@
       </div>
       <div class="goToSigninHolder">
           <div class="introButtonHolder">
-            <div class="introSignupButton introButton" ng-click='toSignup()'>
+            <div class="introSignupButton introButton" ng-click='toSignup(); signupClick()'>
               Sign Up
             </div>
-            <div class="introSigninButton introButton" ng-click='toSignin()'>
+            <div class="introSigninButton introButton" ng-click='toSignin(); signinClick()'>
               Sign In
             </div>
           </div>
@@ -49,18 +49,16 @@
     </div>
   </div>
   <ion-content>
-    <div class="getPasswordModal" ng-if='getPasswordModal'>
+    <!-- <div class="getPasswordModal" ng-if='getPasswordModal'>
       <div class="blackLayerPwModal"></div>
-      <div class="pwX fa fa-times" ng-click='closePwModal()'></div>
+      <div class="pwX fa fa-times" ng-click='closePwModal();'></div>
       <input type="text" name="name" placeholder="enter email" ng-if="!newPwModal"  class='getPwEmail' style='height:45px; font-size: 23px; padding-top: 12px'>
       <div class='getPwButton' ng-click='retrievePW()' ng-if="!newPwModal">Get Password</div>
-    </div>
+    </div> -->
     <div class="credentialContainer">
       <!-- <i class='fa fa-chevron-left' ng-click='backToIntro()' ng-if='signinModalVar || signupModalVar'></i> -->
       <div class="signupModal" ng-if='signupModalVar'>
-        <p class='fa fa-chevron-left backToSlider' ng-click='backToSliderFunc()'>
-
-        </p>
+        <p class='fa fa-chevron-left backToSlider' ng-click='backToSliderFunc(); pwXClick()'></p>
         <div class="mophoSigninLogo">
           MoPho
         </div>
@@ -78,9 +76,7 @@
         </div>
       </div>
       <div class="signinModal" ng-if='signinModalVar'>
-        <p class='fa fa-chevron-left backToSlider' ng-click='backToSliderFunc()'>
-
-        </p>
+        <p class='fa fa-chevron-left backToSlider' ng-click='backToSliderFunc(); pwXClick()'></p>
         <div class="mophoSigninLogo">
           MoPho
         </div>

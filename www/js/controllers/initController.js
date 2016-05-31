@@ -6,6 +6,7 @@
 
 	function initCtrl($state, $http) {
 		var vm = this;
+		console.log(vm);
 
 		vm.signin = function() {
 			console.log('CLick')
@@ -28,15 +29,17 @@
 		}
 
 		function checkLocal() {
-			// var token = localStorage.webToken
-			// console.log(token);
-			// 	token ? checkToken(token) : vm.signin()
-			checkToken();
+			if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+				console.log('device');
+				document.addEventListener("deviceready", function(){
+					checkToken();
+				}, false);
+			}
+			else {
+				checkToken();
+			}
 		}
-
-		document.addEventListener("deviceready", function(){
-			checkLocal();
-		}, false);
+		checkLocal();
 
 	}
 })(angular);
