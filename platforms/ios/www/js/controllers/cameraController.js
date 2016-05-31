@@ -890,7 +890,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       });
       $('.photoCarouselInner').animate({
         marginLeft: index*-100+112.5+"px"
-      }, 300);
+      }, 150);
     }
     $scope.openNewCarouselPhoto = openNewCarouselPhoto;
 
