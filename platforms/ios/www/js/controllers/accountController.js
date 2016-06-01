@@ -16,26 +16,24 @@ angular.module('accountController', ['persistentPhotosFactory'])
 
     function addTopBar(){
       if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
-        ionic.Platform.showStatusBar(false);
+        $cordovaStatusbar.show();
+        $cordovaStatusbar.style(1);
       }
     }
-    addTopBar();
     // ionic.Platform.showStatusBar(true);/////removes the status bar from the app
     document.addEventListener("deviceready", function(){
-      onDeviceReady();
+      addTopBar();
       setTimeout(function(){
-        onDeviceReady();
+        addTopBar();
       }, 500);
       setTimeout(function(){
-        onDeviceReady();
+        addTopBar();
       }, 1000);
       setTimeout(function(){
-        onDeviceReady();
+        addTopBar();
       }, 3000);
     }, false);
-    function onDeviceReady() {
-      StatusBar.styleLightContent();
-    }
+
 
     $scope.showSold              = false;
     $scope.showSubmitted         = true;
