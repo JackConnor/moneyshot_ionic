@@ -190,7 +190,7 @@
           </div>
         <!-- </div> -->
         <div class="showSubmittedHolder" ng-if='showSubmitted'>
-          <div class="submittedRow submittedRow{{$index}}" ng-repeat='submission in userSubmissions' ng-click='openSubmission(submission, $event)' ng-if='checkPhotos(submission.photos)'>
+          <div class="submittedRow submittedRow{{$index}}" ng-repeat='submission in userSubmissions' ng-click='openSubmission(submission, $event)' >
             <div class="submitPhotosHolder">
               <div class="subPhotoCell subPhoto0" ng-if='submission.photos[0] && !submission.photos[0].isVideo'>
                 <img src="{{submission.photos[0].thumbnail}}" alt="" />

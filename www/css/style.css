@@ -901,6 +901,8 @@ html {
   width: 90%;
   margin-left: 5%;
   text-align: left;
+  background-color: transparent;
+  color: white;
 }
 
 .photoNameInput {
@@ -908,6 +910,8 @@ html {
   height: 40px;
   width: 90%;
   margin-left: 5%;
+  color: white;
+  background-color: transparent;
   text-align: left;
 }
 
