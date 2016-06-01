@@ -348,10 +348,12 @@ angular.module('accountController', ['persistentPhotosFactory'])
     }
 
     function openSubmission(subInfo, evt){
+      $('ion-tabs').addClass('tabs-item-hide');
       $('.accountBody').css({
         marginTop: '0px'
       });
       $scope.scrollPosition = $ionicScrollDelegate.getScrollPosition().top;
+      $ionicScrollDelegate.freezeScroll(true);
       $scope.singleSubmission = subInfo;
       $scope.singleSubmissionModal = true;
       setTimeout(function(){
@@ -365,6 +367,8 @@ angular.module('accountController', ['persistentPhotosFactory'])
     $scope.openSubmission = openSubmission;
 
     function backToRepeat(modalType){
+      $('ion-tabs').removeClass('tabs-item-hide');
+      $ionicScrollDelegate.freezeScroll(false);
       $('.accountBody').css({
         marginTop: '75px'
       });
@@ -592,9 +596,6 @@ angular.module('accountController', ['persistentPhotosFactory'])
 
     /////////carousel functions
     function openCarousel(photo, evt, index){
-      console.log(evt);
-      console.log(photo);
-      console.log('opeinng');
       $scope.carouselMain = photo;
       $(evt.currentTarget).css({
         opacity: 0.1

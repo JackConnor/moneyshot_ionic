@@ -1,5 +1,20 @@
 <ion-view view-title="Account">
   <ion-content overflow-scroll='false'>
+    <div class="photoCarouselModal" ng-if='photoCarouselBool'>
+      <div class="photoCarouselBack" ng-click='animateBackCarousel(); photoCarouselBack()'>
+        <i class='fa fa-chevron-left'></i>
+      </div>
+      <div class="mainPhotoHolder">
+        <img ng-src="{{carouselMain.url}}" on-swipe-right='photoCarouselSwipeRight()' on-swipe-left='photoCarouselSwipeLeft()'/>
+      </div>
+      <div class="photoCarouselHolder" on-swipe-right='photoCarouselSwipeRight()' on-swipe-left='photoCarouselSwipeLeft()'>
+        <div class="photoCarouselInner row">
+          <div class="col-xs-2 photoCarouselCell" ng-repeat="photo in singleSubmission.photos">
+            <img ng-src="{{photo.url}}" ng-click='openNewCarouselPhoto($index)'/>
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="accountTabHolder col-xs-12">
       <div class="accountTab soldTab" ng-click='showSoldFunc(); tabUi($event)'>
         <span class='soldTabInner'>Sold</span>
@@ -112,8 +127,8 @@
         </div>
         <ion-scroll class="submissionRepeatContainer col-xs-12">
           <div class="subRepeat col-xs-3" ng-repeat="photo in singleSubmission.photos" ng-if='photo.status=="rejected" || photo.status=="offered for sale" || photo.status=="sold"'>
-            <video ng-src="{{photo.url | trustUrl}}" controls ng-if="photo.isVideo" ng-click='openSingle(photo, "sold")' poster='{{photo.thumbnail}}'></video>
-            <img ng-src="{{photo.url | trustUrl}}" ng-if="!photo.isVideo" ng-click=''/>
+            <video ng-src="{{photo.url | trustUrl}}" controls ng-if="photo.isVideo" ng-click='openSingle(photo, "sold")' poster='{{photo.thumbnail}}' ng-click='openCarousel(photo, $event)'></video>
+            <img ng-src="{{photo.url | trustUrl}}" ng-if="!photo.isVideo" ng-click='openCarousel(photo, $event, $index)'/>
           </div>
         </ion-scroll>
         <div class="col-xs-12 submissionDataHolder">
