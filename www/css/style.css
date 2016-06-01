@@ -988,7 +988,7 @@ html {
 }
 
 .signinModal {
-  padding-top: 91px;
+  padding-top: 105px;
   position: absolute;
   width: 100%;
   height: 750px;
@@ -1053,11 +1053,21 @@ html {
   color: white;
 }
 
+.signupBlack {
+  position: absolute;
+  z-index: 1;
+  background-color: black;
+  opacity: 0.12;
+  height: 330px;
+  width: 100%;
+  margin-top: -330px;
+  /*bottom: 0;*/
+}
 
 .signupInputHolder {
   width: 90%;
   margin-left: 5%;
-  margin-top: 100px;
+  margin-top: 25px;
 }
 
 .signupInputHolder h1{
@@ -1079,6 +1089,16 @@ html {
   color: white;
 }
 
+.signupModal {
+  padding-top: 105px;
+  position: absolute;
+  width: 100%;
+  height: 750px;
+  color: white;
+  background-color: black;
+  z-index: 2;
+}
+
 .singleSubmissionBackground {
   position: absolute;
   width: 100%;
@@ -1092,27 +1112,6 @@ html {
   height: auto;
   padding: 0px;
   z-index: 25;
-}
-
-.signupBlack {
-  position: absolute;
-  z-index: 1;
-  background-color: black;
-  opacity: 0.12;
-  height: 330px;
-  width: 100%;
-  margin-top: -330px;
-  /*bottom: 0;*/
-}
-
-.signupModal {
-  padding-top: 91px;
-  position: absolute;
-  width: 100%;
-  height: 750px;
-  color: white;
-  background-color: black;
-  z-index: 2;
 }
 
 .soldSign {

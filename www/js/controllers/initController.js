@@ -2,12 +2,11 @@
 	ang.module('initLoad', [])
 	.controller( 'initCtrl', initCtrl )
 
-	initCtrl.$inject = ['$state', '$http', '$timeout'];
+	initCtrl.$inject = ['$state', '$http', '$timeout', '$cordovaStatusbar'];
 
-	function initCtrl($state, $http, $timeout) {
+	function initCtrl($state, $http, $timeout, $cordovaStatusbar) {
 		var vm = this;
-
-
+		
 		vm.signin = function() {
 			console.log('CLick')
 			$state.go( 'signin' )
@@ -20,7 +19,7 @@
 
 		function checkToken(token) {
 			if(window.localStorage.webToken){
-				var toke = window.localStorage.webToken;	
+				var toke = window.localStorage.webToken;
 			}
 			if(toke && toke.length > 3){
 				vm.camera();

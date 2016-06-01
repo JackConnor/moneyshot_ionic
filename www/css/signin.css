@@ -11,25 +11,6 @@
 
 /****** Sign up / Sign in ******/
 
-.signupModal {
-  color: #000000;
-  z-index: 2;
-  padding-top: 80px;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-}
-
-.signin {
-  height: 100%;
-  display: inline-block;
-  font-size: 30px;
-  text-align: center;
-  padding-top: 15px;
-  color: white;
-}
-
 
 .submitSignup {
   color: #ffffff;

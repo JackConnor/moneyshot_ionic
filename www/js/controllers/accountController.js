@@ -14,14 +14,12 @@ angular.module('accountController', ['persistentPhotosFactory'])
     $scope.photoCarouselBool    = false;
     $scope.carouselMain       = [];
 
-    function removeTopBar(){
+    function addTopBar(){
       if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
-        document.addEventListener('deviceready', function(){
-          ionic.Platform.fullScreen();
-        });
+        ionic.Platform.showStatusBar(false);
       }
     }
-    removeTopBar();
+    addTopBar();
     // ionic.Platform.showStatusBar(true);/////removes the status bar from the app
     document.addEventListener("deviceready", function(){
       onDeviceReady();

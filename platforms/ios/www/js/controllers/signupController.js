@@ -23,22 +23,15 @@ angular.module('signupController', [])
     $scope.introCounter     = 0;
     $scope.introTag = "Shoot Awesome Photos";
 
-    //////function to control our photo carousel
-    ////////////////////////////////////////////
-    $scope.photo1;
-    $scope.photo2;
-
-    function removeTopBar(){
-      if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
-        document.addEventListener('deviceready', function(){
-          ionic.Platform.fullScreen();
-        });
-      }
-    }
-    removeTopBar();
-
     ///////////////////////////////
     ////////intro swipe modal stuff
+    document.addEventListener('deviceready', function(){
+      $timeout(function(){
+        $cordovaStatusbar.style(1);
+        $cordovaStatusbar.hide();
+        $ionicScrollDelegate.freezeScroll(true);
+      }, 100);
+    });
 
     $scope.swipeInterval = $interval(function(){
       introSwipeLeft();
@@ -308,6 +301,7 @@ angular.module('signupController', [])
       $timeout(function(){
         $scope.introModal       = false;
         $scope.signinModalVar   = true;
+        $cordovaStatusbar.show();
       }, 200);
     }
     $scope.toSignin = toSignin;
@@ -320,6 +314,7 @@ angular.module('signupController', [])
         $scope.signinModalVar   = false;
         $scope.introModal       = false;
         $scope.signupModalVar   = true;
+        $cordovaStatusbar.show();
       }, 200);
     }
     $scope.toSignup = toSignup;
@@ -492,6 +487,7 @@ angular.module('signupController', [])
     $scope.checkValidEmail = checkValidEmail;
 
     function backToSliderFunc(){
+      $cordovaStatusbar.hide();
       $timeout(function(){
         $scope.signinModalVar   = true;
         $scope.introModal = true;
