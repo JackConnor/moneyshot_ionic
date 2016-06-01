@@ -35,6 +35,7 @@ angular.module('signupController', [])
         });
       }
     }
+    removeTopBar();
 
     ///////////////////////////////
     ////////intro swipe modal stuff

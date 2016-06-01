@@ -104,14 +104,27 @@
       </div>
       <div class="singleSubmissionModal col-xs-12" ng-if='singleSubmissionModal'>
         <div class="singleSubmissionBackground" ng-click='backToRepeat("submission")'></div>
-        <div class="backButton" ng-click='backToRepeat("submission")'>
+        <div class="backButton col-xs-3" ng-click='backToRepeat("submission")'>
           <i class="fa fa-angle-left" aria-hidden="true"></i> Back
         </div>
-        <div class="submissionRepeatContainer">
-          <div class="subRepeat gallery-item" ng-repeat="photo in singleSubmission.photos" ng-if='photo.status=="rejected" || photo.status=="offered for sale" || photo.status=="sold"'>
+        <div class="submissionTitle col-xs-6 col-xs-offset-3">
+          {{singleSubmission.metadata.who}}
+        </div>
+        <ion-scroll class="submissionRepeatContainer col-xs-12">
+          <div class="subRepeat col-xs-3" ng-repeat="photo in singleSubmission.photos" ng-if='photo.status=="rejected" || photo.status=="offered for sale" || photo.status=="sold"'>
             <video ng-src="{{photo.url | trustUrl}}" controls ng-if="photo.isVideo" ng-click='openSingle(photo, "sold")' poster='{{photo.thumbnail}}'></video>
-            <img ng-src="{{photo.url | trustUrl}}" ng-if="!photo.isVideo" ng-click='openSingle(photo, "sold")'/>
+            <img ng-src="{{photo.url | trustUrl}}" ng-if="!photo.isVideo" ng-click=''/>
           </div>
+        </ion-scroll>
+        <div class="col-xs-12 submissionDataHolder">
+          <p>
+            What:</br>
+            <span>{{singleSubmission.metadata.what}}</span>
+          </p>
+          <p>
+            When: </br>
+            <span>{{singleSubmission.metadata.date}}</span>
+          </p>
         </div>
       </div>
 

@@ -11,7 +11,17 @@ angular.module('accountController', ['persistentPhotosFactory'])
   acctCtrl.$inject = ['$http', '$state', '$scope', 'navbar', 'userPhotos', 'decodeToken', '$cordovaStatusbar', '$ionicScrollDelegate', 'persistentPhotos'];
 
   function acctCtrl($http, $state, $scope, navbar, userPhotos, decodeToken, $cordovaStatusbar, $ionicScrollDelegate, persistentPhotos){
-    ionic.Platform.showStatusBar(true);/////removes the status bar from the app
+
+
+    function removeTopBar(){
+      if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+        document.addEventListener('deviceready', function(){
+          ionic.Platform.fullScreen();
+        });
+      }
+    }
+    removeTopBar();
+    // ionic.Platform.showStatusBar(true);/////removes the status bar from the app
     document.addEventListener("deviceready", function(){
       onDeviceReady();
       setTimeout(function(){
@@ -337,6 +347,9 @@ angular.module('accountController', ['persistentPhotosFactory'])
     }
 
     function openSubmission(subInfo, evt){
+      $('.accountBody').css({
+        marginTop: '0px'
+      });
       $scope.scrollPosition = $ionicScrollDelegate.getScrollPosition().top;
       $scope.singleSubmission = subInfo;
       $scope.singleSubmissionModal = true;
@@ -351,6 +364,9 @@ angular.module('accountController', ['persistentPhotosFactory'])
     $scope.openSubmission = openSubmission;
 
     function backToRepeat(modalType){
+      $('.accountBody').css({
+        marginTop: '75px'
+      });
       var x = document.getElementById("repeatContainer");
       x.style.marginRight = 0;
       if(modalType === 'submission'){
