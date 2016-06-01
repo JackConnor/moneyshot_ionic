@@ -880,18 +880,19 @@ html {
 }
 
 .photoCount {
-  width: 30px;
-  height: 30px;
+  width: 35px;
+  height: 35px;
   background-color: red;
   color: white;
+  font-size: 15px;
   font-weight: 700;
   position: absolute;
   border-radius: 50%;
-  padding-left: 7px;
-  padding-top: 2px;
-  margin-left: -3px;
-  margin-top: -3px;
-  border: 1px solid gray;
+  text-align: center;
+  padding-top: 5px;
+  margin-left: -5px;
+  margin-top: -5px;
+  border: 1px solid white;
 }
 
 .photoNameDesc {
@@ -919,6 +920,7 @@ html {
   text-align: center;
   height: 39px;
   font-size: 14px;
+  font-weight: 900;
 }
 
 .pwX {
@@ -1370,15 +1372,15 @@ html {
 }
 
 .submitSetDiv {
-  height: 30px;
-  width: 60px;
+  height: 43px;
+  width: 87px;
   border-radius: 5px;
   color: white;
   border: 2px solid white;
   background-color: red;
   font-weight: 900;
-  font-size: 14px;
-  padding-top: 3px;
+  font-size: 16px;
+  padding-top: 9px;
   text-align: center;
   margin-top: 15px;
   margin-left: auto;

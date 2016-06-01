@@ -799,7 +799,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       $scope.cameraMode = mode;
       $('.opPhoto, .opVideo, .opBurst').css({
         fontSize: '16px'
-        ,fontWeight: '300'
+        ,fontWeight: '900'
       });
       if(mode === 'photo'){
         $(".opPhoto").css({
