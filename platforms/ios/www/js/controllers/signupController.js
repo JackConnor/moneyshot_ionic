@@ -28,9 +28,13 @@ angular.module('signupController', [])
     $scope.photo1;
     $scope.photo2;
 
-    document.on('deviceready', function(){
-      ionic.Platform.fullScreen();
-    })
+    function removeTopBar(){
+      if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+        document.addEventListener('deviceready', function(){
+          ionic.Platform.fullScreen();
+        });
+      }
+    }
 
     ///////////////////////////////
     ////////intro swipe modal stuff
