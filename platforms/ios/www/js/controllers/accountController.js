@@ -163,19 +163,19 @@ angular.module('accountController', ['persistentPhotosFactory'])
                   soldPhotos.push(userPhotos[i]);
                   $scope.totalEarned += userPhotos[i].price;
                   if(i == userPhotos.length-1){
-                    $scope.allSoldPhotos = offeredPhotos.concat(soldPhotos.reverse());
+                    $scope.allSoldPhotos = soldPhotos.reverse();
                   }
                 }
                 else if(userPhotos[i].status === 'offered for sale'){
                   offeredPhotos.push(userPhotos[i]);
                   $scope.totalEarned += userPhotos[i].price;
                   if(i === userPhotos.length-1){
-                    $scope.allSoldPhotos = offeredPhotos.concat(soldPhotos.reverse());
+                    $scope.allSoldPhotos = soldPhotos.reverse();
                   }
                 }
                 else {
                   if(i === userPhotos.length-1){
-                    $scope.allSoldPhotos = offeredPhotos.concat(soldPhotos.reverse());
+                    $scope.allSoldPhotos = soldPhotos.reverse();
                   }
                 }
               }

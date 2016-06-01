@@ -37,7 +37,7 @@
       <div class="backgroundImage col-xs-12">
         <img src="https://i.imgsafe.org/017d610.png" ng-repeat='photo in backgroundMultiple'/>
       </div>
-      <div class="swipeIntro" ng-if="introModal">
+      <!-- <div class="swipeIntro" ng-if="introModal">
         <div class="swipeIntroRow" >
           <div class="col-xs-3 swipeCell swipe1">
             <p>
@@ -96,7 +96,7 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
       <div class="singleImageModal col-xs-12">
         <div class="backButton backButtonClose" ng-click='backToRepeat("single")'>
           <i class='fa fa-times'></i>
@@ -172,13 +172,13 @@
             <div class="soldPhotosRepeat col-md-6 col-xs-12" ng-repeat='soldPhoto in allSoldPhotos'>
               <div class="soldInnerHolder">
                 <div class="blackLayerSingleModal"></div>
-                <div class="priceLayer" ng-click='openSingle(soldPhoto, soldPhoto.status)'>
+                <div class="priceLayer" ng-click=''>
                   <div class="priceInfo">
-                    {{soldPhoto.price | currency}} offered
+                    {{soldPhoto.price | currency}}
                   </div>
-                  <div class="ifSold" ng-if="soldPhoto.status == 'offered for sale'">
+                  <!-- <div class="ifSold" ng-if="soldPhoto.status == 'offered for sale'">
                     Accept Offer
-                  </div>
+                  </div> -->
                   <div class='ifPaid' ng-if='soldPhoto.status == "sold"'>
                     Sold!
                   </div>
