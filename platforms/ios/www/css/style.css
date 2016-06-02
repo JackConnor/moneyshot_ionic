@@ -738,10 +738,11 @@ html {
 }
 
 .mainPhotoHolder {
-  width: 95%;
-  margin-left: 2.5%;
-  height: 450px;
+  width: 100%;
+  margin-left: 0%;
+  height: 400px;
   padding-top: 15px;
+  overflow: hidden;
 }
 
 .mainPhotoHolder i{
@@ -753,9 +754,11 @@ html {
 }
 
 .mainPhotoHolder img{
-  width: auto;
-  height: 98%;
-  padding-top: 5%;
+  width: 320px;
+  height: 586px;
+  /*position: absolute;*/
+  margin-top: -116px;
+  /*padding-top: 5%;*/
 }
 
 .mophoSigninLogo {
