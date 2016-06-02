@@ -1208,9 +1208,12 @@ html {
 }
 
 .submitCell {
-  height: 100px;
+  height: 63px;
+  width: 63px;
   padding: 0px;
+  display: inline-block;
   overflow: hidden;
+  vertical-align: top;
 }
 
 .submitCell i {
@@ -1242,7 +1245,8 @@ html {
   width: 100%;
   height: 100%;
   margin: 0% 0 0 0%;
-  border: 1px solid white;
+  /*border: 1px solid white;*/
+  background-color: grey;
 }
 
 .submitCheck {
@@ -1364,15 +1368,10 @@ html {
 .submitRepeat{
   padding: 0px;
   height: 43%;
-  border: 1px solid #545454;
+  border: 2.5px solid #545454;
   background-color: #e9e9e9;
   overflow: hidden;
   overflow-y: scroll;
-}
-
-.subRepeat {
-  padding: 0px;
-  height:auto;
 }
 
 .subRepeat video{
