@@ -147,7 +147,7 @@ html {
 
 .cameraBack {
   position: absolute;
-	margin-top: 11px;
+	margin-top: 7px;
 	right: 12px;
 	text-align: right;
   color: white;
@@ -188,7 +188,7 @@ html {
   height: 142px;
   padding: 0px;
   z-index: 17;
-  bottom: 0;
+  bottom: -15px;
 }
 
 .cameraLensHolder {
@@ -200,6 +200,7 @@ html {
   width: 200px;
   margin-left: auto;
   margin-right: auto;
+  margin-top: -10px;
 }
 
 .cameraLogo img {
@@ -225,7 +226,7 @@ html {
 
 .cameraViewToggle{
   position: absolute;
-  margin-top: 11px;
+  margin-top: 2px;
   margin-left: 10px;
   color: white;
 }

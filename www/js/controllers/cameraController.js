@@ -82,15 +82,12 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         var dragEnabled = false; //enable preview box drag across the screen
         var toBack = false; //send preview box to the back of the webview
         // console.log(cordova.plugins.camerapreview);
-        var rect = {x: 0, y: 51, width: 375, height: 375};
+        var rect = {x: 0, y: 45, width: 320, height: 400};
         // var cameraPrev = cordova.plugins.camerapreview.startCamera(rect, 'back', tapEnabled, dragEnabled, toBack);
         // console.dir(cordova.plugins.camerapreview);
 
         // var objCanvas = document.getElementById("camera");
         // window.plugin.CanvasCamera.initialize(objCanvas);
-
-
-        var rect = {x: 0, y: 51, width: 375, height: 375};
         cordova.plugins.camerapreview.startCamera(rect, 'back', tapEnabled, dragEnabled, toBack);
         cordova.plugins.camerapreview.show();
         $('html').animate({
