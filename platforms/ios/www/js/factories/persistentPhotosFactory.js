@@ -5,7 +5,9 @@ angular.module("persistentPhotosFactory", [])
   persistentPhotos.$inject = [];
   function persistentPhotos(){
     var photoCache = [];
+    console.log(photoCache);
     return function savePhotos(photosToSave){
+      console.log(photosToSave);
       /////photos only come through as a batch from mediaCache
       if(photosToSave && photosToSave !== 'empty'){
         photoCache = photosToSave;
