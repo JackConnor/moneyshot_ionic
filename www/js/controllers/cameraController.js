@@ -46,9 +46,9 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
         document.addEventListener('deviceready', function(){
           $('ion-tabs').addClass('tabs-item-hide');
-          ionic.Platform.showStatusBar(false);
           uploadPhotos();
           $timeout(function(){
+            ionic.Platform.showStatusBar(false);
             // $ionicScrollDelegate.scrollTop(true);
             $ionicScrollDelegate.freezeScroll(true);
           }, 500);
@@ -72,8 +72,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     // if(window.plugin.cameraplus){
     //   console.log(window.plugin.cameraplus);
     // }
-    function uploadPhotos() {
-      $
+    function uploadPhotos() 
       console.log(persistentPhotos());
       $scope.mediaCache = persistentPhotos();
       console.log($scope.mediaCache);
@@ -163,13 +162,13 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
     $scope.takeCordovaPicture = function(){
       console.log('yyyy');
-      if($scope.activePhoto === false && $scope.mediaCache.length < 15){
+      if($scope.activePhoto === false && $scope.mediaCache.length < 25){
         $scope.activePhoto = true;
         // console.log(testCnt);
         $scope.photoListLength++;
         testCnt++;
 
-        cordova.plugins.camerapreview.takePicture({maxWidth: 1000, maxHeight: 1250});
+        cordova.plugins.camerapreview.takePicture({maxWidth: 2000, maxHeight: 2000});
         $('.takePhotoButtonInner').css({
           backgroundColor: "red"
         });
@@ -224,16 +223,16 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     //   }
     // }, 5000);
 
-    function outPhotoModal(){
-      $scope.cameraModal = false;
-    }
-    $scope.outPhotoModal = outPhotoModal;
-
-    function openPhotoModal(){
-      $scope.cameraModal = true;
-    }
-    $scope.openPhotoModal = openPhotoModal;
-    openPhotoModal();/////calling this function to open the modal right away
+    // function outPhotoModal(){
+    //   $scope.cameraModal = false;
+    // }
+    // $scope.outPhotoModal = outPhotoModal;
+    //
+    // function openPhotoModal(){
+    //   $scope.cameraModal = true;
+    // }
+    // $scope.openPhotoModal = openPhotoModal;
+    // openPhotoModal();/////calling this function to open the modal right away
 
     // function to flip the camera
     function flipCamera(){
@@ -880,11 +879,14 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         opacity: 1
       }, 169);
       $timeout(function(){
+        $scope.submitModaVar = false;
         $scope.photoCarouselBool = true;
         $timeout(function(){
           console.log($('.mainPhotoHolder').width());
           $($('.photoCarouselCell')[index]).css({
-            border: '5px solid white'
+            border: '2px solid white'
+            ,marginRight: '10px'
+            ,marginLeft: '10px'
           });
           var width = $($('.mainPhotoHolder').children()[0]).width();
           var outerWidth = $('.mainPhotoHolder').width();
@@ -902,7 +904,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       }, 170);
       $timeout(function(){
         $('.photoCarouselInner').animate({
-          marginLeft: index*-100+112.5+"px"
+          marginLeft: index*-70+125+"px"
         }, 200);
       }, 300);
     }
@@ -911,6 +913,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     function photoCarouselBack(){
       $timeout(function(){
         $scope.photoCarouselBool = false;
+        $scope.submitModaVar = true;
       }, 200);
     }
     $scope.photoCarouselBack = photoCarouselBack;
@@ -918,15 +921,21 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     function openNewCarouselPhoto(mediaData, index){
       $scope.photoCarouselObject = mediaData;
       var mediaLength = $('.photoCarouselCell').length;
-      $('.photoCarouselCell').css({
-        border: '2px solid white'
-      });
-      $($('.photoCarouselCell')[index]).css({
-        border: '5px solid white'
-      });
-      $('.photoCarouselInner').animate({
-        marginLeft: index*-100+112.5+"px"
-      }, 150);
+      $($('.photoCarouselCell')[index-1]).animate({
+        border: '0px solid white'
+        ,marginLeft: '0px'
+        ,marginRight: '0px'
+      }, 600);
+      $timeout(function(){
+        $($('.photoCarouselCell')[index]).animate({
+          border: '2px solid white'
+          ,marginRight: '10px'
+          ,marginLeft: '10px'
+        }, 600);
+        $('.photoCarouselInner').animate({
+          marginLeft: index*-70+125+"px"
+        }, 150);
+      }, 600);
     }
     $scope.openNewCarouselPhoto = openNewCarouselPhoto;
 
@@ -1007,7 +1016,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       var photoCarouselLength = carou.length;
       for (var i = 0; i < photoCarouselLength; i++) {
         var bStyle = $($(carou)[i]).css('border');
-        if(bStyle === "5px solid rgb(255, 255, 255)"){
+        if(bStyle === "2px solid rgb(255, 255, 255)"){
           console.log('this one');
           console.log(carou[i]);
           var activeEl = carou[i];

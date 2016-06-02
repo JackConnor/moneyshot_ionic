@@ -10,7 +10,7 @@
       </div>
       <div class="photoCarouselHolder" on-swipe-right='photoCarouselSwipeRight()' on-swipe-left='photoCarouselSwipeLeft()'>
         <div class="photoCarouselInner row">
-          <div class="col-xs-2 photoCarouselCell" ng-repeat="media in mediaCache">
+          <div class="photoCarouselCell" ng-repeat="media in mediaCache">
             <img ng-src="{{media.link}}" ng-click='openNewCarouselPhoto(media, $index)'/>
           </div>
         </div>
