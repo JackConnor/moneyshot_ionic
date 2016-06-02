@@ -883,15 +883,6 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         $scope.photoCarouselBool = true;
         $timeout(function(){
           console.log($('.mainPhotoHolder').width());
-          // $('.mainPhotoHolder').css({
-          //   width: 'auto'
-          //   ,height: 'auto'
-          //   ,position: 'absolute'
-          // });
-          // $timeout(function(){
-          //   console.log($('.mainPhotoHolder').width());
-          //   console.log($('.mainPhotoHolder').height());
-          // }, 2500);
           $($('.photoCarouselCell')[index]).css({
             border: '5px solid white'
           });
@@ -925,7 +916,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     $scope.photoCarouselBack = photoCarouselBack;
 
     function openNewCarouselPhoto(mediaData, index){
-      // $scope.photoCarouselObject = mediaData;
+      $scope.photoCarouselObject = mediaData;
       var mediaLength = $('.photoCarouselCell').length;
       $('.photoCarouselCell').css({
         border: '2px solid white'
@@ -936,9 +927,6 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       $('.photoCarouselInner').animate({
         marginLeft: index*-100+112.5+"px"
       }, 150);
-      $timeout(function(){
-        $scope.carouselSwipeActive = false;
-      }, 1000);
     }
     $scope.openNewCarouselPhoto = openNewCarouselPhoto;
 
@@ -982,7 +970,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     //////carousel swipe functions
     function photoCarouselSwipeLeft(){
       console.log('swipe attempt');
-      if(!$scope.carouselSwipeActive){
+      // if(!$scope.carouselSwipeActive){
         console.log('successful swipe');
         $scope.carouselSwipeActive = true;
         // $timeout(function(){
@@ -993,7 +981,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         if(centerP.index+1 < $scope.mediaCache.length){
           openNewCarouselPhoto($scope.mediaCache[centerP.index+1], centerP.index+1);
         }
-      }
+      // }
     }
     $scope.photoCarouselSwipeLeft = photoCarouselSwipeLeft;
 
