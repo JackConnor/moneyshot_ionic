@@ -864,6 +864,7 @@ html {
   vertical-align: top;
   display: inline-block;
   overflow: hidden;
+  border: 0px solid white;
   /*border: 1px solid white;*/
 }
 

@@ -72,7 +72,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     // if(window.plugin.cameraplus){
     //   console.log(window.plugin.cameraplus);
     // }
-    function uploadPhotos() 
+    function uploadPhotos(){
       console.log(persistentPhotos());
       $scope.mediaCache = persistentPhotos();
       console.log($scope.mediaCache);
@@ -884,7 +884,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         $timeout(function(){
           console.log($('.mainPhotoHolder').width());
           $($('.photoCarouselCell')[index]).css({
-            border: '2px solid white'
+            borderWidth: '2px'
             ,marginRight: '10px'
             ,marginLeft: '10px'
           });
@@ -918,24 +918,33 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     }
     $scope.photoCarouselBack = photoCarouselBack;
 
-    function openNewCarouselPhoto(mediaData, index){
+    function openNewCarouselPhoto(mediaData, index, direction){
       $scope.photoCarouselObject = mediaData;
       var mediaLength = $('.photoCarouselCell').length;
-      $($('.photoCarouselCell')[index-1]).animate({
-        border: '0px solid white'
-        ,marginLeft: '0px'
-        ,marginRight: '0px'
-      }, 600);
-      $timeout(function(){
+      $('.photoCarouselInner').animate({
+        marginLeft: index*-70+125+"px"
+      }, 150);
+      if(direction === 'right'){
+        $($('.photoCarouselCell')[index+1]).animate({
+          borderWidth: '0px'
+          ,marginLeft: '0px'
+          ,marginRight: '0px'
+        }, 300);
+      }
+      else if(direction === 'left'){
+        $($('.photoCarouselCell')[index-1]).animate({
+          borderWidth: '0px'
+          ,marginLeft: '0px'
+          ,marginRight: '0px'
+        }, 300);
+      }
+      // $timeout(function(){
         $($('.photoCarouselCell')[index]).animate({
-          border: '2px solid white'
+          borderWidth: '2px'
           ,marginRight: '10px'
           ,marginLeft: '10px'
-        }, 600);
-        $('.photoCarouselInner').animate({
-          marginLeft: index*-70+125+"px"
-        }, 150);
-      }, 600);
+        }, 300);
+      // }, 100);
     }
     $scope.openNewCarouselPhoto = openNewCarouselPhoto;
 
@@ -988,7 +997,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         var centerP = findCenterPhoto();
         // swipeLeftAnimation(centerP);
         if(centerP.index+1 < $scope.mediaCache.length){
-          openNewCarouselPhoto($scope.mediaCache[centerP.index+1], centerP.index+1);
+          openNewCarouselPhoto($scope.mediaCache[centerP.index+1], centerP.index+1, 'left');
         }
       // }
     }
@@ -997,7 +1006,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     function photoCarouselSwipeRight(){
       var centerP = findCenterPhoto();
       if(centerP.index > 0){
-        openNewCarouselPhoto($scope.mediaCache[centerP.index-1], centerP.index-1)
+        openNewCarouselPhoto($scope.mediaCache[centerP.index-1], centerP.index-1, 'right')
       }
     }
     $scope.photoCarouselSwipeRight = photoCarouselSwipeRight;
