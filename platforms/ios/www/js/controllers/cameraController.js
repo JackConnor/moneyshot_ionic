@@ -871,6 +871,8 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
     ///////begin photo carousel animation work
     function goToCarousel(mediaData, index, evt){
+      console.log('in carousel func');
+      console.log(mediaData);
       $scope.photoCarouselObject = mediaData;////this is always the centerpiece photo
       $(evt.currentTarget).css({
         opacity: 0.1
@@ -1126,5 +1128,18 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       }, 200);
     }
     $scope.animateToggle = animateToggle;
+
+    /////function to scroll to the top
+    function unblurring(){
+      console.log('lol');
+      $ionicScrollDelegate.scrollTo(0, 0);
+    };
+    $scope.unblurring = unblurring;
+
+    function blurring(){
+      console.log('lol');
+      $ionicScrollDelegate.freezeScroll(false);
+    };
+    $scope.blurring = blurring;
 
   }

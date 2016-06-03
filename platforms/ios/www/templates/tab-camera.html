@@ -6,47 +6,18 @@
       </div>
       <div class="mainPhotoHolder">
         <i class='fa fa-trash-o trashIcon' ng-click='erasePhoto()'></i>
-        <img ng-src="{{photoCarouselObject.link}}" on-swipe-right='photoCarouselSwipeRight()' on-swipe-left='photoCarouselSwipeLeft()' class='mainPhotoCar'/>
+        <img ng-if='media.type==="photo"' ng-src="{{photoCarouselObject.link}}" on-swipe-right='photoCarouselSwipeRight()' on-swipe-left='photoCarouselSwipeLeft()' class='mainPhotoCar'/>
+        <video ng-if='media.type==="video"' ng-src="{{photoCarouselObject.link}}" on-swipe-right='photoCarouselSwipeRight()' on-swipe-left='photoCarouselSwipeLeft()' class='mainPhotoCar'/>
       </div>
       <div class="photoCarouselHolder" on-swipe-right='photoCarouselSwipeRight()' on-swipe-left='photoCarouselSwipeLeft()'>
         <div class="photoCarouselInner row">
           <div class="photoCarouselCell" ng-repeat="media in mediaCache">
-            <img ng-src="{{media.link}}" ng-click='openNewCarouselPhoto(media, $index)'/>
+            <img ng-if='media.type==="photo"' ng-src="{{media.link}}" ng-click='openNewCarouselPhoto(media, $index)'/>
+            <video ng-if='media.type==="video"' ng-src="{{media.link}}" ng-click='openNewCarouselPhoto(media, $index)'/>
           </div>
         </div>
       </div>
     </div>
-    <!-- <div class="submitPhotoBacking" ng-if='submitPhotoModal'> -->
-      <!-- <div class="submitPhotoModal">
-        <div class="submitPhotoXHolder" ng-click='closeLoadingModal()' ng-if='!submitBar'>
-          <i class='fa fa-times'></i>
-        </div>
-        <div class="photoNameHolder" ng-if='!submitBar'> -->
-          <!-- <p class='dateInputHead'>
-            When were these photos taken?
-          </p> -->
-          <!-- <input class='dateInput' type="date" style='display:inline-block' value="2016-05-12">
-          <span class='dateInputAt'>&nbspat&nbsp</span> -->
-          <!-- <input class='dateInputTime' type="time" style='display:inline-block' value="09:55">
-          <p class='dateInputHead'>
-            Where?
-          </p> -->
-          <!-- <input class='locationInput' type="text" name="name" placeholder="type in location"> -->
-          <!-- <p class='dateInputHead'>
-            Who and what is in these photos?
-          </p>
-          <input class='photoNameInput' type="textarea" name="name" placeholder="Who and what is in these photos">
-          <div class='submitCheck'>
-            <input class='submitAgree' type="checkbox" name="name" value="">
-            <p>I agree to all terms and conditions</p>
-          </div>
-          <div class='submitNameButt'>
-            <div style='width:100%; height: 100%' ng-click='submitPhotoName()'>
-              Send your Photos!
-            </div>
-          </div> -->
-        <!-- </div> -->
-      <!-- </div> -->
     </div>
     <div class="cameraModal" ng-show='cameraModal==true'>
       <div class="cameraViewToggle">
@@ -154,25 +125,22 @@
             </div> -->
             <div class="submitCellImageHolder" >
               <img class='submitPhoto submitPhoto{{$index}}' id='submit{{$index}}' ng-src="{{media.link}}" ng-if='media.type=="photo"' ng-click='goToCarousel(media, $index, $event)'/>
-              <video id='submit{{$index}}' ng-if='media.type=="video"' poster='{{media.thumb}}'>
-                <source ng-src="{{media.link}}" type="video/mp4">
+              <div class="videoOverlay" ng-if='media.type=="video"' ng-click='goToCarousel(media, $index, $event)'></div>
+              <video id='submit{{$index}}' ng-if='media.type=="video"' poster='{{media.link}}' ng-src="{{media.link}}" type="video/mp4">
                   (Your Browser Doesn't Support Video)
               </video>
             </div>
           </div>
         </ion-scroll>
         <div class="submitAddInfoContainer">
-          <!-- <p class='dateInputHead'>
-            Who and what is in these photos?
-          </p> -->
           <div class="locationHolder">
             {{returnPlace}}<i class='fa fa-refresh' ng-click='findNewPlace()'></i>
           </div>
           <div class="dateHolder">
             {{returnDate()}}
           </div>
-          <input class='photoNameInput' type="text" placeholder="Who'd you get?">
-          <textarea class='photoNameDesc' rows='7' cols='10' name="name" placeholder="What were they doing?"></textarea>
+          <input class='photoNameInput' ng-focus='blurring()' ng-blur='unblurring()' type="text" placeholder="Who'd you get?">
+          <textarea class='photoNameDesc' ng-focus='blurring()' ng-blur='unblurring()' rows='7' cols='10' name="name" placeholder="What were they doing?"></textarea>
           <!-- <div class='submitCheck'>
             <input class='submitAgree' type="checkbox" name="name" value="">
             <p>I agree to all terms and conditions</p>

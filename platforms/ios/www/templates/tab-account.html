@@ -34,15 +34,15 @@
 
 
     <div class="accountTabHolder col-xs-12">
-      <div class="accountTab soldTab" ng-click='showSoldFunc(); tabUi($event)'>
+      <!-- <div class="accountTab soldTab" ng-click='showSoldFunc(); tabUi($event)'>
         <span class='soldTabInner'>Sold</span>
+      </div> -->
+      <div class="accountTab submittedTab" ng-click='tabUi($event)'>
+        <span class='submittedTabInner'>Your MoPho Set</span>
       </div>
-      <div class="accountTab submittedTab" ng-click='showSubmittedFunc(); tabUi($event)'>
-        <span class='submittedTabInner'>Submitted</span>
-      </div>
-      <div class="accountTab moneyTab" ng-click='showFinanceFunc(); tabUi($event)'>
+      <!-- <div class="accountTab moneyTab" ng-click='showFinanceFunc(); tabUi($event)'>
         <span class='moneyTabInner'>Money</span>
-      </div>
+      </div> -->
       <!-- <div class="hamburgerHolder" ng-click="openHamburger()">
         <p class='fa fa-bars hamburgerIcon'></p>
       </div> -->
@@ -115,7 +115,7 @@
           </div>
         </div>
       </div> -->
-      <div class="singleImageModal col-xs-12">
+      <!-- <div class="singleImageModal col-xs-12">
         <div class="backButton backButtonClose" ng-click='backToRepeat("single")'>
           <i class='fa fa-times'></i>
         </div>
@@ -134,7 +134,7 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
       <div class="singleSubmissionModal col-xs-12" ng-if='singleSubmissionModal'>
         <div class="singleSubmissionBackground" ng-click='backToRepeat("submission")'></div>
         <div class="backButton col-xs-3" ng-click='backToRepeat("submission")'>
@@ -171,7 +171,7 @@
       <div class="repeatContainer col-xs-12 " id='repeatContainer'>
         <!-- /////begin tab for sold photos//// -->
         <!-- <div class="" > -->
-          <div class="soldPhotosRepeatContainer col-xs-12" ng-if='showSold'>
+          <!-- <div class="soldPhotosRepeatContainer col-xs-12" ng-if='showSold'>
             <div class="sellPhotoModal" ng-if="sellModal">
               <div class="sellX fa fa-times" ng-click='closeSellModal()'></div>
               <div class="sellModalBlack" ng-click='closeSellModal()'></div>
@@ -200,9 +200,9 @@
                   <div class="priceInfo">
                     {{soldPhoto.price | currency}}
                   </div>
-                  <!-- <div class="ifSold" ng-if="soldPhoto.status == 'offered for sale'">
+                  <div class="ifSold" ng-if="soldPhoto.status == 'offered for sale'">
                     Accept Offer
-                  </div> -->
+                  </div>
                   <div class='ifPaid' ng-if='soldPhoto.status == "sold"'>
                     Sold!
                   </div>
@@ -211,7 +211,7 @@
                 <video ng-src="{{soldPhoto.url | trustUrl}}" class="col-xs-12" controls ng-if="soldPhoto.isVideo"></video>
               </div>
             </div>
-          </div>
+          </div> -->
         <!-- </div> -->
         <div class="showSubmittedHolder" ng-if='showSubmitted'>
           <div class="submittedRow submittedRow{{$index}}" ng-repeat='submission in userSubmissions' ng-click='openSubmission(submission, $event)' >
@@ -224,12 +224,13 @@
               </div>
             </div>
             <div class="submissionInfo" >
-              <div class="submissionInfo-shots-number">{{submission.photos.length}} {{submission.photos.length > 1 ? 'shots' : 'shot'}}</div>
-              <div class="submissionInfo-date">Submitted on <span class="text-dark">{{submission.photos[0].date | date}}</span></div>
+              <div class="submissionInfo-name">{{submission.metadata.who}}</div>
+              <div class="submissionInfo-location">{{submission.metadata.address.slice(0, submission.metadata.address.length-13)}}</div>
+              <div class="submissionInfo-date">{{submission.metadata.date}}</div>
             </div>
           </div>
         </div>
-        <div class="" ng-if='showFinance'>
+        <!-- <div class="" ng-if='showFinance'>
           <div class="earnings-bar">
             <div class="earnings-bar-label">
               Total Money Earned
@@ -257,9 +258,9 @@
           <div class="cta-container">
             <div class="cta-text">Let us know how to pay you</div>
             <button class="cta-button" ng-click="goToBanking()">add/update payment info</button>
-          </div>
+          </div> -->
           <!--<div class='sendFinDataButton col-xs-4 col-xs-offset-2' ng-click='sendFinData()'>Send Financial Data as Email</div> -->
-        </div>
+        <!-- </div> -->
       </div>
     </div>
     <!-- <div class=""> -->

@@ -86,7 +86,7 @@ angular.module('accountController', ['persistentPhotosFactory'])
             var userPhotos = userInfo.data.photos;////this is all of a signed-in user's
             var photoLength = userInfo.data.photos.length;
             $scope.userPhotos = userPhotos.reverse();
-            $scope.userSubmissions = userInfo.data.submissions.reverse();
+            $scope.userSubmissions = userInfo.data.submissions.reverse().slice(0, 20);
             var backlengthFunc = function(){
               if($scope.userSubmissions){
                 return $scope.userSubmissions.length*5;
@@ -711,6 +711,8 @@ angular.module('accountController', ['persistentPhotosFactory'])
       }, 200);
     }
     $scope.animateBackCarousel = animateBackCarousel;
+
+
 
   ////////////////////////
   ////end controller//////

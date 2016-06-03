@@ -1,15 +1,9 @@
 /****** Gallery List ******/
 
-.submittedRow {
-  padding: 10px 15px;
-  border-bottom: 1px solid #F3EEEE;
-  height: auto;
-  display: flex;
-}
-
 .subPhotoCell {
   width: 80px;
   height: 80px;
+  display: inline-block;
 }
 
 .subPhotoCell img{
@@ -43,22 +37,6 @@
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
-}
-
-.submissionInfo-shots-number{
-	font-size: 18px;
-	color: #4daf7c;
-	margin-bottom: 5px;
-	letter-spacing: 1px;
-}
-
-.submissionInfo-date{
-	font-size: 14px;
-	color: #888888;
-}
-
-.text-dark{
-	color: #555555;
 }
 
 .submitPhotoName {
