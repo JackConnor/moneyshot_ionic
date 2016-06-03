@@ -77,9 +77,6 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       $scope.mediaCache = persistentPhotos();
       console.log($scope.mediaCache);
       $scope.photoListLength = $scope.mediaCache.length;
-      $timeout(function(){
-        $scope.activePhoto = false;
-      }, 1000);
       $scope.cameraLaunched = true;
       var tapEnabled = false; //enable tap take picture
       var dragEnabled = false; //enable preview box drag across the screen
