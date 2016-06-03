@@ -1,28 +1,14 @@
 <ion-view view-title="Account">
   <ion-content overflow-scroll='false' has-bouncing="false">
-    <!-- <div class="photoCarouselModal" ng-if='photoCarouselBool'>
-      <div class="photoCarouselBack" ng-click='animateBackCarousel(); photoCarouselBack()'>
-        <i class='fa fa-chevron-left'></i>
-      </div>
-      <div class="mainPhotoHolder">
-        <img ng-src="{{carouselMain.url}}" on-swipe-right='photoCarouselSwipeRight()' on-swipe-left='photoCarouselSwipeLeft()'/>
-      </div>
-      <div class="photoCarouselHolder" on-swipe-right='photoCarouselSwipeRight()' on-swipe-left='photoCarouselSwipeLeft()'>
-        <div class="photoCarouselInner row">
-          <div class="col-xs-2 photoCarouselCell" ng-repeat="photo in singleSubmission.photos">
-            <img ng-src="{{photo.url}}" ng-click='openNewCarouselPhoto($index)'/>
-          </div>
-        </div>
-      </div>
-    </div> -->
     <div class="photoCarouselModal" ng-if='photoCarouselBool' id='new'>
       <div class="carouselBlackForBar"></div>
       <div class="photoCarouselBackAcct" ng-click='animateBackCarousel(); photoCarouselBack()'>
         <i class='fa fa-chevron-left'></i>
       </div>
       <div class="mainPhotoHolderAcct">
+        <i class='fa fa-download' ng-click='downloadPhoto(carouselMain.url)'></i>
         <img ng-if="!carouselMain.isVideo" ng-src="{{carouselMain.url}}" on-swipe-right='photoCarouselSwipeRight()' on-swipe-left='photoCarouselSwipeLeft()' class='mainPhotoCar'/>
-        <video ng-if="carouselMain.isVideo" ng-src="{{carouselMain.url}}" autoplay poster="{{carouselMain.thumbnail}}" ng-click='this.play()'>
+        <video ng-if="carouselMain.isVideo" ng-src="{{carouselMain.url}}" autoplay poster="{{carouselMain.thumbnail}}">
 
         </video>
       </div>

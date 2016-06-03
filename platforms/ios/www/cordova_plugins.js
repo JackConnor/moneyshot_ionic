@@ -325,6 +325,14 @@ module.exports = [
         "merges": [
             "navigator.screenshot"
         ]
+    },
+    {
+        "file": "plugins/com.drifty.cordova.cameraroll/www/CameraRoll.js",
+        "id": "com.drifty.cordova.cameraroll.CameraRoll",
+        "pluginId": "com.drifty.cordova.cameraroll",
+        "clobbers": [
+            "CameraRoll"
+        ]
     }
 ];
 module.exports.metadata = 

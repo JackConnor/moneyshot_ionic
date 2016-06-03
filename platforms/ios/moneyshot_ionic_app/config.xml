@@ -60,6 +60,9 @@
     <feature name="Screenshot">
         <param name="ios-package" value="Screenshot" />
     </feature>
+    <feature name="CameraRoll">
+        <param name="ios-package" value="IonicCameraRoll" />
+    </feature>
     <plugins>
         <feature name="PKVideoThumbnail">
             <param name="ios-package" value="PKVideoThumbnail" />

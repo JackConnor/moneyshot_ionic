@@ -36,6 +36,9 @@
         },
         "com.darktalker.cordova.screenshot": {
             "PACKAGE_NAME": "com.ionicframework.moneyshotionicapp178506"
+        },
+        "com.drifty.cordova.cameraroll": {
+            "PACKAGE_NAME": "com.ionicframework.moneyshotionicapp178506"
         }
     },
     "dependent_plugins": {

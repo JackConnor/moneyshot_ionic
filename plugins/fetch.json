@@ -35,7 +35,7 @@
     "cordova-plugin-file-transfer": {
         "source": {
             "type": "registry",
-            "id": "cordova-plugin-file-transfer@~1.5.0"
+            "id": "cordova-plugin-file-transfer"
         },
         "is_top_level": true,
         "variables": {}
@@ -86,6 +86,14 @@
         "source": {
             "type": "registry",
             "id": "cordova-plugin-geolocation"
+        },
+        "is_top_level": true,
+        "variables": {}
+    },
+    "com.drifty.cordova.cameraroll": {
+        "source": {
+            "type": "registry",
+            "id": "cordova-camera-roll"
         },
         "is_top_level": true,
         "variables": {}

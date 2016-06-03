@@ -8,9 +8,9 @@ angular.module('accountController', ['persistentPhotosFactory'])
     };
   })
 
-  acctCtrl.$inject = ['$http', '$state', '$scope', 'navbar', 'userPhotos', 'decodeToken', '$cordovaStatusbar', '$ionicScrollDelegate', 'persistentPhotos', '$timeout'];
+  acctCtrl.$inject = ['$http', '$state', '$scope', 'navbar', 'userPhotos', 'decodeToken', '$cordovaStatusbar', '$ionicScrollDelegate', 'persistentPhotos', '$timeout', '$cordovaFileTransfer'];
 
-  function acctCtrl($http, $state, $scope, navbar, userPhotos, decodeToken, $cordovaStatusbar, $ionicScrollDelegate, persistentPhotos, $timeout){
+  function acctCtrl($http, $state, $scope, navbar, userPhotos, decodeToken, $cordovaStatusbar, $ionicScrollDelegate, persistentPhotos, $timeout, $cordovaFileTransfer){
     $scope.photoCarouselBool    = false;
     $scope.carouselMain       = [];
     $scope.showSold              = false;
@@ -555,7 +555,6 @@ angular.module('accountController', ['persistentPhotosFactory'])
         $scope.submitModaVar = false;
         $scope.photoCarouselBool = true;
         $timeout(function(){
-          console.log($('.mainPhotoHolder').width());
           $($('.photoCarouselCellAcct')[index]).css({
             borderWidth: '2px'
             ,marginRight: '10px'
@@ -718,7 +717,82 @@ angular.module('accountController', ['persistentPhotosFactory'])
     }
     $scope.animateBackCarousel = animateBackCarousel;
 
+    ///////download photos
+    console.log(CameraRoll);
+    function downloadPhoto(link){
+      console.log(link);
+      function getBase64FromImageUrl(url) {
+        var img = new Image();
 
+        img.setAttribute('crossOrigin', 'anonymous');
+
+        img.onload = function () {
+        var canvas = document.createElement("canvas");
+        canvas.width =this.width;
+        canvas.height =this.height;
+
+        var ctx = canvas.getContext("2d");
+        ctx.drawImage(this, 0, 0);
+
+        console.log(canvas);
+
+        var dataURL = canvas.toDataURL("image/png");
+        console.log(dataURL);
+
+        dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
+        CameraRoll.saveToCameraRoll(dataURL, function(){
+          console.log('saved?');
+        }, function(err){
+          console.log(err);
+        });
+      };
+    img.src = url;
+    }
+    getBase64FromImageUrl(link);
+      // var bott = window.btoa(link);
+      // console.log(bott);
+      // var unbott = window.atob(bott);
+      // console.log(unbott);
+      //
+      // image.src = link;
+      // console.log(image);
+      //
+      // var canvas = document.createElement("canvas");
+      // canvas.width = '1080px';
+      // canvas.height = '1350px';
+      //
+      // var ctx = canvas.getContext("2d");
+      // ctx.drawImage(image, 0, 0);
+      //
+      // var dataURL = canvas.toDataURL("image/png");
+      // console.log(dataURL);
+      // dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
+      // console.log(dataURL);
+      // var dataURLReader = new FileReader();
+      //
+      // dataURLReader.onload = function(e) {
+      //   var dataURL = reader.result;
+      //   console.log(dataURL);
+      // }
+      //
+      // dataURLReader.readAsDataURL(link);
+
+
+      //
+      // CameraRoll.saveToCameraRoll(newData, function(){
+      //   console.log('saved?');
+      // }, function(err){
+      //   console.log(err);
+      // });
+      // var targetPath = "/private/var/mobile/Media/DCIM/" + "testImage.png";
+      // var options = {}
+      // var trustHost = true;
+      // $cordovaFileTransfer.download(link, targetPath, options, trustHost)
+      // .then(function(result){
+      //   console.log(result);
+      // })
+    }
+    $scope.downloadPhoto = downloadPhoto;
 
   ////////////////////////
   ////end controller//////

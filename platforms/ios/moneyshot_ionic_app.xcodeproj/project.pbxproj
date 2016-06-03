@@ -43,6 +43,7 @@
 		3874FCFFAACF425198089A6A /* CameraManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 24F77C3DBE86470E9464EFD5 /* CameraManager.m */; };
 		6D6787574C96498F92E6C7F2 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E25AAA1CB6A4CEFBDFFC938 /* QuartzCore.framework */; };
 		82959D7B3D8748D0B56C8570 /* Screenshot.m in Sources */ = {isa = PBXBuildFile; fileRef = F251A1259CD74FC59F3D73EE /* Screenshot.m */; };
+		B4EF1BD1446A4DAFA8155F2A /* IonicCameraRoll.m in Sources */ = {isa = PBXBuildFile; fileRef = 720819AD0AF84D54BA4305D7 /* IonicCameraRoll.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -127,6 +128,8 @@
 		2E25AAA1CB6A4CEFBDFFC938 /* QuartzCore.framework */ = {isa = PBXFileReference; name = "QuartzCore.framework"; path = "System/Library/Frameworks/QuartzCore.framework"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = wrapper.framework; explicitFileType = undefined; includeInIndex = 0; };
 		F251A1259CD74FC59F3D73EE /* Screenshot.m */ = {isa = PBXFileReference; name = "Screenshot.m"; path = "com.darktalker.cordova.screenshot/Screenshot.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
 		E361459C2F7F4921A7B53D29 /* Screenshot.h */ = {isa = PBXFileReference; name = "Screenshot.h"; path = "com.darktalker.cordova.screenshot/Screenshot.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
+		720819AD0AF84D54BA4305D7 /* IonicCameraRoll.m */ = {isa = PBXFileReference; name = "IonicCameraRoll.m"; path = "com.drifty.cordova.cameraroll/IonicCameraRoll.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
+		85EC28AB2B0543CC8BF2F4C2 /* IonicCameraRoll.h */ = {isa = PBXFileReference; name = "IonicCameraRoll.h"; path = "com.drifty.cordova.cameraroll/IonicCameraRoll.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -284,6 +287,8 @@
 				88765EF09F3E41F79BE0A899 /* CameraManager.h */,
 				F251A1259CD74FC59F3D73EE /* Screenshot.m */,
 				E361459C2F7F4921A7B53D29 /* Screenshot.h */,
+				720819AD0AF84D54BA4305D7 /* IonicCameraRoll.m */,
+				85EC28AB2B0543CC8BF2F4C2 /* IonicCameraRoll.h */,
 			);
 			name = Plugins;
 			path = moneyshot_ionic_app/Plugins;
@@ -424,6 +429,7 @@
 				DDA35C391BEA41DD8096C637 /* CameraPlus.m in Sources */,
 				3874FCFFAACF425198089A6A /* CameraManager.m in Sources */,
 				82959D7B3D8748D0B56C8570 /* Screenshot.m in Sources */,
+				B4EF1BD1446A4DAFA8155F2A /* IonicCameraRoll.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -1,0 +1,23 @@
+{
+  "name": "cordova-camera-roll",
+  "version": "0.2.1",
+  "description": "The Cordova Camera Roll plugin makes it easy to read from the iOS camera roll.",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lotterfriends/cordova-camera-roll.git"
+  },
+  "keywords": [
+    "cordova",
+    "camera",
+    "rolll"
+  ],
+  "author": "Max Lynch",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lotterfriends/cordova-camera-roll/issues"
+  },
+  "homepage": "https://github.com/lotterfriends/cordova-camera-roll#readme"
+}

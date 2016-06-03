@@ -55,6 +55,10 @@
                         {
                             "xml": "<feature name=\"Screenshot\"><param name=\"ios-package\" value=\"Screenshot\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"CameraRoll\"><param name=\"ios-package\" value=\"IonicCameraRoll\" /></feature>",
+                            "count": 1
                         }
                     ],
                     "/widget/plugins": [
@@ -109,6 +113,9 @@
             "PACKAGE_NAME": "com.ionicframework.moneyshotionicapp178506"
         },
         "cordova-plugin-compat": {
+            "PACKAGE_NAME": "com.ionicframework.moneyshotionicapp178506"
+        },
+        "com.drifty.cordova.cameraroll": {
             "PACKAGE_NAME": "com.ionicframework.moneyshotionicapp178506"
         }
     },
@@ -438,6 +445,14 @@
             "pluginId": "com.darktalker.cordova.screenshot",
             "merges": [
                 "navigator.screenshot"
+            ]
+        },
+        {
+            "file": "plugins/com.drifty.cordova.cameraroll/www/CameraRoll.js",
+            "id": "com.drifty.cordova.cameraroll.CameraRoll",
+            "pluginId": "com.drifty.cordova.cameraroll",
+            "clobbers": [
+                "CameraRoll"
             ]
         }
     ]
