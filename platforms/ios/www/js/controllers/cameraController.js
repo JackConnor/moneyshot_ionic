@@ -44,7 +44,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     console.log('Camera Loaded');
     function removeTabsAndBar(){
       if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
-        document.addEventListener('deviceready', function(){
+        ionic.Platform.ready(function(){
           $('ion-tabs').addClass('tabs-item-hide');
           uploadPhotos();
           $timeout(function(){
