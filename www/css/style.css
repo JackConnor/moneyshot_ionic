@@ -17,6 +17,21 @@ html {
   opacity: 1;
 }
 
+/*Begin Tab Stuff*/
+.tabs {
+  background-color: black;
+}
+
+.tab-item {
+  color: white !important;
+}
+
+.ion-ios-camera-outline {
+    color: white;
+}
+
+/*End Tab Stuff*/
+
 
 .accountBody {
   padding: 0px;
@@ -1053,6 +1068,7 @@ html {
 .showSubmittedHolder {
   background-color: black;
   height: 2500px;
+  min-height: 800px;
 }
 
 .signBackground {
@@ -1132,13 +1148,12 @@ html {
   padding: 0 10px;
 }
 
-.signout {
-  height: 100%;
-  background-color: purple;
-  display: inline-block;
-  font-size: 30px;
-  text-align: center;
-  padding-top: 15px;
+.signoutButton {
+  width: 50px;
+  position: absolute;
+  right: 15px;
+  font-size: 14px;
+  margin-top: 15px;
   color: white;
 }
 
@@ -1148,7 +1163,7 @@ html {
   font-size: 30px;
   text-align: center;
   padding-top: 15px;
-  color: white;
+  color: #a8a8a8;
 }
 
 .signupBlack {
@@ -1523,7 +1538,7 @@ html {
 
 .submittedRow {
   padding: 10px 15px;
-  border-bottom: 1px solid #F3EEEE;
+  border-bottom: 1px solid #a8a8a8;
   height: auto;
   background-color: black;
   display: flex;

@@ -97,6 +97,11 @@ angular.module('accountController', ['persistentPhotosFactory'])
             }
             var backLength = backlengthFunc();
             $scope.totalEarned = 0;
+            $timeout(function(){
+              $('.showSubmittedHolder').css({
+                height: 'auto'
+              });
+            }, 1000);
             function mapPhotos(){
               var soldPhotos = [];
               var offeredPhotos = [];
@@ -389,7 +394,7 @@ angular.module('accountController', ['persistentPhotosFactory'])
     function hamburgerSignout(){
       persistentPhotos('empty');
       window.localStorage.webToken = '';
-      window.location.hash = "/signin"
+      $state.go('signin');
     }
     $scope.hamburgerSignout = hamburgerSignout;
 

@@ -75,11 +75,11 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     function uploadPhotos(){
       console.log(persistentPhotos());
       $scope.mediaCache = persistentPhotos();
-      console.log($scope.mediaCache);
-      $scope.photoListLength = $scope.mediaCache.length;
       $timeout(function(){
         $scope.activePhoto = false;
-      }, 1000);
+      }, 750);
+      console.log($scope.mediaCache);
+      $scope.photoListLength = $scope.mediaCache.length;
       $scope.cameraLaunched = true;
       var tapEnabled = false; //enable tap take picture
       var dragEnabled = false; //enable preview box drag across the screen
@@ -301,6 +301,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
               ,date: new Date()
             });
             console.log($scope.mediaCache);
+            $scope.photoListLength++;
            })//Didnt' formant still testing
            .catch( function(err){
              console.log('Thumbnail Error======================', err)
