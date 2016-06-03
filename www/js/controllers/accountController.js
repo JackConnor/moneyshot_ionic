@@ -591,8 +591,107 @@ angular.module('accountController', ['persistentPhotosFactory'])
     ////////////////////////////////////////////
 
     /////////carousel functions
-    function openCarousel(photo, evt, index){
-      $scope.carouselMain = photo;
+    // function openCarousel(photo, evt, index){
+    //   $scope.carouselMain = photo;
+    //   $(evt.currentTarget).css({
+    //     opacity: 0.1
+    //   });
+    //   $(evt.currentTarget).animate({
+    //     opacity: 1
+    //   }, 169);
+    //   $timeout(function(){
+    //     $scope.photoCarouselBool = true;
+    //     $timeout(function(){
+    //       $($('.photoCarouselCell')[index]).css({
+    //         border: '5px solid white'
+    //       });
+    //       var width = $($('.mainPhotoHolder').children()[0]).width();
+    //       var outerWidth = $('.mainPhotoHolder').width();
+    //       var marginL = (outerWidth - width)/2;
+    //       $($('.mainPhotoHolder').children()[0]).css({
+    //         width: width+"px"
+    //       })
+    //       $($('.mainPhotoHolder').children()[0]).css({
+    //         marginLeft: marginL
+    //       });
+    //       $('.photoCarouselInner').css({
+    //         width: 'auto'
+    //       });
+    //     }, 50);
+    //   }, 170);
+    //   $timeout(function(){
+    //     $('.photoCarouselInner').animate({
+    //       marginLeft: index*-100+112.5+"px"
+    //     }, 200);
+    //   }, 300);
+    // }
+    // $scope.openCarousel = openCarousel;
+    //
+    // function photoCarouselBack(){
+    //   $timeout(function(){
+    //     $scope.photoCarouselBool = false;
+    //   }, 200);
+    // }
+    // $scope.photoCarouselBack = photoCarouselBack;
+    //
+    // function openNewCarouselPhoto(photo, index){
+    //   $scope.photoCarouselObject = photo;
+    //   $scope.carouselMain = photo;
+    //   console.log(photo);
+    //   console.log(index);
+    //   var mediaLength = $('.photoCarouselCell').length;
+    //   $('.photoCarouselCell').css({
+    //     border: '2px solid white'
+    //   });
+    //   $($('.photoCarouselCell')[index]).css({
+    //     border: '5px solid white'
+    //   });
+    //   $('.photoCarouselInner').animate({
+    //     marginLeft: index*-100+112.5+"px"
+    //   }, 150);
+    // }
+    // $scope.openNewCarouselPhoto = openNewCarouselPhoto;
+    //
+    // //////carousel swipe functions
+    // function photoCarouselSwipeLeft(){
+    //   console.log('yooo');
+    //   var centerP = findCenterPhoto();
+    //   var length = $scope.singleSubmission.photos.length;
+    //   if(centerP.index+1 < length){
+    //     console.log($scope.singleSubmission);
+    //     console.log($scope.singleSubmission[centerP.index+1]);
+    //     openNewCarouselPhoto($scope.singleSubmission.photos[centerP.index+1], centerP.index+1);
+    //   }
+    // }
+    // $scope.photoCarouselSwipeLeft = photoCarouselSwipeLeft;
+    //
+    // function photoCarouselSwipeRight(){
+    //   var centerP = findCenterPhoto();
+    //   if(centerP.index > 0){
+    //     openNewCarouselPhoto($scope.singleSubmission.photos[centerP.index-1], centerP.index-1)
+    //   }
+    // }
+    // $scope.photoCarouselSwipeRight = photoCarouselSwipeRight;
+    //
+    // function findCenterPhoto(){
+    //   var carou = $('.photoCarouselCell')
+    //   console.log(carou);
+    //   console.log($(carou).css('border'));
+    //   var photoCarouselLength = carou.length;
+    //   for (var i = 0; i < photoCarouselLength; i++) {
+    //     var bStyle = $($(carou)[i]).css('border');
+    //     if(bStyle === "5px solid rgb(255, 255, 255)"){
+    //       console.log('this one');
+    //       console.log(carou[i]);
+    //       var activeEl = carou[i];
+    //       return {activeEl: activeEl, index: i}
+    //     }
+    //   }
+    // }
+    ///////begin photo carousel animation work
+    function goToCarousel(mediaData, index, evt){
+      console.log(mediaData);
+      $scope.carouselMain = mediaData;////this is always the centerpiece photo
       $(evt.currentTarget).css({
         opacity: 0.1
       });
@@ -600,10 +699,14 @@ angular.module('accountController', ['persistentPhotosFactory'])
         opacity: 1
       }, 169);
       $timeout(function(){
+        $scope.submitModaVar = false;
         $scope.photoCarouselBool = true;
         $timeout(function(){
-          $($('.photoCarouselCell')[index]).css({
-            border: '5px solid white'
+          console.log($('.mainPhotoHolder').width());
+          $($('.photoCarouselCellAcct')[index]).css({
+            borderWidth: '2px'
+            ,marginRight: '10px'
+            ,marginLeft: '10px'
           });
           var width = $($('.mainPhotoHolder').children()[0]).width();
           var outerWidth = $('.mainPhotoHolder').width();
@@ -621,66 +724,128 @@ angular.module('accountController', ['persistentPhotosFactory'])
       }, 170);
       $timeout(function(){
         $('.photoCarouselInner').animate({
-          marginLeft: index*-100+112.5+"px"
+          marginLeft: index*-70+125+"px"
         }, 200);
       }, 300);
     }
-    $scope.openCarousel = openCarousel;
+    $scope.goToCarousel = goToCarousel;
 
     function photoCarouselBack(){
       $timeout(function(){
         $scope.photoCarouselBool = false;
+        $scope.submitModaVar = true;
       }, 200);
     }
     $scope.photoCarouselBack = photoCarouselBack;
 
-    function openNewCarouselPhoto(photo, index){
-      $scope.photoCarouselObject = photo;
-      $scope.carouselMain = photo;
-      console.log(photo);
-      console.log(index);
-      var mediaLength = $('.photoCarouselCell').length;
-      $('.photoCarouselCell').css({
-        border: '2px solid white'
-      });
-      $($('.photoCarouselCell')[index]).css({
-        border: '5px solid white'
-      });
+    function openNewCarouselPhoto(mediaData, index, direction){
+      $scope.carouselMain = mediaData;
+      var mediaLength = $('.photoCarouselCellAcct').length;
       $('.photoCarouselInner').animate({
-        marginLeft: index*-100+112.5+"px"
-      }, 150);
+        marginLeft: index*-70+125+"px"
+      }, 300);
+      if(direction === 'right'){
+        $($('.photoCarouselCellAcct')[index+1]).animate({
+          borderWidth: '0px'
+          ,marginLeft: '0px'
+          ,marginRight: '0px'
+        }, 300);
+      }
+      else if(direction === 'left'){
+        $($('.photoCarouselCellAcct')[index-1]).animate({
+          borderWidth: '0px'
+          ,marginLeft: '0px'
+          ,marginRight: '0px'
+        }, 300);
+      }
+      // $timeout(function(){
+      $($('.photoCarouselCellAcct')[index]).animate({
+        borderWidth: '2px'
+        ,marginRight: '10px'
+        ,marginLeft: '10px'
+      }, 300);
+      // }, 100);
     }
     $scope.openNewCarouselPhoto = openNewCarouselPhoto;
 
+    function swipeLeftAnimation(centerP){
+      console.log('swiped');
+      console.log($scope.singleSubmission.photos[centerP.index+1]);
+      var imgClone = $('.mainPhotoCar').clone();
+      imgClone.removeClass("mainPhotoCar");
+      imgClone.addClass("mainPhotoCarTwo");
+      imgClone.attr('id', 'mainPhotoId');
+      imgClone.attr('ng-src', '');
+      imgClone.attr('src', $scope.singleSubmission.photos[centerP.index+1].link);
+      var width = $('.mainPhotoCar').width();
+      var height = $('.mainPhotoHolder').height()*0.98;
+      var marginL = $('.mainPhotoCar').css("marginLeft");
+      imgClone.css({
+        position: 'absolute'
+        ,width: width+"px"
+        ,height: height+"px"
+        ,marginLeft: '500px'
+      });
+      $('.mainPhotoHolder').prepend(
+        imgClone
+      );
+      $('.mainPhotoCar').animate({
+        marginLeft: '-500px'
+      }, 400);
+      imgClone.animate({
+        marginLeft: marginL
+      }, 400);
+      $timeout(function(){
+        $('.mainPhotoCar').attr('src', $scope.singleSubmission.photos[centerP.index+1].link);
+        $('.mainPhotoCar').css({
+          marginLeft: marginL
+        });
+        imgClone.remove();
+        $scope.carouselSwipeActive = false;
+      }, 401);
+    }
+
     //////carousel swipe functions
     function photoCarouselSwipeLeft(){
-      console.log('yooo');
-      var centerP = findCenterPhoto();
-      var length = $scope.singleSubmission.photos.length;
-      if(centerP.index+1 < length){
-        console.log($scope.singleSubmission);
-        console.log($scope.singleSubmission[centerP.index+1]);
-        openNewCarouselPhoto($scope.singleSubmission.photos[centerP.index+1], centerP.index+1);
-      }
+      console.log('swipe attempt');
+      // if(!$scope.carouselSwipeActive){
+        console.log('successful swipe');
+        $scope.carouselSwipeActive = true;
+        // $timeout(function(){
+        //   $scope.carouselSwipeActive = false;
+        // }, 1500);
+        var centerP = findCenterPhoto();
+        // swipeLeftAnimation(centerP);
+        if(centerP.index+1 < $scope.singleSubmission.photos.length){
+          openNewCarouselPhoto($scope.singleSubmission.photos[centerP.index+1], centerP.index+1, 'left');
+        }
+      // }
     }
     $scope.photoCarouselSwipeLeft = photoCarouselSwipeLeft;
 
     function photoCarouselSwipeRight(){
       var centerP = findCenterPhoto();
       if(centerP.index > 0){
-        openNewCarouselPhoto($scope.singleSubmission.photos[centerP.index-1], centerP.index-1)
+        openNewCarouselPhoto($scope.singleSubmission.photos[centerP.index-1], centerP.index-1, 'right')
       }
     }
     $scope.photoCarouselSwipeRight = photoCarouselSwipeRight;
 
+    function centerPhoto(){
+      console.log('centering');
+      var currP = findCenterPhoto();
+      console.log(currP);
+    }
+    $scope.centerPhoto = centerPhoto;
+
     function findCenterPhoto(){
-      var carou = $('.photoCarouselCell')
+      var carou = $('.photoCarouselCellAcct')
       console.log(carou);
       console.log($(carou).css('border'));
       var photoCarouselLength = carou.length;
       for (var i = 0; i < photoCarouselLength; i++) {
         var bStyle = $($(carou)[i]).css('border');
-        if(bStyle === "5px solid rgb(255, 255, 255)"){
+        if(bStyle === "2px solid rgb(255, 255, 255)"){
           console.log('this one');
           console.log(carou[i]);
           var activeEl = carou[i];
@@ -688,6 +853,16 @@ angular.module('accountController', ['persistentPhotosFactory'])
         }
       }
     }
+
+    function animateBackCarousel(){
+      $('.photoCarouselBack').css({
+        opacity: 0.25
+      });
+      $('.photoCarouselBack').animate({
+        opacity: 1
+      }, 200);
+    }
+    $scope.animateBackCarousel = animateBackCarousel;
 
   ////////////////////////
   ////end controller//////

@@ -107,6 +107,9 @@
         },
         "com.darktalker.cordova.screenshot": {
             "PACKAGE_NAME": "com.ionicframework.moneyshotionicapp178506"
+        },
+        "cordova-plugin-compat": {
+            "PACKAGE_NAME": "com.ionicframework.moneyshotionicapp178506"
         }
     },
     "dependent_plugins": {},

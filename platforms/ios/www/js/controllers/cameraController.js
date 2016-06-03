@@ -923,7 +923,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       var mediaLength = $('.photoCarouselCell').length;
       $('.photoCarouselInner').animate({
         marginLeft: index*-70+125+"px"
-      }, 150);
+      }, 300);
       if(direction === 'right'){
         $($('.photoCarouselCell')[index+1]).animate({
           borderWidth: '0px'
@@ -939,11 +939,11 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         }, 300);
       }
       // $timeout(function(){
-        $($('.photoCarouselCell')[index]).animate({
-          borderWidth: '2px'
-          ,marginRight: '10px'
-          ,marginLeft: '10px'
-        }, 300);
+      $($('.photoCarouselCell')[index]).animate({
+        borderWidth: '2px'
+        ,marginRight: '10px'
+        ,marginLeft: '10px'
+      }, 300);
       // }, 100);
     }
     $scope.openNewCarouselPhoto = openNewCarouselPhoto;

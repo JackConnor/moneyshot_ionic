@@ -7,7 +7,8 @@
     "angular-img-cropper": "~1.1.0",
     "ng-cropper": "~0.4.1",
     "ng-img-crop": "ngImgCrop#~0.3.2",
-    "jquery-ui": "^1.11.4"
+    "jquery-ui": "^1.11.4",
+    "angularjs-geolocation": "^0.1.1"
   },
   "version": "0.0.0",
   "homepage": "https://github.com/JackConnor/moneyshot_ionic",
