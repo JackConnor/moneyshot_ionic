@@ -593,6 +593,7 @@ angular.module('accountController', ['persistentPhotosFactory'])
 
     function openNewCarouselPhoto(mediaData, index, direction){
       $scope.carouselMain = mediaData;
+      console.log(mediaData);
       var mediaLength = $('.photoCarouselCellAcct').length;
       $('.photoCarouselInner').animate({
         marginLeft: index*-70+125+"px"

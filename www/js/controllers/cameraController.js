@@ -273,8 +273,10 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     $scope.cntPhoto = 0;
     function getPic(){
       console.log($cordovaCapture);
+      console.log('video');
       $cordovaCapture.captureVideo({})
       .then(function(result){
+        $scope.photoListLength++;
         console.log(result);
         var pathFull = result[0].fullPath;///////this is what we need to add to our cache
 
@@ -291,17 +293,15 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         window.PKVideoThumbnail.createThumbnail ( source, fPath, thumbOpts )
           .then( function( thumbnail ){
             console.log('THUMBNAIL', thumbnail);
-            $scope.photoListLength++;
             /////next, we push the video plus some extra data to the media cache, where it waits to be submitted
             console.log($scope.mediaCache);
             $scope.mediaCache.push({
               type: "video"
               ,link: pathFull
-              ,thumb: thumbnail
+              ,thumb: fPath
               ,date: new Date()
             });
             console.log($scope.mediaCache);
-            $scope.photoListLength++;
            })//Didnt' formant still testing
            .catch( function(err){
              console.log('Thumbnail Error======================', err)
