@@ -38,6 +38,9 @@ angular.module('accountController', ['persistentPhotosFactory'])
           $cordovaStatusbar.style(1);
         })
       }
+      else {
+        
+      }
     }
     addTopBar();
 

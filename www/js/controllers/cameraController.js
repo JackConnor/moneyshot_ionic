@@ -81,7 +81,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       console.log($scope.mediaCache);
       $scope.photoListLength = $scope.mediaCache.length;
       $scope.cameraLaunched = true;
-      var tapEnabled = false; //enable tap take picture
+      var tapEnabled = true; //enable tap take picture
       var dragEnabled = false; //enable preview box drag across the screen
       var toBack = false; //send preview box to the back of the webview
       // console.log(cordova.plugins.camerapreview);
@@ -91,8 +91,12 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
       // var objCanvas = document.getElementById("camera");
       // window.plugin.CanvasCamera.initialize(objCanvas);
-      cordova.plugins.camerapreview.startCamera(rect, 'back', tapEnabled, dragEnabled, toBack);
-      cordova.plugins.camerapreview.show();
+      $timeout(function(){
+        cordova.plugins.camerapreview.startCamera(rect, 'back', tapEnabled, dragEnabled, toBack);
+      }, 2000);
+      $timeout(function(){
+        cordova.plugins.camerapreview.show();
+      }, 300);
       $('html').animate({
         opacity: 1
       }, 200);

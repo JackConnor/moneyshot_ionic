@@ -6,9 +6,9 @@
         <i class='fa fa-chevron-left'></i>
       </div>
       <div class="mainPhotoHolderAcct">
-        <i class='fa fa-download' ng-click='downloadPhoto(carouselMain)'></i>
+        <i class='fa fa-download' ng-click='downloadPhoto(carouselMain.url)'></i>
         <img ng-if="!carouselMain.isVideo" ng-src="{{carouselMain.url}}" on-swipe-right='photoCarouselSwipeRight()' on-swipe-left='photoCarouselSwipeLeft()' class='mainPhotoCar'/>
-        <video ng-if="carouselMain.isVideo" ng-src="{{carouselMain.url}}" autoplay poster="{{carouselMain.thumbnail}}">
+        <video ng-if="carouselMain.isVideo" ng-src="{{carouselMain.url | trustUrl}}"  poster="{{carouselMain.thumbnail}}" webkit-playsinline autoplay>
 
         </video>
       </div>

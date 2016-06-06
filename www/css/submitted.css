@@ -31,13 +31,6 @@
   padding-top: 15px;
 }
 
-.submissionInfo {
-	flex-grow: 1;
-	margin-left: 20px;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-}
 
 .submitPhotoName {
   width: 90%;
