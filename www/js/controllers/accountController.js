@@ -730,12 +730,7 @@ angular.module('accountController', ['persistentPhotosFactory'])
 
         var ctx = canvas.getContext("2d");
         ctx.drawImage(this, 0, 0); //////important, THIS is the image
-
-        console.log(canvas);
-
         var dataURL = canvas.toDataURL("image/png");
-        console.log(dataURL);
-
         dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
         CameraRoll.saveToCameraRoll(dataURL, function(){
           console.log('saved?');
@@ -746,9 +741,20 @@ angular.module('accountController', ['persistentPhotosFactory'])
     img.src = url;
     }
     function downloadPhoto(link){
-      if(confirm('download this photo?')){
-        getBase64FromImageUrl(link);
+      var date = new Date();
+      var convertDate = moment.utc(date).format('YYYY-MM-DD HH:mm');
+      console.log(convertDate);
+      var convertSubtract = moment(convertDate).subtract(7, 'days');
+      var photoDate = moment.utc(link.date).format('YYYY-MM-DD HH:mm');
+      console.log(photoDate);
+      console.log(moment(photoDate).isAfter(convertSubtract));///if this is true, it's been less than a week
+      var pastEmbargo = moment(photoDate).isAfter(convertSubtract);
+      if(confirm('download this photo?') && pastEmbargo){
+        getBase64FromImageUrl(link.url);
         downloadArrow();
+      }
+      else if(!pastEmbargo){
+        alert('sorry, you need to wait until a week has passed befre you can download a photo. This is so we can sell it at the maximum price, for all of our benefit. Thank you for your patience!');
       }
       else {
         console.log('changed my mind');
