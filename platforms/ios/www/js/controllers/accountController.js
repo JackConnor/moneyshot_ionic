@@ -741,20 +741,27 @@ angular.module('accountController', ['persistentPhotosFactory'])
     img.src = url;
     }
     function downloadPhoto(link){
+      console.log(link);
+      var ending = link.url.charAt(link.url.length-1);
+      console.log(ending);
       var date = new Date();
       var convertDate = moment.utc(date).format('YYYY-MM-DD HH:mm');
       console.log(convertDate);
-      var convertSubtract = moment(convertDate).subtract(1, 'days');
+      var convertSubtract = moment(convertDate).subtract(7, 'days');
       var photoDate = moment.utc(link.date).format('YYYY-MM-DD HH:mm');
       console.log(photoDate);
       console.log(moment(photoDate).isAfter(convertSubtract));///if this is true, it's been less than a week
+      var confirmed = confirm('download this photo?');
       var pastEmbargo = moment(photoDate).isAfter(convertSubtract);
-      if(confirm('download this photo?') && pastEmbargo){
-        getBase64FromImageUrl(link.url);
-        downloadArrow();
+      if(!pastEmbargo){
+        alert('sorry, you need to wait until a week has passed befre you can download a photo. This is so we can sell it at the maximum price, for all of our benefit. Thank you for your patience!');
       }
-      else if(!pastEmbargo){
-        alert('sorry, you need to wait until a week has passed befre you can download a photo. This is so we can sell it at the maximum price, for all of our benefit. Thank you for your patience!')
+      else if(confirmed && pastEmbargo && ending==='g'){
+        getBase64FromImageUrl(link.url);
+        alert('photo saved!');
+      }
+      else if(confirmed && pastEmbargo && ending==='v'){
+        alert('This video has been emailed to your account. Enjoy!');
       }
       else {
         console.log('changed my mind');
