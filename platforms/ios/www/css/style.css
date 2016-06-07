@@ -310,6 +310,13 @@ html {
   z-index: 2;
 }
 
+.clickVideo {
+  width: 100%;
+  height: 400px;
+  position: absolute;
+  z-index: 100;
+}
+
 .cropHolder {
   position: absolute;
   height: 100%;
@@ -829,6 +836,14 @@ html {
   /*padding-top: 5%;*/
 }
 
+.mainPhotoHolderAcct iframe{
+  width: 320px;
+  height: 586px;
+  /*position: absolute;*/
+  margin-top: -116px;
+  /*padding-top: 5%;*/
+}
+
 .mophoSigninLogo {
   position: absolute;
   width: 40%;
@@ -937,6 +952,7 @@ html {
   position: absolute;
   padding-left: 10px;
   padding-top: 35px;
+  z-index: 21;
 }
 
 .photoCarouselCell {

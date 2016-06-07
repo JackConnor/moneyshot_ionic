@@ -39,7 +39,7 @@ angular.module('accountController', ['persistentPhotosFactory'])
         })
       }
       else {
-        
+
       }
     }
     addTopBar();
@@ -585,6 +585,17 @@ angular.module('accountController', ['persistentPhotosFactory'])
     }
     $scope.goToCarousel = goToCarousel;
 
+    function playVid(){
+      console.log($('#carouselVideo'));
+      $('#carouselVideo')[0].play();
+      $timeout(function(){
+        console.log($('#carouselVideo')[0].duration);
+        console.log($('#carouselVideo')[0].ended);
+        console.log($('#carouselVideo')[0].currentTime);
+      }, 1000);
+    }
+    $scope.playVid = playVid;
+
     function photoCarouselBack(){
       $timeout(function(){
         $scope.photoCarouselBool = false;
@@ -682,6 +693,7 @@ angular.module('accountController', ['persistentPhotosFactory'])
     function photoCarouselSwipeRight(){
       var centerP = findCenterPhoto();
       if(centerP.index > 0){
+        console.log($scope.singleSubmission);
         openNewCarouselPhoto($scope.singleSubmission.photos[centerP.index-1], centerP.index-1, 'right')
       }
     }

@@ -6,10 +6,10 @@
         <i class='fa fa-chevron-left'></i>
       </div>
       <div class="mainPhotoHolderAcct">
+        <div ng-if="carouselMain.isVideo" class='clickVideo' ng-click="playVid()" on-swipe-right='photoCarouselSwipeRight()' on-swipe-left='photoCarouselSwipeLeft()' ></div>
         <i class='fa fa-download' ng-click='downloadPhoto(carouselMain.url)'></i>
         <img ng-if="!carouselMain.isVideo" ng-src="{{carouselMain.url}}" on-swipe-right='photoCarouselSwipeRight()' on-swipe-left='photoCarouselSwipeLeft()' class='mainPhotoCar'/>
-        <video ng-if="carouselMain.isVideo" ng-src="{{carouselMain.url | trustUrl}}"  poster="{{carouselMain.thumbnail}}" webkit-playsinline autoplay>
-
+        <video ng-if="carouselMain.isVideo" ng-src="{{carouselMain.url | trustUrl}}"  poster="{{carouselMain.thumbnail}}" webkit-playsinline id='carouselVideo'>
         </video>
       </div>
       <div class="photoCarouselHolder" on-swipe-right='photoCarouselSwipeRight()' on-swipe-left='photoCarouselSwipeLeft()'>
@@ -44,9 +44,9 @@
       <div class="loadSpinner" ng-if='loadingModal'>
         <img src="./img/MoPho_Logo_No_Background.png" alt="" ng-if='loadingModal'/>
       </div>
-      <div class="backgroundImage col-xs-12">
+      <!-- <div class="backgroundImage col-xs-12">
         <img src="https://i.imgsafe.org/017d610.png" ng-repeat='photo in backgroundMultiple'/>
-      </div>
+      </div> -->
       <!-- <div class="swipeIntro" ng-if="introModal">
         <div class="swipeIntroRow" >
           <div class="col-xs-3 swipeCell swipe1">
