@@ -130,9 +130,9 @@
             </div> -->
             <div class="submitCellImageHolder" >
               <img class='submitPhoto submitPhoto{{$index}}' id='submit{{$index}}' ng-src="{{media.link}}" ng-if='media.type=="photo"' ng-click='goToCarousel(media, $index, $event)'/>
-              <!-- <img class='submitPhoto submitPhoto{{$index}}' id='submit{{$index}}' ng-src="{{media.thumb | trustUrl}}" ng-if='media.type=="video"' ng-click='goToCarousel(media, $index, $event)'/> -->
-              <div class="videoOverlay" ng-if='media.type=="video"' ng-click='goToCarousel(media, $index, $event)'></div>
-              <video id='submit{{$index}}' ng-if='media.type=="video"' poster='{{media.thumb}}' ng-src="{{media.link}}" type="video/mp4">
+              <img class='submitPhoto submitPhoto{{$index}}' id='submit{{$index}}' ng-src="{{media.thumb | trustUrl}}" ng-if='media.type=="video"' ng-click='goToCarousel(media, $index, $event)'/>
+              <!-- <div class="videoOverlay" ng-if='media.type=="video"' ng-click='goToCarousel(media, $index, $event)'></div>
+              <video id='submit{{$index}}' ng-if='media.type=="video"' poster='{{media.thumb}}' ng-src="{{media.link}}" type="video/mp4"> -->
                   <!-- (Your Browser Doesn't Support Video) -->
               <!-- </video> -->
             </div>
