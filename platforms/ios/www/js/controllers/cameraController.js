@@ -239,7 +239,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     // takePicture();
     $scope.cntPhoto = 0;
     function getPic(){
-      $cordovaCapture.captureVideo({})
+      $cordovaCapture.captureVideo({quality : 100})
       .then(function(result){
         $scope.photoListLength++;
         var pathFull = result[0].fullPath;///////this is what we need to add to our cache
@@ -560,7 +560,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                     console.log(submissionData);
                     $http({
                       method: "POST"
-                      ,url: "https://moneyshotapi.herokuapp.com/api/new/submission"
+                      ,url: "http://192.168.0.17:5555/api/new/submission"
                       ,data: submissionData
                     })
                     .then(function(newSubmission){
