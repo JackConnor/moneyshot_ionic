@@ -586,13 +586,30 @@ angular.module('accountController', ['persistentPhotosFactory'])
     $scope.goToCarousel = goToCarousel;
 
     function playVid(){
-      console.log($('#carouselVideo'));
-      $('#carouselVideo')[0].play();
-      $timeout(function(){
-        console.log($('#carouselVideo')[0].duration);
-        console.log($('#carouselVideo')[0].ended);
-        console.log($('#carouselVideo')[0].currentTime);
-      }, 1000);
+      var vidDuration = function(){
+        return $('#carouselVideo')[0].duration;
+      }
+      var vidCurrent = function(){
+        return $('#carouselVideo')[0].currentTime;
+      }
+      console.log(vidDuration());
+      console.log(vidCurrent());
+      if(vidCurrent() == 0 || vidDuration() - vidCurrent() == 0 || $('#carouselVideo')[0].paused){
+        console.log('playing');
+        $('#carouselVideo')[0].play();
+      }
+      else {
+        console.log('pausing');
+        $('#carouselVideo')[0].pause();
+      }
+      // $timeout(function(){
+      //   console.log(vidDuration());
+      //   console.log(vidCurrent());
+      // }, 2000);
+      // $timeout(function(){
+      //   console.log(vidDuration());
+      //   console.log(vidCurrent());
+      // }, 21000);
     }
     $scope.playVid = playVid;
 
