@@ -1055,6 +1055,27 @@ html {
   text-align: left;
 }
 
+.photoStatusPaid {
+  color: green;
+  font-weight: 700;
+  font-size: 14;
+  padding-top: 15px;
+}
+
+.photoStatusPending {
+  color: yellow;
+  font-weight: 700;
+  font-size: 14;
+  padding-top: 30px;
+}
+
+.photoStatusRejected {
+  color: red;
+  font-weight: 700;
+  font-size: 14;
+  padding-top: 30px;
+}
+
 .photoToggleContainer {
   color: white;
   text-align: center;
@@ -1319,10 +1340,9 @@ html {
 
 .submissionStatus {
   width: 100px;
-  border: 2px solid white;
-  color: white;
+  /*border: 2px solid white;*/
+  /*color: white;*/
   text-align: center;
-  padding-top: 20px;
   display: inline-block;
 }
 

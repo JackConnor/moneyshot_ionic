@@ -223,13 +223,14 @@
               <div class="submissionInfo-location">{{submission.metadata.address.slice(0, submission.metadata.address.length-13)}}</div>
               <div class="submissionInfo-date">{{submission.metadata.date}}</div>
             </div>
-            <div class="submissionStatus" ng-if='submission.price === 0 && submission.rejectedPhotosLength === 0'>
+            <div class="submissionStatus photoStatusPending" ng-if='submission.price === 0 && submission.rejectedPhotosLength === 0'>
               Pending
             </div>
-            <div class="submissionStatus" ng-if="submission.rejectedPhotosLength === submission.photos.length">
-              Rejected
+            <div class="submissionStatus photoStatusRejected" ng-if="submission.rejectedPhotosLength === submission.photos.length">
+              No thanks
             </div>
-            <div class="submissionStatus" ng-if='submission.price > 0'>
+            <div class="submissionStatus photoStatusPaid" ng-if='submission.price > 0'>
+              Paid!</br>
               {{submission.price | currency}}
             </div>
           </div>
