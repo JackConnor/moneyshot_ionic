@@ -952,7 +952,7 @@ html {
   position: absolute;
   padding-left: 10px;
   padding-top: 35px;
-  z-index: 21;
+  z-index: 210;
 }
 
 .photoCarouselCell {
