@@ -586,6 +586,10 @@ angular.module('accountController', ['persistentPhotosFactory'])
     $scope.goToCarousel = goToCarousel;
 
     function playVid(){
+      $('#carouselVideo')[0].muted = false;
+      console.log($('#carouselVideo')[0].muted);
+      $('#carouselVideo')[0].volume = 1;
+      console.log($('#carouselVideo')[0].volume);
       var vidDuration = function(){
         return $('#carouselVideo')[0].duration;
       }
