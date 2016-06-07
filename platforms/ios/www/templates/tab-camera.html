@@ -1,5 +1,7 @@
 <ion-view view-title="Camera">
   <ion-content class="">
+
+
     <div class="photoCarouselModal" ng-if='photoCarouselBool'>
       <div class="photoCarouselBack" ng-click='animateBackCarousel(); photoCarouselBack()'>
         <i class='fa fa-chevron-left'></i>
@@ -13,12 +15,14 @@
         <div class="photoCarouselInner row">
           <div class="photoCarouselCell" ng-repeat="media in mediaCache">
             <img ng-if='media.type==="photo"' ng-src="{{media.link}}" ng-click='openNewCarouselPhoto(media, $index)'/>
-            <!-- <img ng-if='media.type==="video"' ng-src="{{media.thumb | trustUrl}}" ng-click='openNewCarouselPhoto(media, $index)'/> -->
-            <video ng-if='media.type==="video"' ng-src="{{media.link}}" ng-click='openNewCarouselPhoto(media, $index)' poster="{{media.thumb}}"/>
+            <img ng-if='media.type==="video"' ng-src="{{media.thumb | trustUrl}}" ng-click='openNewCarouselPhoto(media, $index)'/>
+            <!-- <video ng-if='media.type==="video"' ng-src="{{media.link}}" ng-click='openNewCarouselPhoto(media, $index)' poster="{{media.thumb}}"/> -->
           </div>
         </div>
       </div>
     </div>
+
+
     </div>
     <div class="cameraModal" ng-show='cameraModal==true'>
       <div class="cameraViewToggle">

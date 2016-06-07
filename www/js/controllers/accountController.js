@@ -602,14 +602,6 @@ angular.module('accountController', ['persistentPhotosFactory'])
         console.log('pausing');
         $('#carouselVideo')[0].pause();
       }
-      // $timeout(function(){
-      //   console.log(vidDuration());
-      //   console.log(vidCurrent());
-      // }, 2000);
-      // $timeout(function(){
-      //   console.log(vidDuration());
-      //   console.log(vidCurrent());
-      // }, 21000);
     }
     $scope.playVid = playVid;
 

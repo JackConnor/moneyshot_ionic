@@ -1,12 +1,14 @@
 <ion-view view-title="Account">
   <ion-content overflow-scroll='false' has-bouncing="false">
+
+
     <div class="photoCarouselModal" ng-if='photoCarouselBool' id='new'>
       <div class="carouselBlackForBar"></div>
       <div class="photoCarouselBackAcct" ng-click='animateBackCarousel(); photoCarouselBack()'>
         <i class='fa fa-chevron-left'></i>
       </div>
       <div class="mainPhotoHolderAcct">
-        <div ng-if="carouselMain.isVideo" class='clickVideo' ng-click="playVid()" on-swipe-right='photoCarouselSwipeRight()' on-swipe-left='photoCarouselSwipeLeft()' ></div>
+        <div ng-if="carouselMain.isVideo" class='clickVideo' ng-click="playVid()" on-swipe-right='photoCarouselSwipeRight()' on-swipe-left='photoCarouselSwipeLeft()'></div>
         <i class='fa fa-download' ng-click='downloadPhoto(carouselMain.url)'></i>
         <img ng-if="!carouselMain.isVideo" ng-src="{{carouselMain.url}}" on-swipe-right='photoCarouselSwipeRight()' on-swipe-left='photoCarouselSwipeLeft()' class='mainPhotoCar'/>
         <video ng-if="carouselMain.isVideo" ng-src="{{carouselMain.url | trustUrl}}"  poster="{{carouselMain.thumbnail}}" webkit-playsinline id='carouselVideo'>

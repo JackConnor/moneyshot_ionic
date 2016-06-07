@@ -586,10 +586,6 @@ angular.module('accountController', ['persistentPhotosFactory'])
     $scope.goToCarousel = goToCarousel;
 
     function playVid(){
-      $('#carouselVideo')[0].muted = false;
-      console.log($('#carouselVideo')[0].muted);
-      $('#carouselVideo')[0].volume = 1;
-      console.log($('#carouselVideo')[0].volume);
       var vidDuration = function(){
         return $('#carouselVideo')[0].duration;
       }
@@ -606,14 +602,6 @@ angular.module('accountController', ['persistentPhotosFactory'])
         console.log('pausing');
         $('#carouselVideo')[0].pause();
       }
-      // $timeout(function(){
-      //   console.log(vidDuration());
-      //   console.log(vidCurrent());
-      // }, 2000);
-      // $timeout(function(){
-      //   console.log(vidDuration());
-      //   console.log(vidCurrent());
-      // }, 21000);
     }
     $scope.playVid = playVid;
 

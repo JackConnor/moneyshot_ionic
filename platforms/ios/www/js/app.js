@@ -42,6 +42,7 @@ angular.module('starter', ['ionic', 'ngCordova', 'ngRoute', 'ngFileUpload', 'sta
   $sceDelegateProvider.resourceUrlWhitelist([
     'cdvfile://',
   ])
+  $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|file|cdvfile|tel):/);
 
   // Ionic uses AngularUI Router which uses the concept of states
   // Learn more here: https://github.com/angular-ui/ui-router

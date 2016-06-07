@@ -11,16 +11,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
   cameraCtrl.$inject = ['$http', '$state', '$scope', 'singlePhoto', 'Upload', '$q', '$cordovaCamera', '$cordovaFile', '$cordovaFileTransfer', 'signup', 'signin', 'newToken', '$cordovaCapture', '$cordovaStatusbar', '$timeout', '$ionicGesture', '$ionicScrollDelegate', '$interval', 'persistentPhotos'];
   function cameraCtrl($http, $state, $scope, singlePhoto, Upload, $q, $cordovaCamera, $cordovaFile, $cordovaFileTransfer, signup, signin, newToken, $cordovaCapture, $cordovaStatusbar, $timeout, $ionicGesture, $ionicScrollDelegate, $interval, persistentPhotos){
-    console.log(returnDate());
-    var googId = 'AIzaSyDspcymxHqhUaiLh2YcwV67ZNhlGd4FyxQ';
-    // alert(window.plugin.CanvasCamera);
-    // $('html').css({
-    //   opacity: 0
-    // });
-    // console.log($cordovaInAppBrowser);
-    ////////////////////////////
-    /////////global variables///
-    // $scope.mediaCache = [{type: 'photo', link: 'http://www.kaplaninternational.com/blog/wp-content/uploads/2011/08/blah-290x300.jpg'}, {type:'photo', link: '/img/adam.jpg'}, {type:'photo', link: '/img/ben.png'}];
+    console.log($cordovaFile);
     $scope.mediaCache = [];
     $scope.photoListLength      = 0;
     $scope.croppedPhoto         = '';
@@ -33,6 +24,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     $scope.activePhoto          = true;
     $scope.carouselSwipeActive  = false;
     $scope.cameraMode           = 'photo';
+    var googId = 'AIzaSyDspcymxHqhUaiLh2YcwV67ZNhlGd4FyxQ';
     var count = 0;
     $scope.cropper              = {};
     $scope.cropper.croppedImage = '';
@@ -41,7 +33,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     /////end global variables///
     ////////////////////////////
 
-    console.log('Camera Loaded');
+    //////functino to load camera and set up screen
     function removeTabsAndBar(){
       if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
         ionic.Platform.ready(function(){
@@ -67,18 +59,12 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     removeTabsAndBar();
 
     /////////////////////////////
-    /////functions to upload photos////
     //function to launch camera and take photos
-    // if(window.plugin.cameraplus){
-    //   console.log(window.plugin.cameraplus);
-    // }
     function uploadPhotos(){
-      console.log(persistentPhotos());
       $scope.mediaCache = persistentPhotos();
       $timeout(function(){
         $scope.activePhoto = false;
       }, 750);
-      console.log($scope.mediaCache);
       $scope.photoListLength = $scope.mediaCache.length;
       $scope.cameraLaunched = true;
       var tapEnabled = false; //enable tap take picture
@@ -96,6 +82,9 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       }, 2000);
       $timeout(function(){
         cordova.plugins.camerapreview.show();
+        $(window).unload(function(){
+          cordova.plugins.camerapreview.stopCamera();
+        });
       }, 300);
       $('html').animate({
         opacity: 1
@@ -128,15 +117,6 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
           height: 'auto'
           ,width: 'auto'
         });
-        console.log(testIm);
-        console.log($(testIm));
-        console.log($(testIm).height());
-        console.log($(testIm).width());
-        // $scope.submitModalVar = true;
-        // $timeout(function(){
-        //   $scope.submitModalVar = false;
-        // }, 10);
-
         cordova.plugins.camerapreview.show();
         $scope.activePhoto = false;
         count++
@@ -146,23 +126,6 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         }, 100);
       });
     }
-
-    //////function to do status bar stuff
-    // $timeout(function(){
-    //   uploadPhotos();
-    //   ionic.Platform.showStatusBar(false);
-    // }, 250);
-    // $timeout(function(){
-    //   if(!$scope.cameraLaunched){
-    //     uploadPhotos();
-    //     ionic.Platform.showStatusBar(false);
-    //   }
-    // }, 2000);
-
-    $(window).unload(function(){
-      cordova.plugins.camerapreview.stopCamera();
-    })
-
 
     $scope.takeCordovaPicture = function(){
       console.log('yyyy');
@@ -287,6 +250,8 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         var thumbOpts = {
           mode: 'file'
           ,quality: 1
+          ,mode: 'base64'
+          // ,resize.width: '150px'
         }
 
         console.log(window.PKVideoThumbnail);
@@ -296,13 +261,15 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         console.log( 'PATHS: ', source, fPath)
         window.PKVideoThumbnail.createThumbnail ( source, fPath, thumbOpts )
           .then( function( thumbnail ){
+            console.log(fPath);
             console.log('THUMBNAIL', thumbnail);
             /////next, we push the video plus some extra data to the media cache, where it waits to be submitted
+
             console.log($scope.mediaCache);
             $scope.mediaCache.push({
               type: "video"
               ,link: pathFull
-              ,thumb: fPath
+              ,thumb: thumbnail
               ,date: new Date()
             });
             console.log($scope.mediaCache);
@@ -313,20 +280,6 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
           });
           var thisEl = $('.outCameraModal')[0];
           animateClick(thisEl, 'white', 'transparent');
-          // $timeout(function(){
-          //   navigator.camera.getvideo();
-          //   $cordovaCapture.captureVideo({})
-          //   .then(function(result){
-          //     console.log(result);
-          //     var pathFull = result[0].fullPath;///////this is what we need to add to our cache
-          //     /////next, we push the video plus some extra data to the media cache, where it waits to be submitted
-          //     $scope.mediaCache.push({
-          //       type: "video"
-          //       ,link: pathFull
-          //       ,date: new Date()
-          //     })
-          //   });
-          // }, 300);
     }
     $scope.getPic = getPic;
 
