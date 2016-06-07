@@ -81,7 +81,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       console.log($scope.mediaCache);
       $scope.photoListLength = $scope.mediaCache.length;
       $scope.cameraLaunched = true;
-      var tapEnabled = true; //enable tap take picture
+      var tapEnabled = false; //enable tap take picture
       var dragEnabled = false; //enable preview box drag across the screen
       var toBack = false; //send preview box to the back of the webview
       // console.log(cordova.plugins.camerapreview);
