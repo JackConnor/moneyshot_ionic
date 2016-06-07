@@ -251,7 +251,8 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
           mode: 'file'
           ,quality: 1
           ,mode: 'base64'
-          // ,resize.width: '150px'
+          ,resize.width: '150px'
+          ,resize.height: '150px'
         }
 
         console.log(window.PKVideoThumbnail);
