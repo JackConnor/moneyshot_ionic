@@ -943,6 +943,7 @@ html {
   position: absolute;
   padding-left: 10px;
   padding-top: 15px;
+  z-index: 210;
 }
 
 .photoCarouselBackAcct {

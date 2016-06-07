@@ -239,41 +239,31 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     // takePicture();
     $scope.cntPhoto = 0;
     function getPic(){
-      console.log($cordovaCapture);
-      console.log('video');
       $cordovaCapture.captureVideo({})
       .then(function(result){
         $scope.photoListLength++;
-        console.log(result);
         var pathFull = result[0].fullPath;///////this is what we need to add to our cache
 
         var thumbOpts = {
           mode: 'file'
           ,quality: 1
           ,mode: 'base64'
-          // ,resize.width: '150px'
+          ,resize: {
+            width: '350px'
+            ,height: '350px'
+          }
         }
-
-        console.log(window.PKVideoThumbnail);
-        console.log('PATH:', result[0].localURL);
         var source = result[0].localURL
         var fPath = source.split(result[0].name)[0] + $scope.cntPhoto++ + 'test.jpg'
-        console.log( 'PATHS: ', source, fPath)
         window.PKVideoThumbnail.createThumbnail ( source, fPath, thumbOpts )
           .then( function( thumbnail ){
-            console.log(fPath);
-            console.log('THUMBNAIL', thumbnail);
-            /////next, we push the video plus some extra data to the media cache, where it waits to be submitted
-
-            console.log($scope.mediaCache);
             $scope.mediaCache.push({
               type: "video"
               ,link: pathFull
               ,thumb: thumbnail
               ,date: new Date()
             });
-            console.log($scope.mediaCache);
-           })//Didnt' formant still testing
+           })
            .catch( function(err){
              console.log('Thumbnail Error======================', err)
            })
@@ -1099,5 +1089,27 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       $ionicScrollDelegate.freezeScroll(false);
     };
     $scope.blurring = blurring;
+
+    function playVid(){
+      console.log($scope.photoCarouselObject);
+      console.log($('#carouselVideoCamera'));
+      var vidDuration = function(){
+        return $('#carouselVideoCamera')[0].duration;
+      }
+      var vidCurrent = function(){
+        return $('#carouselVideoCamera')[0].currentTime;
+      }
+      console.log(vidDuration());
+      console.log(vidCurrent());
+      if(vidCurrent() == 0 || vidDuration() - vidCurrent() == 0 || $('#carouselVideo')[0].paused){
+        console.log('playing');
+        $('#carouselVideoCamera')[0].play();
+      }
+      else {
+        console.log('pausing');
+        $('#carouselVideoCamera')[0].pause();
+      }
+    }
+    $scope.playVid = playVid;
 
   }
