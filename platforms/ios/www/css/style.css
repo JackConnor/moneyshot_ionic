@@ -195,16 +195,32 @@ html {
   height: 102px;
 }
 
-.cameraButtonsContainer {
-  width: 100%;
-  display: block;
-  position: absolute;
-  border-top: 0px solid red;
-  /*border: 2px solid red;*/
-  height: 142px;
-  padding: 0px;
-  z-index: 17;
-  bottom: -15px;
+@media only screen and (min-width: 0px){
+  .cameraButtonsContainer {
+    width: 100%;
+    display: block;
+    position: absolute;
+    border-top: 0px solid red;
+    /*border: 2px solid red;*/
+    height: 142px;
+    padding: 0px;
+    z-index: 17;
+    bottom: -15px;
+  }
+}
+
+@media only screen and (min-width: 321px){
+  .cameraButtonsContainer {
+    width: 100%;
+    display: block;
+    position: absolute;
+    border-top: 0px solid red;
+    /*border: 2px solid red;*/
+    height: 142px;
+    padding: 0px;
+    z-index: 17;
+    bottom: 5px;
+  }
 }
 
 .cameraLensHolder {
@@ -227,13 +243,26 @@ html {
   height: 20px;
 }
 
-.cameraModal {
-  width: 100%;
-  height: 568px;
-  position: fixed;
-  background-color: black;
-  z-index: 15;
+@media only screen and (min-width: 0px){
+  .cameraModal {
+    width: 100%;
+    height: 568px;
+    position: fixed;
+    background-color: black;
+    z-index: 15;
+  }
 }
+
+@media only screen and (min-width: 321px){
+  .cameraModal {
+    width: 100%;
+    height: 667px;
+    position: fixed;
+    background-color: black;
+    z-index: 15;
+  }
+}
+
 
 .cameraToggleContainer {
   color: white;

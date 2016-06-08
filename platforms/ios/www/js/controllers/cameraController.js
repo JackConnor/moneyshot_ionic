@@ -37,6 +37,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     function removeTabsAndBar(){
       if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
         ionic.Platform.ready(function(){
+          console.log(ionic.Platform);
           $('ion-tabs').addClass('tabs-item-hide');
           uploadPhotos();
           $timeout(function(){
@@ -71,7 +72,12 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       var dragEnabled = false; //enable preview box drag across the screen
       var toBack = false; //send preview box to the back of the webview
       // console.log(cordova.plugins.camerapreview);
-      var rect = {x: 0, y: 45, width: 320, height: 400};
+      if(window.sessionStorage.zoomed){
+        var rect = {x: 0, y: 45, width: 320, height: 400};
+      }
+      else {
+        var rect = {x: 0, y: 45, width: 375, height: 468.75};
+      }
       // var cameraPrev = cordova.plugins.camerapreview.startCamera(rect, 'back', tapEnabled, dragEnabled, toBack);
       // console.dir(cordova.plugins.camerapreview);
 
@@ -84,11 +90,10 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         cordova.plugins.camerapreview.show();
         $(window).unload(function(){
           cordova.plugins.camerapreview.stopCamera();
+          $ionic.Platform.exitApp();
         });
       }, 300);
-      $('html').animate({
-        opacity: 1
-      }, 200);
+
 
       cordova.plugins.camerapreview.setOnPictureTakenHandler(function(result){
         // var file = new File(['data:image/png;base64,'+result[0]], './img/assets/blob/imageFileName.png');
