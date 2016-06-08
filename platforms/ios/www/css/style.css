@@ -1359,6 +1359,11 @@ html {
   font-weight: 700;
 }
 
+.submissionStatusReportInReview {
+  color: #1ca8ec;
+  padding-top: 12px;
+}
+
 .submissionStatusReportPaid {
   color: green;
   padding-top: 12px;

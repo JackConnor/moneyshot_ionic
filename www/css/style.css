@@ -1055,6 +1055,13 @@ html {
   text-align: left;
 }
 
+.photoStatusInReview {
+  color: #1ca8ec;
+  font-weight: 700;
+  font-size: 14;
+  padding-top: 30px;
+}
+
 .photoStatusPaid {
   color: green;
   font-weight: 700;
@@ -1357,6 +1364,11 @@ html {
   opacity: 1;
   font-size: 21px;
   font-weight: 700;
+}
+
+.submissionStatusReportInReview {
+  color: #1ca8ec;
+  padding-top: 12px;
 }
 
 .submissionStatusReportPaid {

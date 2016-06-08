@@ -162,6 +162,9 @@
           <div class="submissionStatusReport submissionStatusReportPending" ng-if='singleSubmission.price === 0 && singleSubmission.rejectedPhotosLength === 0'>
             Pending
           </div>
+          <div class="submissionStatusReport submissionStatusReportInReview" ng-if="singleSubmission.price === 0 && singleSubmission.rejectedPhotosLength > 0 && singleSubmission.rejectedPhotosLength !== singleSubmission.photos.length">
+            In Review
+          </div>
           <div class="submissionStatusReport submissionStatusReportRejected" ng-if="singleSubmission.rejectedPhotosLength === singleSubmission.photos.length">
             No Thanks
           </div>
