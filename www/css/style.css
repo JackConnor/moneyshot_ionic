@@ -1063,7 +1063,7 @@ html {
 }
 
 .photoStatusPending {
-  color: yellow;
+  color: #f8e71c;
   font-weight: 700;
   font-size: 14;
   padding-top: 30px;
@@ -1290,11 +1290,13 @@ html {
 }
 
 .submissionDataHolder {
-  padding-top: 10px;
+  padding-top: 20px;
   height: 300px;
   color: white;
   font-size: 14px;
   text-align: center;
+  padding: 0px;
+
 }
 
 .submissionDataHolder span{
@@ -1344,6 +1346,32 @@ html {
   /*color: white;*/
   text-align: center;
   display: inline-block;
+}
+
+.submissionStatusReport {
+  margin-top: 55px;
+  position: block;
+  width: 100%;
+  height: 70px;
+  background-color: #323232;
+  opacity: 1;
+  font-size: 21px;
+  font-weight: 700;
+}
+
+.submissionStatusReportPaid {
+  color: green;
+  padding-top: 12px;
+}
+
+.submissionStatusReportPending {
+  color: #f8e71c;
+  padding-top: 20px;
+}
+
+.submissionStatusReportRejected {
+  color: red;
+  padding-top: 20px;
 }
 
 .submissionTitle {

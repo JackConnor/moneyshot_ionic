@@ -769,14 +769,20 @@ angular.module('accountController', ['persistentPhotosFactory'])
       var ending = link.url.charAt(link.url.length-1);
       console.log(ending);
       var date = new Date();
-      var convertDate = moment.utc(date).format('YYYY-MM-DD HH:mm');
-      console.log(convertDate);
-      var convertSubtract = moment(convertDate).subtract(7, 'days');
+      var convertDate = moment.utc(date).format('YYYY-MM-DD HH:mm');///current time/date
+      var photoDate = moment.utc(link.date).format('YYYY-MM-DD HH:mm');////date photo was taken
+      var difference = photoDate.from(convertDate);
+      console.log(difference);
+
+
+
+      // var convertSubtract = moment(convertDate).subtract(7, 'days');///the date exactly seven days ago
+      // console.log(convertSubtract);
       var photoDate = moment.utc(link.date).format('YYYY-MM-DD HH:mm');
-      console.log(photoDate);
-      console.log(moment(photoDate).isAfter(convertSubtract));///if this is true, it's been less than a week
+      // console.log(photoDate);
       var confirmed = confirm('download this photo?');
       var pastEmbargo = moment(photoDate).isAfter(convertSubtract);
+      console.log(pastEmbargo);
       if(!pastEmbargo){
         alert('sorry, you need to wait until a week has passed befre you can download a photo. This is so we can sell it at the maximum price, for all of our benefit. Thank you for your patience!');
       }
