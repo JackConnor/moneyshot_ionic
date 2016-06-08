@@ -808,36 +808,73 @@ html {
 .mainPhotoCarTwo {
 }
 
-.mainPhotoHolder {
-  width: 100%;
-  margin-left: 0%;
-  height: 400px;
-  padding-top: 15px;
-  overflow: hidden;
+
+@media only screen and (min-width: 0px){
+  .mainPhotoHolder {
+    width: 100%;
+    margin-left: 0%;
+    height: 400px;
+    padding-top: 15px;
+    overflow: hidden;
+  }
+
+  .mainPhotoHolder img{
+    width: 100%;
+    height: 586px;
+    /*position: absolute;*/
+    margin-top: -116px;
+    /*padding-top: 5%;*/
+  }
+
+  .mainPhotoHolder video{
+    width: 320px;
+    height: 586px;
+    /*position: absolute;*/
+    margin-top: -116px;
+    /*padding-top: 5%;*/
+  }
+
+  .mainPhotoHolder i{
+    position: absolute;
+    color: white;
+    font-size: 30px;
+    margin-top: 350px;
+    right: 10px;
+  }
 }
 
-.mainPhotoHolder i{
-  position: absolute;
-  color: white;
-  font-size: 30px;
-  margin-top: 350px;
-  right: 10px;
-}
+@media only screen and (min-width: 321px){
+  .mainPhotoHolder {
+    width: 100%;
+    margin-left: 0%;
+    height: 469px;
+    padding-top: 15px;
+    overflow: hidden;
+  }
 
-.mainPhotoHolder img{
-  width: 320px;
-  height: 586px;
-  /*position: absolute;*/
-  margin-top: -116px;
-  /*padding-top: 5%;*/
-}
+  .mainPhotoHolder img{
+    width: 100%;
+    height: 667px;
+    /*position: absolute;*/
+    margin-top: -128px;
+    /*padding-top: 5%;*/
+  }
 
-.mainPhotoHolder video{
-  width: 320px;
-  height: 586px;
-  /*position: absolute;*/
-  margin-top: -116px;
-  /*padding-top: 5%;*/
+  .mainPhotoHolder video{
+    width: 320px;
+    height: 586px;
+    /*position: absolute;*/
+    margin-top: -136px;
+    /*padding-top: 5%;*/
+  }
+
+  .mainPhotoHolder i{
+    position: absolute;
+    color: white;
+    font-size: 35px;
+    margin-top: 405px;
+    right: 15px;
+  }
 }
 
 .mainPhotoHolderAcct {
@@ -1467,13 +1504,26 @@ html {
   background-color: #013220;
 }
 
-.submitCell {
-  height: 63px;
-  width: 63px;
-  padding: 0px;
-  display: inline-block;
-  overflow: hidden;
-  vertical-align: top;
+@media only screen and (min-width: 0px){
+  .submitCell {
+    height: 63px;
+    width: 63px;
+    padding: 0px;
+    display: inline-block;
+    overflow: hidden;
+    vertical-align: top;
+  }
+}
+
+@media only screen and (min-width: 321px){
+  .submitCell {
+    height: 74px;
+    width: 74px;
+    padding: 0px;
+    display: inline-block;
+    overflow: hidden;
+    vertical-align: top;
+  }
 }
 
 .submitCell i {
@@ -1668,13 +1718,26 @@ html {
   background-color: white;
 }
 
-.submitRepeat{
-  padding: 0px;
-  height: 43%;
-  border: 2.5px solid black;
-  background-color: #e9e9e9;
-  overflow: hidden;
-  overflow-y: scroll;
+@media only screen and (min-width: 0px){
+  .submitRepeat {
+    padding: 0px;
+    height: 290px;
+    border: 2.5px solid black;
+    background-color: #e9e9e9;
+    overflow: hidden;
+    overflow-y: scroll;
+  }
+}
+
+@media only screen and (min-width: 321px){
+  .submitRepeat {
+    padding: 0px;
+    height: 340px;
+    border: 2.5px solid black;
+    background-color: #e9e9e9;
+    overflow: hidden;
+    overflow-y: scroll;
+  }
 }
 
 .submittedRow {
@@ -1836,8 +1899,6 @@ html {
 .toggleCameraIcon img{
   /*filter: invert();*/
 }
-
-
 
 .xOutSignup {
   font-size: 30px;

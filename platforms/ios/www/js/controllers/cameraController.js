@@ -62,6 +62,8 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     /////////////////////////////
     //function to launch camera and take photos
     function uploadPhotos(){
+      console.log(window.innerWidth);
+      var screenWidth = window.innerWidth;
       $scope.mediaCache = persistentPhotos();
       $timeout(function(){
         $scope.activePhoto = false;
@@ -72,10 +74,10 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       var dragEnabled = false; //enable preview box drag across the screen
       var toBack = false; //send preview box to the back of the webview
       // console.log(cordova.plugins.camerapreview);
-      if(window.sessionStorage.zoomed){
+      if(screenWidth === 320){
         var rect = {x: 0, y: 45, width: 320, height: 400};
       }
-      else {
+      else if(screenWidth === 375){
         var rect = {x: 0, y: 45, width: 375, height: 468.75};
       }
       // var cameraPrev = cordova.plugins.camerapreview.startCamera(rect, 'back', tapEnabled, dragEnabled, toBack);
