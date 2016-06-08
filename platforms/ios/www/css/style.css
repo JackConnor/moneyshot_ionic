@@ -807,7 +807,6 @@ html {
 .mainPhotoCarTwo {
 }
 
-
 @media only screen and (min-width: 0px){
   .mainPhotoHolder {
     width: 100%;
@@ -876,38 +875,79 @@ html {
   }
 }
 
-.mainPhotoHolderAcct {
-  width: 100%;
-  margin-left: 0%;
-  height: 400px;
-  padding-top: 20px;
-  overflow: hidden;
+/*////////*/
 
+@media only screen and (min-width: 0px){
+  .mainPhotoHolderAcct {
+    width: 100%;
+    margin-left: 0%;
+    height: 400px;
+    padding-top: 20px;
+    overflow: hidden;
+
+  }
+
+  .mainPhotoHolderAcct i{
+    position: absolute;
+    color: white;
+    font-size: 30px;
+    margin-top: 350px;
+    right: 10px;
+  }
+
+  .mainPhotoHolderAcct img{
+    width: 100%;
+    height: 586px;
+    /*position: absolute;*/
+    margin-top: -116px;
+    /*padding-top: 5%;*/
+  }
+
+  .mainPhotoHolderAcct video{
+    width: 100%;
+    height: 586px;
+    /*position: absolute;*/
+    margin-top: -116px;
+    /*padding-top: 5%;*/
+  }
 }
 
-.mainPhotoHolderAcct i{
-  position: absolute;
-  color: white;
-  font-size: 30px;
-  margin-top: 350px;
-  right: 10px;
+@media only screen and (min-width: 321px){
+  .mainPhotoHolderAcct {
+    width: 100%;
+    margin-left: 0%;
+    height: 469px;
+    padding-top: 20px;
+    overflow: hidden;
+
+  }
+
+  .mainPhotoHolderAcct i{
+    position: absolute;
+    color: white;
+    font-size: 40px;
+    margin-top: 405px;
+    right: 15px;
+  }
+
+  .mainPhotoHolderAcct img{
+    width: 100%;
+    height: 667px;
+    /*position: absolute;*/
+    margin-top: -136px;
+    /*padding-top: 5%;*/
+  }
+
+  .mainPhotoHolderAcct video{
+    width: 100%;
+    height: 667px;
+    /*position: absolute;*/
+    margin-top: -136px;
+    /*padding-top: 5%;*/
+  }
 }
 
-.mainPhotoHolderAcct img{
-  width: 320px;
-  height: 586px;
-  /*position: absolute;*/
-  margin-top: -116px;
-  /*padding-top: 5%;*/
-}
-
-.mainPhotoHolderAcct iframe{
-  width: 320px;
-  height: 586px;
-  /*position: absolute;*/
-  margin-top: -116px;
-  /*padding-top: 5%;*/
-}
+/*/////////*/
 
 .mophoSigninLogo {
   position: absolute;
@@ -1361,14 +1401,34 @@ html {
   margin-top: 20px;
 }
 
-.submissionDataHolder {
-  padding-top: 20px;
-  height: 300px;
-  color: white;
-  font-size: 14px;
-  text-align: center;
-  padding: 0px;
+@media only screen and (min-width: 0px){
+  .submissionDataHolder {
+    /*padding-top: 20px;*/
+    height: 300px;
+    color: white;
+    font-size: 14px;
+    text-align: center;
+    padding: 0px;
+  }
 
+  .submissionDataHolder p {
+    margin-top: 10px;
+  }
+}
+
+@media only screen and (min-width: 321px){
+  .submissionDataHolder {
+    /*padding-top: 20px;*/
+    height: 300px;
+    color: white;
+    font-size: 14px;
+    text-align: center;
+    padding: 0px;
+  }
+
+  .submissionDataHolder p {
+    margin-top: 10px;
+  }
 }
 
 .submissionDataHolder span{
@@ -1404,12 +1464,24 @@ html {
 	color: white;
 }
 
-.submissionRepeatContainer {
-  margin-top: 50px;
-  height: 300px;
-  overflow: scroll;
-  background-color: white;
-  border: 2.5px solid black;
+@media only screen and (min-width: 0px){
+  .submissionRepeatContainer {
+    margin-top: 50px;
+    height: 290px;
+    overflow: scroll;
+    background-color: white;
+    border: 2.5px solid black;
+  }
+}
+
+@media only screen and (min-width: 321px){
+  .submissionRepeatContainer {
+    margin-top: 50px;
+    height: 340px;
+    overflow: scroll;
+    background-color: white;
+    border: 2.5px solid black;
+  }
 }
 
 .submissionStatus {
@@ -1420,15 +1492,30 @@ html {
   display: inline-block;
 }
 
-.submissionStatusReport {
-  margin-top: 55px;
-  position: block;
-  width: 100%;
-  height: 70px;
-  background-color: #323232;
-  opacity: 1;
-  font-size: 21px;
-  font-weight: 700;
+@media only screen and (min-width: 0px){
+  .submissionStatusReport {
+    margin-top: 55px;
+    position: block;
+    width: 100%;
+    height: 70px;
+    background-color: #323232;
+    opacity: 1;
+    font-size: 21px;
+    font-weight: 700;
+  }
+}
+
+@media only screen and (min-width: 321px){
+  .submissionStatusReport {
+    margin-top: 105px;
+    position: block;
+    width: 100%;
+    height: 70px;
+    background-color: #323232;
+    opacity: 1;
+    font-size: 21px;
+    font-weight: 700;
+  }
 }
 
 .submissionStatusReportInReview {
@@ -1513,10 +1600,28 @@ html {
     overflow: hidden;
     vertical-align: top;
   }
+
+  .submitCellAcct {
+    height: 63px;
+    width: 63px;
+    padding: 0px;
+    display: inline-block;
+    overflow: hidden;
+    vertical-align: top;
+  }
 }
 
 @media only screen and (min-width: 321px){
   .submitCell {
+    height: 74px;
+    width: 74px;
+    padding: 0px;
+    display: inline-block;
+    overflow: hidden;
+    vertical-align: top;
+  }
+
+  .submitCellAcct {
     height: 74px;
     width: 74px;
     padding: 0px;
@@ -1550,14 +1655,6 @@ html {
   margin: 5% 0 0 5%;
 }
 
-.submitCellAcct {
-  height: 63px;
-  width: 63px;
-  padding: 0px;
-  display: inline-block;
-  overflow: hidden;
-  vertical-align: top;
-}
 .submitCellAcct i {
   position: absolute;
   margin-top: 5px;
