@@ -8,7 +8,30 @@
         <i class='fa fa-chevron-left'></i>
       </div>
       <div class="mainPhotoHolderAcct">
-        <div ng-if="carouselMain.isVideo" class='clickVideo' ng-click="playVid()" on-swipe-right='photoCarouselSwipeRight()' on-swipe-left='photoCarouselSwipeLeft()'></div>
+        <div ng-if="carouselMain.isVideo" class='clickVideo' ng-click="playVid()" on-swipe-right='photoCarouselSwipeRight()' on-swipe-left='photoCarouselSwipeLeft()'>
+          <div class="watermarkCell watermarkSold" ng-if="carouselMain.price > 0">
+            Sold!<br><br>
+            {{carouselMain.price | currency}}
+          </div>
+          <div class="watermarkCell watermarkPending" ng-if="carouselMain.status == 'submitted for sale'">
+            Pending
+          </div>
+          <div class="watermarkCell watermarkRejected" ng-if="carouselMain.status == 'rejected'">
+            No Thanks
+          </div>
+        </div>
+        <div class="watermarkLayer" ng-if="!carouselMain.isVideo" on-swipe-right='photoCarouselSwipeRight()' on-swipe-left='photoCarouselSwipeLeft()'>
+          <div class="watermarkCell watermarkSold" ng-if="carouselMain.price > 0">
+            Sold!<br><br>
+            {{carouselMain.price | currency}}
+          </div>
+          <div class="watermarkCell watermarkPending" ng-if="carouselMain.status == 'submitted for sale'">
+            Pending
+          </div>
+          <div class="watermarkCell watermarkRejected" ng-if="carouselMain.status == 'rejected'">
+            No Thanks
+          </div>
+        </div>
         <i class='fa fa-download' ng-click='downloadPhoto(carouselMain)'></i>
         <img ng-if="!carouselMain.isVideo" ng-src="{{carouselMain.url}}" on-swipe-right='photoCarouselSwipeRight()' on-swipe-left='photoCarouselSwipeLeft()' class='mainPhotoCar'/>
         <video ng-if="carouselMain.isVideo" ng-src="{{carouselMain.url | trustUrl}}"  poster="{{carouselMain.thumbnail}}" webkit-playsinline id='carouselVideo'>
@@ -17,7 +40,7 @@
       <div class="photoCarouselHolder" on-swipe-right='photoCarouselSwipeRight()' on-swipe-left='photoCarouselSwipeLeft()'>
         <div class="photoCarouselInner row">
           <div class="photoCarouselCellAcct" ng-repeat="photo in singleSubmission.photos">
-            <img ng-src="{{photo.thumbnail}}" ng-click='openNewCarouselPhoto(media, $index)'/>
+            <img ng-src="{{photo.thumbnail}}" />
           </div>
         </div>
       </div>
