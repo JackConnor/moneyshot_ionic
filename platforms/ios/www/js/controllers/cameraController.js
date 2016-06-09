@@ -113,7 +113,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         /////setting data for uber temp storage if the app closes
         var name = "mopho"+$scope.photoListLength;
         console.log(name);
-        localforage.setItem('key', 'value', function (err) {
+        localforage.setItem('key', windowPic, function (err) {
           if(err) console.log(err);
           // if err is non-null, we got an error
           localforage.getItem('key', function (err, value) {
