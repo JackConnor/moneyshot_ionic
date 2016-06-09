@@ -24,10 +24,11 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     $scope.activePhoto          = true;
     $scope.carouselSwipeActive  = false;
     $scope.cameraMode           = 'photo';
-    var googId = 'AIzaSyDspcymxHqhUaiLh2YcwV67ZNhlGd4FyxQ';
-    var count = 0;
+    $scope.mediaCacheTemp       = [];
     $scope.cropper              = {};
     $scope.cropper.croppedImage = '';
+    var googId = 'AIzaSyDspcymxHqhUaiLh2YcwV67ZNhlGd4FyxQ';
+    var count = 0;
     var eraseSubmitArr          = [];
 
     /////end global variables///
@@ -136,10 +137,10 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
     $scope.takeCordovaPicture = function(){
       console.log('yyyy');
-      if($scope.activePhoto === false && $scope.mediaCache.length < 25){
+      if($scope.activePhoto === false && $scope.mediaCache.length <= 25){
         $scope.activePhoto = true;
         // console.log(testCnt);
-        $scope.photoListLength++;
+        $scope.photoListLength = $scope.mediaCache.length;
         testCnt++;
 
         cordova.plugins.camerapreview.takePicture({maxWidth: 2000, maxHeight: 2000});
@@ -147,6 +148,9 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
           backgroundColor: "red"
         });
         cordova.plugins.camerapreview.hide();
+      }
+      else if($scope.mediaCache.length > 25 && $scope.cameraMode === 'photo'){
+        alert('Sorry, you can only send up to 25 pictures or photos at a time. Please erase a few to free up room to take more MoPhos. Thank you!')
       }
     }
 
@@ -246,37 +250,48 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     // takePicture();
     $scope.cntPhoto = 0;
     function getPic(){
-      $cordovaCapture.captureVideo({quality : 100})
-      .then(function(result){
-        $scope.photoListLength++;
-        var pathFull = result[0].fullPath;///////this is what we need to add to our cache
-
-        var thumbOpts = {
-          mode: 'file'
-          ,quality: 1
-          ,mode: 'base64'
-          ,resize: {
-            width: '350px'
-            ,height: '350px'
+      if($scope.activePhoto === false && $scope.mediaCache.length <= 25){
+        $cordovaCapture.captureVideo({quality : 100})
+        .then(function(result){
+          $scope.photoListLength = $scope.mediaCache.length;
+          var pathFull = result[0].fullPath;///////this is what we need to add to our cache
+          var thumbOpts = {
+            mode: 'file'
+            ,quality: 1
+            ,mode: 'base64'
+            ,resize: {
+              width: '350px'
+              ,height: '350px'
+            }
           }
-        }
-        var source = result[0].localURL
-        var fPath = source.split(result[0].name)[0] + $scope.cntPhoto++ + 'test.jpg'
-        window.PKVideoThumbnail.createThumbnail ( source, fPath, thumbOpts )
-          .then( function( thumbnail ){
-            $scope.mediaCache.push({
-              type: "video"
-              ,link: pathFull
-              ,thumb: thumbnail
-              ,date: new Date()
+          var source = result[0].localURL
+          var fPath = source.split(result[0].name)[0] + $scope.cntPhoto++ + 'test.jpg'
+          window.PKVideoThumbnail.createThumbnail ( source, fPath, thumbOpts )
+            .then( function( thumbnail ){
+              $scope.mediaCache.push({
+                type: "video"
+                ,link: pathFull
+                ,thumb: thumbnail
+                ,date: new Date()
+              });
+             })
+             .catch( function(err){
+               console.log('Thumbnail Error======================', err)
+             })
             });
-           })
-           .catch( function(err){
-             console.log('Thumbnail Error======================', err)
-           })
-          });
-          var thisEl = $('.outCameraModal')[0];
-          animateClick(thisEl, 'white', 'transparent');
+            var thisEl = $('.outCameraModal')[0];
+            animateClick(thisEl, 'white', 'transparent');
+      }
+      else if($scope.mediaCache.length > 25){
+        console.log($scope.alerted);
+        if(!$scope.alerted){
+          $scope.alerted = true;
+          $timeout(function(){
+            $scope.alerted = false
+          }, 1500);
+          alert('Sorry, you can only send up to 25 pictures or photos at a time. Please erase a few to free up room to take more MoPhos. Thank you!')
+        }
+      }
     }
     $scope.getPic = getPic;
 
@@ -714,47 +729,44 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     function submitModalOpen(){
       if($scope.activePhoto === false){
         cordova.plugins.camerapreview.hide();
+        $scope.submitModalVar = true;
+        returnPlace();
 
         $timeout(function(){
-          $scope.mediaCacheTemp = $scope.mediaCache.slice(0, 5);
-          // console.log($scope.mediaCacheTemp);
-          // var oldCache = $scope.mediaCache.slice(0, 5);
-          // console.log(oldCache);
-          // $scope.mediaCacheTemp.concat(oldCache);
-          console.log($scope.mediaCacheTemp);
-
-
-          $scope.submitModalVar = true;
-          returnPlace();
-        }, 20);
+          for (var i = 0; i < 5; i++) {
+            if($scope.mediaCache[i]){
+              $scope.mediaCacheTemp.push($scope.mediaCache[i])
+            }
+          }
+        }, 400);
         $timeout(function(){
           for (var i = 6; i < 11; i++) {
             if($scope.mediaCache[i]){
               $scope.mediaCacheTemp.push($scope.mediaCache[i])
             }
           }
-        }, 750);
+        }, 800);
         $timeout(function(){
           for (var i = 11; i < 16; i++) {
             if($scope.mediaCache[i]){
               $scope.mediaCacheTemp.push($scope.mediaCache[i])
             }
           }
-        }, 1500);
+        }, 1200);
         $timeout(function(){
           for (var i = 16; i < 21; i++) {
             if($scope.mediaCache[i]){
               $scope.mediaCacheTemp.push($scope.mediaCache[i])
             }
           }
-        }, 2250);
+        }, 1600);
         $timeout(function(){
           for (var i = 21; i < 26; i++) {
             if($scope.mediaCache[i]){
               $scope.mediaCacheTemp.push($scope.mediaCache[i])
             }
           }
-        }, 3000);
+        }, 2000);
       }
     }
 
@@ -762,6 +774,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
     function backToPhotos(){
       $timeout(function(){
+        $scope.mediaCacheTemp = [];
         $scope.submitModalVar = false;
         cordova.plugins.camerapreview.show();
       }, 200);
