@@ -11,7 +11,6 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
   cameraCtrl.$inject = ['$http', '$state', '$scope', 'singlePhoto', 'Upload', '$q', '$cordovaCamera', '$cordovaFile', '$cordovaFileTransfer', 'signup', 'signin', 'newToken', '$cordovaCapture', '$cordovaStatusbar', '$timeout', '$ionicGesture', '$ionicScrollDelegate', '$interval', 'persistentPhotos'];
   function cameraCtrl($http, $state, $scope, singlePhoto, Upload, $q, $cordovaCamera, $cordovaFile, $cordovaFileTransfer, signup, signin, newToken, $cordovaCapture, $cordovaStatusbar, $timeout, $ionicGesture, $ionicScrollDelegate, $interval, persistentPhotos){
-    console.log($cordovaFile);
     $scope.mediaCache = [];
     $scope.photoListLength      = 0;
     $scope.croppedPhoto         = '';
@@ -30,6 +29,8 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     var googId = 'AIzaSyDspcymxHqhUaiLh2YcwV67ZNhlGd4FyxQ';
     var count = 0;
     var eraseSubmitArr          = [];
+    console.log(localforage);
+
 
     /////end global variables///
     ////////////////////////////
@@ -45,6 +46,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
             ionic.Platform.showStatusBar(false);
             // $ionicScrollDelegate.scrollTop(true);
             $ionicScrollDelegate.freezeScroll(true);
+            console.log($cordovaFile.getFreeDiskSpace());
           }, 500);
         });
       }
@@ -66,18 +68,16 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       console.log(window.innerWidth);
       var screenWidth = window.innerWidth;
       $scope.mediaCache = persistentPhotos();
-      var localPhoto = window.localStorage.mopho0;
-      console.log(localPhoto);
-      var parsedPhoto = JSON.parse(localPhoto);
-      console.log(parsedPhoto);
-      if(localPhoto){
-        $scope.mediaCache.push(parsedPhoto);
-      }
+      localforage.getItem('key', function (err, value) {
+        if(err) console.log(err);
+        console.log(value);
+        // if err is non-null, we got an error. otherwise, value is the value
+      });
+      $scope.photoListLength = $scope.mediaCache.length;
       $timeout(function(){
         $scope.activePhoto = false;
+        $scope.cameraLaunched = true;
       }, 750);
-      $scope.photoListLength = $scope.mediaCache.length;
-      $scope.cameraLaunched = true;
       var tapEnabled = false; //enable tap take picture
       var dragEnabled = false; //enable preview box drag across the screen
       var toBack = false; //send preview box to the back of the webview
@@ -109,9 +109,22 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
         $scope.mediaCache.push({type: 'photo', link: 'data:image/png;base64,'+result[0], date: new Date()});
         var windowPic = JSON.stringify({type: 'photo', link: 'data:image/png;base64,'+result[0], date: new Date()});
-        console.log(windowPic);
-        console.log(typeof windowPic);
-        window.localStorage.mopho0 = windowPic
+
+        /////setting data for uber temp storage if the app closes
+        var name = "mopho"+$scope.photoListLength;
+        console.log(name);
+        localforage.setItem('key', 'value', function (err) {
+          if(err) console.log(err);
+          // if err is non-null, we got an error
+          localforage.getItem('key', function (err, value) {
+            if(err) console.log(err);
+            console.log(value);
+            // if err is non-null, we got an error. otherwise, value is the value
+          });
+        });
+        //////end uber temp storage
+
+
         var testIm = new Image();
         testIm.src = 'data:image/png;base64,'+result[0];
         $(testIm).css({
@@ -131,9 +144,10 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     $scope.takeCordovaPicture = function(){
       console.log('yyyy');
       if($scope.activePhoto === false && $scope.mediaCache.length <= 25){
+        console.log('phoyyyyoooooo');
         $scope.activePhoto = true;
         // console.log(testCnt);
-        $scope.photoListLength = $scope.mediaCache.length;
+        $scope.photoListLength++;
         testCnt++;
 
         cordova.plugins.camerapreview.takePicture({maxWidth: 2000, maxHeight: 2000});
@@ -246,7 +260,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       if($scope.activePhoto === false && $scope.mediaCache.length <= 25){
         $cordovaCapture.captureVideo({quality : 100})
         .then(function(result){
-          $scope.photoListLength = $scope.mediaCache.length;
+          $scope.photoListLength++;
           var pathFull = result[0].fullPath;///////this is what we need to add to our cache
           var thumbOpts = {
             mode: 'file'
