@@ -75,7 +75,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
           // console.log(value);
           if(value && value !== null){
             $scope.mediaCache.push(value);
-            $scope.photoListLength = $scope.mediaCache.length;
+            $scope.photoListLength = $scope.mediaCache.length-1;
           }
           // if err is non-null, we got an error. otherwise, value is the value
         });
@@ -495,6 +495,14 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                       $scope.submitModalVar = false;
                       $scope.cameraModal = false;
                       persistentPhotos('empty');
+                      for (var i = 0; i < 25; i++) {
+                        var name = 'mopho'+i;
+                        localforage.removeItem(name, function (err, value) {
+                          if(err) console.log(err);
+                          // console.log(value);
+                          // if err is non-null, we got an error. otherwise, value is the value
+                        });
+                      }
                       $scope.cnt = 0;
                       $state.go('tab.account');
                     }, 1000);
@@ -601,6 +609,14 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                         persistentPhotos("empty");
                         $scope.cnt = 0;
                         $state.go('tab.account');
+                        for (var i = 0; i < 25; i++) {
+                          var name = 'mopho'+i;
+                          localforage.removeItem(name, function (err, value) {
+                            if(err) console.log(err);
+                            // console.log(value);
+                            // if err is non-null, we got an error. otherwise, value is the value
+                          });
+                        }
 
                       }, 100);
                     })
@@ -1059,6 +1075,12 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
             $scope.photoCarouselObject = $scope.mediaCache[i-1];
             $scope.mediaCache.splice(i, 1);
             $scope.mediaCacheTemp.splice(i, 1);
+            var name = 'mopho'+i;
+            localforage.removeItem(name, function (err, value) {
+              if(err) console.log(err);
+              console.log(value);
+              // if err is non-null, we got an error. otherwise, value is the value
+            });
             console.log($scope.mediaCacheTemp);
             $scope.photoListLength--;
             if($scope.mediaCache[0]){
@@ -1069,6 +1091,13 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
             photoCarouselSwipeLeft();
             $scope.mediaCache.splice(i, 1);
             $scope.mediaCacheTemp.splice(i, 1);
+            var name = 'mopho'+i;
+            localforage.removeItem(name, function (err, value) {
+              if(err) console.log(err);
+              console.log(value);
+              // console.log(value);
+              // if err is non-null, we got an error. otherwise, value is the value
+            });
             console.log($scope.mediaCacheTemp);
             // $scope.photoCarouselObject = $scope.mediaCache[i];
             $scope.photoListLength--;
