@@ -67,18 +67,30 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     function uploadPhotos(){
       console.log(window.innerWidth);
       var screenWidth = window.innerWidth;
-      $scope.mediaCache = persistentPhotos();
-      for (var i = 0; i < 25; i++) {
-        var name = 'mopho'+i;
-        localforage.getItem(name, function (err, value) {
-          if(err) console.log(err);
-          // console.log(value);
-          if(value && value !== null){
-            $scope.mediaCache.push(value);
-            $scope.photoListLength = $scope.mediaCache.length-1;
-          }
-          // if err is non-null, we got an error. otherwise, value is the value
-        });
+      var persistentLength = persistentPhotos().length;
+      console.log(persistentLength);
+      if(persistentLength === 0){
+        console.log($scope.mediaCache);
+        console.log('no perisistent photos taken yet');
+        for (var i = 0; i < 25; i++) {
+          var name = 'mopho'+i;
+          localforage.getItem(name, function (err, value) {
+            if(err) console.log(err);
+            // console.log(value);
+            if(value && value !== null){
+              console.log('theres one '+name);
+              $scope.mediaCache.push(value);
+              persistentPhotos(value);
+              $scope.photoListLength++;
+            }
+            // if err is non-null, we got an error. otherwise, value is the value
+          });
+        }
+      }
+      else {
+        console.log('hell yea the were some photos taken in this session');
+        $scope.mediaCache = persistentPhotos();
+        $scope.photoListLength = persistentLength;
       }
       $timeout(function(){
         $scope.activePhoto = false;
@@ -105,6 +117,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       $timeout(function(){
         cordova.plugins.camerapreview.show();
         $(window).unload(function(){
+          cordova.plugins.camerapreview.hide();
           cordova.plugins.camerapreview.stopCamera();
           $ionic.Platform.exitApp();
         });
@@ -113,32 +126,31 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
       cordova.plugins.camerapreview.setOnPictureTakenHandler(function(result){
 
+        console.log($scope.mediaCache);
+
+
         $scope.mediaCache.push({type: 'photo', link: 'data:image/png;base64,'+result[0], date: new Date()});
-        var testIm = new Image();
-        testIm.src = 'data:image/png;base64,'+result[0];
-        $(testIm).css({
-          height: 'auto'
-          ,width: 'auto'
-        });
+        // var testIm = new Image();
+        // testIm.src = 'data:image/png;base64,'+result[0];
+        // $(testIm).css({
+        //   height: 'auto'
+        //   ,width: 'auto'
+        // });
         cordova.plugins.camerapreview.show();
         $scope.activePhoto = false;
         $('.takePhotoButtonInner').animate({
           backgroundColor: "white"
         }, 100);
         var windowPic = {type: 'photo', link: 'data:image/png;base64,'+result[0], date: new Date()};
+        console.log($scope.photoListLength);
+        console.log($scope.mediaCache);
         /////setting data for uber temp storage if the app closes
-        var name = "mopho"+$scope.photoListLength;
+        var name = "mopho"+($scope.photoListLength-1);
         console.log(name);
         localforage.setItem(name, windowPic, function (err) {
           if(err) console.log(err);
-          // if err is non-null, we got an error
-          localforage.getItem('key', function (err, value) {
-            // if err is non-null, we got an error. otherwise, value is the value
-            console.log(value);
-          });
+          console.log('yoooooo');
         });
-
-        $scope.photoListLength++;
         count++
         ////end uber temp storage
       });
@@ -155,6 +167,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
           backgroundColor: "red"
         });
         cordova.plugins.camerapreview.hide();
+        $scope.photoListLength++;
       }
       else if($scope.mediaCache.length > 25 && $scope.cameraMode === 'photo'){
         alert('Sorry, you can only send up to 25 pictures or photos at a time. Please erase a few to free up room to take more MoPhos. Thank you!')
@@ -762,35 +775,35 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
               $scope.mediaCacheTemp.push($scope.mediaCache[i])
             }
           }
-        }, 400);
+        }, 750);
         $timeout(function(){
-          for (var i = 6; i < 11; i++) {
+          for (var i = 5; i < 10; i++) {
             if($scope.mediaCache[i]){
               $scope.mediaCacheTemp.push($scope.mediaCache[i])
             }
           }
-        }, 800);
+        }, 1500);
         $timeout(function(){
-          for (var i = 11; i < 16; i++) {
+          for (var i = 10; i < 15; i++) {
             if($scope.mediaCache[i]){
               $scope.mediaCacheTemp.push($scope.mediaCache[i])
             }
           }
-        }, 1200);
+        }, 2250);
         $timeout(function(){
-          for (var i = 16; i < 21; i++) {
+          for (var i = 15; i < 20; i++) {
             if($scope.mediaCache[i]){
               $scope.mediaCacheTemp.push($scope.mediaCache[i])
             }
           }
-        }, 1600);
+        }, 3000);
         $timeout(function(){
-          for (var i = 21; i < 26; i++) {
+          for (var i = 20; i < 25; i++) {
             if($scope.mediaCache[i]){
               $scope.mediaCacheTemp.push($scope.mediaCache[i])
             }
           }
-        }, 2000);
+        }, 3750);
       }
     }
 
@@ -812,7 +825,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
     function leaveCamera(){
       setTimeout(function(){
-        persistentPhotos($scope.mediaCache);
+        // persistentPhotos($scope.mediaCache);
         cordova.plugins.camerapreview.hide();
         $state.go('tab.account');
       }, 150);
@@ -1066,7 +1079,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     function erasePhoto(){
       console.log($scope.photoCarouselObject);
       console.log($scope.mediaCache);
-      var mediaLength = $scope.mediaCache.length;
+      var mediaLength = $scope.mediaCache.length-1;
       var testLink1 = $scope.photoCarouselObject.link;
       for (var i = 0; i < mediaLength; i++) {
         var testLink2 = $scope.mediaCache[i].link;

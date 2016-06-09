@@ -10,7 +10,7 @@ angular.module("persistentPhotosFactory", [])
       console.log(photosToSave);
       /////photos only come through as a batch from mediaCache
       if(photosToSave && photosToSave !== 'empty'){
-        photoCache = photosToSave;
+        photoCache.push(photosToSave);
         console.log(photoCache);
       }
       else if (photosToSave === 'empty'){
