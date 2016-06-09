@@ -33,6 +33,11 @@ angular.module('signupController', [])
       }, 100);
     });
 
+    $(window).unload(function(){
+      cordova.plugins.camerapreview.stopCamera();
+      $ionic.Platform.exitApp();
+    });
+
     $scope.swipeInterval = $interval(function(){
       introSwipeLeft();
     }, 1750);
@@ -510,6 +515,10 @@ angular.module('signupController', [])
         console.log('signup');
         console.log(pw);
         console.log(repw);
+        if(e.keyCode === 13){
+          console.log('signing in');
+          signupUser();
+        }
         if(pwLength > 5 &&  pw == repw){
           console.log('larger');
           $('.mophoSignin').css({
@@ -527,10 +536,15 @@ angular.module('signupController', [])
 
     function highlightSignin(e){
       console.log(e);
+      console.log(e.keyCode);
       var pw = $('.signinPassword').val();
       var pwLength = pw.length;
       console.log(pwLength);
-      if(pwLength > 5){
+      if(e.keyCode === 13){
+        console.log('signing in');
+        signinUser();
+      }
+      else if(pwLength > 5){
         $('.mophoSignin').css({
           color: '#3375dd'
         });

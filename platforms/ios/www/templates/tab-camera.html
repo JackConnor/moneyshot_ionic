@@ -74,7 +74,7 @@
           <!-- <div class="takeVideoButton"  ng-if='cameraMode==="video"'></div> -->
         </div>
         <div class="col-xs-4 cameraButtonCell">
-          <div class="submitSetDiv" ng-click='animateSubmit(); submitModalOpen(mediaCache)'>
+          <div class="submitSetDiv" ng-click='animateSubmit(); submitModalOpen()'>
             Done
           </div>
         </div>
@@ -121,7 +121,7 @@
           </div> -->
         </div>
         <ion-scroll class="submitRepeat">
-          <div class="submitCell" ng-repeat='media in mediaCache'>
+          <div class="submitCell" ng-repeat='media in mediaCacheTemp'>
             <!-- <div class="circleHolder col-xs-6" ng-click='selectSubmitted($event, $index)'>
               <div class="circleBlack"></div>
               <i class="fa fa-circle-thin" ></i>

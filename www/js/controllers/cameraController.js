@@ -516,7 +516,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
               // }
               // addCrop();
               console.log('about to send to backend');
-              $cordovaFileTransfer.upload('https://moneyshotapi.herokuapp.com/api/newimage', currentPhoto.link, photoOptions)
+              $cordovaFileTransfer.upload('http://192.168.0.6:5555/api/newimage', currentPhoto.link, photoOptions)
               .then(function(callbackImage){
                 console.log('sent to backend');
                 console.log(callbackImage.response);
@@ -711,15 +711,50 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     //   })
     // }, 500)
 
-    function submitModalOpen(set){
+    function submitModalOpen(){
       if($scope.activePhoto === false){
         cordova.plugins.camerapreview.hide();
+
         $timeout(function(){
-          var set = $scope.mediaCache;
+          $scope.mediaCacheTemp = $scope.mediaCache.slice(0, 5);
+          // console.log($scope.mediaCacheTemp);
+          // var oldCache = $scope.mediaCache.slice(0, 5);
+          // console.log(oldCache);
+          // $scope.mediaCacheTemp.concat(oldCache);
+          console.log($scope.mediaCacheTemp);
+
+
           $scope.submitModalVar = true;
-          var mediaLength = set.length;
           returnPlace();
         }, 20);
+        $timeout(function(){
+          for (var i = 6; i < 11; i++) {
+            if($scope.mediaCache[i]){
+              $scope.mediaCacheTemp.push($scope.mediaCache[i])
+            }
+          }
+        }, 750);
+        $timeout(function(){
+          for (var i = 11; i < 16; i++) {
+            if($scope.mediaCache[i]){
+              $scope.mediaCacheTemp.push($scope.mediaCache[i])
+            }
+          }
+        }, 1500);
+        $timeout(function(){
+          for (var i = 16; i < 21; i++) {
+            if($scope.mediaCache[i]){
+              $scope.mediaCacheTemp.push($scope.mediaCache[i])
+            }
+          }
+        }, 2250);
+        $timeout(function(){
+          for (var i = 21; i < 26; i++) {
+            if($scope.mediaCache[i]){
+              $scope.mediaCacheTemp.push($scope.mediaCache[i])
+            }
+          }
+        }, 3000);
       }
     }
 

@@ -6,8 +6,19 @@ initCtrl.$inject = ['$state', '$http', '$timeout', '$cordovaStatusbar'];
 function initCtrl($state, $http, $timeout, $cordovaStatusbar) {
 	var vm = this;
 
+	function getToken(){
+		if(window.localStorage.webToken && window.localStorage.webToken.length > 2){
+			 return window.localStorage.webToken;
+		}
+		else {
+			return false;
+		}
+	}
+	vm.toke = getToken();
+	console.log(vm.toke);
+
 	vm.signin = function() {
-		console.log('CLick')
+		console.log('Click')
 		$state.go( 'signin' )
 	}
 
@@ -17,29 +28,26 @@ function initCtrl($state, $http, $timeout, $cordovaStatusbar) {
 	}
 
 	function checkToken() {
-		if(window.localStorage.webToken){
-			var toke = window.localStorage.webToken;
-		}
-		if(toke && toke.length > 3){
-			vm.camera();
+		if(vm.toke === false){
+			vm.signin();
 		}
 		else {
-			vm.signin();
+			vm.camera();
 		}
 	}
 
 	function initPage(){
-		if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+		if( /Android|webOS|iPhone|iPad|iPod/i.test(navigator.userAgent) ) {
 			document.addEventListener("deviceready", function(){
 				$timeout(function(){
 					checkToken();
-				}, 1000);
+				}, 4000);
 			}, false);
 		}
 		else {
 			$timeout(function(){
 				checkToken();
-			}, 1000);
+			}, 4000);
 		}
 	}
 	initPage();

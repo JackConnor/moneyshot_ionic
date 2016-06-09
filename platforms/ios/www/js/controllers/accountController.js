@@ -44,6 +44,11 @@ angular.module('accountController', ['persistentPhotosFactory'])
     }
     addTopBar();
 
+    $(window).unload(function(){
+      cordova.plugins.camerapreview.stopCamera();
+      $ionic.Platform.exitApp();
+    });
+
 
 
     function setCss(){

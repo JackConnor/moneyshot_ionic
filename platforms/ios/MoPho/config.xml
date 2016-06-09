@@ -109,7 +109,7 @@
     <preference name="android-minSdkVersion" value="16" />
     <preference name="BackupWebStorage" value="none" />
     <preference name="SplashScreen" value="screen" />
-    <preference name="SplashScreenDelay" value="3000" />
+    <preference name="SplashScreenDelay" value="0" />
     <preference name="AllowInlineMediaPlayback" value="true" />
     <gap:plugin name="cordova-plugin-camerapreview" source="plugins.cordova.io" version="0.9.0" />
     <icon src="resources/ios/icon/icon-small@3x.png" />
