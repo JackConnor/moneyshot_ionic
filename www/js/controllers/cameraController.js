@@ -66,6 +66,13 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       console.log(window.innerWidth);
       var screenWidth = window.innerWidth;
       $scope.mediaCache = persistentPhotos();
+      var localPhoto = window.localStorage.mopho0;
+      console.log(localPhoto);
+      var parsedPhoto = JSON.parse(localPhoto);
+      console.log(parsedPhoto);
+      if(localPhoto){
+        $scope.mediaCache.push(parsedPhoto);
+      }
       $timeout(function(){
         $scope.activePhoto = false;
       }, 750);
@@ -99,26 +106,12 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
 
       cordova.plugins.camerapreview.setOnPictureTakenHandler(function(result){
-        // var file = new File(['data:image/png;base64,'+result[0]], './img/assets/blob/imageFileName.png');
-        // console.log(file);
-        // console.log(result[0]);
-        // var atobber = window.atob(result[0]);
-        // // console.log(atobber);
-        // // console.log('yo');
-        // var byteNumbers = [];
-        // var atobLength = atobber.length;
-        // for (var i = 0; i < atobLength; i++) {
-        //     byteNumbers[i] = atobber.charCodeAt(i);
-        // }
-        // console.log(byteNumbers);
-        // var byteArray = new Uint8Array(byteNumbers);
-        // console.log(byteArray);
-        // var blob = new Blob([byteArray], {type: 'image/png'});
-        // console.log(blob);
-        // var imgUrl = URL.createObjectURL(blob);
-        // console.log(imgU);
 
         $scope.mediaCache.push({type: 'photo', link: 'data:image/png;base64,'+result[0], date: new Date()});
+        var windowPic = JSON.stringify({type: 'photo', link: 'data:image/png;base64,'+result[0], date: new Date()});
+        console.log(windowPic);
+        console.log(typeof windowPic);
+        window.localStorage.mopho0 = windowPic
         var testIm = new Image();
         testIm.src = 'data:image/png;base64,'+result[0];
         $(testIm).css({
@@ -730,6 +723,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       if($scope.activePhoto === false){
         cordova.plugins.camerapreview.hide();
         $scope.submitModalVar = true;
+        console.log($scope.mediaCache);
         returnPlace();
 
         $timeout(function(){
