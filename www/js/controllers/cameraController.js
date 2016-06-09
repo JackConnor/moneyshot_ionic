@@ -68,12 +68,18 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       console.log(window.innerWidth);
       var screenWidth = window.innerWidth;
       $scope.mediaCache = persistentPhotos();
-      localforage.getItem('key', function (err, value) {
-        if(err) console.log(err);
-        console.log(value);
-        // if err is non-null, we got an error. otherwise, value is the value
-      });
-      $scope.photoListLength = $scope.mediaCache.length;
+      for (var i = 0; i < 25; i++) {
+        var name = 'mopho'+i;
+        localforage.getItem(name, function (err, value) {
+          if(err) console.log(err);
+          // console.log(value);
+          if(value && value !== null){
+            $scope.mediaCache.push(value);
+            $scope.photoListLength = $scope.mediaCache.length;
+          }
+          // if err is non-null, we got an error. otherwise, value is the value
+        });
+      }
       $timeout(function(){
         $scope.activePhoto = false;
         $scope.cameraLaunched = true;
@@ -108,23 +114,6 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       cordova.plugins.camerapreview.setOnPictureTakenHandler(function(result){
 
         $scope.mediaCache.push({type: 'photo', link: 'data:image/png;base64,'+result[0], date: new Date()});
-        var windowPic = JSON.stringify({type: 'photo', link: 'data:image/png;base64,'+result[0], date: new Date()});
-
-        /////setting data for uber temp storage if the app closes
-        var name = "mopho"+$scope.photoListLength;
-        console.log(name);
-        localforage.setItem('key', windowPic, function (err) {
-          if(err) console.log(err);
-          // if err is non-null, we got an error
-          localforage.getItem('key', function (err, value) {
-            if(err) console.log(err);
-            console.log(value);
-            // if err is non-null, we got an error. otherwise, value is the value
-          });
-        });
-        //////end uber temp storage
-
-
         var testIm = new Image();
         testIm.src = 'data:image/png;base64,'+result[0];
         $(testIm).css({
@@ -133,11 +122,25 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         });
         cordova.plugins.camerapreview.show();
         $scope.activePhoto = false;
-        count++
-        testCnt--
         $('.takePhotoButtonInner').animate({
           backgroundColor: "white"
         }, 100);
+        var windowPic = {type: 'photo', link: 'data:image/png;base64,'+result[0], date: new Date()};
+        /////setting data for uber temp storage if the app closes
+        var name = "mopho"+$scope.photoListLength;
+        console.log(name);
+        localforage.setItem(name, windowPic, function (err) {
+          if(err) console.log(err);
+          // if err is non-null, we got an error
+          localforage.getItem('key', function (err, value) {
+            // if err is non-null, we got an error. otherwise, value is the value
+            console.log(value);
+          });
+        });
+
+        $scope.photoListLength++;
+        count++
+        ////end uber temp storage
       });
     }
 
@@ -147,9 +150,6 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         console.log('phoyyyyoooooo');
         $scope.activePhoto = true;
         // console.log(testCnt);
-        $scope.photoListLength++;
-        testCnt++;
-
         cordova.plugins.camerapreview.takePicture({maxWidth: 2000, maxHeight: 2000});
         $('.takePhotoButtonInner').css({
           backgroundColor: "red"
