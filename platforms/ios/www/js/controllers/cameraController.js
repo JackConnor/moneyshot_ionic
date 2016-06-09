@@ -531,7 +531,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
               // }
               // addCrop();
               console.log('about to send to backend');
-              $cordovaFileTransfer.upload('http://192.168.0.6:5555/api/newimage', currentPhoto.link, photoOptions)
+              $cordovaFileTransfer.upload('https://moneyshotapi.herokuapp.com/api/newimage', currentPhoto.link, photoOptions)
               .then(function(callbackImage){
                 console.log('sent to backend');
                 console.log(callbackImage.response);
@@ -1050,6 +1050,8 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
           if(i > 0){
             $scope.photoCarouselObject = $scope.mediaCache[i-1];
             $scope.mediaCache.splice(i, 1);
+            $scope.mediaCacheTemp.splice(i, 1);
+            console.log($scope.mediaCacheTemp);
             $scope.photoListLength--;
             if($scope.mediaCache[0]){
               photoCarouselSwipeRight();
@@ -1058,6 +1060,8 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
           else if(i === 0){
             photoCarouselSwipeLeft();
             $scope.mediaCache.splice(i, 1);
+            $scope.mediaCacheTemp.splice(i, 1);
+            console.log($scope.mediaCacheTemp);
             // $scope.photoCarouselObject = $scope.mediaCache[i];
             $scope.photoListLength--;
 
