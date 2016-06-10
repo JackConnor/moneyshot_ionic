@@ -1116,7 +1116,7 @@ html {
 }
 
 .photoCarouselHolder {
-  width: 70px;
+  width: 100%;
   height: 70px;
   margin-top: 10px;
   /*border: 2px solid white;   */

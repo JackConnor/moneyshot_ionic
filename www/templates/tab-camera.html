@@ -12,15 +12,15 @@
         <img ng-if='photoCarouselObject.type==="photo"' ng-src="{{photoCarouselObject.link}}" on-swipe-right='photoCarouselSwipeRight()' on-swipe-left='photoCarouselSwipeLeft()' class='mainPhotoCar'/>
         <video ng-if='photoCarouselObject.type==="video"' poster={{photoCarouselObject.thumb}} ng-src="{{photoCarouselObject.link | trustUrl}}" class='mainPhotoCar' webkit-playsinline id="carouselVideoCamera"></video>
       </div>
-      <div class="photoCarouselHolder" on-swipe-right='photoCarouselSwipeRight()' on-swipe-left='photoCarouselSwipeLeft()'>
+      <ion-scroll direction='x' class="photoCarouselHolder" delegate-handle='carouselScroll'>
         <div class="photoCarouselInner row">
           <div class="photoCarouselCell" ng-repeat="media in mediaCache">
-            <img ng-if='media.type==="photo"' ng-src="{{media.link}}" ng-click='openNewCarouselPhoto(media, $index)'/>
-            <img ng-if='media.type==="video"' ng-src="{{media.thumb | trustUrl}}" ng-click='openNewCarouselPhoto(media, $index)'/>
+            <img ng-if='media.type==="photo"' ng-src="{{media.link}}" ng-click='clickCarouselPhoto(media, $index)'/>
+            <img ng-if='media.type==="video"' ng-src="{{media.thumb | trustUrl}}" ng-click='clickCarouselPhoto(media, $index)'/>
             <!-- <video ng-if='media.type==="video"' ng-src="{{media.link}}" ng-click='openNewCarouselPhoto(media, $index)' poster="{{media.thumb}}"/> -->
           </div>
         </div>
-      </div>
+      </ion-scroll>
     </div>
 
 

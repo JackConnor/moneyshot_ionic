@@ -997,6 +997,30 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     }
     $scope.openNewCarouselPhoto = openNewCarouselPhoto;
 
+    function clickCarouselPhoto(mediaData, index){
+      console.log('click yo');
+      $scope.photoCarouselObject = mediaData;
+      var mediaLength = $('.photoCarouselCell').length;
+      $('.photoCarouselInner').animate({
+        marginLeft: (index*-70)+125+"px"
+      }, 300);
+      $('.photoCarouselInner').scrollLeft(0);
+      $ionicScrollDelegate.$getByHandle('carouselScroll').scrollTo(0, 0, true);
+
+      $('.photoCarouselCell').css({
+        borderWidth: '0px'
+        ,marginRight: '0px'
+        ,marginLeft: '0px'
+      })
+      // $timeout(function(){
+      $($('.photoCarouselCell')[index]).animate({
+        borderWidth: '2px'
+        ,marginRight: '10px'
+        ,marginLeft: '10px'
+      }, 300);
+    }
+    $scope.clickCarouselPhoto = clickCarouselPhoto;
+
     function swipeLeftAnimation(centerP){
       console.log('swiped');
       console.log($scope.mediaCache[centerP.index+1]);
