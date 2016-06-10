@@ -14,7 +14,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     $scope.mediaCache = [];
     $scope.photoListLength      = 0;
     $scope.croppedPhoto         = '';
-    $scope.submitModalVar       = true;
+    $scope.submitModalVar       = false;
     $scope.photoCarouselBool    = false;
     $scope.cameraModal          = true;
     $scope.cameraLaunched       = false;
@@ -899,6 +899,25 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       }
     }
     $scope.selectPhotos = selectPhotos;
+
+    function batchErase(){
+      var allPhotos = $('.submitCellImageHolder');
+      console.log(allPhotos);
+      var allLength = allPhotos.length;
+      for (var i = 0; i < allLength; i++) {
+        console.log(allPhotos[i]);
+        var child = $(allPhotos[i]).find('img');
+        console.log(child);
+        if(child.hasClass('selectedP')){
+          $scope.mediaCacheTemp.splice(i, 1);
+          localforage.removeItem("mopho"+i, function(err, value){
+            console.log(value);
+          })
+        }
+      }
+      selectPhotos();
+    }
+    $scope.batchErase = batchErase;
 
     function photoCarouselBack(){
       $timeout(function(){
