@@ -532,7 +532,8 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
               //   }
               // }
               // addCrop();
-              $cordovaFileTransfer.upload('https://moneyshotapi.herokuapp.com/api/newimage', currentPhoto.link, photoOptions)
+              console.log(currentPhoto);
+              $cordovaFileTransfer.upload('http://192.168.0.14:5555/api/newimage', currentPhoto.link, photoOptions)
               .then(function(callbackImage){
                 var progressElement = $('.submitProgressBar');
                 if(zeroProgress <= 100){
@@ -982,6 +983,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                   console.log($scope.mediaCacheTemp);
                   localforage.setItem('storedPhotos', stored)
                   .then(function(newArray){
+                    selectPhotos();
                   })
                   .catch(function(err){
                     console.log(err);
