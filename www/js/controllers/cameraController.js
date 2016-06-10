@@ -504,7 +504,6 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                     width: zeroProgress+"%"
                   }, 200);
                 }
-                console.log(currentPhoto.info);
                 var parsedPhoto = JSON.parse(callbackImage.response);
                 $http({
                   method: "POST"
@@ -523,8 +522,6 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                       ,data: submissionData
                     })
                     .then(function(newSubmission){
-                      // console.log(newSubmission);
-                      console.log(submissionData);
                       setTimeout(function(){
                         $scope.submitModalVar = false;
                         $scope.cameraModal = false;
@@ -675,7 +672,6 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       if($scope.activePhoto === false){
         cordova.plugins.camerapreview.hide();
         $scope.submitModalVar = true;
-        console.log($scope.mediaCache);
         returnPlace();
 
         $timeout(function(){
@@ -744,7 +740,6 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     ///////function to animate button presses for any inserted element
     function animateClick(jsEl, color1, color2){
       var jqEl = $(jsEl);
-      console.log(jqEl);
       jqEl.css({
         backgroundColor: color1
       })
@@ -754,8 +749,6 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     }
 
     function switchCamera(mode){
-      console.log('yooooo');
-      console.log(mode);
       $scope.cameraMode = mode;
       $('.opPhoto, .opVideo, .opBurst').css({
         fontSize: '16px'
