@@ -902,6 +902,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
           ,dataType: 'jsonp',
         })
         .then(function(posData){
+          console.log(posData);
           $scope.returnPlace = posData.data.results[0].vicinity;
         })
 

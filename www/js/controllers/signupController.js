@@ -196,6 +196,11 @@ angular.module('signupController', [])
             else {
               newToken(newUser.data._id)
               .then(function(ourToken){
+                var confirmSave = confirm('Would you like us to save your email and password?');
+                if(confirmSave){
+                  window.localStorage.setItem('mophoEmail', email);
+                  window.localStorage.setItem('mophoPw', password);
+                }
                 var token = ourToken.data;
                 $scope.signupModalVar = false;
                 $scope.signinModalVar = false;
@@ -319,6 +324,15 @@ angular.module('signupController', [])
         $scope.introModal       = false;
         $scope.signinModalVar   = true;
         $cordovaStatusbar.show();
+        $timeout(function(){
+          console.log('signingin');
+          if(window.localStorage.mophoEmail){
+            $('.signinEmail').val(window.localStorage.mophoEmail);
+          }
+          if(window.localStorage.mophoPw){
+            $('.signinPassword').val(window.localStorage.mophoEmail);
+          }
+        }, 500);
       }, 200);
     }
     $scope.toSignin = toSignin;
