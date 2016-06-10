@@ -158,6 +158,12 @@ angular.module('signupController', [])
     // function to signup users who are new to the site
     function signupUser(){
       var validPW = checkPassword();
+      $('.mophoSignin').css({
+        opacity: .25
+      });
+      $('.mophoSignin').animate({
+        opacity: 1
+      }, 250);
       if(validPW){
         var email = $('.signupEmail').val();
         var password = $('.signupPassword').val();
@@ -166,14 +172,14 @@ angular.module('signupController', [])
           signup(email, password)
           .then(function(newUser){
             console.log(newUser);
-            if(newUser.data == 'email already in use'){
+            if(newUser.data === 'email already in use'){
               alert('that email is already in the system, please try another one or login using your password');
               $('.signupEmail').val('');
               $('.signupPassword').val('');
               $('.signupConfirmPassword').val('');
               return;
             }
-            else if(newUser.data == 'please send a password'){
+            else if(newUser.data === 'please send a password'){
               alert('you forgot your password');
               return;
             }
@@ -231,6 +237,12 @@ angular.module('signupController', [])
     function signinUser(){
       var email = $('.signinEmail').val();
       var password = $('.signinPassword').val();
+      $('.mophoSignin').css({
+        opacity: .25
+      });
+      $('.mophoSignin').animate({
+        opacity: 1
+      }, 250);
       if(email.length < 1){
         alert('Please include your email');
       }
