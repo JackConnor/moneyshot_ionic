@@ -75,27 +75,27 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     //function to launch camera and take photos
     function uploadPhotos(){
       var screenWidth = window.innerWidth;
-      var persistentLength = persistentPhotos().length;
-      if(persistentLength === 0){
-        for (var i = 0; i < 25; i++) {
-          var name = 'mopho'+i;
-          localforage.getItem(name, function (err, value) {
-            if(err) console.log(err);
-            // console.log(value);
-            if(value && value !== null){
-              $scope.mediaCache.push(value);
-              persistentPhotos(value, false);
-              $scope.photoListLength++;
-            }
-            // if err is non-null, we got an error. otherwise, value is the value
-          });
-        }
+      // var persistentLength = persistentPhotos().length;
+      // if(persistentLength === 0){
+      for (var i = 0; i < 25; i++) {
+        var name = 'mopho'+i;
+        localforage.getItem(name, function (err, value) {
+          if(err) console.log(err);
+          // console.log(value);
+          if(value && value !== null){
+            $scope.mediaCache.push(value);
+            persistentPhotos(value, false);
+            $scope.photoListLength++;
+          }
+          // if err is non-null, we got an error. otherwise, value is the value
+        });
       }
-      else {
-        console.log('hell yea the were some photos taken in this session');
-        $scope.mediaCache = persistentPhotos();
-        $scope.photoListLength = persistentLength;
-      }
+      // }
+      // else {
+      //   console.log('hell yea the were some photos taken in this session');
+      //   $scope.mediaCache = persistentPhotos();
+      //   $scope.photoListLength = persistentLength;
+      // }
       $timeout(function(){
         $scope.activePhoto = false;
         $scope.cameraLaunched = true;
@@ -138,7 +138,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         var windowPic = {type: 'photo', link: 'data:image/png;base64,'+result[0], date: new Date()};
         /////setting data for uber temp storage if the app closes
         var name = "mopho"+($scope.photoListLength-1);
-        persistentPhotos({type: 'photo', link: 'data:image/png;base64,'+result[0], date: new Date()}, false);
+        // persistentPhotos({type: 'photo', link: 'data:image/png;base64,'+result[0], date: new Date()}, false);
         localforage.setItem(name, windowPic, function (err) {
           if(err) console.log(err);
         });
@@ -449,7 +449,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                     $timeout(function(){
                       $scope.submitModalVar = false;
                       $scope.cameraModal = false;
-                      persistentPhotos('empty');
+                      // persistentPhotos('empty');
                       for (var i = 0; i < 25; i++) {
                         var name = 'mopho'+i;
                         localforage.removeItem(name, function (err, value) {
@@ -525,7 +525,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                       setTimeout(function(){
                         $scope.submitModalVar = false;
                         $scope.cameraModal = false;
-                        persistentPhotos("empty");
+                        // persistentPhotos("empty");
                         $scope.cnt = 0;
                         $state.go('tab.account');
                         for (var i = 0; i < 25; i++) {

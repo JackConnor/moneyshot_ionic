@@ -92,6 +92,7 @@ angular.module('accountController', ['persistentPhotosFactory'])
       .then(function(decToken){
         userPhotos(decToken.data.userId)
         .then(function(userInfo){
+          console.log(userInfo);
           if(userInfo.data === null){
             var userPhotos = [];
             $scope.userInfo = [];
