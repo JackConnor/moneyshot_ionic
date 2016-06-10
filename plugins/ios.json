@@ -39,6 +39,9 @@
         },
         "com.drifty.cordova.cameraroll": {
             "PACKAGE_NAME": "com.ionicframework.moneyshotionicapp178506"
+        },
+        "cordova-plugin-flashlight": {
+            "PACKAGE_NAME": "com.ionicframework.moneyshotionicapp178506"
         }
     },
     "dependent_plugins": {

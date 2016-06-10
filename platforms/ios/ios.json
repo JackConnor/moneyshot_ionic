@@ -59,6 +59,10 @@
                         {
                             "xml": "<feature name=\"CameraRoll\"><param name=\"ios-package\" value=\"IonicCameraRoll\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"Flashlight\"><param name=\"ios-package\" value=\"Flashlight\" /></feature>",
+                            "count": 1
                         }
                     ],
                     "/widget/plugins": [
@@ -116,6 +120,9 @@
             "PACKAGE_NAME": "com.ionicframework.moneyshotionicapp178506"
         },
         "com.drifty.cordova.cameraroll": {
+            "PACKAGE_NAME": "com.ionicframework.moneyshotionicapp178506"
+        },
+        "cordova-plugin-flashlight": {
             "PACKAGE_NAME": "com.ionicframework.moneyshotionicapp178506"
         }
     },
@@ -453,6 +460,14 @@
             "pluginId": "com.drifty.cordova.cameraroll",
             "clobbers": [
                 "CameraRoll"
+            ]
+        },
+        {
+            "file": "plugins/cordova-plugin-flashlight/www/Flashlight.js",
+            "id": "cordova-plugin-flashlight.Flashlight",
+            "pluginId": "cordova-plugin-flashlight",
+            "clobbers": [
+                "window.plugins.flashlight"
             ]
         }
     ]

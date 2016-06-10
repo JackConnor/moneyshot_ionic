@@ -333,6 +333,14 @@ module.exports = [
         "clobbers": [
             "CameraRoll"
         ]
+    },
+    {
+        "file": "plugins/cordova-plugin-flashlight/www/Flashlight.js",
+        "id": "cordova-plugin-flashlight.Flashlight",
+        "pluginId": "cordova-plugin-flashlight",
+        "clobbers": [
+            "window.plugins.flashlight"
+        ]
     }
 ];
 module.exports.metadata = 

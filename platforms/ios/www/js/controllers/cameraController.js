@@ -30,7 +30,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     var googId = 'AIzaSyDspcymxHqhUaiLh2YcwV67ZNhlGd4FyxQ';
     var count = 0;
     var eraseSubmitArr          = [];
-    console.log(localforage);
+    console.log(window.plugins.flashlight);
 
 
     /////end global variables///
@@ -164,7 +164,9 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         console.log('phoyyyyoooooo');
         $scope.activePhoto = true;
         // console.log(testCnt);
+        window.plugins.flashlight.switchOff();
         cordova.plugins.camerapreview.takePicture({maxWidth: 2000, maxHeight: 2000});
+        // window.plugins.flashlight.switchOff();
         $('.takePhotoButtonInner').css({
           backgroundColor: "red"
         });
