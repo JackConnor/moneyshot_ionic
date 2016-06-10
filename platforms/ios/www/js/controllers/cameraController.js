@@ -22,6 +22,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     $scope.submitPhotoModal     = false;
     $scope.activePhoto          = true;
     $scope.carouselSwipeActive  = false;
+    $scope.eraseStopper         = false;
     $scope.cameraMode           = 'photo';
     $scope.mediaCacheTemp       = [];
     $scope.cropper              = {};
@@ -80,7 +81,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
             if(value && value !== null){
               console.log('theres one '+name);
               $scope.mediaCache.push(value);
-              persistentPhotos(value);
+              persistentPhotos(value, false);
               $scope.photoListLength++;
             }
             // if err is non-null, we got an error. otherwise, value is the value
@@ -1077,57 +1078,63 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     }
 
     function erasePhoto(){
-      console.log($scope.photoCarouselObject);
-      console.log($scope.mediaCache);
-      var mediaLength = $scope.mediaCache.length-1;
-      var testLink1 = $scope.photoCarouselObject.link;
-      for (var i = 0; i < mediaLength; i++) {
-        var testLink2 = $scope.mediaCache[i].link;
-        if(testLink1 === testLink2){
-          if(i > 0){
-            $scope.photoCarouselObject = $scope.mediaCache[i-1];
-            $scope.mediaCache.splice(i, 1);
-            $scope.mediaCacheTemp.splice(i, 1);
-            var name = 'mopho'+i;
-            localforage.removeItem(name, function (err, value) {
-              if(err) console.log(err);
-              console.log(value);
-              // if err is non-null, we got an error. otherwise, value is the value
-            });
-            console.log($scope.mediaCacheTemp);
-            $scope.photoListLength--;
-            if($scope.mediaCache[0]){
-              photoCarouselSwipeRight();
-            }
-          }
-          else if(i === 0){
-            photoCarouselSwipeLeft();
-            $scope.mediaCache.splice(i, 1);
-            $scope.mediaCacheTemp.splice(i, 1);
-            var name = 'mopho'+i;
-            localforage.removeItem(name, function (err, value) {
-              if(err) console.log(err);
-              console.log(value);
-              // console.log(value);
-              // if err is non-null, we got an error. otherwise, value is the value
-            });
-            console.log($scope.mediaCacheTemp);
-            // $scope.photoCarouselObject = $scope.mediaCache[i];
-            $scope.photoListLength--;
-
-            // if($scope.mediaCache[0]){
-            //   photoCarouselSwipeLeft();
-            // }
-          }
-          else {
-            $scope.photoCarouselObject = '';
-            $timeout(function(){
-              $scope.photoCarouselBool = false;
-            }, 100);
-          }
-        }
-      }
-      console.log($scope.mediaCache);
+      alert('Erasing photos coming soon!');
+      // console.log($scope.photoCarouselObject);
+      // console.log($scope.mediaCache);
+      // var mediaLength = $scope.mediaCache.length;
+      // var testLink1 = $scope.photoCarouselObject.link;
+      // for (var i = 0; i < mediaLength; i++) {
+      //   var testLink2 = $scope.mediaCache[i].link;
+      //   if(testLink1 === testLink2 && $scope.eraseStopper === false){
+      //     $scope.eraseStopper = true;
+      //     if(i > 0){
+      //       $scope.photoCarouselObject = $scope.mediaCache[i-1];
+      //       $scope.mediaCache.splice(i, 1);
+      //       $scope.mediaCacheTemp.splice(i, 1);
+      //       persistentPhotos(i, true);
+      //       var name = 'mopho'+i;
+      //       localforage.removeItem(name, function (err, value) {
+      //         if(err) console.log(err);
+      //         console.log(value);
+      //         $scope.eraseStopper = false;
+      //         // if err is non-null, we got an error. otherwise, value is the value
+      //       });
+      //       console.log($scope.mediaCacheTemp);
+      //       $scope.photoListLength--;
+      //       if($scope.mediaCache[0]){
+      //         photoCarouselSwipeRight();
+      //       }
+      //     }
+      //     else if(i === 0){
+      //       photoCarouselSwipeLeft();
+      //       $scope.mediaCache.splice(i, 1);
+      //       $scope.mediaCacheTemp.splice(i, 1);
+      //       persistentPhotos(i, true);
+      //       var name = 'mopho'+i;
+      //       localforage.removeItem(name, function (err, value) {
+      //         if(err) console.log(err);
+      //         console.log(value);
+      //         $scope.eraseStopper = false;
+      //         // console.log(value);
+      //         // if err is non-null, we got an error. otherwise, value is the value
+      //       });
+      //       console.log($scope.mediaCacheTemp);
+      //       // $scope.photoCarouselObject = $scope.mediaCache[i];
+      //       $scope.photoListLength--;
+      //
+      //       // if($scope.mediaCache[0]){
+      //       //   photoCarouselSwipeLeft();
+      //       // }
+      //     }
+      //     else {
+      //       $scope.photoCarouselObject = '';
+      //       $timeout(function(){
+      //         $scope.photoCarouselBool = false;
+      //       }, 100);
+      //     }
+      //   }
+      // }
+      // console.log($scope.mediaCache);
     }
     $scope.erasePhoto = erasePhoto;
 
