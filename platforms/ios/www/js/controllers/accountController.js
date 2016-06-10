@@ -25,6 +25,17 @@ angular.module('accountController', ['persistentPhotosFactory'])
     $scope.scrollPosition        = 0;
     $scope.backgroundMultiple    = [];
 
+    function findZoomed(){
+      if(window.innerWidth === 320){
+        return 'zoomed';
+      }
+      else if(window.innerWidth === 375){
+        return 'standard';
+      }
+    }
+    var zooming = findZoomed();
+    console.log(zooming);
+
     // function to add tabs back if coming from camera (where tabs are removed)
     function addTabs(){
       $('ion-tabs').removeClass('tabs-item-hide');
@@ -584,7 +595,12 @@ angular.module('accountController', ['persistentPhotosFactory'])
         }, 50);
       }, 170);
       $timeout(function(){
-        var sLeft = (index*70)-105;
+        if(zooming === 'zoomed'){
+          var sLeft = (index*70)-105;
+        }
+        else if(zooming === 'standard'){
+          var sLeft = (index*70)-135;
+        }
         console.log(sLeft);
         $ionicScrollDelegate.$getByHandle('carouselScroll').scrollTo(sLeft, 0, true);
       }, 300);
@@ -624,10 +640,13 @@ angular.module('accountController', ['persistentPhotosFactory'])
       $scope.carouselMain = mediaData;
       console.log(mediaData);
       var mediaLength = $('.photoCarouselCellAcct').length;
-      // $('.photoCarouselInner').animate({
-      //   marginLeft: index*-70+125+"px"
-      // }, 300);
-      $ionicScrollDelegate.$getByHandle('carouselScroll').scrollTo((index*70)-105, 0, true);
+      if(zooming === 'zoomed'){
+        var dist = (index*70)-105;
+      }
+      else if(zooming === 'standard'){
+        var dist = (index*70)-135;
+      }
+      $ionicScrollDelegate.$getByHandle('carouselScroll').scrollTo(dist, 0, true);
       if(direction === 'right'){
         $($('.photoCarouselCellAcct')[index+1]).animate({
           borderWidth: '0px'

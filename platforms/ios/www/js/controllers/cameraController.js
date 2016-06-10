@@ -32,7 +32,16 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     var googId = 'AIzaSyDspcymxHqhUaiLh2YcwV67ZNhlGd4FyxQ';
     var count = 0;
     var eraseSubmitArr          = [];
-    console.log(window.plugins.flashlight);
+    function findZoomed(){
+      if(window.innerWidth === 320){
+        return 'zoomed';
+      }
+      else if(window.innerWidth === 375){
+        return 'standard';
+      }
+    }
+    var zooming = findZoomed();
+    console.log(zooming);
 
 
     /////end global variables///
@@ -952,10 +961,12 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         }, 50);
       }, 170);
       $timeout(function(){
-        // $('.photoCarouselInner').animate({
-        //   marginLeft: index*-70+125+"px"
-        // }, 200);
-        var sLeft = (index*70)-105;
+        if(zooming === 'zoomed'){
+          var sLeft = (index*70)-105;
+        }
+        else if(zooming === 'standard'){
+          var sLeft = (index*70)-135;
+        }
         console.log(sLeft);
         $ionicScrollDelegate.$getByHandle('carouselScroll').scrollTo(sLeft, 0, true);
       }, 300);
@@ -973,7 +984,13 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     function openNewCarouselPhoto(mediaData, index, direction){
       $scope.photoCarouselObject = mediaData;
       var mediaLength = $('.photoCarouselCell').length;
-      $ionicScrollDelegate.$getByHandle('carouselScroll').scrollTo((index*70)-105, 0, true);
+      if(zooming === 'zoomed'){
+        var dist = (index*70)-105;
+      }
+      else if(zooming === 'standard'){
+        var dist = (index*70)-135;
+      }
+      $ionicScrollDelegate.$getByHandle('carouselScroll').scrollTo(dist, 0, true);
       if(direction === 'right'){
         $($('.photoCarouselCell')[index+1]).animate({
           borderWidth: '0px'
