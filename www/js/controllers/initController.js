@@ -38,11 +38,9 @@ function initCtrl($state, $http, $timeout, $cordovaStatusbar) {
 
 	function initPage(){
 		if( /Android|webOS|iPhone|iPad|iPod/i.test(navigator.userAgent) ) {
-			document.addEventListener("deviceready", function(){
-				$timeout(function(){
-					checkToken();
-				}, 4000);
-			}, false);
+			$timeout(function(){
+				checkToken();
+			}, 4000);
 		}
 		else {
 			$timeout(function(){
@@ -50,5 +48,7 @@ function initCtrl($state, $http, $timeout, $cordovaStatusbar) {
 			}, 4000);
 		}
 	}
-	initPage();
+	document.addEventListener("deviceready", function(){
+		initPage();
+	})
 }

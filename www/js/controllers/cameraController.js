@@ -11,6 +11,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
   cameraCtrl.$inject = ['$http', '$state', '$scope', 'singlePhoto', 'Upload', '$q', '$cordovaCamera', '$cordovaFile', '$cordovaFileTransfer', 'signup', 'signin', 'newToken', '$cordovaCapture', '$cordovaStatusbar', '$timeout', '$ionicGesture', '$ionicScrollDelegate', '$interval', 'persistentPhotos'];
   function cameraCtrl($http, $state, $scope, singlePhoto, Upload, $q, $cordovaCamera, $cordovaFile, $cordovaFileTransfer, signup, signin, newToken, $cordovaCapture, $cordovaStatusbar, $timeout, $ionicGesture, $ionicScrollDelegate, $interval, persistentPhotos){
+
     $scope.mediaCache = [];
     $scope.photoListLength      = 0;
     $scope.croppedPhoto         = '';
@@ -44,6 +45,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     var zooming = findZoomed();
 
 
+
     /////end global variables///
     ////////////////////////////
 
@@ -72,25 +74,57 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     }
     removeTabsAndBar();
 
+    //////function to set up our tempprary photo storage between sessions
+    function setLocalForage(){
+      localforage.getItem('storedPhotos')
+      .then(function(value){
+        console.log(value);
+        if(value === null || value === [null]){
+          localforage.setItem('storedPhotos', [])
+          .then(function(dataVal){
+            console.log('creating array');
+            console.log(dataVal);
+          })
+          .catch(function(err){
+            console.log(err);
+          })
+        }
+        else {
+          console.log('value is: '+value);
+        }
+      })
+      .catch(function(err){
+        console.log(err);
+      });
+    }
+
     /////////////////////////////
     //function to launch camera and take photos
     function uploadPhotos(){
       var screenWidth = window.innerWidth;
+      setLocalForage();
       // var persistentLength = persistentPhotos().length;
       // if(persistentLength === 0){
-      for (var i = 0; i < 25; i++) {
-        var name = 'mopho'+i;
-        localforage.getItem(name, function (err, value) {
-          if(err) console.log(err);
-          // console.log(value);
-          if(value && value !== null){
-            $scope.mediaCache.push(value);
-            persistentPhotos(value, false);
-            $scope.photoListLength++;
-          }
-          // if err is non-null, we got an error. otherwise, value is the value
-        });
-      }
+      localforage.getItem('storedPhotos')
+      .then(function(photoArr){
+        console.log(photoArr);
+        $scope.mediaCache = photoArr;
+        console.log($scope.mediaCache);
+        $scope.photoListLength = photoArr.length;
+      })
+      // for (var i = 0; i < 25; i++) {
+      //   var name = 'mopho'+i;
+      //   localforage.getItem(name, function (err, value) {
+      //     if(err) console.log(err);
+      //     // console.log(value);
+      //     if(value && value !== null){
+      //       $scope.mediaCache.push(value);
+      //       persistentPhotos(value, false);
+      //       $scope.photoListLength++;
+      //     }
+      //     // if err is non-null, we got an error. otherwise, value is the value
+      //   });
+      // }
       // }
       // else {
       //   console.log('hell yea the were some photos taken in this session');
@@ -136,13 +170,28 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         $('.takePhotoButtonInner').animate({
           backgroundColor: "white"
         }, 100);
+
         var windowPic = {type: 'photo', link: 'data:image/png;base64,'+result[0], date: new Date()};
-        /////setting data for uber temp storage if the app closes
         var name = "mopho"+($scope.photoListLength-1);
-        // persistentPhotos({type: 'photo', link: 'data:image/png;base64,'+result[0], date: new Date()}, false);
-        localforage.setItem(name, windowPic, function (err) {
-          if(err) console.log(err);
-        });
+        // localforage.setItem(name, windowPic, function (err) {
+        //   if(err) console.log(err);
+        // });
+        localforage.getItem('storedPhotos')
+        .then(function(value){
+          console.log(value);
+          var photoArrayTemp = value;
+          photoArrayTemp.push(windowPic);
+          localforage.setItem('storedPhotos', photoArrayTemp)
+          .then(function(newPhotoArr){
+            console.log(newPhotoArr);
+          })
+          .catch(function(err){
+            console.log(err);
+          })
+        })
+        .catch(function(err){
+          console.log(err);
+        })
         count++
         ////end uber temp storage
       });
@@ -438,14 +487,13 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                     $timeout(function(){
                       $scope.submitModalVar = false;
                       $scope.cameraModal = false;
-                      // persistentPhotos('empty');
-                      for (var i = 0; i < 25; i++) {
-                        var name = 'mopho'+i;
-                        localforage.removeItem(name, function (err, value) {
-                          if(err) console.log(err);
-                          // if err is non-null, we got an error. otherwise, value is the value
-                        });
-                      }
+                      localforage.setItem('storedPhotos', [])
+                      .then(function(success){
+                        console.log(success);
+                      })
+                      .catch(function(err){
+                        console.log(err);
+                      })
                       $scope.cnt = 0;
                       $state.go('tab.account');
                     }, 1000);
@@ -514,17 +562,15 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                       setTimeout(function(){
                         $scope.submitModalVar = false;
                         $scope.cameraModal = false;
-                        // persistentPhotos("empty");
+                        localforage.setItem('storedPhotos', [])
+                        .then(function(success){
+                          console.log(success);
+                        })
+                        .catch(function(err){
+                          console.log(err);
+                        })
                         $scope.cnt = 0;
                         $state.go('tab.account');
-                        for (var i = 0; i < 25; i++) {
-                          var name = 'mopho'+i;
-                          localforage.removeItem(name, function (err, value) {
-                            if(err) console.log(err);
-                            // console.log(value);
-                            // if err is non-null, we got an error. otherwise, value is the value
-                          });
-                        }
 
                       }, 100);
                     })
@@ -901,21 +947,51 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     $scope.selectPhotos = selectPhotos;
 
     function batchErase(){
-      var allPhotos = $('.submitCellImageHolder');
-      console.log(allPhotos);
-      var allLength = allPhotos.length;
-      for (var i = 0; i < allLength; i++) {
-        console.log(allPhotos[i]);
-        var child = $(allPhotos[i]).find('img');
-        console.log(child);
-        if(child.hasClass('selectedP')){
-          $scope.mediaCacheTemp.splice(i, 1);
-          localforage.removeItem("mopho"+i, function(err, value){
-            console.log(value);
-          })
-        }
-      }
-      selectPhotos();
+      localforage.getItem('storedPhotos')
+      .then(function(storedArr){
+        var stored = storedArr;
+        $timeout(function(){
+          var allPhotos = $('.submitCellImageHolder');
+          var allLength = allPhotos.length;
+          for (var i = 0; i < allLength; i++) {
+            var child = $(allPhotos[i]).find('img');
+            if(child.hasClass('selectedP')){
+              $scope.mediaCache[i] = null;
+              $scope.mediaCacheTemp[i] = null;
+              stored[i] = null;
+              $scope.photoListLength--;
+            }
+            if(i === allLength-1){
+              console.log(stored);
+              console.log($scope.mediaCache);
+              console.log($scope.mediaCacheTemp);
+              for (var k = 0; k < allLength; k++) {
+                if($scope.mediaCache[k] == null){
+                  $scope.mediaCache.splice(k, 1)
+                }
+                if($scope.mediaCacheTemp[k] == null){
+                  $scope.mediaCacheTemp.splice(k,1)
+                }
+                if(stored[k] == null){
+                  stored.splice(k,1)
+                  console.log(stored);
+                }
+                if(k === allLength-1){
+                  console.log(stored);
+                  console.log($scope.mediaCache);
+                  console.log($scope.mediaCacheTemp);
+                  localforage.setItem('storedPhotos', stored)
+                  .then(function(newArray){
+                  })
+                  .catch(function(err){
+                    console.log(err);
+                  });
+                }
+              }
+            }
+          }
+        }, 500);
+      })
     }
     $scope.batchErase = batchErase;
 
