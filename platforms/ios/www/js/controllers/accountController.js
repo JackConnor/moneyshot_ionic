@@ -578,15 +578,12 @@ angular.module('accountController', ['persistentPhotosFactory'])
             marginLeft: marginL
           });
           $('.photoCarouselInner').css({
-            width: '3000px'
+            width: ($('.photoCarouselCellAcct').length*70)+14+'px'
           });
           // $ionicScrollDelegate.$getByHandle('carouselScroll').resize();
         }, 50);
       }, 170);
       $timeout(function(){
-        // $('.photoCarouselInner').animate({
-        //   marginLeft: index*-70+125+"px"
-        // }, 200);
         var sLeft = (index*70)-105;
         console.log(sLeft);
         $ionicScrollDelegate.$getByHandle('carouselScroll').scrollTo(sLeft, 0, true);
@@ -662,10 +659,7 @@ angular.module('accountController', ['persistentPhotosFactory'])
       $(".photoCarouselInner").css({
         width: (mediaLength*70) + 14 + 'px'
       });
-      $('.photoCarouselInner').animate({
-        marginLeft: (index*-70)+125+"px"
-      }, 300);
-      $ionicScrollDelegate.$getByHandle('carouselScroll').scrollTo(0, 0, true);
+      $ionicScrollDelegate.$getByHandle('carouselScroll').scrollTo((index*70)-105, 0, true);
 
       $('.photoCarouselCellAcct').css({
         borderWidth: '0px'

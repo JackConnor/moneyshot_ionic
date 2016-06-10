@@ -947,14 +947,17 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
             marginLeft: marginL
           });
           $('.photoCarouselInner').css({
-            width: 'auto'
+            width: ($('.photoCarouselCell').length*70)+14+'px'
           });
         }, 50);
       }, 170);
       $timeout(function(){
-        $('.photoCarouselInner').animate({
-          marginLeft: index*-70+125+"px"
-        }, 200);
+        // $('.photoCarouselInner').animate({
+        //   marginLeft: index*-70+125+"px"
+        // }, 200);
+        var sLeft = (index*70)-105;
+        console.log(sLeft);
+        $ionicScrollDelegate.$getByHandle('carouselScroll').scrollTo(sLeft, 0, true);
       }, 300);
     }
     $scope.goToCarousel = goToCarousel;
@@ -1001,11 +1004,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       console.log('click yo');
       $scope.photoCarouselObject = mediaData;
       var mediaLength = $('.photoCarouselCell').length;
-      $('.photoCarouselInner').animate({
-        marginLeft: (index*-70)+125+"px"
-      }, 300);
-
-      $ionicScrollDelegate.$getByHandle('carouselScroll').scrollTo(0, 0, true);
+      $ionicScrollDelegate.$getByHandle('carouselScroll').scrollTo((index*70)-105, 0, true);
 
       $('.photoCarouselCell').css({
         borderWidth: '0px'
