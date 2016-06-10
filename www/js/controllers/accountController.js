@@ -624,9 +624,10 @@ angular.module('accountController', ['persistentPhotosFactory'])
       $scope.carouselMain = mediaData;
       console.log(mediaData);
       var mediaLength = $('.photoCarouselCellAcct').length;
-      $('.photoCarouselInner').animate({
-        marginLeft: index*-70+125+"px"
-      }, 300);
+      // $('.photoCarouselInner').animate({
+      //   marginLeft: index*-70+125+"px"
+      // }, 300);
+      $ionicScrollDelegate.$getByHandle('carouselScroll').scrollTo((index*70)-105, 0, true);
       if(direction === 'right'){
         $($('.photoCarouselCellAcct')[index+1]).animate({
           borderWidth: '0px'

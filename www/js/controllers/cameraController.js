@@ -973,9 +973,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     function openNewCarouselPhoto(mediaData, index, direction){
       $scope.photoCarouselObject = mediaData;
       var mediaLength = $('.photoCarouselCell').length;
-      $('.photoCarouselInner').animate({
-        marginLeft: index*-70+125+"px"
-      }, 300);
+      $ionicScrollDelegate.$getByHandle('carouselScroll').scrollTo((index*70)-105, 0, true);
       if(direction === 'right'){
         $($('.photoCarouselCell')[index+1]).animate({
           borderWidth: '0px'
