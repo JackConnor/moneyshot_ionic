@@ -913,23 +913,24 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
     function selectPhotos(){
       if($scope.selectMode === false){
-        $('.submitRepeat').css({
-          borderColor: 'red'
-        });
         $(".submitAddInfoContainer").animate({
           marginTop: '40px'
+          ,opacity: 0.6
         }, 200);
+        $('.finalizeMophos').text('Select Mophos');
+        $('.selectPhotos').text('Close');
         $timeout(function(){
           $scope.selectMode = true;
         }, 100)
       }
       else if($scope.selectMode === true){
-        $('.submitRepeat').css({
-          borderColor: 'black'
-        });
         $(".submitAddInfoContainer").animate({
           marginTop: '10px'
+          ,opacity: 1
         });
+        $('.finalizeMophos').text('Finalize Mophos');
+        $('.selectPhotos').text('Select');
+        /////logic for it to all set back
         var allPhotos = $('.submitCellImageHolder');
         console.log(allPhotos);
         var allLength = allPhotos.length;
@@ -963,9 +964,6 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
               $scope.photoListLength--;
             }
             if(i === allLength-1){
-              console.log(stored);
-              console.log($scope.mediaCache);
-              console.log($scope.mediaCacheTemp);
               for (var k = 0; k < allLength; k++) {
                 if($scope.mediaCache[k] == null){
                   $scope.mediaCache.splice(k, 1)
@@ -975,15 +973,13 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                 }
                 if(stored[k] == null){
                   stored.splice(k,1)
-                  console.log(stored);
                 }
                 if(k === allLength-1){
-                  console.log(stored);
-                  console.log($scope.mediaCache);
-                  console.log($scope.mediaCacheTemp);
                   localforage.setItem('storedPhotos', stored)
                   .then(function(newArray){
-                    selectPhotos();
+                    $timeout(function(){
+                      selectPhotos();
+                    }, 200);
                   })
                   .catch(function(err){
                     console.log(err);
