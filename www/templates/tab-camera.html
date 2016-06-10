@@ -13,7 +13,7 @@
         <video ng-if='photoCarouselObject.type==="video"' poster={{photoCarouselObject.thumb}} ng-src="{{photoCarouselObject.link | trustUrl}}" class='mainPhotoCar' webkit-playsinline id="carouselVideoCamera"></video>
       </div>
       <ion-scroll direction='x' class="photoCarouselHolder" delegate-handle='carouselScroll'>
-        <div class="photoCarouselInner row">
+        <div class="photoCarouselInner">
           <div class="photoCarouselCell" ng-repeat="media in mediaCache">
             <img ng-if='media.type==="photo"' ng-src="{{media.link}}" ng-click='clickCarouselPhoto(media, $index)'/>
             <img ng-if='media.type==="video"' ng-src="{{media.thumb | trustUrl}}" ng-click='clickCarouselPhoto(media, $index)'/>

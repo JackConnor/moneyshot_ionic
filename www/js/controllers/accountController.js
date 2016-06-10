@@ -578,14 +578,18 @@ angular.module('accountController', ['persistentPhotosFactory'])
             marginLeft: marginL
           });
           $('.photoCarouselInner').css({
-            width: 'auto'
+            width: '3000px'
           });
+          // $ionicScrollDelegate.$getByHandle('carouselScroll').resize();
         }, 50);
       }, 170);
       $timeout(function(){
-        $('.photoCarouselInner').animate({
-          marginLeft: index*-70+125+"px"
-        }, 200);
+        // $('.photoCarouselInner').animate({
+        //   marginLeft: index*-70+125+"px"
+        // }, 200);
+        var sLeft = (index*70)-105;
+        console.log(sLeft);
+        $ionicScrollDelegate.$getByHandle('carouselScroll').scrollTo(sLeft, 0, true);
       }, 300);
     }
     $scope.goToCarousel = goToCarousel;
@@ -618,6 +622,7 @@ angular.module('accountController', ['persistentPhotosFactory'])
     }
     $scope.photoCarouselBack = photoCarouselBack;
 
+    //////controls all swipe functions
     function openNewCarouselPhoto(mediaData, index, direction){
       $scope.carouselMain = mediaData;
       console.log(mediaData);
@@ -648,6 +653,33 @@ angular.module('accountController', ['persistentPhotosFactory'])
       // }, 100);
     }
     $scope.openNewCarouselPhoto = openNewCarouselPhoto;
+
+    /////controls click-to-move functionality
+    function clickCarouselPhoto(mediaData, index){
+      console.log('click yo');
+      $scope.carouselMain = mediaData;
+      var mediaLength = $('.photoCarouselCellAcct').length;
+      $(".photoCarouselInner").css({
+        width: (mediaLength*70) + 14 + 'px'
+      });
+      $('.photoCarouselInner').animate({
+        marginLeft: (index*-70)+125+"px"
+      }, 300);
+      $ionicScrollDelegate.$getByHandle('carouselScroll').scrollTo(0, 0, true);
+
+      $('.photoCarouselCellAcct').css({
+        borderWidth: '0px'
+        ,marginRight: '0px'
+        ,marginLeft: '0px'
+      })
+      // $timeout(function(){
+      $($('.photoCarouselCellAcct')[index]).animate({
+        borderWidth: '2px'
+        ,marginRight: '10px'
+        ,marginLeft: '10px'
+      }, 300);
+    }
+    $scope.clickCarouselPhoto = clickCarouselPhoto;
 
     function swipeLeftAnimation(centerP){
       console.log('swiped');

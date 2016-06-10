@@ -1004,7 +1004,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       $('.photoCarouselInner').animate({
         marginLeft: (index*-70)+125+"px"
       }, 300);
-      $('.photoCarouselInner').scrollLeft(0);
+
       $ionicScrollDelegate.$getByHandle('carouselScroll').scrollTo(0, 0, true);
 
       $('.photoCarouselCell').css({
