@@ -14,7 +14,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     $scope.mediaCache = [];
     $scope.photoListLength      = 0;
     $scope.croppedPhoto         = '';
-    $scope.submitModalVar       = false;
+    $scope.submitModalVar       = true;
     $scope.photoCarouselBool    = false;
     $scope.cameraModal          = true;
     $scope.cameraLaunched       = false;
@@ -23,6 +23,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     $scope.activePhoto          = true;
     $scope.carouselSwipeActive  = false;
     $scope.eraseStopper         = false;
+    $scope.selectMode           = false;
     $scope.cameraMode           = 'photo';
     $scope.flashOnOff           = 'off'
     $scope.flash                = "Flash on";
@@ -325,17 +326,21 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     }
     $scope.selectSubmitted = selectSubmitted;
 
-
-    function deletePhotos(){
-      var thisEl = $(".submitDelete")[0];
-      animateClick(thisEl, "#6d8383", '#013220');
-      for (var i = 0; i < eraseSubmitArr.length; i++) {
-        $scope.mediaCache.splice(eraseSubmitArr[i], 1);
+    function selectPhotos(){
+      if($scope.selectMode === false){
+        $('.submitRepeat').css({
+          borderColor: 'red'
+        });
+        $scope.selectMode = true;
       }
-      eraseSubmitArr = [];
+      else if($scope.selectMode === true){
+        $('.submitRepeat').css({
+          borderColor: 'black'
+        });
+        $scope.selectMode = false;
+      }
     }
-    $scope.deletePhotos = deletePhotos;
-
+    $scope.selectPhotos = selectPhotos;
 
     function submitPhotoName(){
       var nameInfo = $(".photoNameInput").val();
@@ -812,47 +817,68 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
     ///////begin photo carousel animation work
     function goToCarousel(mediaData, index, evt){
-      $scope.photoCarouselObject = mediaData;////this is always the centerpiece photo
-      $(evt.currentTarget).css({
-        opacity: 0.1
-      });
-      $(evt.currentTarget).animate({
-        opacity: 1
-      }, 169);
-      $timeout(function(){
-        $scope.submitModaVar = false;
-        $scope.photoCarouselBool = true;
+      //////thsi is normal carousel functionality
+      if($scope.selectMode === false){
+        $scope.photoCarouselObject = mediaData;////this is always the centerpiece photo
+        $(evt.currentTarget).css({
+          opacity: 0.1
+        });
+        $(evt.currentTarget).animate({
+          opacity: 1
+        }, 169);
         $timeout(function(){
-          $($('.photoCarouselCell')[index]).css({
-            borderWidth: '2px'
-            ,marginRight: '10px'
-            ,marginLeft: '10px'
-          });
-          var width = $($('.mainPhotoHolder').children()[0]).width();
-          var outerWidth = $('.mainPhotoHolder').width();
-          var marginL = (outerWidth - width)/2;
-          $($('.mainPhotoHolder').children()[0]).css({
-            width: width+"px"
-          })
-          $($('.mainPhotoHolder').children()[0]).css({
-            marginLeft: marginL
-          });
-          $('.photoCarouselInner').css({
-            width: ($('.photoCarouselCell').length*70)+14+'px'
-          });
-        }, 50);
-      }, 170);
-      $timeout(function(){
-        if(zooming === 'zoomed'){
-          var sLeft = (index*70)-105;
-        }
-        else if(zooming === 'standard'){
-          var sLeft = (index*70)-135;
-        }
-        $ionicScrollDelegate.$getByHandle('carouselScroll').scrollTo(sLeft, 0, true);
-      }, 300);
+          $scope.submitModaVar = false;
+          $scope.photoCarouselBool = true;
+          $timeout(function(){
+            $($('.photoCarouselCell')[index]).css({
+              borderWidth: '2px'
+              ,marginRight: '10px'
+              ,marginLeft: '10px'
+            });
+            var width = $($('.mainPhotoHolder').children()[0]).width();
+            var outerWidth = $('.mainPhotoHolder').width();
+            var marginL = (outerWidth - width)/2;
+            $($('.mainPhotoHolder').children()[0]).css({
+              width: width+"px"
+            })
+            $($('.mainPhotoHolder').children()[0]).css({
+              marginLeft: marginL
+            });
+            $('.photoCarouselInner').css({
+              width: ($('.photoCarouselCell').length*70)+14+'px'
+            });
+          }, 50);
+        }, 170);
+        $timeout(function(){
+          if(zooming === 'zoomed'){
+            var sLeft = (index*70)-105;
+          }
+          else if(zooming === 'standard'){
+            var sLeft = (index*70)-135;
+          }
+          $ionicScrollDelegate.$getByHandle('carouselScroll').scrollTo(sLeft, 0, true);
+        }, 300);
+      }
+      else {
+        selectHighlightPhotos(mediaData, index, evt);
+      }
     }
     $scope.goToCarousel = goToCarousel;
+
+    function selectHighlightPhotos(media, index, evt){
+      if(!$(evt.currentTarget).hasClass('selectedP')){
+        $(evt.currentTarget).addClass('selectedP');
+        var parent = $(evt.currentTarget).parent();
+        parent.prepend(
+          "<p class='fa fa-check-circle photoCheck'></p>"
+        );
+      }
+      else if($(evt.currentTarget).hasClass('selectedP')){
+        $(evt.currentTarget).removeClass('selectedP');
+        var parent = $(evt.currentTarget).parent();
+        parent.find('.photoCheck').remove();
+      }
+    }
 
     function photoCarouselBack(){
       $timeout(function(){

@@ -1146,6 +1146,14 @@ html {
   background-color: black;
 }
 
+.photoCheck {
+  color: blue;
+  position: absolute;
+  font-size: 24px;
+  margin-top: 45px;
+  margin-left: 45px;
+}
+
 .photoCount {
   width: 35px;
   height: 35px;
@@ -1229,6 +1237,16 @@ html {
 .repeatContainer {
   padding: 0px;
   min-height: 100%;
+}
+
+.selectedP {
+  opacity: 0.6;
+}
+
+.selectPhotos {
+  color: white;
+  font-size: 16px;
+  padding-top: 6px;
 }
 
 .sendFinDataButton {
@@ -1749,15 +1767,6 @@ html {
   position: fixed;
   z-index: 11;
   background-color: gray;
-}
-
-.submitDelete {
-  height: 30px;
-  /*color: white;*/
-  font-size: 20px;
-  text-align: center;
-  padding-top: 3px;
-  /*background-color: #013220;*/
 }
 
 .submitModal {
