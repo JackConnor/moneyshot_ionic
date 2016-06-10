@@ -679,7 +679,13 @@ angular.module('accountController', ['persistentPhotosFactory'])
       $(".photoCarouselInner").css({
         width: (mediaLength*70) + 14 + 'px'
       });
-      $ionicScrollDelegate.$getByHandle('carouselScroll').scrollTo((index*70)-105, 0, true);
+      if(zooming === 'zoomed'){
+        var dist = (index*70)-105;
+      }
+      else if(zooming === 'standard'){
+        var dist = (index*70)-135;
+      }
+      $ionicScrollDelegate.$getByHandle('carouselScroll').scrollTo(dist, 0, true);
 
       $('.photoCarouselCellAcct').css({
         borderWidth: '0px'
