@@ -148,6 +148,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         /////setting data for uber temp storage if the app closes
         var name = "mopho"+($scope.photoListLength-1);
         console.log(name);
+        persistentPhotos({type: 'photo', link: 'data:image/png;base64,'+result[0], date: new Date()}, false);
         localforage.setItem(name, windowPic, function (err) {
           if(err) console.log(err);
           console.log('yoooooo');
