@@ -127,23 +127,15 @@
         </div>
         <ion-scroll class="submitRepeat">
           <div class="submitCell" ng-repeat='media in mediaCacheTemp'>
-            <!-- <div class="circleHolder col-xs-6" ng-click='selectSubmitted($event, $index)'>
-              <div class="circleBlack"></div>
-              <i class="fa fa-circle-thin" ></i>
-            </div> -->
-            <!-- <div class="cropIconHolder" ng-click='cropPhoto(mediaCache[$index], $event, $index)' ng-if='media.type=="photo"'>
-              <div class='fa fa-crop'></div>
-            </div> -->
             <div class="submitCellImageHolder" >
               <img class='submitPhoto submitPhoto{{$index}}' id='submit{{$index}}' ng-src="{{media.link}}" ng-if='media.type=="photo"' ng-click='goToCarousel(media, $index, $event)'/>
               <img class='submitPhoto submitPhoto{{$index}}' id='submit{{$index}}' ng-src="{{media.thumb | trustUrl}}" ng-if='media.type=="video"' ng-click='goToCarousel(media, $index, $event)'/>
-              <!-- <div class="videoOverlay" ng-if='media.type=="video"' ng-click='goToCarousel(media, $index, $event)'></div>
-              <video id='submit{{$index}}' ng-if='media.type=="video"' poster='{{media.thumb}}' ng-src="{{media.link}}" type="video/mp4"> -->
-                  <!-- (Your Browser Doesn't Support Video) -->
-              <!-- </video> -->
             </div>
           </div>
         </ion-scroll>
+        <div class="selectTrashHolder" ng-if="selectMode">
+          <i class='fa fa-trash'></i>
+        </div>
         <div class="submitAddInfoContainer">
           <div class="locationHolder">
             {{returnPlace}}<i class='fa fa-refresh' ng-click='findNewPlace()'></i>
@@ -153,10 +145,6 @@
           </div>
           <input class='photoNameInput' ng-focus='blurring()' ng-blur='unblurring()' type="text" placeholder="Who'd you get?">
           <textarea class='photoNameDesc' ng-focus='blurring()' ng-blur='unblurring()' rows='7' cols='10' name="name" placeholder="What were they doing?"></textarea>
-          <!-- <div class='submitCheck'>
-            <input class='submitAgree' type="checkbox" name="name" value="">
-            <p>I agree to all terms and conditions</p>
-          </div> -->
           <div class='submitNameButt'>
             <div style='width:100%; height: 100%' ng-click='submitPhotoName()'>
               Submit Your Mophos
@@ -165,16 +153,5 @@
         </div>
       </div>
     </div>
-    <!-- <div class="cameraBackground">
-      <div class="shootButton" ng-click='takePicture()'>
-        Shoot<br>some<br>MoPhos
-      </div>
-      <div class="shootButton" ng-click='getPic()'>
-        Film<br>some<br>MoPhos
-      </div>
-      <div class="submitButton col-xs-4 col-xs-offset-8" ng-click='openSubmitModal()'>
-        Submit Your Photos
-      </div>
-    </div> -->
   </ion-content>
 </ion-view>

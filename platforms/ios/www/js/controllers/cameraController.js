@@ -326,22 +326,6 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     }
     $scope.selectSubmitted = selectSubmitted;
 
-    function selectPhotos(){
-      if($scope.selectMode === false){
-        $('.submitRepeat').css({
-          borderColor: 'red'
-        });
-        $scope.selectMode = true;
-      }
-      else if($scope.selectMode === true){
-        $('.submitRepeat').css({
-          borderColor: 'black'
-        });
-        $scope.selectMode = false;
-      }
-    }
-    $scope.selectPhotos = selectPhotos;
-
     function submitPhotoName(){
       var nameInfo = $(".photoNameInput").val();
       var personInfo = $('.photoNameDesc').val();
@@ -879,6 +863,42 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         parent.find('.photoCheck').remove();
       }
     }
+
+    function selectPhotos(){
+      if($scope.selectMode === false){
+        $('.submitRepeat').css({
+          borderColor: 'red'
+        });
+        $(".submitAddInfoContainer").animate({
+          marginTop: '40px'
+        }, 200);
+        $timeout(function(){
+          $scope.selectMode = true;
+        }, 100)
+      }
+      else if($scope.selectMode === true){
+        $('.submitRepeat').css({
+          borderColor: 'black'
+        });
+        $(".submitAddInfoContainer").animate({
+          marginTop: '10px'
+        });
+        var allPhotos = $('.submitCellImageHolder');
+        console.log(allPhotos);
+        var allLength = allPhotos.length;
+        for (var i = 0; i < allLength; i++) {
+          console.log(allPhotos[i]);
+          var child = $(allPhotos[i]).find('img');
+          console.log(child);
+          if(child.hasClass('selectedP')){
+            child.removeClass('selectedP');
+            $(allPhotos[i]).find('.photoCheck').remove();
+          }
+        }
+        $scope.selectMode = false;
+      }
+    }
+    $scope.selectPhotos = selectPhotos;
 
     function photoCarouselBack(){
       $timeout(function(){
