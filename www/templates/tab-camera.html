@@ -28,12 +28,12 @@
     <div class="cameraModal" ng-show='cameraModal==true'>
 
 
-      <div class="cameraViewToggle">
-        <img class='toggleCameraIcon' src="./img/assets/camReverseLogo@3x.png" ng-click='animateToggle(); toggleView($event)'/>
+      <div class="cameraViewToggle" ng-click='animateToggle(); toggleView($event)'>
+        <img class='toggleCameraIcon' src="./img/assets/camReverseLogo@3x.png"/>
       </div>
 
 
-      <div class="cameraFlash" ng-click='toggleFlash()'>
+      <div class="cameraFlash" ng-click='toggleFlash(); animateFlash()'>
         <i class='fa fa-bolt'></i>
       </div>
 

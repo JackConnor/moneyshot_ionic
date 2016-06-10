@@ -1052,16 +1052,18 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     }
     $scope.erasePhoto = erasePhoto;
 
-    //////x button animation
-    function animateX(){
-      $('.cameraBack').css({
+    //////flash button animation
+    function animateFlash(){
+      $('.cameraFlash').css({
         opacity: 0.25
       });
-      $('.cameraBack').animate({
-        opacity: 1
+      $timeout(function(){
+        $('.cameraFlash').css({
+          opacity: 1
+        });
       }, 200);
     }
-    $scope.animateX = animateX;
+    $scope.animateFlash = animateFlash;
 
     //////x button animation
     function animateSubmit(){
