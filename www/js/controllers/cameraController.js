@@ -24,6 +24,8 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     $scope.carouselSwipeActive  = false;
     $scope.eraseStopper         = false;
     $scope.cameraMode           = 'photo';
+    $scope.flashOnOff           = 'off'
+    $scope.flash                = "Flash on";
     $scope.mediaCacheTemp       = [];
     $scope.cropper              = {};
     $scope.cropper.croppedImage = '';
@@ -1231,5 +1233,25 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       }
     }
     $scope.playVid = playVid;
+
+    function toggleFlash(){
+      if($scope.flashOnOff === 'off'){
+        window.plugins.flashlight.switchOn();
+        $scope.flashOnOff = 'on';
+        $scope.flash = 'Flash off';
+        $('.cameraFlashButt').css({
+          opacity: 0.5
+        });
+      }
+      else if($scope.flashOnOff === 'on') {
+        window.plugins.flashlight.switchOff();
+        $scope.flashOnOff = 'off';
+        $scope.flash = 'Flash on';
+        $('.cameraFlashButt').css({
+          opacity: 1
+        });
+      }
+    }
+    $scope.toggleFlash = toggleFlash;
 
   }

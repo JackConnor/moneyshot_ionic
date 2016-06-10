@@ -223,6 +223,22 @@ html {
   }
 }
 
+.cameraFlashButt {
+  height: 30px;
+  width: 80px;
+  border-radius: 3px;
+  color: white;
+  border: 2px solid white;
+  background-color: green;
+  font-weight: 900;
+  font-size: 14px;
+  padding-top: 3px;
+  text-align: center;
+  margin-top: 21px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .cameraLensHolder {
   height: 100%;
   width: 100%;
@@ -1926,7 +1942,7 @@ html {
 
 
 .submitSetDiv {
-  height: 43px;
+  height: 44px;
   width: 87px;
   border-radius: 5px;
   color: white;
