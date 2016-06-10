@@ -736,29 +736,22 @@ angular.module('accountController', ['persistentPhotosFactory'])
     function photoCarouselSwipeRight(){
       var centerP = findCenterPhoto();
       if(centerP.index > 0){
-        console.log($scope.singleSubmission);
         openNewCarouselPhoto($scope.singleSubmission.photos[centerP.index-1], centerP.index-1, 'right')
       }
     }
     $scope.photoCarouselSwipeRight = photoCarouselSwipeRight;
 
     function centerPhoto(){
-      console.log('centering');
       var currP = findCenterPhoto();
-      console.log(currP);
     }
     $scope.centerPhoto = centerPhoto;
 
     function findCenterPhoto(){
       var carou = $('.photoCarouselCellAcct')
-      console.log(carou);
-      console.log($(carou).css('border'));
       var photoCarouselLength = carou.length;
       for (var i = 0; i < photoCarouselLength; i++) {
         var bStyle = $($(carou)[i]).css('border');
         if(bStyle === "2px solid rgb(255, 255, 255)"){
-          console.log('this one');
-          console.log(carou[i]);
           var activeEl = carou[i];
           return {activeEl: activeEl, index: i}
         }
@@ -791,7 +784,6 @@ angular.module('accountController', ['persistentPhotosFactory'])
         var dataURL = canvas.toDataURL("image/png");
         dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
         CameraRoll.saveToCameraRoll(dataURL, function(){
-          console.log('saved?');
         }, function(err){
           console.log(err);
         });

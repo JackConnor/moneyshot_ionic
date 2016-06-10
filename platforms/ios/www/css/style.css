@@ -161,15 +161,6 @@ html {
 #camera {
 }
 
-.cameraBack {
-  position: absolute;
-	margin-top: 7px;
-	right: 12px;
-	text-align: right;
-  color: white;
-  font-size: 23px;
-}
-
 .cameraBack img {
   width: 30px;
   height: 30px;
@@ -223,20 +214,14 @@ html {
   }
 }
 
-.cameraFlashButt {
-  height: 30px;
-  width: 80px;
-  border-radius: 3px;
+.cameraFlash {
+  position: absolute;
+	margin-top: 7px;
+  width: 50px;
+  height: 50px;
+	padding-left: 15px;
   color: white;
-  border: 2px solid white;
-  background-color: green;
-  font-weight: 900;
-  font-size: 14px;
-  padding-top: 3px;
-  text-align: center;
-  margin-top: 21px;
-  margin-left: auto;
-  margin-right: auto;
+  font-size: 25px;
 }
 
 .cameraLensHolder {
@@ -279,6 +264,21 @@ html {
   }
 }
 
+.cameraToAccount {
+  height: 30px;
+  width: 80px;
+  border-radius: 3px;
+  color: white;
+  border: 2px solid white;
+  /*background-color: green;*/
+  font-weight: 900;
+  font-size: 14px;
+  padding-top: 2px;
+  text-align: center;
+  margin-top: 21px;
+  margin-left: auto;
+  margin-right: auto;
+}
 
 .cameraToggleContainer {
   color: white;
@@ -287,9 +287,17 @@ html {
 
 .cameraViewToggle{
   position: absolute;
-  margin-top: 2px;
-  margin-left: 10px;
+  right: 0px;
+  width: 50px;
+  height: 50px;
   color: white;
+}
+
+.cameraViewToggle img{
+  width: 30px;
+  height: auto;
+  margin-top: 10px;
+  margin-left: 10px;
 }
 
 .carouselBlackForBar {
@@ -2070,16 +2078,6 @@ html {
   height: 100px;
 }
 
-.toggleCameraIcon {
-  color: white;
-  /*font-size:23px;*/
-  height: 30px;
-  /*opacity: 0.75;*/
-}
-
-.toggleCameraIcon img{
-  /*filter: invert();*/
-}
 
 .xOutSignup {
   font-size: 30px;

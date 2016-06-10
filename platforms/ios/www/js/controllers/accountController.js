@@ -34,7 +34,6 @@ angular.module('accountController', ['persistentPhotosFactory'])
       }
     }
     var zooming = findZoomed();
-    console.log(zooming);
 
     // function to add tabs back if coming from camera (where tabs are removed)
     function addTabs(){
@@ -93,7 +92,6 @@ angular.module('accountController', ['persistentPhotosFactory'])
       .then(function(decToken){
         userPhotos(decToken.data.userId)
         .then(function(userInfo){
-          console.log(userInfo);
           if(userInfo.data === null){
             var userPhotos = [];
             $scope.userInfo = [];
@@ -493,9 +491,7 @@ angular.module('accountController', ['persistentPhotosFactory'])
     function openFin(evt, transData){
       var isOpen = $(evt.currentTarget).hasClass('opened');
       var parentEl = $(evt.currentTarget).parent();
-      console.log(parentEl);
       if(!isOpen){
-        console.log($(evt.currentTarget));
         parentEl.animate({
           height: "160px"
         }, 1000);
@@ -521,7 +517,6 @@ angular.module('accountController', ['persistentPhotosFactory'])
         parentEl.animate({
           height: "80px"
         }, 1000);
-        console.log($(evt.currentTarget));
         // $(evt.currentTarget).animate({
         //   marginTop: "0px"
         // }, 1000);
@@ -562,7 +557,6 @@ angular.module('accountController', ['persistentPhotosFactory'])
 
     ///////begin photo carousel animation work
     function goToCarousel(mediaData, index, evt){
-      console.log(mediaData);
       $scope.carouselMain = mediaData;////this is always the centerpiece photo
       $(evt.currentTarget).css({
         opacity: 0.1
@@ -601,7 +595,6 @@ angular.module('accountController', ['persistentPhotosFactory'])
         else if(zooming === 'standard'){
           var sLeft = (index*70)-135;
         }
-        console.log(sLeft);
         $ionicScrollDelegate.$getByHandle('carouselScroll').scrollTo(sLeft, 0, true);
       }, 300);
     }
@@ -614,14 +607,10 @@ angular.module('accountController', ['persistentPhotosFactory'])
       var vidCurrent = function(){
         return $('#carouselVideo')[0].currentTime;
       }
-      console.log(vidDuration());
-      console.log(vidCurrent());
       if(vidCurrent() == 0 || vidDuration() - vidCurrent() == 0 || $('#carouselVideo')[0].paused){
-        console.log('playing');
         $('#carouselVideo')[0].play();
       }
       else {
-        console.log('pausing');
         $('#carouselVideo')[0].pause();
       }
     }
@@ -638,7 +627,6 @@ angular.module('accountController', ['persistentPhotosFactory'])
     //////controls all swipe functions
     function openNewCarouselPhoto(mediaData, index, direction){
       $scope.carouselMain = mediaData;
-      console.log(mediaData);
       var mediaLength = $('.photoCarouselCellAcct').length;
       if(zooming === 'zoomed'){
         var dist = (index*70)-105;
@@ -673,7 +661,6 @@ angular.module('accountController', ['persistentPhotosFactory'])
 
     /////controls click-to-move functionality
     function clickCarouselPhoto(mediaData, index){
-      console.log('click yo');
       $scope.carouselMain = mediaData;
       var mediaLength = $('.photoCarouselCellAcct').length;
       $(".photoCarouselInner").css({
@@ -702,8 +689,6 @@ angular.module('accountController', ['persistentPhotosFactory'])
     $scope.clickCarouselPhoto = clickCarouselPhoto;
 
     function swipeLeftAnimation(centerP){
-      console.log('swiped');
-      console.log($scope.singleSubmission.photos[centerP.index+1]);
       var imgClone = $('.mainPhotoCar').clone();
       imgClone.removeClass("mainPhotoCar");
       imgClone.addClass("mainPhotoCarTwo");
@@ -740,48 +725,33 @@ angular.module('accountController', ['persistentPhotosFactory'])
 
     //////carousel swipe functions
     function photoCarouselSwipeLeft(){
-      console.log('swipe attempt');
-      // if(!$scope.carouselSwipeActive){
-        console.log('successful swipe');
-        $scope.carouselSwipeActive = true;
-        // $timeout(function(){
-        //   $scope.carouselSwipeActive = false;
-        // }, 1500);
-        var centerP = findCenterPhoto();
-        // swipeLeftAnimation(centerP);
-        if(centerP.index+1 < $scope.singleSubmission.photos.length){
-          openNewCarouselPhoto($scope.singleSubmission.photos[centerP.index+1], centerP.index+1, 'left');
-        }
-      // }
+      $scope.carouselSwipeActive = true;
+      var centerP = findCenterPhoto();
+      if(centerP.index+1 < $scope.singleSubmission.photos.length){
+        openNewCarouselPhoto($scope.singleSubmission.photos[centerP.index+1], centerP.index+1, 'left');
+      }
     }
     $scope.photoCarouselSwipeLeft = photoCarouselSwipeLeft;
 
     function photoCarouselSwipeRight(){
       var centerP = findCenterPhoto();
       if(centerP.index > 0){
-        console.log($scope.singleSubmission);
         openNewCarouselPhoto($scope.singleSubmission.photos[centerP.index-1], centerP.index-1, 'right')
       }
     }
     $scope.photoCarouselSwipeRight = photoCarouselSwipeRight;
 
     function centerPhoto(){
-      console.log('centering');
       var currP = findCenterPhoto();
-      console.log(currP);
     }
     $scope.centerPhoto = centerPhoto;
 
     function findCenterPhoto(){
       var carou = $('.photoCarouselCellAcct')
-      console.log(carou);
-      console.log($(carou).css('border'));
       var photoCarouselLength = carou.length;
       for (var i = 0; i < photoCarouselLength; i++) {
         var bStyle = $($(carou)[i]).css('border');
         if(bStyle === "2px solid rgb(255, 255, 255)"){
-          console.log('this one');
-          console.log(carou[i]);
           var activeEl = carou[i];
           return {activeEl: activeEl, index: i}
         }
@@ -814,7 +784,6 @@ angular.module('accountController', ['persistentPhotosFactory'])
         var dataURL = canvas.toDataURL("image/png");
         dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
         CameraRoll.saveToCameraRoll(dataURL, function(){
-          console.log('saved?');
         }, function(err){
           console.log(err);
         });

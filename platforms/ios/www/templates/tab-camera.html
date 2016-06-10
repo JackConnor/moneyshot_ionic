@@ -26,18 +26,23 @@
 
     </div>
     <div class="cameraModal" ng-show='cameraModal==true'>
+
+
       <div class="cameraViewToggle">
         <img class='toggleCameraIcon' src="./img/assets/camReverseLogo@3x.png" ng-click='animateToggle(); toggleView($event)'/>
       </div>
-      <div class="cameraBack" ng-click='leaveCamera(); animateX()'>
-        <img ng-click='leaveCamera()' src="./img/assets/x@3x.png"/></i><span ng-click='leaveCamera()'></span>
+
+
+      <div class="cameraFlash" ng-click='toggleFlash()'>
+        <i class='fa fa-bolt'></i>
       </div>
+
       <div class="cameraLogo">
         <img class='' src="./img/assets/mOPHO@3x.png" alt="" />
       </div>
       <div class="cameraLensHolder">
-        <canvas id="camera"></canvas>
-        <canvas id="bigCamera" width="1500" height="1200"></canvas>
+        <!-- <canvas id="camera"></canvas> -->
+        <!-- <canvas id="bigCamera" width="1500" height="1200"></canvas> -->
       </div>
       <div class="cameraButtonsContainer">
         <div class="photoToggleContainer">
@@ -53,8 +58,8 @@
         </div>
         <div class="cameraBlackLayer"></div>
         <div class="col-xs-4 cameraButtonCell">
-          <div class="cameraFlashButt" ng-click='toggleFlash()'>
-            {{flash}}
+          <div class="cameraToAccount" ng-click='leaveCamera()'>
+            Account
           </div>
         </div>
         <div class="buttonDiv col-xs-4">
