@@ -268,6 +268,14 @@ angular.module('signupController', [])
             $scope.signupModalTabs = false;
             newToken(signedInUser.data._id)
             .then(function(ourToken){
+              //////this asks to store creds if it's a different user
+              if(email !== window.localStorage.mophoEmail || password !== window.localStorage.mophoPw){
+                var confirmChange = confirm('This seems to be a new login, would you like us to save your email and password?');
+                if(confirmChange){
+                  window.localStorage.mophoEmail = email;
+                  window.localStorage.mophoPw = password;
+                }
+              }
               var token = ourToken.data;
               $scope.signupModalVar = false;
               $scope.signinModalVar = false;
@@ -330,7 +338,10 @@ angular.module('signupController', [])
             $('.signinEmail').val(window.localStorage.mophoEmail);
           }
           if(window.localStorage.mophoPw){
-            $('.signinPassword').val(window.localStorage.mophoEmail);
+            $('.signinPassword').val(window.localStorage.mophoPw);
+            $('.mophoSignin').css({
+              color: '#3375dd'
+            });
           }
         }, 500);
       }, 200);
