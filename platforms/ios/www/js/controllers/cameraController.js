@@ -533,7 +533,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
               // }
               // addCrop();
               console.log(currentPhoto);
-              $cordovaFileTransfer.upload('http://192.168.0.14:5555/api/newimage', currentPhoto.link, photoOptions)
+              $cordovaFileTransfer.upload('https://moneyshotapi.herokuapp.com/api/newimage', currentPhoto.link, photoOptions)
               .then(function(callbackImage){
                 var progressElement = $('.submitProgressBar');
                 if(zeroProgress <= 100){
