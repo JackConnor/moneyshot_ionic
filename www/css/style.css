@@ -1146,7 +1146,7 @@ html {
 }
 
 .photoCheck {
-  color: blue;
+  color: black;
   position: absolute;
   font-size: 24px;
   margin-top: 45px;
@@ -2128,7 +2128,7 @@ html {
 }
 
 .watermarkCell {
-  margin-top: 180px;
+  margin-top: 325px;
   text-align: center;
   opacity: 0.4;
   background-color: #3f3f3f;

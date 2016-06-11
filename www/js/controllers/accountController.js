@@ -614,11 +614,12 @@ angular.module('accountController', ['persistentPhotosFactory'])
         $('.videoPlayerIcon').css({
           opacity: 0.1
         });
-        player.addEventListener('ended', function(){
+        $('#carouselVideo')[0].addEventListener('ended', function(){
           $('.videoPlayerIcon').css({
             opacity: 0.5
           });
         });
+      }
       else {
         $('#carouselVideo')[0].pause();
         $('.videoPlayerIcon').css({
