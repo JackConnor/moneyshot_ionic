@@ -585,17 +585,17 @@ angular.module('accountController', ['persistentPhotosFactory'])
             marginLeft: marginL
           });
           $('.photoCarouselInner').css({
-            width: ($('.photoCarouselCellAcct').length*70)+14+'px'
+            width: ($('.photoCarouselCellAcct').length*70)+152.5+'px'
           });
           // $ionicScrollDelegate.$getByHandle('carouselScroll').resize();
         }, 50);
       }, 170);
       $timeout(function(){
         if(zooming === 'zoomed'){
-          var sLeft = (index*70)-105;
+          var sLeft = (index*70);
         }
         else if(zooming === 'standard'){
-          var sLeft = (index*70)-135;
+          var sLeft = (index*70);
         }
         $ionicScrollDelegate.$getByHandle('carouselScroll').scrollTo(sLeft, 0, true);
       }, 300);
@@ -629,6 +629,120 @@ angular.module('accountController', ['persistentPhotosFactory'])
     }
     $scope.playVid = playVid;
 
+    function changeCarouselPhoto(newMedia){
+      $scope.photoCarouselObject = newMedia;
+      // console.log($scope.photoCarouselObject);
+      $('.carImage').attr('src', newMedia.link);
+    }
+    $changeCarouselPhoto = changeCarouselPhoto;
+
+    function carouselScroll(){
+      console.log('yea yaaaaa');
+      var scrollPos = $ionicScrollDelegate.$getByHandle('carouselScroll').getScrollPosition().left;
+      // console.log(scrollPos);
+      if(scrollPos >= 0 && scrollPos < 71){
+        var newMedia = $scope.singleSubmission.photos[0];
+        changeCarouselPhoto(newMedia);
+      }
+      else if(scrollPos >= 71 && scrollPos < 140){
+        var newMedia = $scope.singleSubmission.photos[1];
+        changeCarouselPhoto(newMedia);
+      }
+      else if(scrollPos >= 141 && scrollPos < 210){
+        var newMedia = $scope.mediaCache[2];
+        changeCarouselPhoto(newMedia);
+      }
+      else if(scrollPos >= 211 && scrollPos < 280){
+        var newMedia = $scope.mediaCache[3];
+        changeCarouselPhoto(newMedia);
+      }
+      else if(scrollPos >= 281 && scrollPos < 350){
+        var newMedia = $scope.mediaCache[4];
+        changeCarouselPhoto(newMedia);
+      }
+      else if(scrollPos >= 251 && scrollPos < 420){
+        var newMedia = $scope.mediaCache[5];
+        changeCarouselPhoto(newMedia);
+      }
+      else if(scrollPos >= 421 && scrollPos < 490){
+        var newMedia = $scope.mediaCache[6];
+        changeCarouselPhoto(newMedia);
+      }
+      else if(scrollPos >= 491 && scrollPos < 560){
+        var newMedia = $scope.mediaCache[7];
+        changeCarouselPhoto(newMedia);
+      }
+      else if(scrollPos >= 561 && scrollPos < 630){
+        var newMedia = $scope.mediaCache[8];
+        changeCarouselPhoto(newMedia);
+      }
+      else if(scrollPos >= 631 && scrollPos < 700){
+        var newMedia = $scope.mediaCache[9];
+        changeCarouselPhoto(newMedia);
+      }
+      else if(scrollPos >= 701 && scrollPos < 770){
+        var newMedia = $scope.mediaCache[10];
+        changeCarouselPhoto(newMedia);
+      }
+      else if(scrollPos >= 771 && scrollPos < 840){
+        var newMedia = $scope.mediaCache[11];
+        changeCarouselPhoto(newMedia);
+      }
+      else if(scrollPos >= 841 && scrollPos < 910){
+        var newMedia = $scope.mediaCache[12];
+        changeCarouselPhoto(newMedia);
+      }
+      else if(scrollPos >= 911 && scrollPos < 980){
+        var newMedia = $scope.mediaCache[13];
+        changeCarouselPhoto(newMedia);
+      }
+      else if(scrollPos >= 981 && scrollPos < 1050){
+        var newMedia = $scope.mediaCache[14];
+        changeCarouselPhoto(newMedia);
+      }
+      else if(scrollPos >= 1051 && scrollPos < 1120){
+        var newMedia = $scope.mediaCache[15];
+        changeCarouselPhoto(newMedia);
+      }
+      else if(scrollPos >= 1121 && scrollPos < 1190){
+        var newMedia = $scope.mediaCache[16];
+        changeCarouselPhoto(newMedia);
+      }
+      else if(scrollPos >= 1191 && scrollPos < 1260){
+        var newMedia = $scope.mediaCache[17];
+        changeCarouselPhoto(newMedia);
+      }
+      else if(scrollPos >= 1261 && scrollPos < 1330){
+        var newMedia = $scope.mediaCache[18];
+        changeCarouselPhoto(newMedia);
+      }
+      else if(scrollPos >= 1331 && scrollPos < 1400){
+        var newMedia = $scope.mediaCache[19];
+        changeCarouselPhoto(newMedia);
+      }
+      else if(scrollPos >= 1401 && scrollPos < 1470){
+        var newMedia = $scope.mediaCache[20];
+        changeCarouselPhoto(newMedia);
+      }
+      else if(scrollPos >= 1471 && scrollPos < 1530){
+        var newMedia = $scope.mediaCache[21];
+        changeCarouselPhoto(newMedia);
+      }
+      else if(scrollPos >= 1531 && scrollPos < 1600){
+        var newMedia = $scope.mediaCache[22];
+        changeCarouselPhoto(newMedia);
+      }
+      else if(scrollPos >= 1601 && scrollPos < 1670){
+        var newMedia = $scope.mediaCache[23];
+        changeCarouselPhoto(newMedia);
+      }
+      else if(scrollPos >= 1671 && scrollPos < 1740){
+        var newMedia = $scope.mediaCache[24];
+        changeCarouselPhoto(newMedia);
+      }
+    }
+    $scope.carouselScroll = carouselScroll;
+
     function photoCarouselBack(){
       $timeout(function(){
         $scope.photoCarouselBool = false;
@@ -642,33 +756,12 @@ angular.module('accountController', ['persistentPhotosFactory'])
       $scope.carouselMain = mediaData;
       var mediaLength = $('.photoCarouselCellAcct').length;
       if(zooming === 'zoomed'){
-        var dist = (index*70)-105;
+        var dist = (index*70);
       }
       else if(zooming === 'standard'){
-        var dist = (index*70)-135;
+        var dist = (index*70);
       }
       $ionicScrollDelegate.$getByHandle('carouselScroll').scrollTo(dist, 0, true);
-      if(direction === 'right'){
-        $($('.photoCarouselCellAcct')[index+1]).animate({
-          borderWidth: '0px'
-          ,marginLeft: '0px'
-          ,marginRight: '0px'
-        }, 300);
-      }
-      else if(direction === 'left'){
-        $($('.photoCarouselCellAcct')[index-1]).animate({
-          borderWidth: '0px'
-          ,marginLeft: '0px'
-          ,marginRight: '0px'
-        }, 300);
-      }
-      // $timeout(function(){
-      $($('.photoCarouselCellAcct')[index]).animate({
-        borderWidth: '2px'
-        ,marginRight: '10px'
-        ,marginLeft: '10px'
-      }, 300);
-      // }, 100);
     }
     $scope.openNewCarouselPhoto = openNewCarouselPhoto;
 
@@ -680,61 +773,49 @@ angular.module('accountController', ['persistentPhotosFactory'])
         width: (mediaLength*70) + 14 + 'px'
       });
       if(zooming === 'zoomed'){
-        var dist = (index*70)-105;
+        var dist = (index*70);
       }
       else if(zooming === 'standard'){
-        var dist = (index*70)-135;
+        var dist = (index*70);
       }
       $ionicScrollDelegate.$getByHandle('carouselScroll').scrollTo(dist, 0, true);
-
-      $('.photoCarouselCellAcct').css({
-        borderWidth: '0px'
-        ,marginRight: '0px'
-        ,marginLeft: '0px'
-      })
-      // $timeout(function(){
-      $($('.photoCarouselCellAcct')[index]).animate({
-        borderWidth: '2px'
-        ,marginRight: '10px'
-        ,marginLeft: '10px'
-      }, 300);
     }
     $scope.clickCarouselPhoto = clickCarouselPhoto;
 
-    function swipeLeftAnimation(centerP){
-      var imgClone = $('.mainPhotoCar').clone();
-      imgClone.removeClass("mainPhotoCar");
-      imgClone.addClass("mainPhotoCarTwo");
-      imgClone.attr('id', 'mainPhotoId');
-      imgClone.attr('ng-src', '');
-      imgClone.attr('src', $scope.singleSubmission.photos[centerP.index+1].link);
-      var width = $('.mainPhotoCar').width();
-      var height = $('.mainPhotoHolder').height()*0.98;
-      var marginL = $('.mainPhotoCar').css("marginLeft");
-      imgClone.css({
-        position: 'absolute'
-        ,width: width+"px"
-        ,height: height+"px"
-        ,marginLeft: '500px'
-      });
-      $('.mainPhotoHolder').prepend(
-        imgClone
-      );
-      $('.mainPhotoCar').animate({
-        marginLeft: '-500px'
-      }, 400);
-      imgClone.animate({
-        marginLeft: marginL
-      }, 400);
-      $timeout(function(){
-        $('.mainPhotoCar').attr('src', $scope.singleSubmission.photos[centerP.index+1].link);
-        $('.mainPhotoCar').css({
-          marginLeft: marginL
-        });
-        imgClone.remove();
-        $scope.carouselSwipeActive = false;
-      }, 401);
-    }
+    // function swipeLeftAnimation(centerP){
+    //   var imgClone = $('.mainPhotoCar').clone();
+    //   imgClone.removeClass("mainPhotoCar");
+    //   imgClone.addClass("mainPhotoCarTwo");
+    //   imgClone.attr('id', 'mainPhotoId');
+    //   imgClone.attr('ng-src', '');
+    //   imgClone.attr('src', $scope.singleSubmission.photos[centerP.index+1].link);
+    //   var width = $('.mainPhotoCar').width();
+    //   var height = $('.mainPhotoHolder').height()*0.98;
+    //   var marginL = $('.mainPhotoCar').css("marginLeft");
+    //   imgClone.css({
+    //     position: 'absolute'
+    //     ,width: width+"px"
+    //     ,height: height+"px"
+    //     ,marginLeft: '500px'
+    //   });
+    //   $('.mainPhotoHolder').prepend(
+    //     imgClone
+    //   );
+    //   $('.mainPhotoCar').animate({
+    //     marginLeft: '-500px'
+    //   }, 400);
+    //   imgClone.animate({
+    //     marginLeft: marginL
+    //   }, 400);
+    //   $timeout(function(){
+    //     $('.mainPhotoCar').attr('src', $scope.singleSubmission.photos[centerP.index+1].link);
+    //     $('.mainPhotoCar').css({
+    //       marginLeft: marginL
+    //     });
+    //     imgClone.remove();
+    //     $scope.carouselSwipeActive = false;
+    //   }, 401);
+    // }
 
     //////carousel swipe functions
     function photoCarouselSwipeLeft(){
@@ -760,15 +841,11 @@ angular.module('accountController', ['persistentPhotosFactory'])
     $scope.centerPhoto = centerPhoto;
 
     function findCenterPhoto(){
-      var carou = $('.photoCarouselCellAcct')
+      var carou = $('.photoCarouselCell')
       var photoCarouselLength = carou.length;
-      for (var i = 0; i < photoCarouselLength; i++) {
-        var bStyle = $($(carou)[i]).css('border');
-        if(bStyle === "2px solid rgb(255, 255, 255)"){
-          var activeEl = carou[i];
-          return {activeEl: activeEl, index: i}
-        }
-      }
+      var activeEl = $(".carouselSelected");
+      var elIndex  = $('.carouselSelected')[0].id;
+      return {activeEl: activeEl, index: elIndex}
     }
 
     function animateBackCarousel(){

@@ -26,7 +26,7 @@
         <div class="watermarkLayer" ng-if="!carouselMain.isVideo" on-swipe-right='photoCarouselSwipeRight()' on-swipe-left='photoCarouselSwipeLeft()'>
           <div class="watermarkCell watermarkPending" ng-if="carouselMain.price > 0">
             Sold!<br><br>
-            {{carouselMain.price | currency}}
+            {{carouselMain.price | currency}} 
           </div>
           <div class="watermarkCell watermarkPending" ng-if="carouselMain.status == 'submitted for sale'">
             Pending

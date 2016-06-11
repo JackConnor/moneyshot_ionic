@@ -897,7 +897,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
           else if(zooming === 'standard'){
             var sLeft = (index*70);
           }
-          $ionicScrollDelegate.$getByHandle('carouselScroll').scrollTo(sLeft, 0, false);
+          $ionicScrollDelegate.$getByHandle('carouselScroll').scrollTo(sLeft, 0, true);
         }, 300);
       }
       else {
@@ -925,7 +925,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       else if(zooming === 'standard'){
         var dist = (index*70);
       }
-      $ionicScrollDelegate.$getByHandle('carouselScroll').scrollTo(dist, 0, false);
+      $ionicScrollDelegate.$getByHandle('carouselScroll').scrollTo(dist, 0, true);
     }
     $scope.openNewCarouselPhoto = openNewCarouselPhoto;
 
@@ -939,7 +939,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       else if(zooming === 'standard'){
         var dist = (index*70);
       }
-      $ionicScrollDelegate.$getByHandle('carouselScroll').scrollTo(dist, 0, false);
+      $ionicScrollDelegate.$getByHandle('carouselScroll').scrollTo(dist, 0, true);
     }
     $scope.clickCarouselPhoto = clickCarouselPhoto;
 
