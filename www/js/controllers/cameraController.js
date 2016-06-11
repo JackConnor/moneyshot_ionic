@@ -884,10 +884,10 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         }, 170);
         $timeout(function(){
           if(zooming === 'zoomed'){
-            var sLeft = (index*70)-105;
+            var sLeft = (index*70);
           }
           else if(zooming === 'standard'){
-            var sLeft = (index*70)-135;
+            var sLeft = (index*70);
           }
           $ionicScrollDelegate.$getByHandle('carouselScroll').scrollTo(sLeft, 0, true);
         }, 300);
@@ -910,43 +910,26 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     function openNewCarouselPhoto(mediaData, index, direction){
       $scope.photoCarouselObject = mediaData;
       var mediaLength = $('.photoCarouselCell').length;
+      console.log(index);
       if(zooming === 'zoomed'){
-        var dist = (index*70)-105;
+        var dist = (index*70);
       }
       else if(zooming === 'standard'){
-        var dist = (index*70)-135;
+        var dist = (index*70);
       }
       $ionicScrollDelegate.$getByHandle('carouselScroll').scrollTo(dist, 0, true);
-      // if(direction === 'right'){
-      //   $($('.photoCarouselCell')[index+1]).animate({
-      //     borderWidth: '0px'
-      //     ,marginLeft: '0px'
-      //     ,marginRight: '0px'
-      //   }, 300);
-      // }
-      // else if(direction === 'left'){
-      //   $($('.photoCarouselCell')[index-1]).animate({
-      //     borderWidth: '0px'
-      //     ,marginLeft: '0px'
-      //     ,marginRight: '0px'
-      //   }, 300);
-      // }
-      // $($('.photoCarouselCell')[index]).animate({
-      //   borderWidth: '2px'
-      //   ,marginRight: '10px'
-      //   ,marginLeft: '10px'
-      // }, 300);
     }
     $scope.openNewCarouselPhoto = openNewCarouselPhoto;
 
     function clickCarouselPhoto(mediaData, index){
       $scope.photoCarouselObject = mediaData;
       var mediaLength = $('.photoCarouselCell').length;
+      console.log(index);
       if(zooming === 'zoomed'){
-        var dist = (index*70)-105;
+        var dist = (index*70);
       }
       else if(zooming === 'standard'){
-        var dist = (index*70)-135;
+        var dist = (index*70);
       }
       $ionicScrollDelegate.$getByHandle('carouselScroll').scrollTo(dist, 0, true);
     }
