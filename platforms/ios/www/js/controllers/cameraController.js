@@ -76,6 +76,14 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
     //////function to set up our tempprary photo storage between sessions
     function setLocalForage(){
+      // localforage.setItem('storedPhotos', [])
+      // .then(function(dataVal){
+      //   console.log('creating array');
+      //   console.log(dataVal);
+      // })
+      // .catch(function(err){
+      //   console.log(err);
+      // })
       localforage.getItem('storedPhotos')
       .then(function(value){
         console.log(value);
@@ -889,7 +897,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
           else if(zooming === 'standard'){
             var sLeft = (index*70);
           }
-          $ionicScrollDelegate.$getByHandle('carouselScroll').scrollTo(sLeft, 0, true);
+          $ionicScrollDelegate.$getByHandle('carouselScroll').scrollTo(sLeft, 0, false);
         }, 300);
       }
       else {
@@ -917,7 +925,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       else if(zooming === 'standard'){
         var dist = (index*70);
       }
-      $ionicScrollDelegate.$getByHandle('carouselScroll').scrollTo(dist, 0, true);
+      $ionicScrollDelegate.$getByHandle('carouselScroll').scrollTo(dist, 0, false);
     }
     $scope.openNewCarouselPhoto = openNewCarouselPhoto;
 
@@ -931,12 +939,121 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       else if(zooming === 'standard'){
         var dist = (index*70);
       }
-      $ionicScrollDelegate.$getByHandle('carouselScroll').scrollTo(dist, 0, true);
+      $ionicScrollDelegate.$getByHandle('carouselScroll').scrollTo(dist, 0, false);
     }
     $scope.clickCarouselPhoto = clickCarouselPhoto;
 
+    function changeCarouselPhoto(newMedia){
+      $scope.photoCarouselObject = newMedia;
+      // console.log($scope.photoCarouselObject);
+      $('.mainPhotoCar').attr('src', newMedia.link);
+    }
+    $changeCarouselPhoto = changeCarouselPhoto;
+
     function carouselScroll(){
       console.log('yea yaaaaa');
+      var scrollPos = $ionicScrollDelegate.$getByHandle('carouselScroll').getScrollPosition().left;
+      // console.log(scrollPos);
+      if(scrollPos >= 0 && scrollPos < 71){
+        var newMedia = $scope.mediaCache[0];
+        changeCarouselPhoto(newMedia);
+      }
+      else if(scrollPos >= 71 && scrollPos < 140){
+        var newMedia = $scope.mediaCache[1];
+        changeCarouselPhoto(newMedia);
+      }
+      else if(scrollPos >= 141 && scrollPos < 210){
+        var newMedia = $scope.mediaCache[2];
+        changeCarouselPhoto(newMedia);
+      }
+      else if(scrollPos >= 211 && scrollPos < 280){
+        var newMedia = $scope.mediaCache[3];
+        changeCarouselPhoto(newMedia);
+      }
+      else if(scrollPos >= 281 && scrollPos < 350){
+        var newMedia = $scope.mediaCache[4];
+        changeCarouselPhoto(newMedia);
+      }
+      else if(scrollPos >= 251 && scrollPos < 420){
+        var newMedia = $scope.mediaCache[5];
+        changeCarouselPhoto(newMedia);
+      }
+      else if(scrollPos >= 421 && scrollPos < 490){
+        var newMedia = $scope.mediaCache[6];
+        changeCarouselPhoto(newMedia);
+      }
+      else if(scrollPos >= 491 && scrollPos < 560){
+        var newMedia = $scope.mediaCache[7];
+        changeCarouselPhoto(newMedia);
+      }
+      else if(scrollPos >= 561 && scrollPos < 630){
+        var newMedia = $scope.mediaCache[8];
+        changeCarouselPhoto(newMedia);
+      }
+      else if(scrollPos >= 631 && scrollPos < 700){
+        var newMedia = $scope.mediaCache[9];
+        changeCarouselPhoto(newMedia);
+      }
+      else if(scrollPos >= 701 && scrollPos < 770){
+        var newMedia = $scope.mediaCache[10];
+        changeCarouselPhoto(newMedia);
+      }
+      else if(scrollPos >= 771 && scrollPos < 840){
+        var newMedia = $scope.mediaCache[11];
+        changeCarouselPhoto(newMedia);
+      }
+      else if(scrollPos >= 841 && scrollPos < 910){
+        var newMedia = $scope.mediaCache[12];
+        changeCarouselPhoto(newMedia);
+      }
+      else if(scrollPos >= 911 && scrollPos < 980){
+        var newMedia = $scope.mediaCache[13];
+        changeCarouselPhoto(newMedia);
+      }
+      else if(scrollPos >= 981 && scrollPos < 1050){
+        var newMedia = $scope.mediaCache[14];
+        changeCarouselPhoto(newMedia);
+      }
+      else if(scrollPos >= 1051 && scrollPos < 1120){
+        var newMedia = $scope.mediaCache[15];
+        changeCarouselPhoto(newMedia);
+      }
+      else if(scrollPos >= 1121 && scrollPos < 1190){
+        var newMedia = $scope.mediaCache[16];
+        changeCarouselPhoto(newMedia);
+      }
+      else if(scrollPos >= 1191 && scrollPos < 1260){
+        var newMedia = $scope.mediaCache[17];
+        changeCarouselPhoto(newMedia);
+      }
+      else if(scrollPos >= 1261 && scrollPos < 1330){
+        var newMedia = $scope.mediaCache[18];
+        changeCarouselPhoto(newMedia);
+      }
+      else if(scrollPos >= 1331 && scrollPos < 1400){
+        var newMedia = $scope.mediaCache[19];
+        changeCarouselPhoto(newMedia);
+      }
+      else if(scrollPos >= 1401 && scrollPos < 1470){
+        var newMedia = $scope.mediaCache[20];
+        changeCarouselPhoto(newMedia);
+      }
+      else if(scrollPos >= 1471 && scrollPos < 1530){
+        var newMedia = $scope.mediaCache[21];
+        changeCarouselPhoto(newMedia);
+      }
+      else if(scrollPos >= 1531 && scrollPos < 1600){
+        var newMedia = $scope.mediaCache[22];
+        changeCarouselPhoto(newMedia);
+      }
+      else if(scrollPos >= 1601 && scrollPos < 1670){
+        var newMedia = $scope.mediaCache[23];
+        changeCarouselPhoto(newMedia);
+      }
+      else if(scrollPos >= 1671 && scrollPos < 1740){
+        var newMedia = $scope.mediaCache[24];
+        changeCarouselPhoto(newMedia);
+      }
     }
     $scope.carouselScroll = carouselScroll;
 

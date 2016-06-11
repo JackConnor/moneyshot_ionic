@@ -19,7 +19,7 @@
       <div class="photoActiveFrame">
 
       </div>
-      <ion-scroll direction='x' delegate-handle='carouselScroll' class="photoCarouselHolder" on-scroll='carouselScroll()'>
+      <ion-scroll direction='x' has-bouncing='false' delegate-handle='carouselScroll' class="photoCarouselHolder" on-scroll='carouselScroll()'>
         <div class="photoCarouselInner">
           <div class="photoCarouselCell" ng-repeat="media in mediaCacheTemp" id='{{$index}}'>
             <img ng-if='media.type==="photo"' ng-src="{{media.link}}" ng-click='clickCarouselPhoto(media, $index)'/>
