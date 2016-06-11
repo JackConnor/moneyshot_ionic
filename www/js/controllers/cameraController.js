@@ -533,7 +533,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
               // }
               // addCrop();
               console.log(currentPhoto);
-              $cordovaFileTransfer.upload('https://moneyshotapi.herokuapp.com/api/newimage', currentPhoto.link, photoOptions)
+              $cordovaFileTransfer.upload('http://moneyshotapi.herokuapp.com/api/newimage', currentPhoto.link, photoOptions)
               .then(function(callbackImage){
                 var progressElement = $('.submitProgressBar');
                 if(zeroProgress <= 100){
@@ -1130,66 +1130,75 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       }
     }
 
-    function erasePhoto(){
-      alert('Erasing photos coming soon!');
-      // console.log($scope.photoCarouselObject);
-      // console.log($scope.mediaCache);
-      // var mediaLength = $scope.mediaCache.length;
-      // var testLink1 = $scope.photoCarouselObject.link;
-      // for (var i = 0; i < mediaLength; i++) {
-      //   var testLink2 = $scope.mediaCache[i].link;
-      //   if(testLink1 === testLink2 && $scope.eraseStopper === false){
-      //     $scope.eraseStopper = true;
-      //     if(i > 0){
-      //       $scope.photoCarouselObject = $scope.mediaCache[i-1];
-      //       $scope.mediaCache.splice(i, 1);
-      //       $scope.mediaCacheTemp.splice(i, 1);
-      //       persistentPhotos(i, true);
-      //       var name = 'mopho'+i;
-      //       localforage.removeItem(name, function (err, value) {
-      //         if(err) console.log(err);
-      //         console.log(value);
-      //         $scope.eraseStopper = false;
-      //         // if err is non-null, we got an error. otherwise, value is the value
-      //       });
-      //       console.log($scope.mediaCacheTemp);
-      //       $scope.photoListLength--;
-      //       if($scope.mediaCache[0]){
-      //         photoCarouselSwipeRight();
-      //       }
-      //     }
-      //     else if(i === 0){
-      //       photoCarouselSwipeLeft();
-      //       $scope.mediaCache.splice(i, 1);
-      //       $scope.mediaCacheTemp.splice(i, 1);
-      //       persistentPhotos(i, true);
-      //       var name = 'mopho'+i;
-      //       localforage.removeItem(name, function (err, value) {
-      //         if(err) console.log(err);
-      //         console.log(value);
-      //         $scope.eraseStopper = false;
-      //         // console.log(value);
-      //         // if err is non-null, we got an error. otherwise, value is the value
-      //       });
-      //       console.log($scope.mediaCacheTemp);
-      //       // $scope.photoCarouselObject = $scope.mediaCache[i];
-      //       $scope.photoListLength--;
-      //
-      //       // if($scope.mediaCache[0]){
-      //       //   photoCarouselSwipeLeft();
-      //       // }
-      //     }
-      //     else {
-      //       $scope.photoCarouselObject = '';
-      //       $timeout(function(){
-      //         $scope.photoCarouselBool = false;
-      //       }, 100);
-      //     }
-      //   }
-      // }
-      // console.log($scope.mediaCache);
+    function eraseSinglePhoto(){
+      var confirming = confirm('Erase this photo?');
+      if(confirming){
+
+      }
+      var mediaLength = $scope.mediaCache.length;
+      var testLink1 = $scope.photoCarouselObject.link;
+      for (var i = 0; i < mediaLength; i++) {
+        var testLink2 = $scope.mediaCache[i].link;
+        if(testLink1 === testLink2 && $scope.eraseStopper === false){
+          $scope.eraseStopper = true;
+          if(i > 0){
+            localforage.getItem('storedPhotos')
+            .then(function(allPhotos){
+              var localPhotos = allPhotos;
+              $scope.mediaCache.splice(i, 1);
+              $scope.mediaCacheTemp.splice(i, 1);
+              localPhotos.splice(i, 1);
+              localforage.setItem('storedPhotos', localPhotos)
+              .then(function(success){
+                $scope.photoCarouselObject = $scope.mediaCache[i-1];
+                $scope.photoListLength--;
+                if($scope.mediaCache[0]){
+                  photoCarouselSwipeRight();
+                }
+              })
+              .catch(function(err){
+                console.log(err);
+              })
+            })
+            .catch(function(err){
+              console.log(err);
+            })
+          }
+          else if(i === 0){
+            localforage.getItem('storedPhotos')
+            .then(function(allPhotos){
+              var localPhotos = allPhotos;
+              $scope.mediaCache.splice(i, 1);
+              $scope.mediaCacheTemp.splice(i, 1);
+              localPhotos.splice(i, 1);
+              localforage.setItem('storedPhotos', localPhotos)
+              .then(function(success){
+                $scope.photoCarouselObject = $scope.mediaCache[i-1];
+                $scope.photoListLength--;
+                if($scope.mediaCache[0]){
+                  photoCarouselSwipeLeft();
+                }
+              })
+              .catch(function(err){
+                console.log(err);
+              })
+            })
+            .catch(function(err){
+              console.log(err);
+            })
+
+          }
+          else {
+            $scope.photoCarouselObject = '';
+            $timeout(function(){
+              $scope.photoCarouselBool = false;
+            }, 100);
+          }
+        }
+      }
+      console.log($scope.mediaCache);
     }
-    $scope.erasePhoto = erasePhoto;
+    $scope.eraseSinglePhoto = eraseSinglePhoto;
 
     //////flash button animation
     function animateFlash(){

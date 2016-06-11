@@ -6,49 +6,26 @@ initCtrl.$inject = ['$state', '$http', '$timeout', '$cordovaStatusbar'];
 function initCtrl($state, $http, $timeout, $cordovaStatusbar) {
 	var vm = this;
 
-	function getToken(){
-		if(window.localStorage.webToken && window.localStorage.webToken.length > 2){
-			 return window.localStorage.webToken;
+
+	function checkToken(token) {
+		if(token !== 'null' && token !== null && typeof token === 'string'){
+			$state.go( 'tab.camera' );
 		}
 		else {
-			return false;
-		}
-	}
-	vm.toke = getToken();
-	console.log(vm.toke);
-
-	vm.signin = function() {
-		console.log('Click')
-		$state.go( 'signin' )
-	}
-
-	vm.camera = function() {
-		console.log('Clicky');
-		$state.go( 'tab.camera' );
-	}
-
-	function checkToken() {
-		if(vm.toke === false){
-			vm.signin();
-		}
-		else {
-			vm.camera();
+			$state.go( 'signin' )
 		}
 	}
 
-	function initPage(){
-		if( /Android|webOS|iPhone|iPad|iPod/i.test(navigator.userAgent) ) {
+	// if( /Android|webOS|iPhone|iPad|iPod/i.test(navigator.userAgent) ) {
+		document.addEventListener("deviceready", function(){
 			$timeout(function(){
-				checkToken();
-			}, 4000);
-		}
-		else {
-			$timeout(function(){
-				checkToken();
-			}, 4000);
-		}
-	}
-	document.addEventListener("deviceready", function(){
-		initPage();
-	})
+				var token = window.localStorage.webToken;
+				checkToken(token);
+			}, 1500);
+		})
+	// }
+	// else {
+	// 	var token = window.localStorage.webToken;
+	// 	checkToken();
+	// }
 }

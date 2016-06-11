@@ -86,10 +86,10 @@ angular.module('accountController', ['persistentPhotosFactory'])
     ////////end intro swipe modal stuff
     ///////////////////////////////////
 
-    var userToken = window.localStorage.webToken;
     function getUserPhotos(token){
       decodeToken(token)
       .then(function(decToken){
+        console.log(decToken);
         userPhotos(decToken.data.userId)
         .then(function(userInfo){
           console.log(userInfo);
@@ -154,17 +154,19 @@ angular.module('accountController', ['persistentPhotosFactory'])
         })
       })
     }
+
+    var userToken = window.localStorage.webToken;
     getUserPhotos(userToken);
 
-    function checkToken(){
-      var maybeToken = window.localStorage.webToken;
-      if(maybeToken.length > 4){
-        return;
-      }
-      else {
-        window.location.hash = "#/";
-      }
-    }
+    // function checkToken(){
+    //   var maybeToken = window.localStorage.webToken;
+    //   if(maybeToken.length > 4){
+    //     return;
+    //   }
+    //   else {
+    //     window.location.hash = "#/";
+    //   }
+    // }
 
     function showSoldFunc(){
       $scope.loadingModal = false;
@@ -410,8 +412,7 @@ angular.module('accountController', ['persistentPhotosFactory'])
 
     /////signout option
     function hamburgerSignout(){
-      persistentPhotos('empty');
-      window.localStorage.webToken = '';
+      window.localStorage.webToken = null;
       $state.go('signin');
     }
     $scope.hamburgerSignout = hamburgerSignout;
