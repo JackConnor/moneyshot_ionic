@@ -949,54 +949,48 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         var dist = (index*70)-135;
       }
       $ionicScrollDelegate.$getByHandle('carouselScroll').scrollTo(dist, 0, true);
-      //
-      // $('.photoCarouselCell').css({
-      //   borderWidth: '0px'
-      //   ,marginRight: '0px'
-      //   ,marginLeft: '0px'
-      // })
-      // $($('.photoCarouselCell')[index]).animate({
-      //   borderWidth: '2px'
-      //   ,marginRight: '10px'
-      //   ,marginLeft: '10px'
-      // }, 300);
     }
     $scope.clickCarouselPhoto = clickCarouselPhoto;
 
-    function swipeLeftAnimation(centerP){
-      var imgClone = $('.mainPhotoCar').clone();
-      imgClone.removeClass("mainPhotoCar");
-      imgClone.addClass("mainPhotoCarTwo");
-      imgClone.attr('id', 'mainPhotoId');
-      imgClone.attr('ng-src', '');
-      imgClone.attr('src', $scope.mediaCache[centerP.index+1].link);
-      var width = $('.mainPhotoCar').width();
-      var height = $('.mainPhotoHolder').height()*0.98;
-      var marginL = $('.mainPhotoCar').css("marginLeft");
-      imgClone.css({
-        position: 'absolute'
-        ,width: width+"px"
-        ,height: height+"px"
-        ,marginLeft: '500px'
-      });
-      $('.mainPhotoHolder').prepend(
-        imgClone
-      );
-      $('.mainPhotoCar').animate({
-        marginLeft: '-500px'
-      }, 400);
-      imgClone.animate({
-        marginLeft: marginL
-      }, 400);
-      $timeout(function(){
-        $('.mainPhotoCar').attr('src', $scope.mediaCache[centerP.index+1].link);
-        $('.mainPhotoCar').css({
-          marginLeft: marginL
-        });
-        imgClone.remove();
-        $scope.carouselSwipeActive = false;
-      }, 401);
+    function carouselScroll(){
+      console.log('yea yaaaaa');
     }
+    $scope.carouselScroll = carouselScroll;
+
+    // function swipeLeftAnimation(centerP){
+    //   var imgClone = $('.mainPhotoCar').clone();
+    //   imgClone.removeClass("mainPhotoCar");
+    //   imgClone.addClass("mainPhotoCarTwo");
+    //   imgClone.attr('id', 'mainPhotoId');
+    //   imgClone.attr('ng-src', '');
+    //   imgClone.attr('src', $scope.mediaCache[centerP.index+1].link);
+    //   var width = $('.mainPhotoCar').width();
+    //   var height = $('.mainPhotoHolder').height()*0.98;
+    //   var marginL = $('.mainPhotoCar').css("marginLeft");
+    //   imgClone.css({
+    //     position: 'absolute'
+    //     ,width: width+"px"
+    //     ,height: height+"px"
+    //     ,marginLeft: '500px'
+    //   });
+    //   $('.mainPhotoHolder').prepend(
+    //     imgClone
+    //   );
+    //   $('.mainPhotoCar').animate({
+    //     marginLeft: '-500px'
+    //   }, 400);
+    //   imgClone.animate({
+    //     marginLeft: marginL
+    //   }, 400);
+    //   $timeout(function(){
+    //     $('.mainPhotoCar').attr('src', $scope.mediaCache[centerP.index+1].link);
+    //     $('.mainPhotoCar').css({
+    //       marginLeft: marginL
+    //     });
+    //     imgClone.remove();
+    //     $scope.carouselSwipeActive = false;
+    //   }, 401);
+    // }
 
     //////carousel swipe functions
     function photoCarouselSwipeLeft(){
@@ -1026,16 +1020,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       var photoCarouselLength = carou.length;
       var activeEl = $(".carouselSelected");
       var elIndex  = $('.carouselSelected')[0].id;
-      console.log(elIndex);
-      console.log(activeEl);
       return {activeEl: activeEl, index: elIndex}
-      // for (var i = 0; i < photoCarouselLength; i++) {
-      //   var bStyle = $($(carou)[i]).css('border');
-      //   if(bStyle === "2px solid rgb(255, 255, 255)"){
-      //     var activeEl = carou[i];
-      //     return {activeEl: activeEl, index: i}
-      //   }
-      // }
     }
 
     function selectHighlightPhotos(media, index, evt){

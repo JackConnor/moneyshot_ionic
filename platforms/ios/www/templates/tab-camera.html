@@ -17,11 +17,11 @@
         <video ng-if='photoCarouselObject.type==="video"' poster={{photoCarouselObject.thumb}} ng-src="{{photoCarouselObject.link | trustUrl}}" class='mainPhotoCar' webkit-playsinline id="carouselVideoCamera"></video>
       </div>
       <div class="photoActiveFrame">
-        
+
       </div>
-      <ion-scroll direction='x' delegate-handle='carouselScroll' class="photoCarouselHolder">
+      <ion-scroll direction='x' delegate-handle='carouselScroll' class="photoCarouselHolder" on-scroll='carouselScroll()'>
         <div class="photoCarouselInner">
-          <div class="photoCarouselCell" ng-repeat="media in mediaCache" id='{{$index}}'>
+          <div class="photoCarouselCell" ng-repeat="media in mediaCacheTemp" id='{{$index}}'>
             <img ng-if='media.type==="photo"' ng-src="{{media.link}}" ng-click='clickCarouselPhoto(media, $index)'/>
             <img ng-if='media.type==="video"' ng-src="{{media.thumb | trustUrl}}" ng-click='clickCarouselPhoto(media, $index)'/>
             <!-- <video ng-if='media.type==="video"' ng-src="{{media.link}}" ng-click='openNewCarouselPhoto(media, $index)' poster="{{media.thumb}}"/> -->
