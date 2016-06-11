@@ -872,13 +872,13 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
             var outerWidth = $('.mainPhotoHolder').width();
             var marginL = (outerWidth - width)/2;
             $($('.mainPhotoHolder').children()[0]).css({
-              width: width+147.5+"px"
+              width: width+"px"
             })
             $($('.mainPhotoHolder').children()[0]).css({
               marginLeft: marginL
             });
             $('.photoCarouselInner').css({
-              width: ($('.photoCarouselCell').length*70)+14+'px'
+              width: ($('.photoCarouselCell').length*70)+152.5+'px'
             });
           }, 50);
         }, 170);
