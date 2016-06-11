@@ -7,6 +7,9 @@
       <div class="photoCarouselBackAcct" ng-click='animateBackCarousel(); photoCarouselBack()'>
         <i class='fa fa-chevron-left'></i>
       </div>
+      <div class="videoPlayerIcon" ng-if='photoCarouselObject.type==="video"'>
+        <i class='fa fa-play-circle'></i>
+      </div>
       <div class="mainPhotoHolderAcct">
         <div ng-if="carouselMain.isVideo" class='clickVideo' ng-click="playVid()" on-swipe-right='photoCarouselSwipeRight()' on-swipe-left='photoCarouselSwipeLeft()'>
           <div class="watermarkCell watermarkSold" ng-if="carouselMain.price > 0">

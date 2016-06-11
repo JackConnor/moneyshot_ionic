@@ -882,10 +882,10 @@ html {
   }
 
   .mainPhotoHolder video{
-    width: 320px;
-    height: 586px;
+    width: 100%;
+    height: 667px;
     /*position: absolute;*/
-    margin-top: -136px;
+    margin-top: -128px;
     /*padding-top: 5%;*/
   }
 
@@ -2115,6 +2115,16 @@ html {
   height: 100%;
   background-color: black;
   opacity: 0.11;
+}
+
+.videoPlayerIcon {
+  color: white;
+  font-size: 55px;
+  opacity: 0.5;
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  margin-top: 220px;
 }
 
 .watermarkCell {

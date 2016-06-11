@@ -611,9 +611,19 @@ angular.module('accountController', ['persistentPhotosFactory'])
       }
       if(vidCurrent() == 0 || vidDuration() - vidCurrent() == 0 || $('#carouselVideo')[0].paused){
         $('#carouselVideo')[0].play();
-      }
+        $('.videoPlayerIcon').css({
+          opacity: 0.1
+        });
+        player.addEventListener('ended', function(){
+          $('.videoPlayerIcon').css({
+            opacity: 0.5
+          });
+        });
       else {
         $('#carouselVideo')[0].pause();
+        $('.videoPlayerIcon').css({
+          opacity: 0.5
+        });
       }
     }
     $scope.playVid = playVid;

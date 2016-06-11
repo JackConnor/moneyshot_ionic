@@ -6,8 +6,12 @@
       <div class="photoCarouselBack" ng-click='animateBackCarousel(); photoCarouselBack()'>
         <i class='fa fa-chevron-left'></i>
       </div>
+      <div class="videoPlayerIcon" ng-if='photoCarouselObject.type==="video"'>
+        <i class='fa fa-play-circle'></i>
+      </div>
       <div class="mainPhotoHolder">
-        <div ng-if='photoCarouselObject.type==="video"' class='clickVideo' ng-click="playVid()" on-swipe-right='photoCarouselSwipeRight()' on-swipe-left='photoCarouselSwipeLeft()'></div>
+        <div ng-if='photoCarouselObject.type==="video"' class='clickVideo' ng-click="playVid()" on-swipe-right='photoCarouselSwipeRight()' on-swipe-left='photoCarouselSwipeLeft()'>
+        </div>
         <i class='fa fa-trash-o trashIcon' ng-click='eraseSinglePhoto()'></i>
         <img ng-if='photoCarouselObject.type==="photo"' ng-src="{{photoCarouselObject.link}}" on-swipe-right='photoCarouselSwipeRight()' on-swipe-left='photoCarouselSwipeLeft()' class='mainPhotoCar'/>
         <video ng-if='photoCarouselObject.type==="video"' poster={{photoCarouselObject.thumb}} ng-src="{{photoCarouselObject.link | trustUrl}}" class='mainPhotoCar' webkit-playsinline id="carouselVideoCamera"></video>

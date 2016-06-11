@@ -1150,6 +1150,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
               localPhotos.splice(i, 1);
               localforage.setItem('storedPhotos', localPhotos)
               .then(function(success){
+                console.log(success);
                 $scope.photoCarouselObject = $scope.mediaCache[i-1];
                 $scope.photoListLength--;
                 if($scope.mediaCache[0]){
@@ -1269,17 +1270,29 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     $scope.blurring = blurring;
 
     function playVid(){
+      var player = $('#carouselVideoCamera')[0];
       var vidDuration = function(){
-        return $('#carouselVideoCamera')[0].duration;
+        return player.duration;
       }
       var vidCurrent = function(){
-        return $('#carouselVideoCamera')[0].currentTime;
+        return player.currentTime;
       }
-      if(vidCurrent() == 0 || vidDuration() - vidCurrent() == 0 || $('#carouselVideo')[0].paused){
-        $('#carouselVideoCamera')[0].play();
+      if(vidCurrent() == 0 || vidDuration() - vidCurrent() == 0 || player.paused){
+        player.play();
+        $('.videoPlayerIcon').css({
+          opacity: 0.1
+        });
+        player.addEventListener('ended', function(){
+          $('.videoPlayerIcon').css({
+            opacity: 0.5
+          });
+        });
       }
       else {
-        $('#carouselVideoCamera')[0].pause();
+        player.pause();
+        $('.videoPlayerIcon').css({
+          opacity: 0.5
+        });
       }
     }
     $scope.playVid = playVid;
