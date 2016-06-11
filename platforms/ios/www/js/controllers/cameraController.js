@@ -872,7 +872,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
             var outerWidth = $('.mainPhotoHolder').width();
             var marginL = (outerWidth - width)/2;
             $($('.mainPhotoHolder').children()[0]).css({
-              width: width+"px"
+              width: width+147.5+"px"
             })
             $($('.mainPhotoHolder').children()[0]).css({
               marginLeft: marginL
