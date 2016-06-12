@@ -608,103 +608,104 @@ angular.module('accountController', ['persistentPhotosFactory'])
     function carouselScroll(){
       var scrollPos = $ionicScrollDelegate.$getByHandle('carouselScroll').getScrollPosition().left;
 
-      if(scrollPos >= 0 && scrollPos < 71){
+      if(scrollPos >= 0 && scrollPos < 36){
         var newMedia = $scope.singleSubmission.photos[0];
         changeCarouselPhoto(newMedia);
       }
-      else if(scrollPos >= 71 && scrollPos < 140){
+      else if(scrollPos >= 36 && scrollPos < 105){
         var newMedia = $scope.singleSubmission.photos[1];
         changeCarouselPhoto(newMedia);
       }
-      else if(scrollPos >= 141 && scrollPos < 210){
+      else if(scrollPos >= 106 && scrollPos < 175){
         var newMedia = $scope.singleSubmission.photos[2];
         changeCarouselPhoto(newMedia);
       }
-      else if(scrollPos >= 211 && scrollPos < 280){
+      else if(scrollPos >= 176 && scrollPos < 245){
         var newMedia = $scope.singleSubmission.photos[3];
         changeCarouselPhoto(newMedia);
       }
-      else if(scrollPos >= 281 && scrollPos < 350){
+      else if(scrollPos >= 246 && scrollPos < 315){
         var newMedia = $scope.singleSubmission.photos[4];
         changeCarouselPhoto(newMedia);
       }
-      else if(scrollPos >= 251 && scrollPos < 420){
+      else if(scrollPos >= 316 && scrollPos < 385){
         var newMedia = $scope.singleSubmission.photos[5];
         changeCarouselPhoto(newMedia);
       }
-      else if(scrollPos >= 421 && scrollPos < 490){
+      else if(scrollPos >= 386 && scrollPos < 455){
         var newMedia = $scope.singleSubmission.photos[6];
         changeCarouselPhoto(newMedia);
       }
-      else if(scrollPos >= 491 && scrollPos < 560){
+      else if(scrollPos >= 456 && scrollPos < 525){
         var newMedia = $scope.singleSubmission.photos[7];
         changeCarouselPhoto(newMedia);
       }
-      else if(scrollPos >= 561 && scrollPos < 630){
+      else if(scrollPos >= 526 && scrollPos < 595){
         var newMedia = $scope.singleSubmission.photos[8];
         changeCarouselPhoto(newMedia);
       }
-      else if(scrollPos >= 631 && scrollPos < 700){
+      else if(scrollPos >= 596 && scrollPos < 665){
         var newMedia = $scope.singleSubmission.photos[9];
         changeCarouselPhoto(newMedia);
       }
-      else if(scrollPos >= 701 && scrollPos < 770){
+      else if(scrollPos >= 666 && scrollPos < 735){
         var newMedia = $scope.singleSubmission.photos[10];
         changeCarouselPhoto(newMedia);
       }
-      else if(scrollPos >= 771 && scrollPos < 840){
+      else if(scrollPos >= 736 && scrollPos < 805){
         var newMedia = $scope.singleSubmission.photos[11];
         changeCarouselPhoto(newMedia);
       }
-      else if(scrollPos >= 841 && scrollPos < 910){
+      else if(scrollPos >= 806 && scrollPos < 875){
         var newMedia = $scope.singleSubmission.photos[12];
+        console.log(newMedia);
         changeCarouselPhoto(newMedia);
       }
-      else if(scrollPos >= 911 && scrollPos < 980){
+      else if(scrollPos >= 876 && scrollPos < 945){
         var newMedia = $scope.singleSubmission.photos[13];
         changeCarouselPhoto(newMedia);
       }
-      else if(scrollPos >= 981 && scrollPos < 1050){
+      else if(scrollPos >= 946 && scrollPos < 1015){
         var newMedia = $scope.singleSubmission.photos[14];
         changeCarouselPhoto(newMedia);
       }
-      else if(scrollPos >= 1051 && scrollPos < 1120){
+      else if(scrollPos >= 1016 && scrollPos < 1085){
         var newMedia = $scope.singleSubmission.photos[15];
         changeCarouselPhoto(newMedia);
       }
-      else if(scrollPos >= 1121 && scrollPos < 1190){
+      else if(scrollPos >= 1086 && scrollPos < 1155){
         var newMedia = $scope.singleSubmission.photos[16];
         changeCarouselPhoto(newMedia);
       }
-      else if(scrollPos >= 1191 && scrollPos < 1260){
+      else if(scrollPos >= 1156 && scrollPos < 1225){
         var newMedia = $scope.singleSubmission.photos[17];
         changeCarouselPhoto(newMedia);
       }
-      else if(scrollPos >= 1261 && scrollPos < 1330){
+      else if(scrollPos >= 1226 && scrollPos < 1295){
         var newMedia = $scope.singleSubmission.photos[18];
         changeCarouselPhoto(newMedia);
       }
-      else if(scrollPos >= 1331 && scrollPos < 1400){
+      else if(scrollPos >= 1296 && scrollPos < 1365){
         var newMedia = $scope.singleSubmission.photos[19];
         changeCarouselPhoto(newMedia);
       }
-      else if(scrollPos >= 1401 && scrollPos < 1470){
+      else if(scrollPos >= 1366 && scrollPos < 1435){
         var newMedia = $scope.singleSubmission.photos[20];
         changeCarouselPhoto(newMedia);
       }
-      else if(scrollPos >= 1471 && scrollPos < 1530){
+      else if(scrollPos >= 1436 && scrollPos < 1505){
         var newMedia = $scope.singleSubmission.photos[21];
         changeCarouselPhoto(newMedia);
       }
-      else if(scrollPos >= 1531 && scrollPos < 1600){
+      else if(scrollPos >= 1506 && scrollPos < 1575){
         var newMedia = $scope.singleSubmission.photos[22];
         changeCarouselPhoto(newMedia);
       }
-      else if(scrollPos >= 1601 && scrollPos < 1670){
+      else if(scrollPos >= 1576 && scrollPos < 1635){
         var newMedia = $scope.singleSubmission.photos[23];
         changeCarouselPhoto(newMedia);
       }
-      else if(scrollPos >= 1671 && scrollPos < 1740){
+      else if(scrollPos >= 1636 && scrollPos < 1705){
         var newMedia = $scope.singleSubmission.photos[24];
         changeCarouselPhoto(newMedia);
       }
