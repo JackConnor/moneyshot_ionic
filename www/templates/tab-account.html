@@ -26,7 +26,7 @@
         <div class="watermarkLayer" ng-if="!carouselMain.isVideo" on-swipe-right='photoCarouselSwipeRight()' on-swipe-left='photoCarouselSwipeLeft()'>
           <div class="watermarkCell watermarkPending" ng-if="carouselMain.price > 0">
             Sold!<br><br>
-            {{carouselMain.price | currency}} 
+            {{carouselMain.price | currency}}
           </div>
           <div class="watermarkCell watermarkPending" ng-if="carouselMain.status == 'submitted for sale'">
             Pending
@@ -40,10 +40,13 @@
         <video ng-if="carouselMain.isVideo" ng-src="{{carouselMain.url | trustUrl}}"  poster="{{carouselMain.thumbnail}}" webkit-playsinline id='carouselVideo'>
         </video>
       </div>
-      <ion-scroll direction='x' delegate-handle='carouselScroll' scrollbar-x=false class="photoCarouselHolder" >
+      <div class="photoActiveFrame">
+
+      </div>
+      <ion-scroll direction='x' has-bouncing='false' delegate-handle='carouselScroll' scrollbar-x=false class="photoCarouselHolder" on-scroll='carouselScroll()'>
         <div class="photoCarouselInner">
           <div class="photoCarouselCellAcct" ng-repeat="photo in singleSubmission.photos">
-            <img ng-src="{{photo.thumbnail}}" ng-click='clickCarouselPhoto(photo, $index)'/>
+            <img ng-src="{{photo.thumbnail}}" id='{{$index}}' ng-click='clickCarouselPhoto(photo, $index)'/>
           </div>
         </div>
       </ion-scroll>
