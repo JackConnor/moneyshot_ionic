@@ -871,11 +871,6 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
           $scope.photoCarouselBool = true;
           $timeout(function(){
             $($('.photoCarouselCell')[index]).addClass('carouselSelected');
-            // $($('.photoCarouselCell')[index]).css({
-            //   borderWidth: '2px'
-            //   ,marginRight: '10px'
-            //   ,marginLeft: '10px'
-            // });
             var width = $($('.mainPhotoHolder').children()[0]).width();
             var outerWidth = $('.mainPhotoHolder').width();
             var marginL = (outerWidth - width)/2;
@@ -945,15 +940,15 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
     function changeCarouselPhoto(newMedia){
       $scope.photoCarouselObject = newMedia;
-      // console.log($scope.photoCarouselObject);
-      $('.mainPhotoCar').attr('src', newMedia.link);
+      $scope.$apply();
+      console.log($scope.photoCarouselObject);
+      // $('.mainPhotoCar').attr('src', newMedia.link);
     }
-    $changeCarouselPhoto = changeCarouselPhoto;
+    $scope.changeCarouselPhoto = changeCarouselPhoto;
 
     function carouselScroll(){
-      console.log('yea yaaaaa');
       var scrollPos = $ionicScrollDelegate.$getByHandle('carouselScroll').getScrollPosition().left;
-      // console.log(scrollPos);
+
       if(scrollPos >= 0 && scrollPos < 71){
         var newMedia = $scope.mediaCache[0];
         changeCarouselPhoto(newMedia);
