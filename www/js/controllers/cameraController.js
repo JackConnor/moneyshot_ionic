@@ -888,13 +888,8 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     $scope.clickCarouselPhoto = clickCarouselPhoto;
 
     function changeCarouselPhoto(newMedia){
-      if(newMedia.type==='video'){
-        console.log('yooooooooooo');
-      };
       $scope.photoCarouselObject = newMedia;
       $scope.$apply();
-      console.log($scope.photoCarouselObject);
-      // $('.mainPhotoCar').attr('src', newMedia.link);
     }
     $scope.changeCarouselPhoto = changeCarouselPhoto;
 
@@ -1089,44 +1084,62 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     }
     $scope.selectPhotos = selectPhotos;
 
+    // function processBatchErase(item, index, array){
+    //   $scope.eraseCount = 0;
+    //   console.log(eraseCount);
+    //   var itemChild = $(item).find('img');
+    //   if(itemChild.hasClass('selectedP')){
+    //     eraseCount++;
+    //     console.log('theres one: index: '+index+' and item '+item);
+    //     $scope.mediaCache.splice(index, 1);
+    //     $scope.mediaCacheTemp.splice(index, 1);
+    //     $scope.$apply();
+    //   }
+    // }
+
     function batchErase(){
       localforage.getItem('storedPhotos')
       .then(function(storedArr){
         var stored = storedArr;
+        var arrObj =  $.makeArray(document.getElementsByClassName('submitCellImageHolder'));
+        // console.log(arrObj);
+        var eraseCount = 0;
         $timeout(function(){
           var allPhotos = $('.submitCellImageHolder');
           var allLength = allPhotos.length;
           for (var i = 0; i < allLength; i++) {
             var child = $(allPhotos[i]).find('img');
             if(child.hasClass('selectedP')){
-              $scope.mediaCache[i] = null;
-              $scope.mediaCacheTemp[i] = null;
-              stored[i] = null;
-              // $scope.photoListLength--;
+
+              $scope.mediaCache.splice((i-eraseCount), 1);
+              $scope.mediaCacheTemp.splice((i-eraseCount), 1);
+              $scope.$apply();
+              eraseCount++;
             }
             if(i === allLength-1){
-              for (var k = 0; k < allLength; k++) {
-                if($scope.mediaCache[k] == null){
-                  $scope.mediaCache.splice(k, 1)
-                }
-                if($scope.mediaCacheTemp[k] == null){
-                  $scope.mediaCacheTemp.splice(k,1)
-                }
-                if(stored[k] == null){
-                  stored.splice(k,1)
-                }
-                if(k === allLength-1){
-                  localforage.setItem('storedPhotos', stored)
-                  .then(function(newArray){
-                    $timeout(function(){
-                      selectPhotos();
-                    }, 200);
-                  })
-                  .catch(function(err){
-                    console.log(err);
-                  });
-                }
-              }
+              console.log('donezo');
+              // for (var k = 0; k < allLength; k++) {
+              //   if($scope.mediaCache[k] == null){
+              //     $scope.mediaCache.splice(k, 1)
+              //   }
+              //   if($scope.mediaCacheTemp[k] == null){
+              //     $scope.mediaCacheTemp.splice(k,1)
+              //   }
+              //   if(stored[k] == null){
+              //     stored.splice(k,1)
+              //   }
+              //   if(k === allLength-1){
+              //     localforage.setItem('storedPhotos', stored)
+              //     .then(function(newArray){
+              //       $timeout(function(){
+              //         selectPhotos();
+              //       }, 200);
+              //     })
+              //     .catch(function(err){
+              //       console.log(err);
+              //     });
+              //   }
+              // }
             }
           }
         }, 500);
