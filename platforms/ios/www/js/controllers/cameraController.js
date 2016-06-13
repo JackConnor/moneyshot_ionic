@@ -658,13 +658,13 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         $timeout(function(){
           $('.submitCell').width('123.33px');
           $('.submitCell').height('123.33px');
-        }, 1500);
+        }, 2300);
       }
       else if(cacheLength <= 16){
         $timeout(function(){
           $('.submitCell').width('92.5px');
           $('.submitCell').height('92.5px');
-        }, 3000);
+        }, 3100);
       }
     }
 
@@ -674,10 +674,8 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         $scope.submitModalVar = true;
         returnPlace();
 
-        $timeout(function(){
-          ////////logic to adjust size of cells
-          setCellSize();
-        }, 4000);
+        ////////logic to adjust size of cells
+        setCellSize();
 
         $timeout(function(){
           for (var i = 0; i < 5; i++) {
