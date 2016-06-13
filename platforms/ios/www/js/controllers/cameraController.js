@@ -76,6 +76,17 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
     //////function to set up our tempprary photo storage between sessions
     function setLocalForage(){
+      ////reset local forage cache, uncomment and comment active code to fix issues
+      // localforage.setItem('storedPhotos', [])
+      // .then(function(dataVal){
+      //   console.log('creating array');
+      //   console.log(dataVal);
+      // })
+      // .catch(function(err){
+      //   console.log(err);
+      // })
+
+
       localforage.getItem('storedPhotos')
       .then(function(value){
         console.log(value);
@@ -183,7 +194,8 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
           photoArrayTemp.push(windowPic);
           localforage.setItem('storedPhotos', photoArrayTemp)
           .then(function(newPhotoArr){
-
+            console.log('photos stored');
+            console.log(newPhotoArr);
           })
           .catch(function(err){
             console.log(err);
@@ -214,10 +226,23 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       }
     }
 
+    $scope.burstCounter = 10;
     var photoInt = function(){
        var photoInterval = $interval(function(){
-         $scope.takeCordovaPicture();
-       }, 80);
+         if($scope.burstCounter > 0){
+           $scope.takeCordovaPicture();
+           $scope.burstCounter--;
+           console.log('burst photo');
+           console.log($scope.burstCounter);
+         }
+         else {
+           clearPhotoInt();
+           console.log('chamber empty');
+           $timeout(function(){
+             $scope.burstCounter = 10;
+           }, 3000);
+         }
+       }, 50);
 
        function clearPhotoInt(){
          $interval.cancel(photoInterval);

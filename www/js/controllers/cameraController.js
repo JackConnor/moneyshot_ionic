@@ -25,6 +25,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     $scope.carouselSwipeActive  = false;
     $scope.eraseStopper         = false;
     $scope.selectMode           = false;
+    $scope.burstCounter         = 10;
     $scope.cameraMode           = 'photo';
     $scope.flashOnOff           = 'off'
     $scope.flash                = "Flash on";
@@ -76,20 +77,32 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
     //////function to set up our tempprary photo storage between sessions
     function setLocalForage(){
+      ////reset local forage cache, uncomment and comment active code to fix issues
+      // localforage.setItem('storedPhotos', [])
+      // .then(function(dataVal){
+      //   console.log('creating array');
+      //   console.log(dataVal);
+      // })
+      // .catch(function(err){
+      //   console.log(err);
+      // })
+
+
       localforage.getItem('storedPhotos')
       .then(function(value){
         console.log(value);
         if(value === null || value === [null]){
           localforage.setItem('storedPhotos', [])
           .then(function(dataVal){
-            //////successfully got photos
+            console.log('creating array');
+            console.log(dataVal);
           })
           .catch(function(err){
             console.log(err);
           })
         }
         else {
-          //////this means you have a cache already, and so no need to start a new one
+          console.log('value is: '+value);
         }
       })
       .catch(function(err){
@@ -102,10 +115,34 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     function uploadPhotos(){
       var screenWidth = window.innerWidth;
       setLocalForage();
+      // var persistentLength = persistentPhotos().length;
+      // if(persistentLength === 0){
       localforage.getItem('storedPhotos')
       .then(function(photoArr){
+        console.log(photoArr);
         $scope.mediaCache = photoArr;
+        console.log($scope.mediaCache);
+        // $scope.photoListLength = photoArr.length;
       })
+      // for (var i = 0; i < 25; i++) {
+      //   var name = 'mopho'+i;
+      //   localforage.getItem(name, function (err, value) {
+      //     if(err) console.log(err);
+      //     // console.log(value);
+      //     if(value && value !== null){
+      //       $scope.mediaCache.push(value);
+      //       persistentPhotos(value, false);
+      //       $scope.photoListLength++;
+      //     }
+      //     // if err is non-null, we got an error. otherwise, value is the value
+      //   });
+      // }
+      // }
+      // else {
+      //   console.log('hell yea the were some photos taken in this session');
+      //   $scope.mediaCache = persistentPhotos();
+      //   $scope.photoListLength = persistentLength;
+      // }
       $timeout(function(){
         $scope.activePhoto = false;
         $scope.cameraLaunched = true;
@@ -139,6 +176,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
 
       cordova.plugins.camerapreview.setOnPictureTakenHandler(function(result){
+        $scope.burstCounter--;
         $scope.mediaCache.push({type: 'photo', link: 'data:image/png;base64,'+result[0], date: new Date()});
         $scope.$apply();
         cordova.plugins.camerapreview.show();
@@ -158,7 +196,6 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
           photoArrayTemp.push(windowPic);
           localforage.setItem('storedPhotos', photoArrayTemp)
           .then(function(newPhotoArr){
-
           })
           .catch(function(err){
             console.log(err);
@@ -191,8 +228,19 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
     var photoInt = function(){
        var photoInterval = $interval(function(){
-         $scope.takeCordovaPicture();
-       }, 80);
+         if($scope.burstCounter > 0){
+           $scope.takeCordovaPicture();
+           console.log('burst photo');
+           console.log($scope.burstCounter);
+         }
+         else {
+           clearPhotoInt();
+           console.log('chamber empty');
+           $timeout(function(){
+             $scope.burstCounter = 10;
+           }, 3000);
+         }
+       }, 50);
 
        function clearPhotoInt(){
          $interval.cancel(photoInterval);
