@@ -815,7 +815,6 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
     ///////begin photo carousel animation work
     function goToCarousel(mediaData, index, evt){
-      $scope.submitModalVar = false;
       //////thsi is normal carousel functionality
       if($scope.selectMode === false){
         $scope.photoCarouselObject = mediaData;////this is always the centerpiece photo
@@ -864,7 +863,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     function photoCarouselBack(){
       $timeout(function(){
         $scope.photoCarouselBool = false;
-        photoCarouselBack();
+        $scope.submitModaVar = true;
       }, 200);
     }
     $scope.photoCarouselBack = photoCarouselBack;
