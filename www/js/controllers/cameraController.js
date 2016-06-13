@@ -206,7 +206,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     }
 
     $scope.takeCordovaPicture = function(){
-      if($scope.activePhoto === false && $scope.mediaCache.length <= 25){
+      if($scope.activePhoto === false && $scope.mediaCache.length < 25){
         $scope.activePhoto = true;
         window.plugins.flashlight.switchOff();
         cordova.plugins.camerapreview.takePicture({maxWidth: 2000, maxHeight: 2000});
@@ -217,7 +217,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         cordova.plugins.camerapreview.hide();
         $scope.photoListLength++;
       }
-      else if($scope.mediaCache.length > 25 && $scope.cameraMode === 'photo'){
+      else if($scope.mediaCache.length >= 25 && $scope.cameraMode === 'photo'){
         alert('Sorry, you can only send up to 25 pictures or photos at a time. Please erase a few to free up room to take more MoPhos. Thank you!')
       }
     }
@@ -235,51 +235,6 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
     $scope.photoInt = photoInt;
 
-    // $('.takeBurstButton').mousedown(function(){
-    //   photoInt();
-    // });
-    //
-    // $('.takeBurstButton').mouseup(function(){
-    //   clearPhotoInt();
-    // });
-    // document.addEventListener("deviceready", uploadPhotos);
-    // $timeout(function(){
-    //   if(!$scope.cameraLaunched){
-    //     uploadPhotos();
-    //   }
-    // }, 500);
-    // $timeout(function(){
-    //   if(!$scope.cameraLaunched){
-    //     uploadPhotos();
-    //   }
-    // }, 1500);
-    // $timeout(function(){
-    //   if(!$scope.cameraLaunched){
-    //     uploadPhotos();
-    //   }
-    // }, 2500);
-    // $timeout(function(){
-    //   if(!$scope.cameraLaunched){
-    //     uploadPhotos();
-    //   }
-    // }, 3500);
-    // $timeout(function(){
-    //   if(!$scope.cameraLaunched){
-    //     uploadPhotos();
-    //   }
-    // }, 5000);
-
-    // function outPhotoModal(){
-    //   $scope.cameraModal = false;
-    // }
-    // $scope.outPhotoModal = outPhotoModal;
-    //
-    // function openPhotoModal(){
-    //   $scope.cameraModal = true;
-    // }
-    // $scope.openPhotoModal = openPhotoModal;
-    // openPhotoModal();/////calling this function to open the modal right away
-
     // function to flip the camera
     function flipCamera(){
       if($scope.cameraToggle){
@@ -295,7 +250,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
     $scope.cntPhoto = 0;
     function getPic(){
-      if($scope.activePhoto === false && $scope.mediaCache.length <= 25){
+      if($scope.activePhoto === false && $scope.mediaCache.length < 25){
         $cordovaCapture.captureVideo({quality : 100})
         .then(function(result){
           console.log(result[0]);
@@ -328,7 +283,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
             var thisEl = $('.outCameraModal')[0];
             animateClick(thisEl, 'white', 'transparent');
       }
-      else if($scope.mediaCache.length > 25){
+      else if($scope.mediaCache.length >= 25){
         if(!$scope.alerted){
           $scope.alerted = true;
           $timeout(function(){

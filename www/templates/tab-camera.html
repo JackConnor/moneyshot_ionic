@@ -71,7 +71,7 @@
         </div>
         <div class="buttonDiv col-xs-4">
           <div class="photoCount">
-            {{photoListLength}}
+            {{mediaCache.length}}
           </div>
           <div class="takePhotoButton" ng-click='takeCordovaPicture()' ng-if='cameraMode==="photo" || cameraMode==="video"'>
             <div class="takePhotoButtonInner">
