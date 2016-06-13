@@ -855,7 +855,7 @@ html {
     /*padding-top: 5%;*/
   }
 
-  .mainPhotoHolder i{
+  .trashIconHolder{
     position: absolute;
     color: white;
     font-size: 30px;
@@ -889,7 +889,7 @@ html {
     /*padding-top: 5%;*/
   }
 
-  .mainPhotoHolder i{
+  .trashIconHolder{
     position: absolute;
     color: white;
     font-size: 35px;
