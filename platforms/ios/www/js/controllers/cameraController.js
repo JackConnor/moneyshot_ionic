@@ -289,14 +289,6 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     }
     $scope.getPic = getPic;
 
-    //////function to open the submit modal
-    function openSubmitModal(){
-      $ionicScrollDelegate.scrollTop(true);
-      $ionicScrollDelegate.freezeScroll(false);
-      $scope.submitModalVar = true;
-    }
-    $scope.openSubmitModal = openSubmitModal;
-
     function selectSubmitted(evt, index){
       var circleEl = $(evt.currentTarget).children()[1];
       var targetEl = $($(evt.currentTarget)[0].nextElementSibling.nextElementSibling);
@@ -667,6 +659,15 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         cordova.plugins.camerapreview.hide();
         $scope.submitModalVar = true;
         returnPlace();
+
+        $timeout(function(){
+          ////////logic to adjust size of cells
+          var cacheLength = $scope.mediaCache.length;
+          if(cacheLength < 16){
+            $('.submitCell').width('92.5px');
+            $('.submitCell').height('92.5px');
+          }
+        }, 10);
 
         $timeout(function(){
           for (var i = 0; i < 5; i++) {
@@ -1083,19 +1084,6 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       }
     }
     $scope.selectPhotos = selectPhotos;
-
-    // function processBatchErase(item, index, array){
-    //   $scope.eraseCount = 0;
-    //   console.log(eraseCount);
-    //   var itemChild = $(item).find('img');
-    //   if(itemChild.hasClass('selectedP')){
-    //     eraseCount++;
-    //     console.log('theres one: index: '+index+' and item '+item);
-    //     $scope.mediaCache.splice(index, 1);
-    //     $scope.mediaCacheTemp.splice(index, 1);
-    //     $scope.$apply();
-    //   }
-    // }
 
     function batchErase(){
       var confirmErase = confirm('Erase all selected photos?');

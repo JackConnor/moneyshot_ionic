@@ -289,14 +289,6 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     }
     $scope.getPic = getPic;
 
-    //////function to open the submit modal
-    function openSubmitModal(){
-      $ionicScrollDelegate.scrollTop(true);
-      $ionicScrollDelegate.freezeScroll(false);
-      $scope.submitModalVar = true;
-    }
-    $scope.openSubmitModal = openSubmitModal;
-
     function selectSubmitted(evt, index){
       var circleEl = $(evt.currentTarget).children()[1];
       var targetEl = $($(evt.currentTarget)[0].nextElementSibling.nextElementSibling);
@@ -667,6 +659,15 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         cordova.plugins.camerapreview.hide();
         $scope.submitModalVar = true;
         returnPlace();
+
+        $timeout(function(){
+          ////////logic to adjust size of cells
+          var cacheLength = $scope.mediaCache.length;
+          if(cacheLength < 16){
+            $('.submitCell').width('92.5px');
+            $('.submitCell').height('92.5px');
+          }
+        }, 10);
 
         $timeout(function(){
           for (var i = 0; i < 5; i++) {
