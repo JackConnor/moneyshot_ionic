@@ -1158,10 +1158,19 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
             $scope.eraseStopper = true;
             localforage.setItem('storedPhotos', $scope.mediaCache)
             .then(function(success){
-              console.log($scope.mediaCache.length);
-              console.log(success);
+              // console.log($scope.mediaCache.length);
+              // var newLength = parseInt(String($scope.mediaCache.length));
+              // console.log(newLength);
+              // console.log(success);
+              console.log(mediaLength);
               $scope.eraseStopper = false;
-              if(caughtIt === mediaLength-1){
+              if(mediaLength === 1){
+                console.log('closing');
+                $scope.photoCarouselBool = false;
+                $scope.$apply();
+              }
+              else if(caughtIt === mediaLength-1){
+                console.log('last in the line');
                 $($('.photoCarouselCell')[caughtIt-1]).addClass('carouselSelected');
                 $scope.photoCarouselObject = $('.photoCarouselCell')[caughtIt-1];
                 $scope.$apply();
@@ -1169,12 +1178,8 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                 $ionicScrollDelegate.$getByHandle('carouselScroll').scrollTo(carWidth-140, 0, true);
                 $('.photoCarouselInner').width(carWidth-70);
               }
-              else if($scope.mediaCache.length === 0){
-                console.log('closing');
-                $scope.photoCarouselBool = false;
-                $scope.$apply();
-              }
               else {
+                console.log('normal chops');
                 console.log(caughtIt);
                 $($('.photoCarouselCell')[caughtIt]).addClass('carouselSelected');
                 $scope.photoCarouselObject = $scope.mediaCache[caughtIt];
