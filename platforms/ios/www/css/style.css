@@ -855,12 +855,18 @@ html {
     /*padding-top: 5%;*/
   }
 
+  .mainPhotoHolder i {
+    padding-left: 4px;
+    z-index: 500;
+    position: absolute;
+  }
+
   .trashIconHolder{
     position: absolute;
     color: white;
     font-size: 30px;
     margin-top: 350px;
-    right: 10px;
+    right: 35px;
   }
 }
 
@@ -889,12 +895,18 @@ html {
     /*padding-top: 5%;*/
   }
 
+  .mainPhotoHolder i {
+    padding-left: 4px;
+    z-index: 500;
+    position: absolute;
+  }
+
   .trashIconHolder{
     position: absolute;
     color: white;
     font-size: 35px;
     margin-top: 405px;
-    right: 15px;
+    right: 40px;
   }
 }
 
@@ -2123,6 +2135,15 @@ html {
 .testing {
   width: 100px;
   height: 100px;
+}
+
+.trashBlackLayer {
+  width: 35px;
+  height: 35px;
+  position: absolute;
+  background-color: black;
+  opacity: 0.1;
+  border-radius: 25%;
 }
 
 
