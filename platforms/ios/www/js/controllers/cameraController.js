@@ -1118,28 +1118,13 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
             }
             if(i === allLength-1){
               console.log('donezo');
-              // for (var k = 0; k < allLength; k++) {
-              //   if($scope.mediaCache[k] == null){
-              //     $scope.mediaCache.splice(k, 1)
-              //   }
-              //   if($scope.mediaCacheTemp[k] == null){
-              //     $scope.mediaCacheTemp.splice(k,1)
-              //   }
-              //   if(stored[k] == null){
-              //     stored.splice(k,1)
-              //   }
-              //   if(k === allLength-1){
-              //     localforage.setItem('storedPhotos', stored)
-              //     .then(function(newArray){
-              //       $timeout(function(){
-              //         selectPhotos();
-              //       }, 200);
-              //     })
-              //     .catch(function(err){
-              //       console.log(err);
-              //     });
-              //   }
-              // }
+              localforage.setItem('storedPhotos', $scope.mediaCache)
+              .then(function(newArray){
+                console.log(newArray);
+              })
+              .catch(function(err){
+                console.log(err);
+              });
             }
           }
         }, 500);
