@@ -1098,7 +1098,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     // }
 
     function batchErase(){
-      var confirmErase = confirm('Erase selected photos?');
+
       if(confirm){
         localforage.getItem('storedPhotos')
         .then(function(storedArr){
@@ -1130,7 +1130,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
               }
             }
           }, 500);
-        })  
+        })
       }
     }
     $scope.batchErase = batchErase;
