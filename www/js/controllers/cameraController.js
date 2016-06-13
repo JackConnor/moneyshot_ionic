@@ -658,7 +658,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         $timeout(function(){
           $('.submitCell').width('123.33px');
           $('.submitCell').height('123.33px');
-        }, 2300);
+        }, 2300); 
       }
       else if(cacheLength <= 16){
         $timeout(function(){
