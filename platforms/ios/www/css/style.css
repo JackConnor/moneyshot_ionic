@@ -299,6 +299,15 @@ html {
   margin-left: 10px;
 }
 
+.carouselBackBlackLayer {
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  background-color: black;
+  opacity: 0.05;
+  border-radius: 30%;
+}
+
 .carouselBlackForBar {
   height: 20px;
   width: 100%;
@@ -1110,6 +1119,7 @@ html {
   z-index: 210;
 }
 
+
 .photoCarouselBackAcct {
   font-size: 25px;
   width: 35px;
@@ -1118,6 +1128,21 @@ html {
   padding-left: 10px;
   padding-top: 35px;
   z-index: 210;
+}
+
+.photoCarouselBack i{
+  padding-top: 4px;
+  padding-left: 4px;
+  position: absolute;
+  z-index: 2;
+}
+
+
+.photoCarouselBackAcct i{
+  padding-top: 4px;
+  padding-left: 4px;
+  position: absolute;
+  z-index: 2;
 }
 
 .photoCarouselCell {
@@ -2142,7 +2167,7 @@ html {
   height: 35px;
   position: absolute;
   background-color: black;
-  opacity: 0.1;
+  opacity: 0.05;
   border-radius: 25%;
 }
 

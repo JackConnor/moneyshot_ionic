@@ -1098,104 +1098,94 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     // }
 
     function batchErase(){
-      localforage.getItem('storedPhotos')
-      .then(function(storedArr){
-        var stored = storedArr;
-        var arrObj =  $.makeArray(document.getElementsByClassName('submitCellImageHolder'));
-        // console.log(arrObj);
-        var eraseCount = 0;
-        $timeout(function(){
-          var allPhotos = $('.submitCellImageHolder');
-          var allLength = allPhotos.length;
-          for (var i = 0; i < allLength; i++) {
-            var child = $(allPhotos[i]).find('img');
-            if(child.hasClass('selectedP')){
+      var confirmErase = confirm('Erase selected photos?');
+      if(confirm){
+        localforage.getItem('storedPhotos')
+        .then(function(storedArr){
+          var stored = storedArr;
+          var arrObj =  $.makeArray(document.getElementsByClassName('submitCellImageHolder'));
+          // console.log(arrObj);
+          var eraseCount = 0;
+          $timeout(function(){
+            var allPhotos = $('.submitCellImageHolder');
+            var allLength = allPhotos.length;
+            for (var i = 0; i < allLength; i++) {
+              var child = $(allPhotos[i]).find('img');
+              if(child.hasClass('selectedP')){
 
-              $scope.mediaCache.splice((i-eraseCount), 1);
-              $scope.mediaCacheTemp.splice((i-eraseCount), 1);
-              $scope.$apply();
-              eraseCount++;
+                $scope.mediaCache.splice((i-eraseCount), 1);
+                $scope.mediaCacheTemp.splice((i-eraseCount), 1);
+                $scope.$apply();
+                eraseCount++;
+              }
+              if(i === allLength-1){
+                console.log('donezo');
+                localforage.setItem('storedPhotos', $scope.mediaCache)
+                .then(function(newArray){
+                  console.log(newArray);
+                })
+                .catch(function(err){
+                  console.log(err);
+                });
+              }
             }
-            if(i === allLength-1){
-              console.log('donezo');
-              localforage.setItem('storedPhotos', $scope.mediaCache)
-              .then(function(newArray){
-                console.log(newArray);
-              })
-              .catch(function(err){
-                console.log(err);
-              });
-            }
-          }
-        }, 500);
-      })
+          }, 500);
+        })  
+      }
     }
     $scope.batchErase = batchErase;
 
     function eraseSinglePhoto(){
       var confirming = confirm('Erase this photo?');
       if(confirming){
-
-      }
-      var mediaLength = $scope.mediaCache.length;
-      var testLink1 = $scope.photoCarouselObject.link;
-      for (var i = 0; i < mediaLength; i++) {
-        var testLink2 = $scope.mediaCache[i].link;
-        if(testLink1 === testLink2 && $scope.eraseStopper === false){
-          $scope.eraseStopper = true;
-          if(i > 0){
-            localforage.getItem('storedPhotos')
-            .then(function(allPhotos){
-              var localPhotos = allPhotos;
-              $scope.mediaCache.splice(i, 1);
-              $scope.mediaCacheTemp.splice(i, 1);
-              localPhotos.splice(i, 1);
-              localforage.setItem('storedPhotos', localPhotos)
-              .then(function(success){
-                console.log(success);
-                $scope.photoCarouselObject = $scope.mediaCache[i-1];
-                // $scope.photoListLength--;
-                if($scope.mediaCache[0]){
-                  photoCarouselSwipeRight();
-                }
-              })
-              .catch(function(err){
-                console.log(err);
-              })
-            })
-            .catch(function(err){
-              console.log(err);
-            })
-          }
-          else if(i === 0){
-            localforage.getItem('storedPhotos')
-            .then(function(allPhotos){
-              var localPhotos = allPhotos;
-              $scope.mediaCache.splice(i, 1);
-              $scope.mediaCacheTemp.splice(i, 1);
-              localPhotos.splice(i, 1);
-              localforage.setItem('storedPhotos', localPhotos)
-              .then(function(success){
-                $scope.photoCarouselObject = $scope.mediaCache[i-1];
-                // $scope.photoListLength--;
-                if($scope.mediaCache[0]){
-                  photoCarouselSwipeLeft();
-                }
-              })
-              .catch(function(err){
-                console.log(err);
-              })
-            })
-            .catch(function(err){
-              console.log(err);
-            })
-
+        var mediaLength = $scope.mediaCache.length;
+        var testLink1 = $scope.photoCarouselObject.link;
+        for (var i = 0; i < mediaLength; i++) {
+          console.log(i);
+          if($scope.mediaCache[i]){
+            var testLink2 = $scope.mediaCache[i].link;
           }
           else {
-            $scope.photoCarouselObject = '';
-            $timeout(function(){
-              $scope.photoCarouselBool = false;
-            }, 100);
+            var testLink2 = "blah blah blah";
+          }
+          if(testLink1 === testLink2 && $scope.eraseStopper === false){
+            console.log('go tit');
+            console.log($scope.mediaCacheTemp);
+            $scope.mediaCache.splice(i, 1);
+            $scope.mediaCacheTemp.splice(i, 1);
+            console.log($scope.mediaCacheTemp);
+            var caughtIt = parseInt(String(i));
+            $scope.eraseStopper = true;
+            localforage.setItem('storedPhotos', $scope.mediaCache)
+            .then(function(success){
+              console.log($scope.mediaCache.length);
+              console.log(success);
+              $scope.eraseStopper = false;
+              if(caughtIt === mediaLength-1){
+                $($('.photoCarouselCell')[caughtIt-1]).addClass('carouselSelected');
+                $scope.photoCarouselObject = $('.photoCarouselCell')[caughtIt-1];
+                $scope.$apply();
+                var carWidth = $('.photoCarouselInner').width();
+                $ionicScrollDelegate.$getByHandle('carouselScroll').scrollTo(carWidth-140, 0, true);
+                $('.photoCarouselInner').width(carWidth-70);
+              }
+              else if($scope.mediaCache.length === 0){
+                console.log('closing');
+                $scope.photoCarouselBool = false;
+                $scope.$apply();
+              }
+              else {
+                console.log(caughtIt);
+                $($('.photoCarouselCell')[caughtIt]).addClass('carouselSelected');
+                $scope.photoCarouselObject = $scope.mediaCache[caughtIt];
+                var carWidth = $('.photoCarouselInner').width();
+                $('.photoCarouselInner').width(carWidth-70);
+                $scope.$apply();
+              }
+            })
+            .catch(function(err){
+              console.log(err);
+            })
           }
         }
       }
