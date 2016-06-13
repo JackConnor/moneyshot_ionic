@@ -1104,7 +1104,6 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         .then(function(storedArr){
           var stored = storedArr;
           var arrObj =  $.makeArray(document.getElementsByClassName('submitCellImageHolder'));
-          // console.log(arrObj);
           var eraseCount = 0;
           $timeout(function(){
             var allPhotos = $('.submitCellImageHolder');
@@ -1119,10 +1118,8 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                 eraseCount++;
               }
               if(i === allLength-1){
-                console.log('donezo');
                 localforage.setItem('storedPhotos', $scope.mediaCache)
                 .then(function(newArray){
-                  console.log(newArray);
                 })
                 .catch(function(err){
                   console.log(err);
