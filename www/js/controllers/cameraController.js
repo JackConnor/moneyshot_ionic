@@ -658,7 +658,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         $timeout(function(){
           $('.submitCell').width('123.33px');
           $('.submitCell').height('123.33px');
-        }, 2300); 
+        }, 2300);
       }
       else if(cacheLength <= 16){
         $timeout(function(){
@@ -815,6 +815,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
     ///////begin photo carousel animation work
     function goToCarousel(mediaData, index, evt){
+      $scope.submitModalVar = false;
       //////thsi is normal carousel functionality
       if($scope.selectMode === false){
         $scope.photoCarouselObject = mediaData;////this is always the centerpiece photo
@@ -863,7 +864,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     function photoCarouselBack(){
       $timeout(function(){
         $scope.photoCarouselBool = false;
-        $scope.submitModaVar = true;
+        photoCarouselBack();
       }, 200);
     }
     $scope.photoCarouselBack = photoCarouselBack;
