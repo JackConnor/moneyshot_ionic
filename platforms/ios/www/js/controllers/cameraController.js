@@ -76,14 +76,6 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
     //////function to set up our tempprary photo storage between sessions
     function setLocalForage(){
-      // localforage.setItem('storedPhotos', [])
-      // .then(function(dataVal){
-      //   console.log('creating array');
-      //   console.log(dataVal);
-      // })
-      // .catch(function(err){
-      //   console.log(err);
-      // })
       localforage.getItem('storedPhotos')
       .then(function(value){
         console.log(value);
@@ -173,6 +165,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
       cordova.plugins.camerapreview.setOnPictureTakenHandler(function(result){
         $scope.mediaCache.push({type: 'photo', link: 'data:image/png;base64,'+result[0], date: new Date()});
+        $scope.$apply();
         cordova.plugins.camerapreview.show();
         $scope.activePhoto = false;
         $('.takePhotoButtonInner').animate({
@@ -191,6 +184,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
           photoArrayTemp.push(windowPic);
           localforage.setItem('storedPhotos', photoArrayTemp)
           .then(function(newPhotoArr){
+            console.log('photos stored');
             console.log(newPhotoArr);
           })
           .catch(function(err){
