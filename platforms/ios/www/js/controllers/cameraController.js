@@ -1104,7 +1104,6 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         .then(function(storedArr){
           var stored = storedArr;
           var arrObj =  $.makeArray(document.getElementsByClassName('submitCellImageHolder'));
-          // console.log(arrObj);
           var eraseCount = 0;
           $timeout(function(){
             var allPhotos = $('.submitCellImageHolder');
@@ -1119,17 +1118,15 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                 eraseCount++;
               }
               if(i === allLength-1){
-                console.log('donezo');
                 localforage.setItem('storedPhotos', $scope.mediaCache)
                 .then(function(newArray){
-                  console.log(newArray);
                 })
                 .catch(function(err){
                   console.log(err);
                 });
               }
             }
-          }, 500);
+          }, 50);
         })
       }
     }
@@ -1141,7 +1138,6 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         var mediaLength = $scope.mediaCache.length;
         var testLink1 = $scope.photoCarouselObject.link;
         for (var i = 0; i < mediaLength; i++) {
-          console.log(i);
           if($scope.mediaCache[i]){
             var testLink2 = $scope.mediaCache[i].link;
           }
@@ -1149,28 +1145,18 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
             var testLink2 = "blah blah blah";
           }
           if(testLink1 === testLink2 && $scope.eraseStopper === false){
-            console.log('go tit');
-            console.log($scope.mediaCacheTemp);
             $scope.mediaCache.splice(i, 1);
             $scope.mediaCacheTemp.splice(i, 1);
-            console.log($scope.mediaCacheTemp);
             var caughtIt = parseInt(String(i));
             $scope.eraseStopper = true;
             localforage.setItem('storedPhotos', $scope.mediaCache)
             .then(function(success){
-              // console.log($scope.mediaCache.length);
-              // var newLength = parseInt(String($scope.mediaCache.length));
-              // console.log(newLength);
-              // console.log(success);
-              console.log(mediaLength);
               $scope.eraseStopper = false;
               if(mediaLength === 1){
-                console.log('closing');
                 $scope.photoCarouselBool = false;
                 $scope.$apply();
               }
               else if(caughtIt === mediaLength-1){
-                console.log('last in the line');
                 $($('.photoCarouselCell')[caughtIt-1]).addClass('carouselSelected');
                 $scope.photoCarouselObject = $('.photoCarouselCell')[caughtIt-1];
                 $scope.$apply();
@@ -1179,8 +1165,6 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                 $('.photoCarouselInner').width(carWidth-70);
               }
               else {
-                console.log('normal chops');
-                console.log(caughtIt);
                 $($('.photoCarouselCell')[caughtIt]).addClass('carouselSelected');
                 $scope.photoCarouselObject = $scope.mediaCache[caughtIt];
                 var carWidth = $('.photoCarouselInner').width();

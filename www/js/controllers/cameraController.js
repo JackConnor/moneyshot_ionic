@@ -1126,7 +1126,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                 });
               }
             }
-          }, 500);
+          }, 50);
         })
       }
     }
