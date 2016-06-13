@@ -646,13 +646,27 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     }
     $scope.backToSubmit = backToSubmit;
 
-    // setInterval(function(){
-    //   var width = $('.submitCell').width();
-    //   // console.log(width);
-    //   $('.submitCell').css({
-    //     height: width*(5/4)+"px"
-    //   })
-    // }, 500)
+    function setCellSize(){
+      var cacheLength = $scope.mediaCache.length;
+      if(cacheLength <= 4){
+        $timeout(function(){
+          $('.submitCell').width('185px');
+          $('.submitCell').height('185px');
+        }, 1000);
+      }
+      else if(cacheLength <= 9){
+        $timeout(function(){
+          $('.submitCell').width('123.33px');
+          $('.submitCell').height('123.33px');
+        }, 1500);
+      }
+      else if(cacheLength <= 16){
+        $timeout(function(){
+          $('.submitCell').width('92.5px');
+          $('.submitCell').height('92.5px');
+        }, 3000);
+      }
+    }
 
     function submitModalOpen(){
       if($scope.activePhoto === false){
@@ -662,45 +676,41 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
         $timeout(function(){
           ////////logic to adjust size of cells
-          var cacheLength = $scope.mediaCache.length;
-          if(cacheLength < 16){
-            $('.submitCell').width('92.5px');
-            $('.submitCell').height('92.5px');
-          }
-        }, 10);
+          setCellSize();
+        }, 4000);
 
         $timeout(function(){
           for (var i = 0; i < 5; i++) {
             if($scope.mediaCache[i]){
-              $scope.mediaCacheTemp.push($scope.mediaCache[i])
+              $scope.mediaCacheTemp.push($scope.mediaCache[i]);
             }
           }
         }, 750);
         $timeout(function(){
           for (var i = 5; i < 10; i++) {
             if($scope.mediaCache[i]){
-              $scope.mediaCacheTemp.push($scope.mediaCache[i])
+              $scope.mediaCacheTemp.push($scope.mediaCache[i]);
             }
           }
         }, 1500);
         $timeout(function(){
           for (var i = 10; i < 15; i++) {
             if($scope.mediaCache[i]){
-              $scope.mediaCacheTemp.push($scope.mediaCache[i])
+              $scope.mediaCacheTemp.push($scope.mediaCache[i]);
             }
           }
         }, 2250);
         $timeout(function(){
           for (var i = 15; i < 20; i++) {
             if($scope.mediaCache[i]){
-              $scope.mediaCacheTemp.push($scope.mediaCache[i])
+              $scope.mediaCacheTemp.push($scope.mediaCache[i]);
             }
           }
         }, 3000);
         $timeout(function(){
           for (var i = 20; i < 25; i++) {
             if($scope.mediaCache[i]){
-              $scope.mediaCacheTemp.push($scope.mediaCache[i])
+              $scope.mediaCacheTemp.push($scope.mediaCache[i]);
             }
           }
         }, 3750);
