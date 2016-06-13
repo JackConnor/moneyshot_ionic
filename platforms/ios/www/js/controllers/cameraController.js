@@ -647,7 +647,9 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     $scope.backToSubmit = backToSubmit;
 
     function setCellSize(){
+      console.log('resizing');
       var cacheLength = $scope.mediaCache.length;
+      console.log(cacheLength);
       if(cacheLength <= 4){
         $timeout(function(){
           $('.submitCell').width('185px');
@@ -669,9 +671,11 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     }
 
     function submitModalOpen(){
+      console.log('opening');
       if($scope.activePhoto === false){
         cordova.plugins.camerapreview.hide();
         $scope.submitModalVar = true;
+        setCellSize();
         returnPlace();
 
         ////////logic to adjust size of cells
@@ -861,6 +865,8 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
 
     function photoCarouselBack(){
+      console.log('yoooooooooooooooo');
+      setCellSize();
       $timeout(function(){
         $scope.photoCarouselBool = false;
         $scope.submitModaVar = true;
