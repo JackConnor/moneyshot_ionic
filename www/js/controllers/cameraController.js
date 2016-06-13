@@ -1084,19 +1084,6 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     }
     $scope.selectPhotos = selectPhotos;
 
-    // function processBatchErase(item, index, array){
-    //   $scope.eraseCount = 0;
-    //   console.log(eraseCount);
-    //   var itemChild = $(item).find('img');
-    //   if(itemChild.hasClass('selectedP')){
-    //     eraseCount++;
-    //     console.log('theres one: index: '+index+' and item '+item);
-    //     $scope.mediaCache.splice(index, 1);
-    //     $scope.mediaCacheTemp.splice(index, 1);
-    //     $scope.$apply();
-    //   }
-    // }
-
     function batchErase(){
       var confirmErase = confirm('Erase all selected photos?');
       if(confirm){
