@@ -25,7 +25,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     $scope.carouselSwipeActive  = false;
     $scope.eraseStopper         = false;
     $scope.selectMode           = false;
-    $scope.burstCounter         = 10;
+    $scope.burstCounter         = 10;  
     $scope.cameraMode           = 'photo';
     $scope.flashOnOff           = 'off'
     $scope.flash                = "Flash on";
