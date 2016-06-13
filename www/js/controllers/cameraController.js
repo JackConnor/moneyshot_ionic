@@ -179,13 +179,11 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         // });
         localforage.getItem('storedPhotos')
         .then(function(value){
-          console.log(value);
           var photoArrayTemp = value;
           photoArrayTemp.push(windowPic);
           localforage.setItem('storedPhotos', photoArrayTemp)
           .then(function(newPhotoArr){
-            console.log('photos stored');
-            console.log(newPhotoArr);
+
           })
           .catch(function(err){
             console.log(err);
