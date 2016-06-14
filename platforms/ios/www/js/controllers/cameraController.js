@@ -1145,7 +1145,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     $scope.animateToggle = animateToggle;
 
     /////fsubmit field blur/focus functions
-    function unblurring(){
+    function blurring(){
       $('.submitRepeat').animate({
         height: '340px'
       }, 250);
@@ -1155,7 +1155,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     };
     $scope.unblurring = unblurring;
 
-    function blurring(){
+    function unblurring(){
       $('.submitRepeat').animate({
         height: '0px'
       }, 250);
