@@ -27,7 +27,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     $scope.selectMode           = false;
     $scope.cameraHot            = false;
     $scope.submitBar            = false;
-    $scope.isDisable            = false;
+    $scope.isDisabled           = false;
     $scope.burstCounter         = 0;
     $scope.cameraMode           = 'photo';
     $scope.flashOnOff           = 'off'
@@ -519,9 +519,12 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       console.log('cancelling');
       $scope.submitBar = false;
       $scope.isDisabled = true;
+      $('.disabledSubmit').animate({
+        opacity: 1
+      }, 5000);
       $timeout(function(){
         $scope.isDisabled = false;
-      }, 10000);
+      }, 3000);
     }
     $scope.emergencyCancelSubmit = emergencyCancelSubmit;
 
