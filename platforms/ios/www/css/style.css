@@ -327,6 +327,22 @@ html {
   margin-left: 10px;
 }
 
+.cancelButton {
+  width: 75px;
+  border: 1px solid white;
+  height: 40px;
+  background-color: black;
+  color: white;
+  text-align: center;
+  padding-top: 8px;
+  font-size: 19px;
+  font-weight: bold;
+  border-radius: 5px;
+  margin-top: 25px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .carouselBackBlackLayer {
   width: 30px;
   height: 30px;
@@ -1752,7 +1768,7 @@ html {
   opacity: 0.85;
   margin-top: 25px;
   z-index: 5000;
-  padding-bottom: 35px;
+  padding-bottom: 15px;
   width: 80%;
   margin-left: 10%;
 }

@@ -15,7 +15,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     $scope.mediaCache = [];
     // $scope.photoListLength      = 0;
     $scope.croppedPhoto         = '';
-    $scope.submitModalVar       = false;
+    $scope.submitModalVar       = true;
     $scope.photoCarouselBool    = false;
     $scope.cameraModal          = true;
     $scope.cameraLaunched       = false;
@@ -26,6 +26,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     $scope.eraseStopper         = false;
     $scope.selectMode           = false;
     $scope.cameraHot            = false;
+    $scope.submitBar            = true;
     $scope.burstCounter         = 0;
     $scope.cameraMode           = 'photo';
     $scope.flashOnOff           = 'off'
@@ -44,9 +45,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         return 'standard';
       }
     }
-    var zooming = findZoomed();
-
-
+    var zooming = findZoomed();////this determines if the screen is on zoom mode or not
 
     /////end global variables///
     ////////////////////////////
@@ -124,25 +123,6 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         $scope.mediaCache = photoArr;
         // $scope.photoListLength = photoArr.length;
       })
-      // for (var i = 0; i < 25; i++) {
-      //   var name = 'mopho'+i;
-      //   localforage.getItem(name, function (err, value) {
-      //     if(err) console.log(err);
-      //     // console.log(value);
-      //     if(value && value !== null){
-      //       $scope.mediaCache.push(value);
-      //       persistentPhotos(value, false);
-      //       $scope.photoListLength++;
-      //     }
-      //     // if err is non-null, we got an error. otherwise, value is the value
-      //   });
-      // }
-      // }
-      // else {
-      //   console.log('hell yea the were some photos taken in this session');
-      //   $scope.mediaCache = persistentPhotos();
-      //   $scope.photoListLength = persistentLength;
-      // }
       $timeout(function(){
         $scope.activePhoto = false;
         $scope.cameraLaunched = true;
@@ -157,11 +137,6 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       else if(screenWidth === 375){
         var rect = {x: 0, y: 45, width: 375, height: 468.75};
       }
-      // var cameraPrev = cordova.plugins.camerapreview.startCamera(rect, 'back', tapEnabled, dragEnabled, toBack);
-      // console.dir(cordova.plugins.camerapreview);
-
-      // var objCanvas = document.getElementById("camera");
-      // window.plugin.CanvasCamera.initialize(objCanvas);
       $timeout(function(){
         cordova.plugins.camerapreview.startCamera(rect, 'back', tapEnabled, dragEnabled, toBack);
       }, 2000);
@@ -647,6 +622,15 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     //   console.log($scope.imageNumbers);
     // }
     // $scope.cropAway = cropAway;
+
+    function emergencyCancelSubmit(){
+      console.log('cancelling');
+      var i = $scope.mediaCache.length;
+      $scope.submitModalVar = false;
+      $scope.submitBar = false;
+
+    }
+    $scope.emergencyCancelSubmit = emergencyCancelSubmit;
 
     function backToSubmit(){
       $('.submitCropContainer').animate({
