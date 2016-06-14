@@ -103,6 +103,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         }
         else {
           console.log('value is: '+value);
+          $scope.mediaCache = value;
         }
       })
       .catch(function(err){
@@ -192,7 +193,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         // localforage.getItem('storedPhotos')
         // .then(function(value){
           // var photoArrayTemp = value;
-          photoArrayTemp.push(windowPic);
+          // photoArrayTemp.push(windowPic);
           localforage.setItem('storedPhotos', $scope.mediaCache)
           .then(function(newPhotoArr){
           })
