@@ -49,9 +49,9 @@
     </div>
   </div>
   <ion-content>
-    <div class="postSigninModal" ng-if='!newSigninModal'>
+    <div class="postSigninModal" ng-if='newSigninModal'>
       <div class="postIntroTop">
-        <div class="leavePostSignup">
+        <div class="leavePostSignup" ng-click='welcomeToCamera($Event)'>
           <i class='fa fa-chevron-left'></i>
         </div>
         <div class="cameraLogoSignup">
@@ -89,7 +89,7 @@
             Send your photos to us, and get paid when we sell them!
           </div>
         </div>
-        <div class="welcomeToMoPhoButton">
+        <div class="welcomeToMoPhoButton" ng-click='welcomeToCamera($event)'>
           Take some photos!
         </div>
       </div>

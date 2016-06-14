@@ -20,6 +20,7 @@ angular.module('signupController', [])
     $scope.getPasswordModal = false;
     $scope.newPwModal       = false;
     $scope.pwHide           = false;
+    $scope.newSigninModal   = false;
     $scope.introCounter     = 0;
     $scope.introTag = "Shoot Awesome Photos";
     $ionicScrollDelegate.freezeScroll();
@@ -165,79 +166,74 @@ angular.module('signupController', [])
       $('.mophoSignin').animate({
         opacity: 1
       }, 250);
-      $scope.newSigninModal = true;
-      // if(validPW){
-      //   var email = $('.signupEmail').val();
-      //   var password = $('.signupPassword').val();
-      //   var repassword = $('.signupConfirmPassword').val();
-      //   if(password == repassword){
-      //     signup(email, password)
-      //     .then(function(newUser){
-      //       console.log(newUser);
-      //       if(newUser.data === 'email already in use'){
-      //         alert('that email is already in the system, please try another one or login using your password');
-      //         $('.signupEmail').val('');
-      //         $('.signupPassword').val('');
-      //         $('.signupConfirmPassword').val('');
-      //         return;
-      //       }
-      //       else if(newUser.data === 'please send a password'){
-      //         alert('you forgot your password');
-      //         return;
-      //       }
-      //       else if(email.split('@').length < 2){
-      //         alert('You need an @');
-      //         $('.signupPassword').val('');
-      //         $('.signupConfirmPassword').val('');
-      //       }
-      //       else if(email.split('.').length < 2){
-      //         alert('Your email needs a proper ending');
-      //         $('.signupPassword').val('');
-      //         $('.signupConfirmPassword').val('');
-      //       }
-      //       else {
-      //         newToken(newUser.data._id)
-      //         .then(function(ourToken){
-      //           var confirmSave = confirm('Would you like us to save your email and password?');
-      //           if(confirmSave){
-      //             window.localStorage.setItem('mophoEmail', email);
-      //             window.localStorage.setItem('mophoPw', password);
-      //           }
-      //           //////can we put the teaching screen right here?
-      //
-      //           var token = ourToken.data;
-      //           $scope.signupModalVar = false;
-      //           $scope.signinModalVar = false;
-      //           $scope.signupModalTabs = false;
-      //           window.localStorage.webToken = token;
-      //           $state.go('tab.camera');
-      //           // $http({
-      //           //   method: "POST"
-      //           //   ,url: "http://192.168.0.7:5555/api/signup/email"
-      //           //   ,data: {userEmail: email}
-      //           // })
-      //           // .then(function(mailCallback){
-      //           //   console.log(mailCallback);
-      //           //   window.location.hash = "#/tab/camera";
-      //           //   window.reload();
-      //           // })
-      //         })
-      //       }
-      //     })
-      //   }
-      //   else {
-      //     alert('passwords dont match');
-      //     $('.signupEmail').val('');
-      //     $('.signupPassword').val('');
-      //     $('.signupConfirmPassword').val('');
-      //   }
-      // }
-      // else {
-      //   alert('sorry, your password must be at least 6 characters');
-      //   $('.signupEmail').val('');
-      //   $('.signupPassword').val('');
-      //   $('.signupConfirmPassword').val('');
-      // }
+      if(validPW){
+        var email = $('.signupEmail').val();
+        var password = $('.signupPassword').val();
+        var repassword = $('.signupConfirmPassword').val();
+        if(password == repassword){
+          signup(email, password)
+          .then(function(newUser){
+            console.log(newUser);
+            if(newUser.data === 'email already in use'){
+              alert('that email is already in the system, please try another one or login using your password');
+              $('.signupEmail').val('');
+              $('.signupPassword').val('');
+              $('.signupConfirmPassword').val('');
+              return;
+            }
+            else if(newUser.data === 'please send a password'){
+              alert('you forgot your password');
+              return;
+            }
+            else if(email.split('@').length < 2){
+              alert('You need an @');
+              $('.signupPassword').val('');
+              $('.signupConfirmPassword').val('');
+            }
+            else if(email.split('.').length < 2){
+              alert('Your email needs a proper ending');
+              $('.signupPassword').val('');
+              $('.signupConfirmPassword').val('');
+            }
+            else {
+              newToken(newUser.data._id)
+              .then(function(ourToken){
+                var confirmSave = confirm('Would you like us to save your email and password?');
+                if(confirmSave){
+                  window.localStorage.setItem('mophoEmail', email);
+                  window.localStorage.setItem('mophoPw', password);
+                }
+                //////can we put the teaching screen right here?
+                $scope.ourTokenData = ourToken.data;
+                $scope.newSigninModal = true;
+
+                // $http({
+                //   method: "POST"
+                //   ,url: "http://192.168.0.7:5555/api/signup/email"
+                //   ,data: {userEmail: email}
+                // })
+                // .then(function(mailCallback){
+                //   console.log(mailCallback);
+                //   window.location.hash = "#/tab/camera";
+                //   window.reload();
+                // })
+              })
+            }
+          })
+        }
+        else {
+          alert('passwords dont match');
+          $('.signupEmail').val('');
+          $('.signupPassword').val('');
+          $('.signupConfirmPassword').val('');
+        }
+      }
+      else {
+        alert('sorry, your password must be at least 6 characters');
+        $('.signupEmail').val('');
+        $('.signupPassword').val('');
+        $('.signupConfirmPassword').val('');
+      }
     }
     $scope.submitSignup = signupUser;
 
@@ -636,6 +632,22 @@ angular.module('signupController', [])
     }
     $scope.pwXClick = pwXClick;
 
+    function welcomeToCamera(evt){
+      console.log(evt);
+      $(evt.currentTarget).css({
+        opacity: 0.1
+      });
+      $(evt.currentTarget).animate({
+        opacity: 1
+      }, 200);
 
+      var token = $scope.ourTokenData;
+      $scope.signupModalVar = false;
+      $scope.signinModalVar = false;
+      $scope.signupModalTabs = false;
+      window.localStorage.webToken = token;
+      $state.go('tab.camera');
+    }
+    $scope.welcomeToCamera = welcomeToCamera;
 
   }
