@@ -15,7 +15,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     $scope.mediaCache = [];
     // $scope.photoListLength      = 0;
     $scope.croppedPhoto         = '';
-    $scope.submitModalVar       = true;
+    $scope.submitModalVar       = false;
     $scope.photoCarouselBool    = false;
     $scope.cameraModal          = true;
     $scope.cameraLaunched       = false;
@@ -26,7 +26,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     $scope.eraseStopper         = false;
     $scope.selectMode           = false;
     $scope.cameraHot            = false;
-    $scope.submitBar            = true;
+    $scope.submitBar            = false;
     $scope.burstCounter         = 0;
     $scope.cameraMode           = 'photo';
     $scope.flashOnOff           = 'off'

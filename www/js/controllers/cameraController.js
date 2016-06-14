@@ -392,7 +392,9 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         ////now iterate through to submit to backend
         //////set === mediacache
         for (var i = 0; i < set.length; i++) {
-          if(set[i].type === "video"){
+
+          if(set[i].type === "video" && $scope.submitBar === true){
+            console.log('video', i);
             $cordovaFileTransfer.upload('https://moneyshotapi.herokuapp.com/api/upload/video', set[i].link, {})
             .then(function(callbackImage){
               var progressElement = $('.submitProgressBar');
@@ -440,7 +442,8 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
               })
             })
           }
-          else if(set[i].type === "photo"){
+          else if(set[i].type === "photo" && $scope.submitBar === true){
+            console.log('photo', i);
             function photoIife(currentP){
               var currentPhoto = currentP;
               var photoOptions = {
