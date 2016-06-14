@@ -21,7 +21,7 @@ function initCtrl($state, $http, $timeout, $cordovaStatusbar) {
 			$timeout(function(){
 				var token = window.localStorage.webToken;
 				checkToken(token);
-			}, 1500);
+			}, 3000);
 		})
 	// }
 	// else {

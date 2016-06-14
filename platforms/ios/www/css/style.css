@@ -248,7 +248,8 @@ html {
   position: absolute;
   text-align: center;
   margin-left: 87.5px;
-  font-size: 16px;
+  font-size: 22px;
+  padding-top: 3px;
 }
 
 .cameraLogo img {
