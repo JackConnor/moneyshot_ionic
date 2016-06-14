@@ -8,9 +8,9 @@ angular.module('signupController', [])
 
   .controller('signupCtrl', signupCtrl);
 
-  signupCtrl.$inject = ['$scope', '$http', '$state', 'signup', 'signin', 'newToken', '$cordovaStatusbar', '$window', '$timeout', '$interval', '$animateCss']
+  signupCtrl.$inject = ['$scope', '$http', '$state', 'signup', 'signin', 'newToken', '$cordovaStatusbar', '$window', '$timeout', '$interval', '$animateCss', '$ionicScrollDelegate']
 
-  function signupCtrl($scope, $http, $state, signup, signin, newToken, $cordovaStatusbar, $window, $timeout, $interval, $animateCss){
+  function signupCtrl($scope, $http, $state, signup, signin, newToken, $cordovaStatusbar, $window, $timeout, $interval, $animateCss, $ionicScrollDelegate){
     console.log('Sign Loaded')
     ///////////////global variables//////
     $scope.signupModalVar   = false;
@@ -22,6 +22,7 @@ angular.module('signupController', [])
     $scope.pwHide           = false;
     $scope.introCounter     = 0;
     $scope.introTag = "Shoot Awesome Photos";
+    $ionicScrollDelegate.freezeScroll();
 
     ///////////////////////////////
     ////////intro swipe modal stuff

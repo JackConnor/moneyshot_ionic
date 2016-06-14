@@ -1301,6 +1301,26 @@ html {
   font-weight: 900;
 }
 
+@media only screen and (min-width: 0px){
+  .postSigninModal {
+    height: 568px;
+    width: 100%;
+    background-color: green;
+    position: absolute;
+    z-index: 10;
+  }
+}
+
+@media only screen and (min-width: 321px){
+  .postSigninModal {
+    height: 667px;
+    width: 100%;
+    background-color: green;
+    position: absolute;
+    z-index: 10;
+  }
+}
+
 .pwX {
   position: absolute;
   margin-left: 88%;
