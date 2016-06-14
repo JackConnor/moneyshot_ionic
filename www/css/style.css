@@ -238,6 +238,19 @@ html {
   margin-top: -10px;
 }
 
+.cameraLogoBurstOverlay{
+  width: 200px;
+  height: 20px;
+  background-color: black;
+  color: white;
+  z-index: 10;
+  margin-top: 7px;
+  position: absolute;
+  text-align: center;
+  margin-left: 87.5px;
+  font-size: 16px;
+}
+
 .cameraLogo img {
 
   margin-top: 17px;

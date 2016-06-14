@@ -25,6 +25,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     $scope.carouselSwipeActive  = false;
     $scope.eraseStopper         = false;
     $scope.selectMode           = false;
+    $scope.burstCounter         = 0;
     $scope.cameraMode           = 'photo';
     $scope.flashOnOff           = 'off'
     $scope.flash                = "Flash on";
@@ -175,6 +176,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
 
       cordova.plugins.camerapreview.setOnPictureTakenHandler(function(result){
+        $scope.burstCounter--;
         $scope.mediaCache.push({type: 'photo', link: 'data:image/png;base64,'+result[0], date: new Date()});
         $scope.$apply();
         cordova.plugins.camerapreview.show();
@@ -184,26 +186,20 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         }, 100);
 
         var windowPic = {type: 'photo', link: 'data:image/png;base64,'+result[0], date: new Date()};
-        var name = "mopho"+($scope.mediaCache.length-1);
-        // localforage.setItem(name, windowPic, function (err) {
-        //   if(err) console.log(err);
-        // });
-        localforage.getItem('storedPhotos')
-        .then(function(value){
-          var photoArrayTemp = value;
+        // localforage.getItem('storedPhotos')
+        // .then(function(value){
+          // var photoArrayTemp = value;
           photoArrayTemp.push(windowPic);
-          localforage.setItem('storedPhotos', photoArrayTemp)
+          localforage.setItem('storedPhotos', $scope.mediaCache)
           .then(function(newPhotoArr){
-            console.log('photos stored');
-            console.log(newPhotoArr);
           })
           .catch(function(err){
             console.log(err);
           })
-        })
-        .catch(function(err){
-          console.log(err);
-        })
+        // })
+        // .catch(function(err){
+        //   console.log(err);
+        // })
         count++
         ////end uber temp storage
       });
@@ -226,23 +222,20 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       }
     }
 
-    $scope.burstCounter = 10;
     var photoInt = function(){
+      $scope.burstCounter = 7;
        var photoInterval = $interval(function(){
          if($scope.burstCounter > 0){
            $scope.takeCordovaPicture();
-           $scope.burstCounter--;
-           console.log('burst photo');
-           console.log($scope.burstCounter);
          }
          else {
            clearPhotoInt();
            console.log('chamber empty');
            $timeout(function(){
-             $scope.burstCounter = 10;
+             $scope.burstCounter = 7;
            }, 3000);
          }
-       }, 50);
+       }, 200);
 
        function clearPhotoInt(){
          $interval.cancel(photoInterval);
