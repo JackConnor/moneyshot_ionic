@@ -1297,6 +1297,7 @@ html {
   height: 90px;
   width: 90%;
   margin-left: 5%;
+  position: absolute;
 }
 
 .photoNameInput {

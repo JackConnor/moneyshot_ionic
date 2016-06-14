@@ -1145,49 +1145,28 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     $scope.animateToggle = animateToggle;
 
     /////fsubmit field blur/focus functions
-    function unblurring(){
+    function blurring(){
       $('.submitRepeat').animate({
         height: '340px'
       }, 250);
       $timeout(function(){
         $('.photoNameInput')[0].blur();
       }, 251);
-      $ionicScrollDelegate.scrollTo(0, 0, true);
     };
     $scope.unblurring = unblurring;
 
-    function blurring(){
+    function unblurring(){
       $('.submitRepeat').animate({
         height: '0px'
       }, 250);
+      //
+      // cordova.plugins.Keyboard.show();
       $timeout(function(){
         $('.photoNameInput').focus();
-        // $cordovaKeyboard.isVisible();
         $cordovaKeyboard.show();
       }, 265);
-    };
-    $scope.blurring = blurring;
-
-    function unblurringText(){
-      $('.submitRepeat').animate({
-        height: '340px'
-      }, 250);
-      $timeout(function(){
-        $('.photoNameDesc')[0].blur();
-      }, 251);
-      $ionicScrollDelegate.scrollTo(0, 0, true);
-    };
-    $scope.unblurring = unblurring;
-
-    function blurringText(){
-      $('.submitRepeat').animate({
-        height: '0px'
-      }, 250);
-      $timeout(function(){
-        $('.photoNameDesc').focus();
-        // $cordovaKeyboard.isVisible();
-        $cordovaKeyboard.show();
-      }, 265);
+      // $ionicScrollDelegate.freezeScroll(false);
+      // $ionicScrollDelegate.scrollTo(0, 250, true);
     };
     $scope.blurring = blurring;
 

@@ -147,8 +147,7 @@
           </div>
           <div class="photoNameOverlay" ng-click='blurring()' ></div>
           <input class='photoNameInput' type="text" placeholder="Who'd you get?" ng-blur='unblurring()'>
-          <div class="photoNameDescOverlay" ng-click='blurringText()'></div>
-          <textarea class='photoNameDesc'  ng-blur='unblurringText()' rows='7' cols='10' name="name" placeholder="What were they doing?"></textarea>
+          <textarea class='photoNameDesc' ng-focus='blurring()' ng-blur='unblurring()' rows='7' cols='10' name="name" placeholder="What were they doing?"></textarea>
           <div class='submitNameButt'>
             <div style='width:100%; height: 100%' ng-click='submitPhotoName()' ng-if='!isDisabled'>
               Submit Your Mophos
