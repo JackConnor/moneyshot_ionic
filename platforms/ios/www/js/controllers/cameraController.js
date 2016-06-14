@@ -119,9 +119,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       // if(persistentLength === 0){
       localforage.getItem('storedPhotos')
       .then(function(photoArr){
-        console.log(photoArr);
         $scope.mediaCache = photoArr;
-        console.log($scope.mediaCache);
         // $scope.photoListLength = photoArr.length;
       })
       // for (var i = 0; i < 25; i++) {
@@ -176,7 +174,12 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
 
       cordova.plugins.camerapreview.setOnPictureTakenHandler(function(result){
-        $scope.burstCounter--;
+        if($scope.cameraMode === "burst"){
+          $scope.burstCounter--;
+        }
+        else if($scope.burstCounter > 0){
+          $scope.burstCounter = 0;
+        }
         $scope.mediaCache.push({type: 'photo', link: 'data:image/png;base64,'+result[0], date: new Date()});
         $scope.$apply();
         cordova.plugins.camerapreview.show();
@@ -231,9 +234,9 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
          else {
            clearPhotoInt();
            console.log('chamber empty');
-           $timeout(function(){
-             $scope.burstCounter = 7;
-           }, 3000);
+          //  $timeout(function(){
+          //    $scope.burstCounter = 7;
+          //  }, 3000);
          }
        }, 200);
 
