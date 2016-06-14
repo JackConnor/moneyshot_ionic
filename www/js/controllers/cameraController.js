@@ -234,13 +234,11 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
          else {
            clearPhotoInt();
            console.log('chamber empty');
-          //  $timeout(function(){
-          //    $scope.burstCounter = 7;
-          //  }, 3000);
          }
        }, 200);
 
        function clearPhotoInt(){
+         $scope.burstCounter = 0;
          $interval.cancel(photoInterval);
        }
        $scope.clearPhotoInt = clearPhotoInt;
