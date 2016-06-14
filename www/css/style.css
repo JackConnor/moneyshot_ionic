@@ -1302,6 +1302,14 @@ html {
   text-align: left;
 }
 
+.photoNameOverlay {
+  position: absolute;
+  margin-top: 5px;
+  height: 38px;
+  width: 90%;
+  margin-left: 5%;
+}
+
 .photoStatusInReview {
   color: #1ca8ec;
   font-weight: 700;

@@ -25,6 +25,12 @@
     <feature name="StatusBar">
         <param name="ios-package" onload="true" value="CDVStatusBar" />
     </feature>
+    <preference name="KeyboardDisplayRequiresUserAction" value="false" />
+
+    <feature name="Keyboard">
+      <param name="ios-package" value="IonicKeyboard" onload="true" />
+    </feature>
+
     <platform name="ios">
         <icon height="57" src="resources/ios/icon/icon.png" width="57" />
         <icon height="114" src="resources/ios/icon/icon@2x.png" width="114" />

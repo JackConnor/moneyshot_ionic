@@ -145,7 +145,8 @@
           <div class="dateHolder">
             {{returnDate()}}
           </div>
-          <input class='photoNameInput' ng-focus='blurring()' ng-blur='unblurring()' type="text" placeholder="Who'd you get?">
+          <div class="photoNameOverlay" ng-click='blurring()' ></div>
+          <input class='photoNameInput' type="text" placeholder="Who'd you get?" ng-blur='unblurring()'>
           <textarea class='photoNameDesc' ng-focus='blurring()' ng-blur='unblurring()' rows='7' cols='10' name="name" placeholder="What were they doing?"></textarea>
           <div class='submitNameButt'>
             <div style='width:100%; height: 100%' ng-click='submitPhotoName()' ng-if='!isDisabled'>

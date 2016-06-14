@@ -114,6 +114,7 @@
     <preference name="SplashScreen" value="screen" />
     <preference name="SplashScreenDelay" value="0" />
     <preference name="AllowInlineMediaPlayback" value="true" />
+    <preference name="KeyboardDisplayRequiresUserAction" value="false" />
     <gap:plugin name="cordova-plugin-camerapreview" source="plugins.cordova.io" version="0.9.0" />
     <icon src="resources/ios/icon/icon-small@3x.png" />
 </widget>

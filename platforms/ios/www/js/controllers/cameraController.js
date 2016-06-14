@@ -9,8 +9,10 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     };
   });
 
-  cameraCtrl.$inject = ['$http', '$state', '$scope', 'singlePhoto', 'Upload', '$q', '$cordovaCamera', '$cordovaFile', '$cordovaFileTransfer', 'signup', 'signin', 'newToken', '$cordovaCapture', '$cordovaStatusbar', '$timeout', '$ionicGesture', '$ionicScrollDelegate', '$interval', 'persistentPhotos'];
-  function cameraCtrl($http, $state, $scope, singlePhoto, Upload, $q, $cordovaCamera, $cordovaFile, $cordovaFileTransfer, signup, signin, newToken, $cordovaCapture, $cordovaStatusbar, $timeout, $ionicGesture, $ionicScrollDelegate, $interval, persistentPhotos){
+  cameraCtrl.$inject = ['$http', '$state', '$scope', 'singlePhoto', 'Upload', '$q', '$cordovaCamera', '$cordovaFile', '$cordovaFileTransfer', 'signup', 'signin', 'newToken', '$cordovaCapture', '$cordovaStatusbar', '$timeout', '$ionicGesture', '$ionicScrollDelegate', '$interval', 'persistentPhotos', '$cordovaKeyboard'];
+  function cameraCtrl($http, $state, $scope, singlePhoto, Upload, $q, $cordovaCamera, $cordovaFile, $cordovaFileTransfer, signup, signin, newToken, $cordovaCapture, $cordovaStatusbar, $timeout, $ionicGesture, $ionicScrollDelegate, $interval, persistentPhotos, $cordovaKeyboard){
+    // console.log(cordova.plugins.Keyboard.show());
+    console.log($cordovaKeyboard);
 
     $scope.mediaCache = [];
     // $scope.photoListLength      = 0;
@@ -1142,14 +1144,27 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     }
     $scope.animateToggle = animateToggle;
 
-    /////function to scroll to the top
+    /////fsubmit field blur/focus functions
     function unblurring(){
-      $ionicScrollDelegate.scrollTo(0, 0);
+      $('.submitRepeat').animate({
+        height: '340px'
+      }, 250);
+      $timeout(function(){
+        $('.photoNameInput')[0].blur();
+      }, 251);
+      $ionicScrollDelegate.scrollTo(0, 0, true);
     };
     $scope.unblurring = unblurring;
 
     function blurring(){
-      $ionicScrollDelegate.freezeScroll(false);
+      $('.submitRepeat').animate({
+        height: '0px'
+      }, 250);
+      $timeout(function(){
+        $('.photoNameInput').focus();
+        $cordovaKeyboard.isVisible();
+        $cordovaKeyboard.show();
+      }, 265);
     };
     $scope.blurring = blurring;
 
