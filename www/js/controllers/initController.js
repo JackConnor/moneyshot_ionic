@@ -16,16 +16,16 @@ function initCtrl($state, $http, $timeout, $cordovaStatusbar) {
 		}
 	}
 
-	// if( /Android|webOS|iPhone|iPad|iPod/i.test(navigator.userAgent) ) {
+	if( /Android|webOS|iPhone|iPad|iPod/i.test(navigator.userAgent) ) {
 		document.addEventListener("deviceready", function(){
 			$timeout(function(){
 				var token = window.localStorage.webToken;
 				checkToken(token);
 			}, 3000);
 		})
-	// }
-	// else {
-	// 	var token = window.localStorage.webToken;
-	// 	checkToken();
-	// }
+	}
+	else {
+		var token = window.localStorage.webToken;
+		checkToken();
+	}
 }
