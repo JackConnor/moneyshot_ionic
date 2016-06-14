@@ -246,16 +246,17 @@ html {
 }
 
 .cameraLogoSignup{
-  margin-top: 0px;
-  position: absolute;
+  width: 200px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10px;
 }
 
 .cameraLogoSignup img {
   margin-top: 17px;
-  margin-left: auto;
-  margin-right: auto;
-  width: 100px;
-  height: 20px;
+  margin-left: 40px;
+  width: 120px;
+  height: auto;
 }
 
 .cameraLogoBurstOverlay{
@@ -802,7 +803,8 @@ html {
   color: white;
   position: absolute;
   font-size: 24px;
-  margin-top: 15px;
+  margin-top: 25px;
+  margin-left: 10px;
 }
 
 .locationHolder {

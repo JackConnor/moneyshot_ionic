@@ -246,14 +246,14 @@ html {
 }
 
 .cameraLogoSignup{
-  margin-top: 0px;
-  position: absolute;
+  width: 200px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .cameraLogoSignup img {
   margin-top: 17px;
-  margin-left: auto;
-  margin-right: auto;
+  margin-left: 50px;
   width: 100px;
   height: 20px;
 }
@@ -803,6 +803,7 @@ html {
   position: absolute;
   font-size: 24px;
   margin-top: 15px;
+  margin-left: 10px;
 }
 
 .locationHolder {
