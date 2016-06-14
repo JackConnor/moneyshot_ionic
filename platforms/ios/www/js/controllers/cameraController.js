@@ -692,12 +692,17 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       if($scope.activePhoto === false){
         cordova.plugins.camerapreview.hide();
         $scope.submitModalVar = true;
-        setCellSize();
+        // setCellSize();
 
         ////////logic to adjust size of cells
         setCellSize();
+        // $timeout(function(){
+        //   returnPlace();
+        // }, 1500);
+
 
         $timeout(function(){
+          returnPlace();
           for (var i = 0; i < 5; i++) {
             if($scope.mediaCache[i]){
               $scope.mediaCacheTemp.push($scope.mediaCache[i]);
@@ -722,7 +727,6 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
           for (var i = 15; i < 20; i++) {
             if($scope.mediaCache[i]){
               $scope.mediaCacheTemp.push($scope.mediaCache[i]);
-              returnPlace();
             }
           }
         }, 3000);
@@ -882,11 +886,11 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
 
     function photoCarouselBack(){
+      $scope.submitModaVar = true;
       console.log('yoooooooooooooooo');
       setCellSize();
       $timeout(function(){
         $scope.photoCarouselBool = false;
-        $scope.submitModaVar = true;
       }, 200);
     }
     $scope.photoCarouselBack = photoCarouselBack;
