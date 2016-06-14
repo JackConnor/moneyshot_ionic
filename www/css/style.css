@@ -246,13 +246,14 @@ html {
 }
 
 .cameraLogoSignup{
-  
   margin-top: 0px;
+  position: absolute;
 }
 
 .cameraLogoSignup img {
   margin-top: 17px;
-  margin-left: 50px;
+  margin-left: auto;
+  margin-right: auto;
   width: 100px;
   height: 20px;
 }
@@ -795,6 +796,13 @@ html {
 .ion-content {
   margin: 0px;
   padding: 0px;
+}
+
+.leavePostSignup {
+  color: white;
+  position: absolute;
+  font-size: 24px;
+  margin-top: 15px;
 }
 
 .locationHolder {
