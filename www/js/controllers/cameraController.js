@@ -443,6 +443,9 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                     }, 1000);
                   })
                 }
+                else if(amalgam == parseInt(set.length) && $scope.submitBar === false){
+                  $scope.isDisabled = false;
+                }
               })
             })
           }
@@ -506,6 +509,9 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                       }, 100);
                     })
                   }
+                  else if(amalgam == parseInt(set.length) && $scope.submitBar === false){
+                    $scope.isDisabled = false;
+                  }
                 })
               })
             }
@@ -519,12 +525,9 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       console.log('cancelling');
       $scope.submitBar = false;
       $scope.isDisabled = true;
-      $('.disabledSubmit').animate({
-        opacity: 1
-      }, 5000);
-      $timeout(function(){
-        $scope.isDisabled = false;
-      }, 3000);
+      // $timeout(function(){
+      //   $scope.isDisabled = false;
+      // }, 5000);
     }
     $scope.emergencyCancelSubmit = emergencyCancelSubmit;
 
