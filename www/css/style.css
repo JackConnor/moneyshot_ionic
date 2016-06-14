@@ -238,6 +238,27 @@ html {
   margin-top: -10px;
 }
 
+.cameraLogo img {
+  margin-top: 17px;
+  margin-left: 50px;
+  width: 100px;
+  height: 20px;
+}
+
+.cameraLogoSignup{
+  width: 200px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 0px;
+}
+
+.cameraLogoSignup img {
+  margin-top: 17px;
+  margin-left: 50px;
+  width: 100px;
+  height: 20px;
+}
+
 .cameraLogoBurstOverlay{
   width: 200px;
   height: 20px;
@@ -251,14 +272,6 @@ html {
   font-size: 22px;
   padding-top: 3px;
   font-weight: 900;
-}
-
-.cameraLogo img {
-
-  margin-top: 17px;
-  margin-left: 50px;
-  width: 100px;
-  height: 20px;
 }
 
 @media only screen and (min-width: 0px){
@@ -1305,7 +1318,7 @@ html {
   .postSigninModal {
     height: 568px;
     width: 100%;
-    background-color: green;
+    background-color: black;
     position: absolute;
     z-index: 10;
   }
@@ -1315,7 +1328,7 @@ html {
   .postSigninModal {
     height: 667px;
     width: 100%;
-    background-color: green;
+    background-color: black;
     position: absolute;
     z-index: 10;
   }
