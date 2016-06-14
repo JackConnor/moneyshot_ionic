@@ -1322,6 +1322,11 @@ html {
   font-weight: 900;
 }
 
+.postIntroTop {
+  height: 70px;
+  display: block;
+}
+
 @media only screen and (min-width: 0px){
   .postSigninModal {
     height: 568px;
@@ -2285,6 +2290,17 @@ html {
   color: #79c879;
   font-size: 35px;
   padding-top: 10px;
+}
+
+.welcomeBanner {
+  width: 100%;
+  display: block;
+  height: 60px;
+  text-align: center;
+  font-size: 22px;
+  padding-top: 15px;
+  font-weight: 900;
+  background-color: white;
 }
 
 
