@@ -1162,7 +1162,30 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       }, 250);
       $timeout(function(){
         $('.photoNameInput').focus();
-        $cordovaKeyboard.isVisible();
+        // $cordovaKeyboard.isVisible();
+        $cordovaKeyboard.show();
+      }, 265);
+    };
+    $scope.blurring = blurring;
+
+    function unblurringText(){
+      $('.submitRepeat').animate({
+        height: '340px'
+      }, 250);
+      $timeout(function(){
+        $('.photoNameDesc')[0].blur();
+      }, 251);
+      $ionicScrollDelegate.scrollTo(0, 0, true);
+    };
+    $scope.unblurring = unblurring;
+
+    function blurringText(){
+      $('.submitRepeat').animate({
+        height: '0px'
+      }, 250);
+      $timeout(function(){
+        $('.photoNameDesc').focus();
+        // $cordovaKeyboard.isVisible();
         $cordovaKeyboard.show();
       }, 265);
     };

@@ -1292,6 +1292,14 @@ html {
   color: white;
 }
 
+.photoNameDescOverlay {
+  margin-top: 10px;
+  height: 90px;
+  width: 90%;
+  margin-left: 5%;
+  position: absolute;
+}
+
 .photoNameInput {
   margin-top: 5px;
   height: 40px;
