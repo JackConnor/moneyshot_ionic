@@ -516,9 +516,11 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
     function emergencyCancelSubmit(){
       console.log('cancelling');
-      var i = $scope.mediaCache.length;
-      $scope.submitModalVar = false;
+      i = $scope.mediaCache.length;
       $scope.submitBar = false;
+      $timeout(function(){
+        i = null;
+      }, 3000);
 
     }
     $scope.emergencyCancelSubmit = emergencyCancelSubmit;
