@@ -190,7 +190,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         .then(function(newPhotoArr){
           ///////////prevents from opening submit modal while the camera is still processing, to prevent crashes
           $scope.cameraHot = false;
-          console.log('false');
+          // console.log('false');
         })
         .catch(function(err){
           console.log(err);
@@ -1139,6 +1139,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
               if(i === allLength-1){
                 localforage.setItem('storedPhotos', $scope.mediaCache)
                 .then(function(newArray){
+                  setCellSize();
                 })
                 .catch(function(err){
                   console.log(err);
