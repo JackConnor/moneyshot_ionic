@@ -519,6 +519,9 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       console.log('cancelling');
       $scope.submitBar = false;
       $scope.isDisabled = true;
+      $timeout(function(){
+        $scope.isDisabled = false;
+      }, 10000);
     }
     $scope.emergencyCancelSubmit = emergencyCancelSubmit;
 
