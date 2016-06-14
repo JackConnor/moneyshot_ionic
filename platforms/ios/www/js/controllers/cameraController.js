@@ -25,6 +25,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     $scope.carouselSwipeActive  = false;
     $scope.eraseStopper         = false;
     $scope.selectMode           = false;
+    $scope.cameraHot            = false;
     $scope.burstCounter         = 0;
     $scope.cameraMode           = 'photo';
     $scope.flashOnOff           = 'off'
@@ -184,34 +185,28 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         $scope.mediaCache.push({type: 'photo', link: 'data:image/png;base64,'+result[0], date: new Date()});
         $scope.$apply();
         cordova.plugins.camerapreview.show();
-        $scope.activePhoto = false;
+        var windowPic = {type: 'photo', link: 'data:image/png;base64,'+result[0], date: new Date()};
+        localforage.setItem('storedPhotos', $scope.mediaCache)
+        .then(function(newPhotoArr){
+          ///////////prevents from opening submit modal while the camera is still processing, to prevent crashes
+          $scope.cameraHot = false;
+          console.log('false');
+        })
+        .catch(function(err){
+          console.log(err);
+        })
+        count++
         $('.takePhotoButtonInner').animate({
           backgroundColor: "white"
         }, 100);
-
-        var windowPic = {type: 'photo', link: 'data:image/png;base64,'+result[0], date: new Date()};
-        // localforage.getItem('storedPhotos')
-        // .then(function(value){
-          // var photoArrayTemp = value;
-          // photoArrayTemp.push(windowPic);
-          localforage.setItem('storedPhotos', $scope.mediaCache)
-          .then(function(newPhotoArr){
-          })
-          .catch(function(err){
-            console.log(err);
-          })
-        // })
-        // .catch(function(err){
-        //   console.log(err);
-        // })
-        count++
-        ////end uber temp storage
+        $scope.activePhoto = false;
       });
     }
 
     $scope.takeCordovaPicture = function(){
       if($scope.activePhoto === false && $scope.mediaCache.length < 25){
         $scope.activePhoto = true;
+        $scope.cameraHot = true;
         window.plugins.flashlight.switchOff();
         cordova.plugins.camerapreview.takePicture({maxWidth: 2000, maxHeight: 2000});
         // window.plugins.flashlight.switchOff();
@@ -690,7 +685,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
     function submitModalOpen(){
       console.log('opening');
-      if($scope.activePhoto === false){
+      if($scope.cameraHot === false){
         cordova.plugins.camerapreview.hide();
         $scope.submitModalVar = true;
         // setCellSize();
