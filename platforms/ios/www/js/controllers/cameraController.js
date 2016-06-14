@@ -234,13 +234,11 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
          else {
            clearPhotoInt();
            console.log('chamber empty');
-          //  $timeout(function(){
-          //    $scope.burstCounter = 7;
-          //  }, 3000);
          }
        }, 200);
 
        function clearPhotoInt(){
+         $scope.burstCounter = 0;
          $interval.cancel(photoInterval);
        }
        $scope.clearPhotoInt = clearPhotoInt;
@@ -695,7 +693,6 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         cordova.plugins.camerapreview.hide();
         $scope.submitModalVar = true;
         setCellSize();
-        returnPlace();
 
         ////////logic to adjust size of cells
         setCellSize();
@@ -725,6 +722,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
           for (var i = 15; i < 20; i++) {
             if($scope.mediaCache[i]){
               $scope.mediaCacheTemp.push($scope.mediaCache[i]);
+              returnPlace();
             }
           }
         }, 3000);

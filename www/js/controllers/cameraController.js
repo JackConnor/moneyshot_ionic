@@ -691,14 +691,15 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       console.log('opening');
       if($scope.activePhoto === false){
         cordova.plugins.camerapreview.hide();
-        $scope.submitModalVar = true;
-        setCellSize();
-        returnPlace();
+        // $scope.submitModalVar = true;
+        // setCellSize();
 
         ////////logic to adjust size of cells
         setCellSize();
 
+
         $timeout(function(){
+          returnPlace();
           for (var i = 0; i < 5; i++) {
             if($scope.mediaCache[i]){
               $scope.mediaCacheTemp.push($scope.mediaCache[i]);
