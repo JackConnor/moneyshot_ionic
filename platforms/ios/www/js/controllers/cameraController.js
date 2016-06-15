@@ -30,6 +30,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     $scope.cameraHot            = false;
     $scope.submitBar            = false;
     $scope.isDisabled           = false;
+    $scope.inputsFocused        = false;
     $scope.burstCounter         = 0;
     $scope.cameraMode           = 'photo';
     $scope.flashOnOff           = 'off'
@@ -1144,52 +1145,61 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     }
     $scope.animateToggle = animateToggle;
 
-    /////fsubmit field blur/focus functions
-    function blurring(){
-      $('.photoNameInput')[0].blur();
-      $timeout(function(){
-        var textFocused = $('.photoNameDesc').is(':focus');
-        console.log(textFocused);
-        if(textFocused===false){
-          $('.submitRepeat').animate({
-            height: '340px'
-          }, 250);
-        }
-      }, 2000);
-    };
-    $scope.blurring = blurring;
-
-    function unblurring(){
-      $timeout(function(){
-        $('.photoNameInput').focus();
+    /////submit field blur/focus functions
+    function focusName(){
+      $scope.inputsFocused = true;
         $('.submitRepeat').animate({
           height: '0px'
         }, 250);
-      }, 1000);
+
+      // $timeout(function(){
+      //   $('.photoNameInput').focus();
+      //   $('.submitRepeat').animate({
+      //     height: '0px'
+      //   }, 250);
+      // }, 1000);
     };
     $scope.unblurring = unblurring;
 
-    function unblurText(){
-      $('.submitRepeat').animate({
-        height: '0px'
-      }, 250);
-      $timeout(function(){
-        $('.photoNameDesc').focus();
-      }, 1000);
+    function focusText(){
+      $scope.inputsFocused = true;
+        $('.submitRepeat').animate({
+          height: '0px'
+        }, 250);
+      // $('.submitRepeat').animate({
+      //   height: '0px'
+      // }, 250);
+      // $timeout(function(){
+      //   $('.photoNameDesc').focus();
+      // }, 1000);
     }
     $scope.unblurText = unblurText;
 
-    function blurText(){
-      $('.photoNameDesc')[0].blur();
-      $timeout(function(){
-        var nameFocused = $('.photoNameDesc').is(':focus');
-        if(nameFocused===false){
-          $('.submitRepeat').animate({
-            height: '340px'
-          }, 250);
-        }
-      }, 2000);
+    function blurringText(){
+      // $('.photoNameDesc')[0].blur();
+      // $timeout(function(){
+      //   var nameFocused = $('.photoNameDesc').is(':focus');
+      //   if(nameFocused===false){
+      //     $('.submitRepeat').animate({
+      //       height: '340px'
+      //     }, 250);
+      //   }
+      // }, 2000);
     }
+    
+    function blurringName(){
+      // $('.photoNameInput')[0].blur();
+      // $timeout(function(){
+      //   var textFocused = $('.photoNameDesc').is(':focus');
+      //   console.log(textFocused);
+      //   if(textFocused===false){
+      //     $('.submitRepeat').animate({
+      //       height: '340px'
+      //     }, 250);
+      //   }
+      // }, 2000);
+    };
+    $scope.blurring = blurring;
 
     function playVid(){
       var player = $('#carouselVideoCamera')[0];

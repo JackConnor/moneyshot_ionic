@@ -1159,7 +1159,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       //   }, 250);
       // }, 1000);
     };
-    $scope.unblurring = unblurring;
+    $scope.focusName = focusName;
 
     function focusText(){
       $scope.inputsFocused = true;
@@ -1173,7 +1173,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       //   $('.photoNameDesc').focus();
       // }, 1000);
     }
-    $scope.unblurText = unblurText;
+    $scope.focusText = focusText;
 
     function blurringText(){
       // $('.photoNameDesc')[0].blur();
@@ -1186,7 +1186,8 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       //   }
       // }, 2000);
     }
-    
+    $scope.blurringText = blurringText;
+
     function blurringName(){
       // $('.photoNameInput')[0].blur();
       // $timeout(function(){
@@ -1199,7 +1200,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       //   }
       // }, 2000);
     };
-    $scope.blurring = blurring;
+    $scope.blurringName = blurringName;
 
     function playVid(){
       var player = $('#carouselVideoCamera')[0];
