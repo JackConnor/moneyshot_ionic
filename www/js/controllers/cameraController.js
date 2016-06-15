@@ -240,7 +240,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         $cordovaCapture.captureVideo({quality : 100})
         .then(function(result){
           console.log(result);
-          $scope.dataVideo = "data:video/mp4;base64,"+result[0].fullPath
+          $scope.dataVideo = "data:video/mp4;base64,"+String(result[0].fullPath)
           // console.log(result[0].fullPath);
           // var binaryArr = new Uint8Array(result[0].fullPath.split(''));
           // console.log(binaryArr);
