@@ -1141,7 +1141,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       $('.toggleCameraIcon').animate({
         opacity: 1
       }, 200);
-    }
+    } 
     $scope.animateToggle = animateToggle;
 
     /////fsubmit field blur/focus functions
