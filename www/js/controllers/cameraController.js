@@ -257,8 +257,22 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
           //   console.log(progress);
           // })
            window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, success, error);
-           function success(data){
-             console.log(data);
+           function success(fileSystem){
+             console.log(fileSystem);
+             fileSystem.root.getFile('savedMov.mov', { create: true, exclusive: false }, function(successUpload){
+               console.log(successUpload);
+               //////now we create the file
+               fileEntry.createWriter(function(fileWriter){
+                 console.log(fileWriter);
+                 fileWriter.write('yooooooooooooo')
+                 fileSystem.root.getFile('savedMov.mov', { create: true, exclusive: false }, function(success){
+                   console.log('new file: ');
+                   console.log(success);
+                 }, error)
+               }, error)
+             }, function(errorUpload){
+               console.log(errorUpload);
+             });
            }
            function error(err){
              console.log(err);
