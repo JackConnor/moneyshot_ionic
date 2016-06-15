@@ -1146,29 +1146,41 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
     /////fsubmit field blur/focus functions
     function blurring(){
-      $('.submitRepeat').animate({
-        height: '340px'
-      }, 250);
+      $('.photoNameInput')[0].blur();
       $timeout(function(){
-        $('.photoNameInput')[0].blur();
-      }, 251);
+        var textFocused = $('.photoNameDesc').is(':focus');
+        console.log(textFocused);
+        if(textFocused===false){
+          $('.submitRepeat').animate({
+            height: '340px'
+          }, 250);
+        }
+      }, 2000);
     };
-    $scope.unblurring = unblurring;
+    $scope.blurring = blurring;
 
     function unblurring(){
+      var textFocused = $('.photoNameDesc').is(':focus');
+      console.log(textFocused);
       $('.submitRepeat').animate({
         height: '0px'
       }, 250);
-      //
-      // cordova.plugins.Keyboard.show();
       $timeout(function(){
         $('.photoNameInput').focus();
-        $cordovaKeyboard.show();
+        // $cordovaKeyboard.show();
       }, 265);
-      // $ionicScrollDelegate.freezeScroll(false);
-      // $ionicScrollDelegate.scrollTo(0, 250, true);
     };
-    $scope.blurring = blurring;
+    $scope.unblurring = unblurring;
+
+    function unblurText(){
+      $timeout(function(){
+        $('.photoNameDesc').focus();
+        $('.submitRepeat').animate({
+          height: '0px'
+        }, 250);
+      }, 1000);
+    }
+    $scope.unblurText = unblurText;
 
     function playVid(){
       var player = $('#carouselVideoCamera')[0];
