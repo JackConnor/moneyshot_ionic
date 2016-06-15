@@ -1151,12 +1151,8 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         $('.submitRepeat').animate({
           height: '0px'
         }, 250);
-
       // $timeout(function(){
       //   $('.photoNameInput').focus();
-      //   $('.submitRepeat').animate({
-      //     height: '0px'
-      //   }, 250);
       // }, 1000);
     };
     $scope.focusName = focusName;
@@ -1176,29 +1172,24 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     $scope.focusText = focusText;
 
     function blurringText(){
-      // $('.photoNameDesc')[0].blur();
-      // $timeout(function(){
-      //   var nameFocused = $('.photoNameDesc').is(':focus');
-      //   if(nameFocused===false){
-      //     $('.submitRepeat').animate({
-      //       height: '340px'
-      //     }, 250);
-      //   }
-      // }, 2000);
+      $timeout(function(){
+        if(!$scope.inputsFocused){
+          $('.submitRepeat').animate({
+            height: '340px'
+          }, 250);
+        }
+      }, 2000);
     }
     $scope.blurringText = blurringText;
 
     function blurringName(){
-      // $('.photoNameInput')[0].blur();
-      // $timeout(function(){
-      //   var textFocused = $('.photoNameDesc').is(':focus');
-      //   console.log(textFocused);
-      //   if(textFocused===false){
-      //     $('.submitRepeat').animate({
-      //       height: '340px'
-      //     }, 250);
-      //   }
-      // }, 2000);
+      $timeout(function(){
+        if(!$scope.inputsFocused){
+          $('.submitRepeat').animate({
+            height: '340px'
+          }, 250);
+        }
+      }, 2000);
     };
     $scope.blurringName = blurringName;
 
