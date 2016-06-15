@@ -240,93 +240,35 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         $cordovaCapture.captureVideo({quality : 100})
         .then(function(result){
           console.log(result);
-          var byteChars = atob(result[0].fullPath);
-          console.log(byteChars);
-          var blob = new Blob(byteChars, {type: 'text/plain'});
-          console.log(blob);
-          // $scope.dataVideo = "data:video/mp4;base64,"+String(result[0].fullPath)
-          // console.log(result[0].fullPath);
-          // var binaryArr = new Uint8Array(result[0].fullPath.split(''));
-          // console.log(binaryArr);
-          // var binaryStr = ''
-          // for (var i = 0; i < binaryArr.length; i++) {
-          //   binaryStr+=binaryArr[i];
-          //   if(i === binaryArr.length-1){
-          //     var convert64 = window.btoa(binaryStr);
-          //     console.log(convert64);
-          //     $scope.dataVideo = "data:video/mp4;base64,"+convert64;
-          //     console.log($scope.dataVideo);
-          //   }
-          // }
-          // var binaryStr = binaryArr.join('');
-          // console.log(binaryStr);
 
-          // console.log(convert64);
+          ////////////////
+          ///////////////
+          console.log(cordova.file);
+          window.resolveLocalFileSystemURL(cordova.file.cacheDirectory + "yoyo.mp4", appStart, downloadAsset);
 
-          // console.log(result[0]);
-          // for (key in result[0]) {
-          //   console.log(key);
-          //   // console.log(result[0][key]);
-          //   // console.log(key+": "+result[0][key]);
-          // }
-          // var vidUrl = URL.createObjectURL(result[0]);
-          // var vidUrl2 = URL.createObjectURL(result[0].fullPath);
-          // var vidBlob = new Blob(result[0]);
-          // var vidBlob2 = new Blob(result[0].fullPath);
-          // console.log(vidUrl);
-          // console.log(vidUrl2);
-          // console.log(vidBlob);
-          // console.log(vidBlob2);
+          function downloadAsset() {
+              var fileTransfer = new FileTransfer();
+              console.log("About to start transfer");
+              fileTransfer.download(result[0].localURL, cordova.file.cacheDirectory + "yoyo.mp4",
+                  function(entry) {
+                    console.log(entry);
+                    console.log("Success!");
+                    appStart();
+                  },
+                  function(err) {
+                      console.log("Error");
+                      console.dir(err);
+                  });
+          }
 
-          // var inputStream = new FileInputStream(result[0].fullPath);
-          // console.log(inputStream);
-
-          // var vidBlob = new Blob();
-          // var reader = new FileReader();
-          // reader.onload = function(e) {
-          //     // document.getElementById("video").src=reader.result;
-          //     console.log(e);
-          //     console.log(reader.result);
-          //  }
-          // reader.readAsDataURL(result[0].fullPath);
+          //I'm only called when the file exists or has been downloaded.
+          function appStart() {
+              $status.innerHTML = "App ready!";
+          }
 
 
-          /////file saving stuff for temp
-          // $cordovaFileTransfer.download(result[0].fullPath, './documents/cache/',  {Connection: "close"}, true)
-          // .then(function(successData){
-          //   console.log(successData);
-          // }, function(err){
-          //   console.log(err);
-          // }, function(progress){
-          //   console.log(progress);
-          // })
-          //  window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, success, error);
-          //  function success(fileSystem){
-          //    console.log(fileSystem);
-          //    fileSystem.root.getFile('savedMov.mov', { create: true, exclusive: false }, function(fileEntry){
-          //      console.log(fileEntry);
-          //      //////now we create the file
-          //      fileEntry.createWriter(function(fileWriter){
-          //        console.log(fileWriter);
-          //        fileWriter.write(result[0].fullPath)
-          //       //  var reader = new FileReader();
-          //       //  reader.onloadend = function(e) {
-          //       //   //  var txtArea = document.createElement('textarea');
-          //       //   //  txtArea.value = this.result;
-          //       //   //  document.body.appendChild(txtArea);
-          //       //   console.log(e);
-          //       //   console.log(this.result);
-          //       //  };
-          //        //
-          //       //  reader.readAsText(fileEntry);
-          //      }, error)
-          //    }, function(errorUpload){
-          //      console.log(errorUpload);
-          //    });
-          //  }
-          //  function error(err){
-          //    console.log(err);
-          //  }
+          ////////////////
+          ///////////////
 
 
           ////////////////

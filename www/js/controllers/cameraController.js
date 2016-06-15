@@ -243,48 +243,30 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
           ////////////////
           ///////////////
-          movePic(result[0].fullPath)
+          console.log(cordova.file);
+          window.resolveLocalFileSystemURL(cordova.file.cacheDirectory + "yoyo.mp4", appStart, downloadAsset);
 
-          function movePic(imageData){
-              console.log("move pic");
-              console.log(imageData);
-              window.resolveLocalFileSystemURL(imageData, resolveOnSuccess, resOnError);
+          function downloadAsset() {
+              var fileTransfer = new FileTransfer();
+              console.log("About to start transfer");
+              fileTransfer.download(result[0].localURL, cordova.file.cacheDirectory + "yoyo.mp4",
+                  function(entry) {
+                    console.log(entry);
+                    $scope.newVideo = entry.nativeURL;
+                    console.log("Success!");
+                    appStart();
+                  },
+                  function(err) {
+                      console.log("Error");
+                      console.dir(err);
+                  });
           }
 
-          function resolveOnSuccess(entry){
-              console.log("resolvetosuccess");
-
-              //new file name
-              var newFileName = "testing.mov";
-              var myFolderApp = "ImgFolder";
-
-              window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fileSys) {
-                  console.log("folder create");
-
-                  //The folder is created if doesn't exist
-                  fileSys.root.getDirectory( myFolderApp,
-                      {create:true, exclusive: false},
-                      function(directory) {
-                          console.log("move to file..");
-                          entry.moveTo(directory, newFileName,  successMove, resOnError);
-                          console.log("release");
-
-                      },
-                      resOnError);
-              },
-              resOnError);
+          //I'm only called when the file exists or has been downloaded.
+          function appStart() {
+              $status.innerHTML = "App ready!";
           }
 
-          function successMove(entry) {
-              //I do my insert with "entry.fullPath" as for the path
-              console.log("success");
-              //this is file path, customize your path
-              console.log(entry);
-          }
-
-          function resOnError(error) {
-              console.log("failed");
-          }
 
           ////////////////
           ///////////////
