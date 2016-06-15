@@ -1152,10 +1152,11 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       }, 250);
       $timeout(function(){
         $scope.inputsFocused = true;
+        $scope.isDisabled = true;
       }, 250);
       $timeout(function(){
         $('.photoNameInput').focus();
-      }, 1000);
+      }, 500);
     };
     $scope.focusName = focusName;
 
@@ -1165,10 +1166,11 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       }, 250);
       $timeout(function(){
         $scope.inputsFocused = true;
+        $scope.isDisabled = true;
       }, 250);
       $timeout(function(){
         $('.photoNameDesc').focus();
-      }, 1000);
+      }, 500);
     }
     $scope.focusText = focusText;
 
@@ -1179,8 +1181,9 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
           $('.submitRepeat').animate({
             height: '340px'
           }, 250);
+          $scope.isDisabled = false;
         }
-      }, 2000);
+      }, 1000);
     }
     $scope.blurringText = blurringText;
 
@@ -1191,8 +1194,9 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
           $('.submitRepeat').animate({
             height: '340px'
           }, 250);
+          $scope.isDisabled = false;
         }
-      }, 2000);
+      }, 1000);
     };
     $scope.blurringName = blurringName;
 
