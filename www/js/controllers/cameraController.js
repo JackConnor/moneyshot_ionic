@@ -239,7 +239,8 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       if($scope.activePhoto === false && $scope.mediaCache.length < 25){
         $cordovaCapture.captureVideo({quality : 100})
         .then(function(result){
-          // console.log(result);
+          console.log(result);
+          $scope.dataVideo = "data:video/mp4;base64,"+result[0].fullPath
           // console.log(result[0].fullPath);
           // var binaryArr = new Uint8Array(result[0].fullPath.split(''));
           // console.log(binaryArr);
