@@ -240,95 +240,54 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         $cordovaCapture.captureVideo({quality : 100})
         .then(function(result){
           console.log(result);
-          var byteChars = atob(result[0].fullPath);
-          console.log(byteChars);
-          var unitArr = new Uint8Array(byteChars);
-          console.log(unitArr);
-          var blob = new Blob(unitArr, {type: 'text/plain'});
-          console.log(blob);
-          // $scope.dataVideo = "data:video/mp4;base64,"+String(result[0].fullPath)
-          // console.log(result[0].fullPath);
-          // var binaryArr = new Uint8Array(result[0].fullPath.split(''));
-          // console.log(binaryArr);
-          // var binaryStr = ''
-          // for (var i = 0; i < binaryArr.length; i++) {
-          //   binaryStr+=binaryArr[i];
-          //   if(i === binaryArr.length-1){
-          //     var convert64 = window.btoa(binaryStr);
-          //     console.log(convert64);
-          //     $scope.dataVideo = "data:video/mp4;base64,"+convert64;
-          //     console.log($scope.dataVideo);
-          //   }
-          // }
-          // var binaryStr = binaryArr.join('');
-          // console.log(binaryStr);
 
-          // console.log(convert64);
+          ////////////////
+          ///////////////
+          movePic(result[0].fullPath)
 
-          // console.log(result[0]);
-          // for (key in result[0]) {
-          //   console.log(key);
-          //   // console.log(result[0][key]);
-          //   // console.log(key+": "+result[0][key]);
-          // }
-          // var vidUrl = URL.createObjectURL(result[0]);
-          // var vidUrl2 = URL.createObjectURL(result[0].fullPath);
-          // var vidBlob = new Blob(result[0]);
-          // var vidBlob2 = new Blob(result[0].fullPath);
-          // console.log(vidUrl);
-          // console.log(vidUrl2);
-          // console.log(vidBlob);
-          // console.log(vidBlob2);
+          function movePic(imageData){
+              console.log("move pic");
+              console.log(imageData);
+              window.resolveLocalFileSystemURL(imageData, resolveOnSuccess, resOnError);
+          }
 
-          // var inputStream = new FileInputStream(result[0].fullPath);
-          // console.log(inputStream);
+          function resolveOnSuccess(entry){
+              console.log("resolvetosuccess");
 
-          // var vidBlob = new Blob();
-          // var reader = new FileReader();
-          // reader.onload = function(e) {
-          //     // document.getElementById("video").src=reader.result;
-          //     console.log(e);
-          //     console.log(reader.result);
-          //  }
-          // reader.readAsDataURL(result[0].fullPath);
+              //new file name
+              var newFileName = "testing.mov";
+              var myFolderApp = "ImgFolder";
 
+              window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fileSys) {
+                  console.log("folder create");
 
-          /////file saving stuff for temp
-          // $cordovaFileTransfer.download(result[0].fullPath, './documents/cache/',  {Connection: "close"}, true)
-          // .then(function(successData){
-          //   console.log(successData);
-          // }, function(err){
-          //   console.log(err);
-          // }, function(progress){
-          //   console.log(progress);
-          // })
-          //  window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, success, error);
-          //  function success(fileSystem){
-          //    console.log(fileSystem);
-          //    fileSystem.root.getFile('savedMov.mov', { create: true, exclusive: false }, function(fileEntry){
-          //      console.log(fileEntry);
-          //      //////now we create the file
-          //      fileEntry.createWriter(function(fileWriter){
-          //        console.log(fileWriter);
-          //        fileWriter.write(result[0].fullPath)
-          //       //  var reader = new FileReader();
-          //       //  reader.onloadend = function(e) {
-          //       //   //  var txtArea = document.createElement('textarea');
-          //       //   //  txtArea.value = this.result;
-          //       //   //  document.body.appendChild(txtArea);
-          //       //   console.log(e);
-          //       //   console.log(this.result);
-          //       //  };
-          //        //
-          //       //  reader.readAsText(fileEntry);
-          //      }, error)
-          //    }, function(errorUpload){
-          //      console.log(errorUpload);
-          //    });
-          //  }
-          //  function error(err){
-          //    console.log(err);
-          //  }
+                  //The folder is created if doesn't exist
+                  fileSys.root.getDirectory( myFolderApp,
+                      {create:true, exclusive: false},
+                      function(directory) {
+                          console.log("move to file..");
+                          entry.moveTo(directory, newFileName,  successMove, resOnError);
+                          console.log("release");
+
+                      },
+                      resOnError);
+              },
+              resOnError);
+          }
+
+          function successMove(entry) {
+              //I do my insert with "entry.fullPath" as for the path
+              console.log("success");
+              //this is file path, customize your path
+              console.log(entry);
+          }
+
+          function resOnError(error) {
+              console.log("failed");
+          }
+
+          ////////////////
+          ///////////////
 
 
           ////////////////

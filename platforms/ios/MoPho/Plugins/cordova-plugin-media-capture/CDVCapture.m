@@ -276,11 +276,6 @@
 
 - (CDVPluginResult*)processVideo:(NSString*)moviePath forCallbackId:(NSString*)callbackId
 {
-  NSLog(@"path %@", moviePath);
-  NSData *videoData = [NSData dataWithContentsOfFile:moviePath];
-  NSString* newVidStr = [videoData base64EncodedStringWithOptions:0];
-  // NSLog(@"video data %@", videoData);
-  // UISaveVideoAtPathToSavedPhotosAlbum(moviePath, nil, nil, nil);
     // save the movie to photo album (only avail as of iOS 3.1)
 
     /* don't need, it should automatically get saved
@@ -291,13 +286,32 @@
         NSLog(@"finished saving movie");
     }*/
     // create MediaFile object
-    NSDictionary* fileDict = [self getMediaDictionaryFromPath:newVidStr ofType:nil];
-    NSLog(@"video data hidden as a file %@", fileDict);
+    NSDictionary* fileDict = [self getMediaDictionaryFromPath:moviePath ofType:nil];
     NSArray* fileArray = [NSArray arrayWithObject:fileDict];
-    // NSMutableArray *params = [[NSMutableArray alloc] init];
-    // [params addObject:videoData];
 
     return [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsArray:fileArray];
+
+    ///////some stuff I was trying which send video back as 64 bit string
+    // NSString* newVidStr = [videoData base64EncodedStringWithOptions:0];
+    // NSLog(@"video data %@", videoData);
+    // UISaveVideoAtPathToSavedPhotosAlbum(moviePath, nil, nil, nil);
+      // save the movie to photo album (only avail as of iOS 3.1)
+
+      /* don't need, it should automatically get saved
+       NSLog(@"can save %@: %d ?", moviePath, UIVideoAtPathIsCompatibleWithSavedPhotosAlbum(moviePath));
+      if (&UIVideoAtPathIsCompatibleWithSavedPhotosAlbum != NULL && UIVideoAtPathIsCompatibleWithSavedPhotosAlbum(moviePath) == YES) {
+          NSLog(@"try to save movie");
+          UISaveVideoAtPathToSavedPhotosAlbum(moviePath, nil, nil, nil);
+          NSLog(@"finished saving movie");
+      }*/
+      // create MediaFile object
+      // NSDictionary* fileDict = [self getMediaDictionaryFromPath:newVidStr ofType:nil];
+      // NSLog(@"video data hidden as a file %@", fileDict);
+      // NSArray* fileArray = [NSArray arrayWithObject:fileDict];
+      // // NSMutableArray *params = [[NSMutableArray alloc] init];
+      // // [params addObject:videoData];
+      //
+      // return [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsArray:fileArray];
 }
 
 - (void)getMediaModes:(CDVInvokedUrlCommand*)command
