@@ -1160,27 +1160,36 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     $scope.blurring = blurring;
 
     function unblurring(){
-      var textFocused = $('.photoNameDesc').is(':focus');
-      console.log(textFocused);
-      $('.submitRepeat').animate({
-        height: '0px'
-      }, 250);
       $timeout(function(){
         $('.photoNameInput').focus();
-        // $cordovaKeyboard.show();
-      }, 265);
-    };
-    $scope.unblurring = unblurring;
-
-    function unblurText(){
-      $timeout(function(){
-        $('.photoNameDesc').focus();
         $('.submitRepeat').animate({
           height: '0px'
         }, 250);
       }, 1000);
+    };
+    $scope.unblurring = unblurring;
+
+    function unblurText(){
+      $('.submitRepeat').animate({
+        height: '0px'
+      }, 250);
+      $timeout(function(){
+        $('.photoNameDesc').focus();
+      }, 1000);
     }
     $scope.unblurText = unblurText;
+
+    function blurText(){
+      $('.photoNameDesc')[0].blur();
+      $timeout(function(){
+        var nameFocused = $('.photoNameDesc').is(':focus');
+        if(nameFocused===false){
+          $('.submitRepeat').animate({
+            height: '340px'
+          }, 250);
+        }
+      }, 2000);
+    }
 
     function playVid(){
       var player = $('#carouselVideoCamera')[0];
