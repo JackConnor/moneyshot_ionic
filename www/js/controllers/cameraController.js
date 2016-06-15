@@ -1156,7 +1156,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       }, 250);
       $timeout(function(){
         $('.photoNameInput').focus();
-      }, 500);
+      }, 500); 
     };
     $scope.focusName = focusName;
 
