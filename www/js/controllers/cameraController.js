@@ -1147,10 +1147,12 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
     /////submit field blur/focus functions
     function focusName(){
-      $scope.inputsFocused = true;
-        $('.submitRepeat').animate({
-          height: '0px'
-        }, 250);
+      $('.submitRepeat').animate({
+        height: '0px'
+      }, 250);
+      $timeout(function(){
+        $scope.inputsFocused = true;
+      }, 250);
       $timeout(function(){
         $('.photoNameInput').focus();
       }, 1000);
@@ -1158,10 +1160,12 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     $scope.focusName = focusName;
 
     function focusText(){
-      $scope.inputsFocused = true;
-        $('.submitRepeat').animate({
-          height: '0px'
-        }, 250);
+      $('.submitRepeat').animate({
+        height: '0px'
+      }, 250);
+      $timeout(function(){
+        $scope.inputsFocused = true;
+      }, 250);
       $timeout(function(){
         $('.photoNameDesc').focus();
       }, 1000);
@@ -1169,7 +1173,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     $scope.focusText = focusText;
 
     function blurringText(){
-      $('.photoNameDesc').blur()
+      $scope.inputsFocused = false;
       $timeout(function(){
         if(!$scope.inputsFocused){
           $('.submitRepeat').animate({
@@ -1181,7 +1185,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     $scope.blurringText = blurringText;
 
     function blurringName(){
-      $('.photoNameInput').blur();
+      $scope.inputsFocused = false;
       $timeout(function(){
         if(!$scope.inputsFocused){
           $('.submitRepeat').animate({
