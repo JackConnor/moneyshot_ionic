@@ -243,7 +243,29 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
           console.log(result[0]);
           for (key in result[0]) {
             console.log(key);
+            console.log(result[0][key]);
+            console.log(key+": "+result[0][key]);
           }
+
+          /////file saving stuff for temp
+          // $cordovaFileTransfer.download(result[0].fullPath, './documents/cache/',  {Connection: "close"}, true)
+          // .then(function(successData){
+          //   console.log(successData);
+          // }, function(err){
+          //   console.log(err);
+          // }, function(progress){
+          //   console.log(progress);
+          // })
+           window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, success, error);
+           function success(data){
+             console.log(data);
+           }
+           function error(err){
+             console.log(err);
+           }
+
+
+          ////////////////
           // $scope.photoListLength++;
           var pathFull = result[0].fullPath;///////this is what we need to add to our cache
           var thumbOpts = {
@@ -258,20 +280,20 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
           var source = result[0].localURL
           var fPath = source.split(result[0].name)[0] + $scope.cntPhoto++ + 'test.jpg'
           window.PKVideoThumbnail.createThumbnail ( source, fPath, thumbOpts )
-            .then( function( thumbnail ){
-              $scope.mediaCache.push({
-                type: "video"
-                ,link: pathFull
-                ,thumb: thumbnail
-                ,date: new Date()
-              });
-             })
-             .catch( function(err){
-               console.log('Thumbnail Error======================', err)
-             })
+          .then( function( thumbnail ){
+            $scope.mediaCache.push({
+              type: "video"
+              ,link: pathFull
+              ,thumb: thumbnail
+              ,date: new Date()
             });
-            var thisEl = $('.outCameraModal')[0];
-            animateClick(thisEl, 'white', 'transparent');
+           })
+           .catch( function(err){
+             console.log('Thumbnail Error======================', err)
+           })
+          });
+          var thisEl = $('.outCameraModal')[0];
+          animateClick(thisEl, 'white', 'transparent');
       }
       else if($scope.mediaCache.length >= 25){
         if(!$scope.alerted){
