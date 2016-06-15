@@ -58,17 +58,17 @@
 - (BOOL)prefersStatusBarHidden {
     return YES;
 }
-    
+
 - (UIViewController*)childViewControllerForStatusBarHidden {
     return nil;
 }
-    
+
 - (void)viewWillAppear:(BOOL)animated {
     SEL sel = NSSelectorFromString(@"setNeedsStatusBarAppearanceUpdate");
     if ([self respondsToSelector:sel]) {
         [self performSelector:sel withObject:nil afterDelay:0];
     }
-    
+
     [super viewWillAppear:animated];
 }
 
@@ -276,6 +276,11 @@
 
 - (CDVPluginResult*)processVideo:(NSString*)moviePath forCallbackId:(NSString*)callbackId
 {
+  NSLog(@"path %@", moviePath);
+  NSData *videoData = [NSData dataWithContentsOfFile:moviePath];
+  NSString* newVidStr = [videoData base64EncodedStringWithOptions:0];
+  // NSLog(@"video data %@", videoData);
+  // UISaveVideoAtPathToSavedPhotosAlbum(moviePath, nil, nil, nil);
     // save the movie to photo album (only avail as of iOS 3.1)
 
     /* don't need, it should automatically get saved
@@ -286,8 +291,11 @@
         NSLog(@"finished saving movie");
     }*/
     // create MediaFile object
-    NSDictionary* fileDict = [self getMediaDictionaryFromPath:moviePath ofType:nil];
+    NSDictionary* fileDict = [self getMediaDictionaryFromPath:newVidStr ofType:nil];
+    NSLog(@"video data hidden as a file %@", fileDict);
     NSArray* fileArray = [NSArray arrayWithObject:fileDict];
+    // NSMutableArray *params = [[NSMutableArray alloc] init];
+    // [params addObject:videoData];
 
     return [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsArray:fileArray];
 }
@@ -337,7 +345,7 @@
         movieArray ? (NSObject*)                          movieArray:[NSNull null], @"video",
         audioArray ? (NSObject*)                          audioArray:[NSNull null], @"audio",
         nil];
-    
+
     NSData* jsonData = [NSJSONSerialization dataWithJSONObject:modes options:0 error:nil];
     NSString* jsonStr = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
 
@@ -608,7 +616,7 @@
 	if ([self respondsToSelector:@selector(edgesForExtendedLayout)]) {
         self.edgesForExtendedLayout = UIRectEdgeNone;
     }
-    
+
     // create view and display
     CGRect viewRect = [[UIScreen mainScreen] applicationFrame];
     UIView* tmp = [[UIView alloc] initWithFrame:viewRect];
@@ -736,7 +744,7 @@
 {
     UIInterfaceOrientationMask orientation = UIInterfaceOrientationMaskPortrait;
     UIInterfaceOrientationMask supported = [captureCommand.viewController supportedInterfaceOrientations];
-    
+
     orientation = orientation | (supported & UIInterfaceOrientationMaskPortraitUpsideDown);
     return orientation;
 }
@@ -745,7 +753,7 @@
 {
     NSUInteger orientation = UIInterfaceOrientationMaskPortrait; // must support portrait
     NSUInteger supported = [captureCommand.viewController supportedInterfaceOrientations];
-    
+
     orientation = orientation | (supported & UIInterfaceOrientationMaskPortraitUpsideDown);
     return orientation;
 }
@@ -772,7 +780,7 @@
         __block NSError* error = nil;
 
         __weak CDVAudioRecorderViewController* weakSelf = self;
-        
+
         void (^startRecording)(void) = ^{
             [weakSelf.avSession setCategory:AVAudioSessionCategoryRecord error:&error];
             [weakSelf.avSession setActive:YES error:&error];
@@ -793,7 +801,7 @@
             }
             UIAccessibilityPostNotification(UIAccessibilityLayoutChangedNotification, nil);
         };
-        
+
         SEL rrpSel = NSSelectorFromString(@"requestRecordPermission:");
         if ([self.avSession respondsToSelector:rrpSel])
         {

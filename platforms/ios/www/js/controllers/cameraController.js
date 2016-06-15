@@ -237,15 +237,45 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     $scope.cntPhoto = 0;
     function getPic(){
       if($scope.activePhoto === false && $scope.mediaCache.length < 25){
-        $cordovaCapture.captureVideo({quality : 100, saveToPhotoAlbum: true})
+        $cordovaCapture.captureVideo({quality : 100})
         .then(function(result){
-          console.log(result);
-          console.log(result[0]);
-          for (key in result[0]) {
-            console.log(key);
-            console.log(result[0][key]);
-            console.log(key+": "+result[0][key]);
-          }
+          // console.log(result);
+          // console.log(result[0].fullPath);
+          var binaryArr = new Uint8Array(result[0].fullPath.split(''));
+          console.log(binaryArr);
+          var binaryStr = binaryArr.join('');
+          console.log(binaryStr);
+          // var convert64 = window.btoa(binaryStr);
+          // console.log(convert64);
+          // $scope.dataVideo = "data:video/mp4;base64,"+convert64;
+          // console.log($scope.dataVideo);
+          // console.log(result[0]);
+          // for (key in result[0]) {
+          //   console.log(key);
+          //   // console.log(result[0][key]);
+          //   // console.log(key+": "+result[0][key]);
+          // }
+          // var vidUrl = URL.createObjectURL(result[0]);
+          // var vidUrl2 = URL.createObjectURL(result[0].fullPath);
+          // var vidBlob = new Blob(result[0]);
+          // var vidBlob2 = new Blob(result[0].fullPath);
+          // console.log(vidUrl);
+          // console.log(vidUrl2);
+          // console.log(vidBlob);
+          // console.log(vidBlob2);
+
+          // var inputStream = new FileInputStream(result[0].fullPath);
+          // console.log(inputStream);
+
+          // var vidBlob = new Blob();
+          // var reader = new FileReader();
+          // reader.onload = function(e) {
+          //     // document.getElementById("video").src=reader.result;
+          //     console.log(e);
+          //     console.log(reader.result);
+          //  }
+          // reader.readAsDataURL(result[0].fullPath);
+
 
           /////file saving stuff for temp
           // $cordovaFileTransfer.download(result[0].fullPath, './documents/cache/',  {Connection: "close"}, true)
@@ -256,27 +286,33 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
           // }, function(progress){
           //   console.log(progress);
           // })
-           window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, success, error);
-           function success(fileSystem){
-             console.log(fileSystem);
-             fileSystem.root.getFile('savedMov.mov', { create: true, exclusive: false }, function(fileEntry){
-               console.log(fileEntry);
-               //////now we create the file
-               fileEntry.createWriter(function(fileWriter){
-                 console.log(fileWriter);
-                 fileWriter.write('yooooooooooooo')
-                 fileSystem.root.getFile('savedMov.mov', { create: true, exclusive: false }, function(success){
-                   console.log('new file: ');
-                   console.log(success);
-                 }, error)
-               }, error)
-             }, function(errorUpload){
-               console.log(errorUpload);
-             });
-           }
-           function error(err){
-             console.log(err);
-           }
+          //  window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, success, error);
+          //  function success(fileSystem){
+          //    console.log(fileSystem);
+          //    fileSystem.root.getFile('savedMov.mov', { create: true, exclusive: false }, function(fileEntry){
+          //      console.log(fileEntry);
+          //      //////now we create the file
+          //      fileEntry.createWriter(function(fileWriter){
+          //        console.log(fileWriter);
+          //        fileWriter.write(result[0].fullPath)
+          //       //  var reader = new FileReader();
+          //       //  reader.onloadend = function(e) {
+          //       //   //  var txtArea = document.createElement('textarea');
+          //       //   //  txtArea.value = this.result;
+          //       //   //  document.body.appendChild(txtArea);
+          //       //   console.log(e);
+          //       //   console.log(this.result);
+          //       //  };
+          //        //
+          //       //  reader.readAsText(fileEntry);
+          //      }, error)
+          //    }, function(errorUpload){
+          //      console.log(errorUpload);
+          //    });
+          //  }
+          //  function error(err){
+          //    console.log(err);
+          //  }
 
 
           ////////////////

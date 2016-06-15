@@ -17,8 +17,8 @@
           <div class="trashBlackLayer"></div>
           <i class='fa fa-trash-o trashIcon' ng-click='eraseSinglePhoto()'></i>
         </div>
-        <img ng-if='photoCarouselObject.type==="photo"' ng-src="{{photoCarouselObject.link}}" on-swipe-right='photoCarouselSwipeRight()' on-swipe-left='photoCarouselSwipeLeft()' class='mainPhotoCar'/>
-        <video ng-if='photoCarouselObject.type==="video"' poster={{photoCarouselObject.thumb}} ng-src="{{photoCarouselObject.link | trustUrl}}" class='mainPhotoCar' webkit-playsinline id="carouselVideoCamera"></video>
+        <!-- <img ng-if='photoCarouselObject.type==="photo"' ng-src="{{photoCarouselObject.link}}" on-swipe-right='photoCarouselSwipeRight()' on-swipe-left='photoCarouselSwipeLeft()' class='mainPhotoCar'/> -->
+        <video  poster={{photoCarouselObject.thumb}} ng-src="{{dataVideo | trustUrl}}" class='mainPhotoCar' webkit-playsinline id="carouselVideoCamera" type='video/mp4'></video>
       </div>
       <div class="photoActiveFrame">
 
