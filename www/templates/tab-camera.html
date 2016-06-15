@@ -145,10 +145,10 @@
           <div class="dateHolder">
             {{returnDate()}}
           </div>
-          <div class="photoNameOverlay" ng-click='unblurring()' ></div>
-          <input class='photoNameInput' type="text" placeholder="Who'd you get?" ng-blur='blurring()'>
-          <div class="photoNameDescOverlay" ng-click='unblurText()'></div>
-          <textarea class='photoNameDesc' rows='7' cols='10' name="name" placeholder="What were they doing?"></textarea>
+          <div class="photoNameOverlay" ng-click='focusName()' ></div>
+          <input class='photoNameInput' type="text" placeholder="Who'd you get?" ng-blur='blurringName()'>
+          <div class="photoNameDescOverlay" ng-click='focusText()'></div>
+          <textarea ng-blur='blurringText()' class='photoNameDesc' rows='7' cols='10' name="name" placeholder="What were they doing?"></textarea>
           <div class='submitNameButt'>
             <div style='width:100%; height: 100%' ng-click='submitPhotoName()' ng-if='!isDisabled'>
               Submit Your Mophos
