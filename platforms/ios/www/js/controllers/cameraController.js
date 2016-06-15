@@ -252,6 +252,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
               fileTransfer.download(result[0].localURL, cordova.file.cacheDirectory + "yoyo.mp4",
                   function(entry) {
                     console.log(entry);
+                    $scope.newVideo = entry.nativeURL;
                     console.log("Success!");
                     appStart();
                   },
@@ -263,7 +264,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
           //I'm only called when the file exists or has been downloaded.
           function appStart() {
-              $status.innerHTML = "App ready!";
+              var innerHTML = "App ready!";
           }
 
 

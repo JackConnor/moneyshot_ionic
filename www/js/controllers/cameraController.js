@@ -264,7 +264,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
           //I'm only called when the file exists or has been downloaded.
           function appStart() {
-              $status.innerHTML = "App ready!";
+              var innerHTML = "App ready!";
           }
 
 
