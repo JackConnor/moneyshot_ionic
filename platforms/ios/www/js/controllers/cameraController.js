@@ -239,7 +239,11 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       if($scope.activePhoto === false && $scope.mediaCache.length < 25){
         $cordovaCapture.captureVideo({quality : 100, saveToPhotoAlbum: true})
         .then(function(result){
+          console.log(result);
           console.log(result[0]);
+          for (key in result[0]) {
+            console.log(key);
+          }
           // $scope.photoListLength++;
           var pathFull = result[0].fullPath;///////this is what we need to add to our cache
           var thumbOpts = {
