@@ -1151,6 +1151,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         $('.submitRepeat').animate({
           height: '0px'
         }, 250);
+        $('.photoNameInput').focus();
       // $timeout(function(){
       //   $('.photoNameInput').focus();
       // }, 1000);
@@ -1162,6 +1163,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         $('.submitRepeat').animate({
           height: '0px'
         }, 250);
+        $('.photoNameDesc').focus();
       // $('.submitRepeat').animate({
       //   height: '0px'
       // }, 250);
