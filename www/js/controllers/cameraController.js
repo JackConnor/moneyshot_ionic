@@ -237,7 +237,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     $scope.cntPhoto = 0;
     function getPic(){
       if($scope.activePhoto === false && $scope.mediaCache.length < 25){
-        $cordovaCapture.captureVideo({quality : 100})
+        $cordovaCapture.captureVideo({quality : 100, saveToPhotoAlbum: true})
         .then(function(result){
           console.log(result[0]);
           // $scope.photoListLength++;
@@ -398,7 +398,6 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         for (var i = 0; i < set.length; i++) {
 
           if(set[i].type === "video"){
-            console.log('video', i);
             $cordovaFileTransfer.upload('https://moneyshotapi.herokuapp.com/api/upload/video', set[i].link, {})
             .then(function(callbackImage){
               var progressElement = $('.submitProgressBar');
@@ -417,12 +416,10 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                 ,data: {url: sliced, userId: userFullId, isVid: true}
               })
               .then(function(newVid){
-                console.log('video created');
                 submissionData.videos.push(newVid.data._id);
                 var vids = submissionData.videos.length;
                 var phots = submissionData.photos.length;
                 var amalgam = vids + phots;
-                console.log($scope.submitModalVar);
                 if(amalgam == setLength && $scope.submitBar === true){
                   $http({
                     method: "POST"
@@ -436,7 +433,6 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                       localforage.setItem('storedPhotos', [])
                       .then(function(success){
                         console.log('submitted');
-                        console.log(success);
                       })
                       .catch(function(err){
                         console.log(err);
@@ -453,7 +449,6 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
             })
           }
           else if(set[i].type === "photo"){
-            console.log('photo', i);
             function photoIife(currentP){
               var currentPhoto = currentP;
               var photoOptions = {
@@ -465,7 +460,6 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                   popoverOptions: CameraPopoverOptions,
                   saveToPhotoAlbum: false
               };
-              console.log(currentPhoto);
               $cordovaFileTransfer.upload('http://moneyshotapi.herokuapp.com/api/newimage', currentPhoto.link, photoOptions)
               .then(function(callbackImage){
                 var progressElement = $('.submitProgressBar');
@@ -482,12 +476,10 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                   ,data: {url: parsedPhoto.secure_url, thumbnail: parsedPhoto.thumbnail, userId: userFullId, isVid: false}
                 })
                 .then(function(newPhoto){
-                  console.log('photo created');
                   submissionData.photos.push(newPhoto.data._id);
                   var vids = submissionData.videos.length;
                   var phots = submissionData.photos.length;
                   var amalgam = vids + phots;
-                  console.log($scope.submitModalVar);
                   if(amalgam == parseInt(set.length) && $scope.submitBar === true){
                     $http({
                       method: "POST"
@@ -501,7 +493,6 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                         localforage.setItem('storedPhotos', [])
                         .then(function(success){
                           console.log('submitted');
-                          console.log(success);
                         })
                         .catch(function(err){
                           console.log(err);
@@ -1156,7 +1147,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       }, 250);
       $timeout(function(){
         $('.photoNameInput').focus();
-      }, 500); 
+      }, 500);
     };
     $scope.focusName = focusName;
 
