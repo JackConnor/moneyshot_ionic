@@ -239,20 +239,21 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       if($scope.activePhoto === false && $scope.mediaCache.length < 25){
         $cordovaCapture.captureVideo({quality : 100})
         .then(function(result){
-          // console.log(result);
+          console.log(result);
+          $scope.dataVideo = "data:video/mp4;base64,"+result[0].fullPath
           // console.log(result[0].fullPath);
-          var binaryArr = new Uint8Array(result[0].fullPath.split(''));
-          console.log(binaryArr);
-          var binaryStr = ''
-          for (var i = 0; i < binaryArr.length; i++) {
-            binaryStr+=binaryArr[i];
-            if(i === binaryArr.length-1){
-              var convert64 = window.btoa(binaryStr);
-              console.log(convert64);
-              $scope.dataVideo = "data:video/mp4;base64,"+convert64;
-              console.log($scope.dataVideo);
-            }
-          }
+          // var binaryArr = new Uint8Array(result[0].fullPath.split(''));
+          // console.log(binaryArr);
+          // var binaryStr = ''
+          // for (var i = 0; i < binaryArr.length; i++) {
+          //   binaryStr+=binaryArr[i];
+          //   if(i === binaryArr.length-1){
+          //     var convert64 = window.btoa(binaryStr);
+          //     console.log(convert64);
+          //     $scope.dataVideo = "data:video/mp4;base64,"+convert64;
+          //     console.log($scope.dataVideo);
+          //   }
+          // }
           // var binaryStr = binaryArr.join('');
           // console.log(binaryStr);
 
