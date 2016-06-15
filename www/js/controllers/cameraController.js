@@ -242,7 +242,9 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
           console.log(result);
           var byteChars = atob(result[0].fullPath);
           console.log(byteChars);
-          var blob = new Blob(byteChars, {type: 'text/plain'});
+          var unitArr = new Uint8Array(byteChars);
+          console.log(unitArr);
+          var blob = new Blob(unitArr, {type: 'text/plain'});
           console.log(blob);
           // $scope.dataVideo = "data:video/mp4;base64,"+String(result[0].fullPath)
           // console.log(result[0].fullPath);
