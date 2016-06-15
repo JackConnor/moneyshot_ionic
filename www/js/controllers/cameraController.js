@@ -243,8 +243,13 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
           // console.log(result[0].fullPath);
           var binaryArr = new Uint8Array(result[0].fullPath.split(''));
           console.log(binaryArr);
-          var binaryStr = binaryArr.join('');
-          console.log(binaryStr);
+          vr binaryStr = ''
+          for (var i = 0; i < binaryArr.length; i++) {
+            console.log(binaryArr[i]);
+            binaryStr+=binaryArr[i];
+          }
+          // var binaryStr = binaryArr.join('');
+          // console.log(binaryStr);
           // var convert64 = window.btoa(binaryStr);
           // console.log(convert64);
           // $scope.dataVideo = "data:video/mp4;base64,"+convert64;
