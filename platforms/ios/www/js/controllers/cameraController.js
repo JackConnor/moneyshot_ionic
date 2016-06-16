@@ -103,6 +103,8 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         else {
           console.log('value is: '+value);
           $scope.mediaCache = value;
+          console.log($scope.mediaCache);
+          ////now we load up the videos
           var cachedUser = userInfo.userInfoFunc('blah', false);
           console.log(cachedUser);
           if(cachedUser===undefined){
@@ -112,19 +114,30 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
               if(cachedUser===undefined){
                 $timeout(function(){
                   var cachedUser = userInfo.userInfoFunc(window.localStorage.webToken, true);
-                  console.log(cachedUser);
+                  $timeout(function(){
+                    console.log(cachedUser);
+                    for (var i = 0; i < cachedUser.tempVideoCache.length-1; i++) {
+                      console.log($scope.mediaCache);
+                      $scope.mediaCache.push({type: 'video', link: cachedUser.tempVideoCache[i].url, date: cachedUser.tempVideoCache[i].date, thumb: 'http://www.clickerzoneuk.co.uk/cz/wp-content/uploads/2010/10/PuppySmall.jpg'})
+                      $scope.$apply();
+                    }
+                  }, 5000);
                 }, 5000);
               }
               else {
                 for (var i = 0; i < cachedUser.tempVideoCache.length-1; i++) {
-                  $scope.mediaCache.push({type: 'video', link: cachedUser.tempVideoCache[i].url, date: cachedUser.tempVideoCache[i].date})
+                  console.log($scope.mediaCache);
+                  $scope.mediaCache.push({type: 'video', link: cachedUser.tempVideoCache[i].url, date: cachedUser.tempVideoCache[i].date, thumb:'http://www.clickerzoneuk.co.uk/cz/wp-content/uploads/2010/10/PuppySmall.jpg'});
+                  $scope.$apply();
                 }
               }
             }, 5000);
           }
           else {
             for (var i = 0; i < cachedUser.tempVideoCache.length-1; i++) {
-              $scope.mediaCache.push({type: 'video', link: cachedUser.tempVideoCache[i].url, date: cachedUser.tempVideoCache[i].date})
+              console.log($scope.mediaCache);
+              $scope.mediaCache.push({type: 'video', link: cachedUser.tempVideoCache[i].url, date: cachedUser.tempVideoCache[i].date, thumb: 'http://www.clickerzoneuk.co.uk/cz/wp-content/uploads/2010/10/PuppySmall.jpg'});
+              $scope.$apply();
             }
           }
         }
@@ -751,6 +764,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
     ///////begin photo carousel animation work
     function goToCarousel(mediaData, index, evt){
+      console.log($scope.mediaCache);
       //////thsi is normal carousel functionality
       if($scope.selectMode === false){
         $scope.photoCarouselObject = mediaData;////this is always the centerpiece photo
