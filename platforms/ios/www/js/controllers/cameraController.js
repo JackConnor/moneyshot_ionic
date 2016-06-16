@@ -109,12 +109,22 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
             $timeout(function(){
               var cachedUser = userInfo.userInfoFunc('blah', false);
               console.log(cachedUser);
+              if(cachedUser===undefined){
+                $timeout(function(){
+                  var cachedUser = userInfo.userInfoFunc(window.localStorage.webToken, true);
+                  console.log(cachedUser);
+                }, 5000);
+              }
+              else {
+                for (var i = 0; i < cachedUser.tempVideoCache.length-1; i++) {
+                  $scope.mediaCache.push({type: 'video', link: cachedUser.tempVideoCache[i], date: cachedUser.tempVideoCache[i].date})
+                }
+              }
             }, 5000);
-            if(cachedUser===undefined){
-              $timeout(function(){
-                var cachedUser = userInfo.userInfoFunc(window.localStorage.webToken, true);
-                console.log(cachedUser);
-              }, 5000);
+          }
+          else {
+            for (var i = 0; i < cachedUser.tempVideoCache.length-1; i++) {
+              $scope.mediaCache.push({type: 'video', link: cachedUser.tempVideoCache[i], date: cachedUser.tempVideoCache[i].date})
             }
           }
         }
