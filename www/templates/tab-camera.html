@@ -18,7 +18,7 @@
           <i class='fa fa-trash-o trashIcon' ng-click='eraseSinglePhoto()'></i>
         </div>
         <img ng-if='photoCarouselObject.type==="photo"' ng-src="{{photoCarouselObject.link}}" on-swipe-right='photoCarouselSwipeRight()' on-swipe-left='photoCarouselSwipeLeft()' class='mainPhotoCar'/>
-        <video ng-if='photoCarouselObject.type==="video"' poster={{photoCarouselObject.thumb}} ng-src="{{photoCarouselObject.link | trustUrl}}" class='mainPhotoCar' webkit-playsinline id="carouselVideoCamera"></video>
+        <video ng-if='photoCarouselObject.type==="video" || photoCarouselObject.type==="videoTemp"' poster={{photoCarouselObject.thumb}} ng-src="{{photoCarouselObject.link | trustUrl}}" class='mainPhotoCar' webkit-playsinline id="carouselVideoCamera"></video>
       </div>
       <div class="photoActiveFrame">
 
@@ -27,7 +27,7 @@
         <div class="photoCarouselInner">
           <div class="photoCarouselCell" ng-repeat="media in mediaCacheTemp" id='{{$index}}'>
             <img ng-if='media.type==="photo"' ng-src="{{media.link}}" ng-click='clickCarouselPhoto(media, $index)'/>
-            <img ng-if='media.type==="video"' ng-src="{{media.thumb | trustUrl}}" ng-click='clickCarouselPhoto(media, $index)'/>
+            <img ng-if='media.type==="video" || media.type==="videoTemp"' ng-src="{{media.thumb | trustUrl}}" ng-click='clickCarouselPhoto(media, $index)'/>
             <!-- <video ng-if='media.type==="video"' ng-src="{{media.link}}" ng-click='openNewCarouselPhoto(media, $index)' poster="{{media.thumb}}"/> -->
           </div>
         </div>
@@ -131,7 +131,7 @@
           <div class="submitCell" ng-repeat='media in mediaCacheTemp'>
             <div class="submitCellImageHolder" >
               <img class='submitPhoto submitPhoto{{$index}}' id='submit{{$index}}' ng-src="{{media.link}}" ng-if='media.type=="photo"' ng-click='goToCarousel(media, $index, $event)'/>
-              <img class='submitPhoto submitPhoto{{$index}}' id='submit{{$index}}' ng-src="{{media.thumb | trustUrl}}" ng-if='media.type=="video"' ng-click='goToCarousel(media, $index, $event)'/>
+              <img class='submitPhoto submitPhoto{{$index}}' id='submit{{$index}}' ng-src="{{media.thumb | trustUrl}}" ng-if='media.type=="video" || media.type==="videoTemp"' ng-click='goToCarousel(media, $index, $event)'/>
             </div>
           </div>
         </ion-scroll>

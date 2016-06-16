@@ -114,13 +114,14 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
           ////now we load up the videos
           $timeout(function(){
             var cachedUser = userInfo.userInfoFunc('blah', false);
+            $scope.cachedUser = cachedUser;
             console.log(cachedUser);
             console.log($scope.mediaCache);
             var cacheVideo = cachedUser.tempVideoCache;
             console.log(cacheVideo);
             var vidLength = cacheVideo.length;
             for (var i = 0; i < vidLength; i++) {
-              $scope.mediaCache.push({type: 'video', link: cacheVideo[i].url, thumb: 'http://www.clickerzoneuk.co.uk/cz/wp-content/uploads/2010/10/PuppySmall.jpg'});
+              $scope.mediaCache.push({type: 'videoTemp', link: cacheVideo[i].url, thumb: 'http://www.clickerzoneuk.co.uk/cz/wp-content/uploads/2010/10/PuppySmall.jpg', videoId: cacheVideo[i]._id});
               console.log($scope.mediaCache);
             }
           }, 5000);
@@ -477,7 +478,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
               }
               var splitUrl = callbackImage.response.split('');
               var sliced = splitUrl.slice(1, callbackImage.response.split('').length - 1).join('');
-              ////////this is where we're having data problems, you need to figure out why our string result doesnt work to call the video
+
               $http({
                 method: "POST"
                 ,url: "https://moneyshotapi.herokuapp.com/api/createphotos"
@@ -514,6 +515,52 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                   $scope.isDisabled = false;
                 }
               })
+            })
+          }
+          else if(set[i].type === "videoTemp"){
+            var progressElement = $('.submitProgressBar');
+            if(zeroProgress <= 100){
+              zeroProgress += progressPercentage;
+              progressElement.animate({
+                width: zeroProgress+"%"
+              }, 200);
+            }
+            $http({
+              method: "POST"
+              ,url: "https://moneyshotapi.herokuapp.com/api/createphotos"
+              ,data: {url: set[i].link, userId: $scope.cachedUser._id, isVid: true}
+            })
+            .then(function(newVid){
+              submissionData.videos.push(newVid.data._id);
+              var vids = submissionData.videos.length;
+              var phots = submissionData.photos.length;
+              var amalgam = vids + phots;
+              if(amalgam == parseInt(set.length) && $scope.submitBar === true){
+                $http({
+                  method: "POST"
+                  ,url: "http://192.168.0.5:5555/api/new/submission"
+                  ,data: submissionData
+                })
+                .then(function(newSubmission){
+                  setTimeout(function(){
+                    $scope.submitModalVar = false;
+                    $scope.cameraModal = false;
+                    localforage.setItem('storedPhotos', [])
+                    .then(function(success){
+                      console.log('submitted');
+                    })
+                    .catch(function(err){
+                      console.log(err);
+                    })
+                    $scope.cnt = 0;
+                    $state.go('tab.account');
+
+                  }, 100);
+                })
+              }
+              else if(amalgam == parseInt(set.length) && $scope.submitBar === false){
+                $scope.isDisabled = false;
+              }
             })
           }
           else if(set[i].type === "photo"){
