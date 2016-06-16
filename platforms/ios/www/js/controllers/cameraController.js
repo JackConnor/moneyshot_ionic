@@ -117,14 +117,14 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
               }
               else {
                 for (var i = 0; i < cachedUser.tempVideoCache.length-1; i++) {
-                  $scope.mediaCache.push({type: 'video', link: cachedUser.tempVideoCache[i], date: cachedUser.tempVideoCache[i].date})
+                  $scope.mediaCache.push({type: 'video', link: cachedUser.tempVideoCache[i].url, date: cachedUser.tempVideoCache[i].date})
                 }
               }
             }, 5000);
           }
           else {
             for (var i = 0; i < cachedUser.tempVideoCache.length-1; i++) {
-              $scope.mediaCache.push({type: 'video', link: cachedUser.tempVideoCache[i], date: cachedUser.tempVideoCache[i].date})
+              $scope.mediaCache.push({type: 'video', link: cachedUser.tempVideoCache[i].url, date: cachedUser.tempVideoCache[i].date})
             }
           }
         }
