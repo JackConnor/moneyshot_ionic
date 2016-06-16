@@ -47,13 +47,18 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       }
     }
     var zooming = findZoomed();////this determines if the screen is on zoom mode or not
-    function runVideoCache(){
-      $scope.userInfo = userInfo.userInfoFunc('blah', false);
-      if($scope.userInfo == undefined){
+    function runVideoCache(controlVar){
+      if(controlVar === "runAnew"){
         userInfo.userInfoFunc(window.localStorage.webToken, true);
       }
+      else {
+        $scope.userInfo = userInfo.userInfoFunc('blah', false);
+        if($scope.userInfo == undefined){
+          userInfo.userInfoFunc(window.localStorage.webToken, true);
+        }
+      }
     }
-    runVideoCache()/////primes the video cache
+    runVideoCache();/////primes the video cache
 
     /////end global variables///
     ////////////////////////////
@@ -507,6 +512,9 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                         console.log(err);
                       })
                       $scope.cnt = 0;
+                      $timeout(function(){
+                        runVideoCache('runAnew');
+                      }, 3000);
                       $state.go('tab.account');
                     }, 1000);
                   })
@@ -553,8 +561,10 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                       console.log(err);
                     })
                     $scope.cnt = 0;
+                    $timeout(function(){
+                      runVideoCache('runAnew');
+                    }, 3000);
                     $state.go('tab.account');
-
                   }, 100);
                 })
               }
@@ -613,6 +623,9 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                           console.log(err);
                         })
                         $scope.cnt = 0;
+                        $timeout(function(){
+                          runVideoCache('runAnew');
+                        }, 3000);
                         $state.go('tab.account');
 
                       }, 100);
