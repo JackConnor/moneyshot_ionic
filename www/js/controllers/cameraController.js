@@ -59,7 +59,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         }
       }
     }
-    runVideoCache('blah');/////primes the video cache
+    runVideoCache();/////primes the video cache
 
     /////end global variables///
     ////////////////////////////

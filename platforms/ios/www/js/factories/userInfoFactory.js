@@ -5,7 +5,7 @@ angular.module('userInfoFactory', [])
   userInfo.$inject = ["$http"];
 
   function userInfo($http){
-    var userInfoCache = [];
+    var userInfoCache;
 
     function getUserInfo(token, bool){
       console.log(token);
