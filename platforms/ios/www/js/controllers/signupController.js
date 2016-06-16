@@ -1,4 +1,4 @@
-angular.module('signupController', [])
+angular.module('signupController', ['userInfoFactory'])
 
   // .config(function(FacebookProvider) {
   //    // Set your appId through the setAppId method or
@@ -8,9 +8,9 @@ angular.module('signupController', [])
 
   .controller('signupCtrl', signupCtrl);
 
-  signupCtrl.$inject = ['$scope', '$http', '$state', 'signup', 'signin', 'newToken', '$cordovaStatusbar', '$window', '$timeout', '$interval', '$animateCss', '$ionicScrollDelegate']
+  signupCtrl.$inject = ['$scope', '$http', '$state', 'signup', 'signin', 'newToken', '$cordovaStatusbar', '$window', '$timeout', '$interval', '$animateCss', '$ionicScrollDelegate', 'userInfo']
 
-  function signupCtrl($scope, $http, $state, signup, signin, newToken, $cordovaStatusbar, $window, $timeout, $interval, $animateCss, $ionicScrollDelegate){
+  function signupCtrl($scope, $http, $state, signup, signin, newToken, $cordovaStatusbar, $window, $timeout, $interval, $animateCss, $ionicScrollDelegate, userInfo){
     console.log('Sign Loaded')
     ///////////////global variables//////
     $scope.signupModalVar   = false;
@@ -277,6 +277,9 @@ angular.module('signupController', [])
                 }
               }
               var token = ourToken.data;
+              //////gets user's info to save
+              userInfo.userInfoFunc(token);
+              //////user info saved
               $scope.signupModalVar = false;
               $scope.signinModalVar = false;
               $scope.signupModalTabs = false;
