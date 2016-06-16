@@ -5,10 +5,12 @@ angular.module('userInfoFactory', [])
   userInfo.$inject = ["$http"];
 
   function userInfo($http){
-    var userInfoCache;
+    var userInfoCache = [];
 
     function getUserInfo(token, bool){
       console.log(token);
+      alert(userInfoCache);
+      //////if there is a token, we do a lookup
       if(bool === true){
         $http({
           method: "GET"
