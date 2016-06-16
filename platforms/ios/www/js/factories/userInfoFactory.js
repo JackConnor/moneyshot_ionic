@@ -14,7 +14,7 @@ angular.module('userInfoFactory', [])
         ,url: 'http://192.168.0.5:5555/api/get/userinfo/'+token
       })
       .then(function(user){
-        console.log(userInfo);
+        console.log(user);
         userInfo = user.data;
       })
     }
