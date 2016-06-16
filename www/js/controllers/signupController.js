@@ -278,7 +278,7 @@ angular.module('signupController', ['userInfoFactory'])
               }
               var token = ourToken.data;
               //////gets user's info to save
-              userInfo.userInfoFunc(token);
+              userInfo.userInfoFunc(token, true);
               //////user info saved
               $scope.signupModalVar = false;
               $scope.signinModalVar = false;

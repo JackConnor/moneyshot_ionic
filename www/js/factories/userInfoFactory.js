@@ -5,22 +5,28 @@ angular.module('userInfoFactory', [])
   userInfo.$inject = ["$http"];
 
   function userInfo($http){
-    var userInfo = {}
+    var userInfoCache;
 
-    function getUserInfo(token){
+    function getUserInfo(token, bool){
       console.log(token);
-      $http({
-        method: "GET"
-        ,url: 'http://192.168.0.5:5555/api/get/userinfo/'+token
-      })
-      .then(function(user){
-        console.log(user);
-        userInfo = user.data;
-      })
+      if(bool === true){
+        $http({
+          method: "GET"
+          ,url: 'http://192.168.0.5:5555/api/get/userinfo/'+token
+        })
+        .then(function(user){
+          console.log(user);
+          userInfoCache = user.data;
+          console.log(userInfoCache);
+          return userInfoCache
+        })
+      }
+      else {
+        return userInfoCache;
+      }
     }
 
     return {
       userInfoFunc: getUserInfo
-      ,getUserInfo: userInfo
     }
   }

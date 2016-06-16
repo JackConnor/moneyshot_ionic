@@ -103,7 +103,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         else {
           console.log('value is: '+value);
           $scope.mediaCache = value;
-          var cachedUser = userInfo.userInfo;
+          var cachedUser = userInfo.getUserInfo('blah', false);
           console.log(cachedUser);
         }
       })
