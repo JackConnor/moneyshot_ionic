@@ -243,36 +243,6 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
           ////////////////
           ///////////////
-          console.log(cordova.file);
-          $timeout(function(){
-            window.resolveLocalFileSystemURL(cordova.file.cacheDirectory + "yoyo.mp4", downloadAsset);
-          }, 1000);
-
-          function downloadAsset() {
-            console.log('doing shit');
-              var fileTransfer = new FileTransfer();
-              console.log("About to start transfer");
-              fileTransfer.download(result[0].localURL, cordova.file.cacheDirectory + "yoyo.mp4",
-                  function(entry) {
-                    console.log(entry);
-                      console.log("Success!");
-                      $scope.newVideo  = entry.nativeURL;
-                      appStart();
-                  },
-                  function(err) {
-                      console.log("Error");
-                      console.dir(err);
-                  });
-          }
-
-          //I'm only called when the file exists or has been downloaded.
-          function appStart() {
-              var innerHTML = "App ready!";
-          }
-
-
-          ////////////////
-          ///////////////
 
 
           ////////////////
