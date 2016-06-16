@@ -241,67 +241,38 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         .then(function(result){
           console.log(result);
 
-          ////////////////
-          ///////////////
-          console.log(cordova.file);
-          $timeout(function(){
-            window.resolveLocalFileSystemURL(cordova.file.cacheDirectory + "yoyo.mp4", downloadAsset);
-          }, 1000);
-
-          function downloadAsset() {
-            console.log('doing shit');
-              var fileTransfer = new FileTransfer();
-              console.log("About to start transfer");
-              fileTransfer.download(result[0].localURL, cordova.file.cacheDirectory + "yoyo.mp4",
-                  function(entry) {
-                    console.log(entry);
-                      console.log("Success!");
-                      $scope.newVideo  = entry.nativeURL;
-                      appStart();
-                  },
-                  function(err) {
-                      console.log("Error");
-                      console.dir(err);
-                  });
-          }
-
-          //I'm only called when the file exists or has been downloaded.
-          function appStart() {
-              var innerHTML = "App ready!";
-              var pathFull = $scope.newVideo;///////this is what we need to add to our cache
-              var thumbOpts = {
-                mode: 'file'
-                ,quality: 1
-                ,mode: 'base64'
-                ,resize: {
-                  width: '350px'
-                  ,height: '350px'
-                }
-              }
-              var source = $scope.newVideo
-              var fPath = source.split(result[0].name)[0] + $scope.cntPhoto++ + 'test.jpg'
-              window.PKVideoThumbnail.createThumbnail ( source, fPath, thumbOpts )
-              .then( function( thumbnail ){
-                $scope.mediaCache.push({
-                  type: "video"
-                  ,link: pathFull
-                  ,thumb: thumbnail
-                  ,date: new Date()
-                });
-               })
-               .catch( function(err){
-                 console.log('Thumbnail Error======================', err)
-               })
-          }
-
-
-          ////////////////
-          ///////////////
-
+          ///////here we fire off video to temp storage on our server to save video in case of app closure
+          $cordovaFileTransfer.upload('http://192.168.0.255:5555/api/temp/video', result[0].fullPath, {})
+          .then(function(updatedUser){
+            console.log(updatedUser);
+          })
 
           ////////////////
           // $scope.photoListLength++;
-
+          var pathFull = result[0].fullPath;///////this is what we need to add to our cache
+          var thumbOpts = {
+            mode: 'file'
+            ,quality: 1
+            ,mode: 'base64'
+            ,resize: {
+              width: '350px'
+              ,height: '350px'
+            }
+          }
+          var source = result[0].localURL
+          var fPath = source.split(result[0].name)[0] + $scope.cntPhoto++ + 'test.jpg'
+          window.PKVideoThumbnail.createThumbnail ( source, fPath, thumbOpts )
+          .then( function( thumbnail ){
+            $scope.mediaCache.push({
+              type: "video"
+              ,link: pathFull
+              ,thumb: thumbnail
+              ,date: new Date()
+            });
+           })
+           .catch( function(err){
+             console.log('Thumbnail Error======================', err)
+           })
           });
           var thisEl = $('.outCameraModal')[0];
           animateClick(thisEl, 'white', 'transparent');
@@ -750,7 +721,6 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
     ///////begin photo carousel animation work
     function goToCarousel(mediaData, index, evt){
-      console.log($scope.mediaCache);
       //////thsi is normal carousel functionality
       if($scope.selectMode === false){
         $scope.photoCarouselObject = mediaData;////this is always the centerpiece photo
