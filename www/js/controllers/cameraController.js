@@ -103,8 +103,32 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         else {
           console.log('value is: '+value);
           $scope.mediaCache = value;
-          var cachedUser = userInfo.getUserInfo('blah', false);
+          var cachedUser = userInfo.userInfoFunc('blah', false);
           console.log(cachedUser);
+          if(cachedUser===undefined){
+            $timeout(function(){
+              var cachedUser = userInfo.userInfoFunc('blah', false);
+              console.log(cachedUser);
+            }, 5000);
+            if(cachedUser===undefined){
+              $timeout(function(){
+                var cachedUser = userInfo.userInfoFunc(window.localStorage.webToken, true);
+                console.log(cachedUser);
+                for (var i = 0; i < cachedUser.tempVideoCache.length-1; i++) {
+                  $scope.mediaCache.push(cachedUser.tempVideoCache[i]);
+                }
+              }, 5000);
+            }
+            else {
+              for (var i = 0; i < cachedUser.tempVideoCache.length-1; i++) {
+                $scope.mediaCache.push(cachedUser.tempVideoCache[i]);
+              }
+          }
+          else {
+            for (var i = 0; i < cachedUser.tempVideoCache.length-1; i++) {
+              $scope.mediaCache.push(cachedUser.tempVideoCache[i]);
+            }
+          }
         }
       })
       .catch(function(err){
@@ -115,7 +139,6 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     /////////////////////////////
     //function to launch camera and take photos
     function uploadPhotos(){
-      console.log(userInfo.getUserInfo);
       setLocalForage();
       var screenWidth = window.innerWidth;
       // var persistentLength = persistentPhotos().length;
