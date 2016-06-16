@@ -11,7 +11,7 @@
         <i class='fa fa-play-circle'></i>
       </div>
       <div class="mainPhotoHolder">
-        <div ng-if='photoCarouselObject.type==="video"' class='clickVideo' ng-click="playVid()" on-swipe-right='photoCarouselSwipeRight()' on-swipe-left='photoCarouselSwipeLeft()'>
+        <div ng-if='photoCarouselObject.type==="video" || photoCarouselObject.type==="videoTemp"' class='clickVideo' ng-click="playVid()" on-swipe-right='photoCarouselSwipeRight()' on-swipe-left='photoCarouselSwipeLeft()'>
         </div>
         <div class="trashIconHolder">
           <div class="trashBlackLayer"></div>
