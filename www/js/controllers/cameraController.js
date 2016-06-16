@@ -250,7 +250,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
             console.log(decodedToken);
             $cordovaFileTransfer.upload('http://192.168.0.5:5555/api/temp/video', result[0].fullPath, {params: {userId: decodedToken.data.userId}}, true)
             .then(function(updatedUser){
-              console.log(updatedUser);
+              console.log(JSON.parse(updatedUser));
             })
           });
 
