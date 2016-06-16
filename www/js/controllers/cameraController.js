@@ -252,7 +252,8 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
             .then(function(updatedUser){
               console.log(updatedUser);
               console.log(updatedUser.response);
-              console.log(updatedUser.response.tempVideoCache);
+              console.log(updatedUser.response);
+              console.log(JSON.parse(updatedUser.response));
             })
           });
 
