@@ -549,7 +549,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
             $http({
               method: "POST"
               ,url: "http://192.168.0.5:5555/api/createphotos"
-              ,data: {url: set[i].link, userId: $scope.cachedUser._id, isVid: true}
+              ,data: {url: set[i].link, userId: userFullId, isVid: true}////////PROBLEM   Ned to get that userOd above, it's shooting nulls
             })
             .then(function(newVid){
               console.log('new video made '+hardI);
