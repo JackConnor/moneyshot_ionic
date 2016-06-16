@@ -289,7 +289,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       }
       else if($scope.mediaCache.length >= 20){
         if(!$scope.alerted){
-          $scope.alerted = true;
+          $scope.alerted = true; 
           $timeout(function(){
             $scope.alerted = false
           }, 1500);
