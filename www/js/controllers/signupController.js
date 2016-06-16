@@ -11,7 +11,6 @@ angular.module('signupController', ['userInfoFactory'])
   signupCtrl.$inject = ['$scope', '$http', '$state', 'signup', 'signin', 'newToken', '$cordovaStatusbar', '$window', '$timeout', '$interval', '$animateCss', '$ionicScrollDelegate', 'userInfo']
 
   function signupCtrl($scope, $http, $state, signup, signin, newToken, $cordovaStatusbar, $window, $timeout, $interval, $animateCss, $ionicScrollDelegate, userInfo){
-    console.log(userInfo);
     console.log('Sign Loaded')
     ///////////////global variables//////
     $scope.signupModalVar   = false;
@@ -278,7 +277,9 @@ angular.module('signupController', ['userInfoFactory'])
                 }
               }
               var token = ourToken.data;
-
+              //////gets user's info to save
+              userInfo.userInfoFunc(token);
+              //////user info saved
               $scope.signupModalVar = false;
               $scope.signinModalVar = false;
               $scope.signupModalTabs = false;
