@@ -183,7 +183,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     }
 
     $scope.takeCordovaPicture = function(){
-      if($scope.activePhoto === false && $scope.mediaCache.length < 25){
+      if($scope.activePhoto === false && $scope.mediaCache.length < 20){
         $scope.activePhoto = true;
         $scope.cameraHot = true;
         window.plugins.flashlight.switchOff();
@@ -195,7 +195,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         cordova.plugins.camerapreview.hide();
         // $scope.photoListLength++;
       }
-      else if($scope.mediaCache.length >= 25 && $scope.cameraMode === 'photo'){
+      else if($scope.mediaCache.length >= 20 && $scope.cameraMode === 'photo'){
         alert('Sorry, you can only send up to 25 pictures or photos at a time. Please erase a few to free up room to take more MoPhos. Thank you!')
       }
     }
@@ -236,15 +236,22 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
     $scope.cntPhoto = 0;
     function getPic(){
-      if($scope.activePhoto === false && $scope.mediaCache.length < 25){
+      if($scope.activePhoto === false && $scope.mediaCache.length < 20){
         $cordovaCapture.captureVideo({quality : 100})
         .then(function(result){
           console.log(result);
 
           ///////here we fire off video to temp storage on our server to save video in case of app closure
-          $cordovaFileTransfer.upload('http://192.168.0.255:5555/api/temp/video', result[0].fullPath, {})
-          .then(function(updatedUser){
-            console.log(updatedUser);
+          // $cordovaFileTransfer.upload('http://192.168.0.255:5555/api/temp/video', result[0].fullPath, {}, true)
+          // .then(function(updatedUser){
+          //   console.log(updatedUser);
+          // })
+          $http({
+            method: "GET"
+            ,url: 'http://192.168.0.255:5555/api/bankroute'
+          })
+          .then(function(data){
+            console.log(data);
           })
 
           ////////////////
@@ -277,7 +284,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
           var thisEl = $('.outCameraModal')[0];
           animateClick(thisEl, 'white', 'transparent');
       }
-      else if($scope.mediaCache.length >= 25){
+      else if($scope.mediaCache.length >= 20){
         if(!$scope.alerted){
           $scope.alerted = true;
           $timeout(function(){
