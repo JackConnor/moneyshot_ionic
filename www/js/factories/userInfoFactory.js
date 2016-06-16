@@ -9,7 +9,7 @@ angular.module('userInfoFactory', [])
 
     function getUserInfo(token, bool){
       console.log(token);
-      alert(userInfoCache);
+      // alert(userInfoCache);
       //////if there is a token, we do a lookup
       if(bool === true){
         $http({
