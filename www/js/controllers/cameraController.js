@@ -301,7 +301,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
           ///////here we fire off video to temp storage on our server to save video in case of app closure
           $http({
             method: "GET"
-            ,url: "https://moneyshotapi.herokuapp.com/api/decodetoken/"+window.localStorage.webToken
+            ,url: "http://192.168.0.5:5555/api/decodetoken/"+window.localStorage.webToken
           })
           .then(function(decodedToken){
             console.log(decodedToken);
@@ -454,7 +454,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       //////first we need to find the users ID, so we can use it to make the post requests
       $http({
         method: "GET"
-        ,url: "https://moneyshotapi.herokuapp.com/api/decodetoken/"+window.localStorage.webToken
+        ,url: "http://192.168.0.5:5555/api/decodetoken/"+window.localStorage.webToken
       })
       .then(function(decodedToken){
         var userFullId = decodedToken.data.userId;
@@ -473,6 +473,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         for (var i = 0; i < set.length; i++) {
           var hardI = 'hard'+i
           console.log(hardI);
+          console.log(set[i]);
           if(set[i].type === "video"){
             $cordovaFileTransfer.upload('http://192.168.0.5:5555/api/upload/video', set[i].link, {})
             .then(function(callbackImage){
@@ -489,7 +490,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
               $http({
                 method: "POST"
-                ,url: "https://moneyshotapi.herokuapp.com/api/createphotos"
+                ,url: "http://192.168.0.5:5555/api/createphotos"
                 ,data: {url: sliced, userId: userFullId, isVid: true}
               })
               .then(function(newVid){
@@ -502,7 +503,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                 if(amalgam == setLength && $scope.submitBar === true){
                   $http({
                     method: "POST"
-                    ,url: "https://moneyshotapi.herokuapp.com/api/new/submission"
+                    ,url: "http://192.168.0.5:5555/api/new/submission"
                     ,data: submissionData
                   })
                   .then(function(newSubmission){
@@ -534,6 +535,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
           }
           else if(set[i].type === "videoTemp"){
             console.log('temp vid starts '+hardI);
+            console.log(set[i]);
 
             var progressElement = $('.submitProgressBar');
             if(zeroProgress <= 100){
@@ -546,7 +548,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
             $http({
               method: "POST"
-              ,url: "https://moneyshotapi.herokuapp.com/api/createphotos"
+              ,url: "http://192.168.0.5:5555/api/createphotos"
               ,data: {url: set[i].link, userId: $scope.cachedUser._id, isVid: true}
             })
             .then(function(newVid){
@@ -590,6 +592,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
           }
           else if(set[i].type === "photo"){
             console.log('start photo '+hardI);
+            console.log(set[i]);
 
             function photoIife(currentP){
               var currentPhoto = currentP;
@@ -602,7 +605,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                   popoverOptions: CameraPopoverOptions,
                   saveToPhotoAlbum: false
               };
-              $cordovaFileTransfer.upload('http://moneyshotapi.herokuapp.com/api/newimage', currentPhoto.link, photoOptions)
+              $cordovaFileTransfer.upload('http://192.168.0.5:5555/api/newimage', currentPhoto.link, photoOptions)
               .then(function(callbackImage){
                 console.log('photo made '+hardI);
 
@@ -616,7 +619,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                 var parsedPhoto = JSON.parse(callbackImage.response);
                 $http({
                   method: "POST"
-                  ,url: "https://moneyshotapi.herokuapp.com/api/createphotos"
+                  ,url: "http://192.168.0.5:5555/api/createphotos"
                   ,data: {url: parsedPhoto.secure_url, thumbnail: parsedPhoto.thumbnail, userId: userFullId, isVid: false}
                 })
                 .then(function(newPhoto){
@@ -629,7 +632,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                   if(amalgam == parseInt(set.length) && $scope.submitBar === true){
                     $http({
                       method: "POST"
-                      ,url: "https://moneyshotapi.herokuapp.com/api/new/submission"
+                      ,url: "http://192.168.0.5:5555/api/new/submission"
                       ,data: submissionData
                     })
                     .then(function(newSubmission){
