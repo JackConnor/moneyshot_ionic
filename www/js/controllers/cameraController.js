@@ -48,6 +48,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     }
     var zooming = findZoomed();////this determines if the screen is on zoom mode or not
     function runVideoCache(controlVar){
+      console.log(controlVar);
       if(controlVar === "runAnew"){
         userInfo.userInfoFunc(window.localStorage.webToken, true);
       }
@@ -58,7 +59,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         }
       }
     }
-    runVideoCache();/////primes the video cache
+    runVideoCache('blah');/////primes the video cache
 
     /////end global variables///
     ////////////////////////////
@@ -472,7 +473,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         for (var i = 0; i < set.length; i++) {
 
           if(set[i].type === "video"){
-            $cordovaFileTransfer.upload('http://192.168.0.5:5555/api/upload/video', set[i].link, {params: {backupLink: set[i].backupLink}})
+            $cordovaFileTransfer.upload('http://192.168.0.5:5555/api/upload/video', set[i].link, {})
             .then(function(callbackImage){
               var progressElement = $('.submitProgressBar');
               if(zeroProgress <= 100){
@@ -512,9 +513,9 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                         console.log(err);
                       })
                       $scope.cnt = 0;
-                      $timeout(function(){
-                        runVideoCache('runAnew');
-                      }, 3000);
+                      // $timeout(function(){
+                      //   runVideoCache('runAnew');
+                      // }, 3000);
                       $state.go('tab.account');
                     }, 1000);
                   })
@@ -561,9 +562,9 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                       console.log(err);
                     })
                     $scope.cnt = 0;
-                    $timeout(function(){
-                      runVideoCache('runAnew');
-                    }, 3000);
+                    // $timeout(function(){
+                    //   runVideoCache('runAnew');
+                    // }, 3000);
                     $state.go('tab.account');
                   }, 100);
                 })
@@ -623,9 +624,9 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                           console.log(err);
                         })
                         $scope.cnt = 0;
-                        $timeout(function(){
-                          runVideoCache('runAnew');
-                        }, 3000);
+                        // $timeout(function(){
+                        //   runVideoCache('runAnew');
+                        // }, 3000);
                         $state.go('tab.account');
 
                       }, 100);
