@@ -466,12 +466,6 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         for (var i = 0; i < set.length; i++) {
 
           if(set[i].type === "video"){
-            console.log(set[i].link);
-            var testLink = set[i].link.splice(0, 4);
-            if(testLink === 'http'){
-              set[i].backupLink = set[i].link;
-              set[i].link = null;
-            }
             $cordovaFileTransfer.upload('http://192.168.0.5:5555/api/upload/video', set[i].link, {params: {backupLink: set[i].backupLink}})
             .then(function(callbackImage){
               var progressElement = $('.submitProgressBar');

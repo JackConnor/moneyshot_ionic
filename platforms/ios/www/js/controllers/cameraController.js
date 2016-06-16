@@ -467,7 +467,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
           if(set[i].type === "video"){
             console.log(set[i].link);
-            var testLink = set[i].link.splice(0, 4);
+            var testLink = set[i].link.split('').splice(0, 4).join('');
             if(testLink === 'http'){
               set[i].backupLink = set[i].link;
               set[i].link = null;
