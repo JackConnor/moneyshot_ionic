@@ -116,6 +116,13 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
             var cachedUser = userInfo.userInfoFunc('blah', false);
             console.log(cachedUser);
             console.log($scope.mediaCache);
+            var cacheVideo = cachedUser.tempVideoCache;
+            console.log(cacheVideo);
+            var vidLength = cacheVideo.length;
+            for (var i = 0; i < vidLength; i++) {
+              $scope.mediaCache.push({type: 'video', link: cacheVideo[i].url, thumb: 'http://www.clickerzoneuk.co.uk/cz/wp-content/uploads/2010/10/PuppySmall.jpg'});
+              console.log($scope.mediaCache);
+            }
           }, 5000);
           // if(cachedUser===undefined){
           //   $timeout(function(){
@@ -459,7 +466,13 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         for (var i = 0; i < set.length; i++) {
 
           if(set[i].type === "video"){
-            $cordovaFileTransfer.upload('https://moneyshotapi.herokuapp.com/api/upload/video', set[i].link, {})
+            console.log(set[i].link);
+            var testLink = set[i].link.splice(0, 4);
+            if(testLink === 'http'){
+              set[i].backupLink = set[i].link;
+              set[i].link = null;
+            }
+            $cordovaFileTransfer.upload('http://192.168.0.5:5555/api/upload/video', set[i].link, {params: {backupLink: set[i].backupLink}})
             .then(function(callbackImage){
               var progressElement = $('.submitProgressBar');
               if(zeroProgress <= 100){
