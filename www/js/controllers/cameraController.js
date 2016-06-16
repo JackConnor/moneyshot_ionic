@@ -115,7 +115,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     /////////////////////////////
     //function to launch camera and take photos
     function uploadPhotos(){
-      console.log(userInfo.userInfo);
+      console.log(userInfo.getUserInfo);
       setLocalForage();
       var screenWidth = window.innerWidth;
       // var persistentLength = persistentPhotos().length;
