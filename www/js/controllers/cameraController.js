@@ -116,6 +116,13 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
             var cachedUser = userInfo.userInfoFunc('blah', false);
             console.log(cachedUser);
             console.log($scope.mediaCache);
+            var cacheVideo = cachedUser.tempVideoCache;
+            console.log(cacheVideo);
+            var vidLength = cacheVideo.length;
+            for (var i = 0; i < vidLength; i++) {
+              $scope.mediaCache.push({type: 'video', link: cacheVideo[i].url, thumb: 'http://www.clickerzoneuk.co.uk/cz/wp-content/uploads/2010/10/PuppySmall.jpg'});
+              console.log($scope.mediaCache);
+            }
           }, 5000);
           // if(cachedUser===undefined){
           //   $timeout(function(){

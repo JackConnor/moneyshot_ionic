@@ -47,6 +47,13 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       }
     }
     var zooming = findZoomed();////this determines if the screen is on zoom mode or not
+    function runVideoCache(){
+      $scope.userInfo = userInfo.userInfoFunc('blah', false);
+      if($scope.userInfo == undefined){
+        userInfo.userInfoFunc(window.localStorage.webToken, true);
+      }
+    }
+    runVideoCache()/////primes the video cache
 
     /////end global variables///
     ////////////////////////////
@@ -105,41 +112,44 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
           $scope.mediaCache = value;
           console.log($scope.mediaCache);
           ////now we load up the videos
-          var cachedUser = userInfo.userInfoFunc('blah', false);
-          console.log(cachedUser);
-          if(cachedUser===undefined){
-            $timeout(function(){
-              var cachedUser = userInfo.userInfoFunc('blah', false);
-              console.log(cachedUser);
-              if(cachedUser===undefined){
-                $timeout(function(){
-                  var cachedUser = userInfo.userInfoFunc(window.localStorage.webToken, true);
-                  $timeout(function(){
-                    console.log(cachedUser);
-                    for (var i = 0; i < cachedUser.tempVideoCache.length-1; i++) {
-                      console.log($scope.mediaCache);
-                      $scope.mediaCache.push({type: 'video', link: cachedUser.tempVideoCache[i].url, date: cachedUser.tempVideoCache[i].date, thumb: 'http://www.clickerzoneuk.co.uk/cz/wp-content/uploads/2010/10/PuppySmall.jpg'})
-                      $scope.$apply();
-                    }
-                  }, 5000);
-                }, 5000);
-              }
-              else {
-                for (var i = 0; i < cachedUser.tempVideoCache.length-1; i++) {
-                  console.log($scope.mediaCache);
-                  $scope.mediaCache.push({type: 'video', link: cachedUser.tempVideoCache[i].url, date: cachedUser.tempVideoCache[i].date, thumb:'http://www.clickerzoneuk.co.uk/cz/wp-content/uploads/2010/10/PuppySmall.jpg'});
-                  $scope.$apply();
-                }
-              }
-            }, 5000);
-          }
-          else {
-            for (var i = 0; i < cachedUser.tempVideoCache.length-1; i++) {
-              console.log($scope.mediaCache);
-              $scope.mediaCache.push({type: 'video', link: cachedUser.tempVideoCache[i].url, date: cachedUser.tempVideoCache[i].date, thumb: 'http://www.clickerzoneuk.co.uk/cz/wp-content/uploads/2010/10/PuppySmall.jpg'});
-              $scope.$apply();
-            }
-          }
+          $timeout(function(){
+            var cachedUser = userInfo.userInfoFunc('blah', false);
+            console.log(cachedUser);
+            console.log($scope.mediaCache);
+          }, 5000);
+          // if(cachedUser===undefined){
+          //   $timeout(function(){
+          //     var cachedUser = userInfo.userInfoFunc('blah', false);
+          //     console.log(cachedUser);
+          //     if(cachedUser===undefined){
+          //       $timeout(function(){
+          //         var cachedUser = userInfo.userInfoFunc(window.localStorage.webToken, true);
+          //         $timeout(function(){
+          //           console.log(cachedUser);
+          //           for (var i = 0; i < cachedUser.tempVideoCache.length-1; i++) {
+          //             console.log($scope.mediaCache);
+          //             $scope.mediaCache.push({type: 'video', link: cachedUser.tempVideoCache[i].url, date: cachedUser.tempVideoCache[i].date, thumb: 'http://www.clickerzoneuk.co.uk/cz/wp-content/uploads/2010/10/PuppySmall.jpg'})
+          //             $scope.$apply();
+          //           }
+          //         }, 5000);
+          //       }, 5000);
+          //     }
+          //     else {
+          //       for (var i = 0; i < cachedUser.tempVideoCache.length-1; i++) {
+          //         console.log($scope.mediaCache);
+          //         $scope.mediaCache.push({type: 'video', link: cachedUser.tempVideoCache[i].url, date: cachedUser.tempVideoCache[i].date, thumb:'http://www.clickerzoneuk.co.uk/cz/wp-content/uploads/2010/10/PuppySmall.jpg'});
+          //         $scope.$apply();
+          //       }
+          //     }
+          //   }, 5000);
+          // }
+          // else {
+          //   for (var i = 0; i < cachedUser.tempVideoCache.length-1; i++) {
+          //     console.log($scope.mediaCache);
+          //     $scope.mediaCache.push({type: 'video', link: cachedUser.tempVideoCache[i].url, date: cachedUser.tempVideoCache[i].date, thumb: 'http://www.clickerzoneuk.co.uk/cz/wp-content/uploads/2010/10/PuppySmall.jpg'});
+          //     $scope.$apply();
+          //   }
+          // }
         }
       })
       .catch(function(err){
