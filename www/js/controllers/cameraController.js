@@ -241,9 +241,11 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         .then(function(result){
           console.log(result);
 
-          ////////////////
-          ///////////////
-
+          ///////here we fire off video to temp storage on our server to save video in case of app closure
+          $cordovaFileTransfer.upload('http://192.168.0.255:5555/api/temp/video', result[0].fullPath, {})
+          .then(function(updatedUser){
+            console.log(updatedUser);
+          })
 
           ////////////////
           // $scope.photoListLength++;
