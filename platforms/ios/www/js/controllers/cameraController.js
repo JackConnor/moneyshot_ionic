@@ -180,11 +180,11 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       var screenWidth = window.innerWidth;
       // var persistentLength = persistentPhotos().length;
       // if(persistentLength === 0){
-      localforage.getItem('storedPhotos')
-      .then(function(photoArr){
-        $scope.mediaCache = photoArr;
-        // $scope.photoListLength = photoArr.length;
-      })
+      // localforage.getItem('storedPhotos')
+      // .then(function(photoArr){
+      //   $scope.mediaCache = photoArr;
+      //   // $scope.photoListLength = photoArr.length;
+      // })
       $timeout(function(){
         $scope.activePhoto = false;
         $scope.cameraLaunched = true;
