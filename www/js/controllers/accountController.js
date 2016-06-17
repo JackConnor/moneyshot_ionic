@@ -96,11 +96,12 @@ angular.module('accountController', ['persistentPhotosFactory', 'userInfoFactory
     ///////////////////////////////////
 
     function getUserPhotos(token){
-      decodeToken(token)
-      .then(function(decToken){
-        console.log(decToken);
-        userPhotos(decToken.data.userId)
-        .then(function(userInfo){
+      // decodeToken(token)
+      // .then(function(decToken){
+      //   console.log(decToken);
+      //   userPhotos(decToken.data.userId)
+      //   .then(function(userInfo){
+      var userInfo = userInfo.userInfoFunc('blah', false);
           console.log(userInfo);
           if(userInfo.data === null){
             var userPhotos = [];
@@ -160,8 +161,8 @@ angular.module('accountController', ['persistentPhotosFactory', 'userInfoFactory
             }
             mapPhotos();
           }
-        })
-      })
+      //   })
+      // })
     }
 
     var userToken = window.localStorage.webToken;
