@@ -117,6 +117,8 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
           console.log('value is: '+value);
           $scope.mediaCache = value;
           console.log($scope.mediaCache);
+          var cachedUser = userInfo.userInfoFunc('blah', false);
+          $scope.cachedUser = cachedUser;
           ////now we load up the videos
           $timeout(function(){
             var cachedUser = userInfo.userInfoFunc('blah', false);
