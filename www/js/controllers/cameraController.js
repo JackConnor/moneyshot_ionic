@@ -497,6 +497,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
               })
               .then(function(newVid){
                 console.log('video model made '+hardI);
+                console.log('Boom!');
 
                 submissionData.videos.push(newVid.data._id);
                 var vids = submissionData.videos.length;
