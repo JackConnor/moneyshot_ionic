@@ -97,7 +97,7 @@ angular.module('accountController', ['persistentPhotosFactory', 'userInfoFactory
 
     function getUserPhotos(token){
       var userInfoData = userInfo.userInfoFunc('blah', false);
-      alert(userInfoData)
+      // alert(userInfoData)
       console.log(userInfo);
       if(userInfoData === null || userInfoData == undefined){
         var userPhotos = [];
@@ -137,38 +137,40 @@ angular.module('accountController', ['persistentPhotosFactory', 'userInfoFactory
         function mapPhotos(){
           var soldPhotos = [];
           var offeredPhotos = [];
-          for (var i = 0; i < photoLength; i++) {
-            if(userPhotos[i].status === 'sold'){
-              soldPhotos.push(userPhotos[i]);
-              $scope.totalEarned += userPhotos[i].price;
-              if(i == userPhotos.length-1){
-                $scope.allSoldPhotos = soldPhotos.reverse();
-              }
-            }
-            else if(userPhotos[i].status === 'offered for sale'){
-              offeredPhotos.push(userPhotos[i]);
-              $scope.totalEarned += userPhotos[i].price;
-              if(i === userPhotos.length-1){
-                $scope.allSoldPhotos = soldPhotos.reverse();
-              }
-            }
-            else {
-              if(i === userPhotos.length-1){
-                $scope.allSoldPhotos = soldPhotos.reverse();
-              }
-            }
-          }
-          for (var i = 0; i < 0; i++) {
-            $scope.backgroundMultiple.push('filler'+i);
-          }
-          setCss();
+          // for (var i = 0; i < photoLength; i++) {
+          //   if(userPhotos[i].status === 'sold'){
+          //     soldPhotos.push(userPhotos[i]);
+          //     $scope.totalEarned += userPhotos[i].price;
+          //     if(i == userPhotos.length-1){
+          //       $scope.allSoldPhotos = soldPhotos.reverse();
+          //     }
+          //   }
+          //   else if(userPhotos[i].status === 'offered for sale'){
+          //     offeredPhotos.push(userPhotos[i]);
+          //     $scope.totalEarned += userPhotos[i].price;
+          //     if(i === userPhotos.length-1){
+          //       $scope.allSoldPhotos = soldPhotos.reverse();
+          //     }
+          //   }
+          //   else {
+          //     if(i === userPhotos.length-1){
+          //       $scope.allSoldPhotos = soldPhotos.reverse();
+          //     }
+          //   }
+          // }
+          // for (var i = 0; i < 0; i++) {
+          //   $scope.backgroundMultiple.push('filler'+i);
+          // }
+          // setCss();
         }
         mapPhotos();
       }
     }
 
     var userToken = window.localStorage.webToken;
-    getUserPhotos(userToken);
+    $timeout(function(){
+      getUserPhotos(userToken);
+    }, 3000);
 
     // function checkToken(){
     //   var maybeToken = window.localStorage.webToken;

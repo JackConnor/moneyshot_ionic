@@ -513,21 +513,22 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                   })
                   .then(function(newSubmission){
                     console.log('submission made '+hardI);
-
+                    userInfo.userInfoFunc(window.localStorage.webToken, true);
                     $timeout(function(){
                       $scope.submitModalVar = false;
                       $scope.cameraModal = false;
                       localforage.setItem('storedPhotos', [])
                       .then(function(success){
                         console.log('submitted');
+                        userInfo.userInfoFunc(window.localStorage.webToken, true);
                       })
                       .catch(function(err){
                         console.log(err);
                       })
                       $scope.cnt = 0;
-                      $timeout(function(){
-                        runVideoCache('runAnew');
-                      }, 3000);
+                      // $timeout(function(){
+                      //   runVideoCache('runAnew');
+                      // }, 3000);
                       $state.go('tab.account');
                     }, 1000);
                   })
@@ -574,22 +575,23 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                 })
                 .then(function(newSubmission){
                   console.log('new submission made '+hardI);
-
+                  userInfo.userInfoFunc(window.localStorage.webToken, true);
                   setTimeout(function(){
                     $scope.submitModalVar = false;
                     $scope.cameraModal = false;
                     localforage.setItem('storedPhotos', [])
                     .then(function(success){
                       console.log('submitted');
+                      userInfo.userInfoFunc(window.localStorage.webToken, true);
                     })
                     .catch(function(err){
                       console.log(err);
                     })
                     $scope.cnt = 0;
-                    $timeout(function(){
-                      runVideoCache('runAnew');
-                    }, 3000);
-                    $state.go('tab.account');
+                    // $timeout(function(){
+                    //   runVideoCache('runAnew');
+                    // }, 3000);
+                    $state.go('tab.camera');
                   }, 100);
                 })
               }
@@ -649,6 +651,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                     })
                     .then(function(newSubmission){
                       console.log('photo submission made '+hardI);
+                      userInfo.userInfoFunc(window.localStorage.webToken, true);
 
                       setTimeout(function(){
                         $scope.submitModalVar = false;
@@ -661,10 +664,10 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                           console.log(err);
                         })
                         $scope.cnt = 0;
-                        $timeout(function(){
-                          runVideoCache('runAnew');
-                        }, 3000);
-                        $state.go('tab.account');
+                        // $timeout(function(){
+                        //   runVideoCache('runAnew');
+                        // }, 3000);
+                        $state.go('tab.camera');
 
                       }, 100);
                     })
