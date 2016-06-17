@@ -526,10 +526,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                         console.log(err);
                       })
                       $scope.cnt = 0;
-                      // $timeout(function(){
-                      //   runVideoCache('runAnew');
-                      // }, 3000);
-                      $state.go('tab.account');
+                      $state.reload(true);
                     }, 1000);
                   })
                 }
@@ -588,10 +585,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                       console.log(err);
                     })
                     $scope.cnt = 0;
-                    // $timeout(function(){
-                    //   runVideoCache('runAnew');
-                    // }, 3000);
-                    $state.go('tab.camera');
+                    $state.reload(true);
                   }, 100);
                 })
               }
@@ -664,10 +658,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                           console.log(err);
                         })
                         $scope.cnt = 0;
-                        // $timeout(function(){
-                        //   runVideoCache('runAnew');
-                        // }, 3000);
-                        $state.go('tab.camera');
+                        $state.reload(true);
 
                       }, 100);
                     })

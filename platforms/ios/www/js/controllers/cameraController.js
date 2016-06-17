@@ -667,7 +667,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                         // $timeout(function(){
                         //   runVideoCache('runAnew');
                         // }, 3000);
-                        $state.go('tab.camera');
+                        $state.reload(true);
 
                       }, 100);
                     })
