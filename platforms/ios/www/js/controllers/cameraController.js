@@ -504,7 +504,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                 var amalgam = vids + phots;
                 console.log(vids);
                 console.log(phots);
-                if(amalgam == setLength-1 && $scope.submitBar === true){
+                if((parseInt(amalgam) == parseInt(set.length-1) || parseInt(set.length-1) === 0) && $scope.submitBar === true){
                   console.log('at the end');
                   $http({
                     method: "POST"
@@ -532,7 +532,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                     }, 1000);
                   })
                 }
-                else if(amalgam == parseInt(set.length-1) && $scope.submitBar === false){
+                else if((parseInt(amalgam) == parseInt(set.length-1) || parseInt(set.length-1) === 0) && $scope.submitBar === false){
                   $scope.isDisabled = false;
                 }
               })
@@ -565,7 +565,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
               var amalgam = vids + phots;
               console.log(vids);
               console.log(phots);
-              if(amalgam == parseInt(set.length-1) && $scope.submitBar === true){
+              if((parseInt(amalgam) == parseInt(set.length-1) || parseInt(set.length-1) === 0) && $scope.submitBar === true){
                 console.log('at the end');
                 $http({
                   method: "POST"
@@ -593,7 +593,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                   }, 100);
                 })
               }
-              else if(amalgam == parseInt(set.length-1) && $scope.submitBar === false){
+              else if((parseInt(amalgam) == parseInt(set.length-1) || parseInt(set.length-1) === 0) && $scope.submitBar === false){
                 $scope.isDisabled = false;
               }
             })
@@ -640,7 +640,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                   console.log(phots);
                   var amalgam = vids + phots;
                   console.log(amalgam);
-                  if(parseInt(amalgam) == parseInt(set.length-1) && $scope.submitBar === true){
+                  if((parseInt(amalgam) == parseInt(set.length-1) || parseInt(set.length-1) === 0) && $scope.submitBar === true){
                     console.log('at the end');
                     $http({
                       method: "POST"
@@ -669,7 +669,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                       }, 100);
                     })
                   }
-                  else if(amalgam == parseInt(set.length-1) && $scope.submitBar === false){
+                  else if((parseInt(amalgam) == parseInt(set.length-1) || parseInt(set.length-1) === 0) && $scope.submitBar === false){
                     $scope.isDisabled = false;
                   }
                 })

@@ -20,6 +20,7 @@ angular.module('userInfoFactory', [])
         .then(function(user){
           console.log(user);
           userInfoCache = user.data;
+          userInfoCache.submissions = userInfoCache.submissions.reverse();
           console.log(userInfoCache);
           return userInfoCache
         })
