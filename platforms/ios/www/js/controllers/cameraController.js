@@ -470,6 +470,8 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
         ////now iterate through to submit to backend
         //////set === mediacache
+        console.log(set);
+        console.log(set.length);
         for (var i = 0; i < set.length; i++) {
           var hardI = 'hard'+i
           console.log(hardI);
@@ -500,7 +502,10 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                 var vids = submissionData.videos.length;
                 var phots = submissionData.photos.length;
                 var amalgam = vids + phots;
-                if(amalgam == setLength && $scope.submitBar === true){
+                console.log(vids);
+                console.log(phots);
+                if(amalgam == setLength-1 && $scope.submitBar === true){
+                  console.log('at the end');
                   $http({
                     method: "POST"
                     ,url: "http://192.168.0.5:5555/api/new/submission"
@@ -527,7 +532,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                     }, 1000);
                   })
                 }
-                else if(amalgam == parseInt(set.length) && $scope.submitBar === false){
+                else if(amalgam == parseInt(set.length-1) && $scope.submitBar === false){
                   $scope.isDisabled = false;
                 }
               })
@@ -558,7 +563,10 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
               var vids = submissionData.videos.length;
               var phots = submissionData.photos.length;
               var amalgam = vids + phots;
-              if(amalgam == parseInt(set.length) && $scope.submitBar === true){
+              console.log(vids);
+              console.log(phots);
+              if(amalgam == parseInt(set.length-1) && $scope.submitBar === true){
+                console.log('at the end');
                 $http({
                   method: "POST"
                   ,url: "http://192.168.0.5:5555/api/new/submission"
@@ -585,7 +593,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                   }, 100);
                 })
               }
-              else if(amalgam == parseInt(set.length) && $scope.submitBar === false){
+              else if(amalgam == parseInt(set.length-1) && $scope.submitBar === false){
                 $scope.isDisabled = false;
               }
             })
@@ -628,8 +636,12 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                   submissionData.photos.push(newPhoto.data._id);
                   var vids = submissionData.videos.length;
                   var phots = submissionData.photos.length;
+                  console.log(vids);
+                  console.log(phots);
                   var amalgam = vids + phots;
-                  if(amalgam == parseInt(set.length) && $scope.submitBar === true){
+                  console.log(amalgam);
+                  if(parseInt(amalgam) == parseInt(set.length-1) && $scope.submitBar === true){
+                    console.log('at the end');
                     $http({
                       method: "POST"
                       ,url: "http://192.168.0.5:5555/api/new/submission"
@@ -657,7 +669,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                       }, 100);
                     })
                   }
-                  else if(amalgam == parseInt(set.length) && $scope.submitBar === false){
+                  else if(amalgam == parseInt(set.length-1) && $scope.submitBar === false){
                     $scope.isDisabled = false;
                   }
                 })
