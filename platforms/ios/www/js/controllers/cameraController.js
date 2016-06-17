@@ -177,7 +177,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     //function to launch camera and take photos
     function uploadPhotos(){
       setLocalForage();
-      var screenWidth = window.innerWidth;
+      // var screenWidth = window.innerWidth;
       // var persistentLength = persistentPhotos().length;
       // if(persistentLength === 0){
       // localforage.getItem('storedPhotos')
@@ -189,18 +189,22 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         $scope.activePhoto = false;
         $scope.cameraLaunched = true;
       }, 750);
-      var tapEnabled = false; //enable tap take picture
-      var dragEnabled = false; //enable preview box drag across the screen
-      var toBack = false; //send preview box to the back of the webview
+      // var tapEnabled = false; //enable tap take picture
+      // var dragEnabled = false; //enable preview box drag across the screen
+      // var toBack = false; //send preview box to the back of the webview
       // console.log(cordova.plugins.camerapreview);
-      if(screenWidth === 320){
-        var rect = {x: 0, y: 45, width: 320, height: 400};
-      }
-      else if(screenWidth === 375){
-        var rect = {x: 0, y: 45, width: 375, height: 468.75};
-      }
+      // if(screenWidth === 320){
+      //   var rect = {x: 0, y: 45, width: 320, height: 400};
+      // }
+      // else if(screenWidth === 375){
+      //   var rect = {x: 0, y: 45, width: 375, height: 468.75};
+      // }
       $timeout(function(){
-        cordova.plugins.camerapreview.show();
+        // cordova.plugins.camerapreview.show();
+        var showCallback = function(){
+          console.log('yoo camera show');
+        }
+        showCamera(showCallback);
         $(window).unload(function(){
           cordova.plugins.camerapreview.hide();
           cordova.plugins.camerapreview.stopCamera();
@@ -208,7 +212,11 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         });
       }, 300);
       $timeout(function(){
-        cordova.plugins.camerapreview.startCamera(rect, 'back', tapEnabled, dragEnabled, toBack);
+        // cordova.plugins.camerapreview.startCamera(rect, 'back', tapEnabled, dragEnabled, toBack);
+        var startCallback = function(){
+          console.log('yoo camera start');
+        }
+        startCamera(startCallback);
 
       }, 2000);
 
@@ -239,6 +247,37 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         }, 100);
         $scope.activePhoto = false;
       });
+    }
+
+    function startCamera(callback){
+      var screenWidth = window.innerWidth;
+      // var persistentLength = persistentPhotos().length;
+      // if(persistentLength === 0){
+      // localforage.getItem('storedPhotos')
+      // .then(function(photoArr){
+      //   $scope.mediaCache = photoArr;
+      //   // $scope.photoListLength = photoArr.length;
+      // })
+      // $timeout(function(){
+      //   $scope.activePhoto = false;
+      //   $scope.cameraLaunched = true;
+      // }, 750);
+      var tapEnabled = false; //enable tap take picture
+      var dragEnabled = false; //enable preview box drag across the screen
+      var toBack = false; //send preview box to the back of the webview
+      if(screenWidth === 320){
+        var rect = {x: 0, y: 45, width: 320, height: 400};
+      }
+      else if(screenWidth === 375){
+        var rect = {x: 0, y: 45, width: 375, height: 468.75};
+      }
+      cordova.plugins.camerapreview.startCamera(rect, 'back', tapEnabled, dragEnabled, toBack);
+      callback();
+    }
+
+    function showCamera(callback){
+      cordova.plugins.camerapreview.show();
+      callback();
     }
 
     $scope.takeCordovaPicture = function(){
