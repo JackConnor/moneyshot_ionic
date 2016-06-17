@@ -1,4 +1,4 @@
-angular.module('accountController', ['persistentPhotosFactory'])
+angular.module('accountController', ['persistentPhotosFactory', 'userInfoFactory'])
 
   .controller('accountCtrl', acctCtrl)
 
@@ -8,9 +8,9 @@ angular.module('accountController', ['persistentPhotosFactory'])
     };
   })
 
-  acctCtrl.$inject = ['$http', '$state', '$scope', 'navbar', 'userPhotos', 'decodeToken', '$cordovaStatusbar', '$ionicScrollDelegate', 'persistentPhotos', '$timeout', '$cordovaFileTransfer'];
+  acctCtrl.$inject = ['$http', '$state', '$scope', 'navbar', 'userPhotos', 'decodeToken', '$cordovaStatusbar', '$ionicScrollDelegate', 'persistentPhotos', '$timeout', '$cordovaFileTransfer', 'userInfo'];
 
-  function acctCtrl($http, $state, $scope, navbar, userPhotos, decodeToken, $cordovaStatusbar, $ionicScrollDelegate, persistentPhotos, $timeout, $cordovaFileTransfer){
+  function acctCtrl($http, $state, $scope, navbar, userPhotos, decodeToken, $cordovaStatusbar, $ionicScrollDelegate, persistentPhotos, $timeout, $cordovaFileTransfer, userInfo){
     $scope.photoCarouselBool    = false;
     $scope.carouselMain       = [];
     $scope.showSold              = false;
@@ -24,6 +24,15 @@ angular.module('accountController', ['persistentPhotosFactory'])
     $scope.introCounter          = 0;
     $scope.scrollPosition        = 0;
     $scope.backgroundMultiple    = [];
+
+    console.log(userInfo.userInfoFunc('blah', false));
+    localforage.getItem('storedPhotos')
+    .then(function(photos){
+      console.log(photos);
+    })
+    .catch(function(err){
+      console.log(err);
+    })
 
     function findZoomed(){
       if(window.innerWidth === 320){
