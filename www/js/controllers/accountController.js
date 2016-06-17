@@ -168,9 +168,7 @@ angular.module('accountController', ['persistentPhotosFactory', 'userInfoFactory
     }
 
     var userToken = window.localStorage.webToken;
-    $timeout(function(){
-      getUserPhotos(userToken);
-    }, 3000);
+    getUserPhotos(userToken);
 
     // function checkToken(){
     //   var maybeToken = window.localStorage.webToken;
