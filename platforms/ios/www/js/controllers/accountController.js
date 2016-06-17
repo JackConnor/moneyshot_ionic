@@ -20,7 +20,7 @@ angular.module('accountController', ['persistentPhotosFactory', 'userInfoFactory
     $scope.introModal            = false;
     $scope.sellModal             = false;
     $scope.singleSubmissionModal = false;
-    $scope.loadingModal          = true;
+    $scope.loadingModal          = false;
     $scope.introCounter          = 0;
     $scope.scrollPosition        = 0;
     $scope.backgroundMultiple    = [];
@@ -96,73 +96,66 @@ angular.module('accountController', ['persistentPhotosFactory', 'userInfoFactory
     ///////////////////////////////////
 
     function getUserPhotos(token){
-      // decodeToken(token)
-      // .then(function(decToken){
-      //   console.log(decToken);
-      //   userPhotos(decToken.data.userId)
-      //   .then(function(userInfo){
-      var userInfo = userInfo.userInfoFunc('blah', false);
-          console.log(userInfo);
-          if(userInfo.data === null){
-            var userPhotos = [];
-            $scope.userInfo = [];
-            $scope.userSubmissions = [];
-            $scope.totalEarned = 0;
+      var userInfoData = userInfo.userInfoFunc('blah', false);
+      console.log(userInfo);
+      if(userInfoData === null){
+        var userPhotos = [];
+        $scope.userInfo = [];
+        $scope.userSubmissions = [];
+        $scope.totalEarned = 0;
+      }
+      else {
+        $scope.userInfo = userInfoData;
+        var userPhotos = userInfoData.photos;////this is all of a signed-in user's
+        var photoLength = userInfoData.photos.length;
+        $scope.userPhotos = userPhotos.reverse();
+        $scope.userSubmissions = userInfoData.submissions.reverse().slice(0, 20);
+        var backlengthFunc = function(){
+          if($scope.userSubmissions){
+            return $scope.userSubmissions.length*5;
           }
           else {
-            $scope.userInfo = userInfo.data;
-            var userPhotos = userInfo.data.photos;////this is all of a signed-in user's
-            var photoLength = userInfo.data.photos.length;
-            $scope.userPhotos = userPhotos.reverse();
-            $scope.userSubmissions = userInfo.data.submissions.reverse().slice(0, 20);
-            var backlengthFunc = function(){
-              if($scope.userSubmissions){
-                return $scope.userSubmissions.length*5;
-              }
-              else {
-                return 1;
-              }
-            }
-            var backLength = backlengthFunc();
-            $scope.totalEarned = 0;
-            $timeout(function(){
-              $('.showSubmittedHolder').css({
-                height: 'auto'
-              });
-            }, 1000);
-            function mapPhotos(){
-              var soldPhotos = [];
-              var offeredPhotos = [];
-              for (var i = 0; i < photoLength; i++) {
-                if(userPhotos[i].status === 'sold'){
-                  soldPhotos.push(userPhotos[i]);
-                  $scope.totalEarned += userPhotos[i].price;
-                  if(i == userPhotos.length-1){
-                    $scope.allSoldPhotos = soldPhotos.reverse();
-                  }
-                }
-                else if(userPhotos[i].status === 'offered for sale'){
-                  offeredPhotos.push(userPhotos[i]);
-                  $scope.totalEarned += userPhotos[i].price;
-                  if(i === userPhotos.length-1){
-                    $scope.allSoldPhotos = soldPhotos.reverse();
-                  }
-                }
-                else {
-                  if(i === userPhotos.length-1){
-                    $scope.allSoldPhotos = soldPhotos.reverse();
-                  }
-                }
-              }
-              for (var i = 0; i < 0; i++) {
-                $scope.backgroundMultiple.push('filler'+i);
-              }
-              setCss();
-            }
-            mapPhotos();
+            return 1;
           }
-      //   })
-      // })
+        }
+        var backLength = backlengthFunc();
+        $scope.totalEarned = 0;
+        $timeout(function(){
+          $('.showSubmittedHolder').css({
+            height: 'auto'
+          });
+        }, 1000);
+        function mapPhotos(){
+          var soldPhotos = [];
+          var offeredPhotos = [];
+          for (var i = 0; i < photoLength; i++) {
+            if(userPhotos[i].status === 'sold'){
+              soldPhotos.push(userPhotos[i]);
+              $scope.totalEarned += userPhotos[i].price;
+              if(i == userPhotos.length-1){
+                $scope.allSoldPhotos = soldPhotos.reverse();
+              }
+            }
+            else if(userPhotos[i].status === 'offered for sale'){
+              offeredPhotos.push(userPhotos[i]);
+              $scope.totalEarned += userPhotos[i].price;
+              if(i === userPhotos.length-1){
+                $scope.allSoldPhotos = soldPhotos.reverse();
+              }
+            }
+            else {
+              if(i === userPhotos.length-1){
+                $scope.allSoldPhotos = soldPhotos.reverse();
+              }
+            }
+          }
+          for (var i = 0; i < 0; i++) {
+            $scope.backgroundMultiple.push('filler'+i);
+          }
+          setCss();
+        }
+        mapPhotos();
+      }
     }
 
     var userToken = window.localStorage.webToken;
