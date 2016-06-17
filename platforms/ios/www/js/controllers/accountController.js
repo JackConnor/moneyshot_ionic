@@ -106,7 +106,7 @@ angular.module('accountController', ['persistentPhotosFactory', 'userInfoFactory
       }
       else {
         $scope.userInfo = userInfoData;
-        var userPhotos = userInfoData.photos;////this is all of a signed-in user's
+        var userPhotos = userInfoData.photos.reverse();////this is all of a signed-in user's
         var photoLength = userInfoData.photos.length;
         $scope.userPhotos = userPhotos.reverse();
         $scope.userSubmissions = userInfoData.submissions.reverse().slice(0, 20);

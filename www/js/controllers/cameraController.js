@@ -640,7 +640,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                   console.log(phots);
                   var amalgam = vids + phots;
                   console.log(amalgam);
-                  if(parseInt(amalgam) == parseInt(set.length-1) && $scope.submitBar === true){
+                  if(parseInt(amalgam) == parseInt(set.length-1) && parseInt(set.length-1) === 0 && $scope.submitBar === true){
                     console.log('at the end');
                     $http({
                       method: "POST"

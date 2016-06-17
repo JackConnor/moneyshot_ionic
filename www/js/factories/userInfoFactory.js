@@ -12,6 +12,7 @@ angular.module('userInfoFactory', [])
       // alert(userInfoCache);
       //////if there is a token, we do a lookup
       if(bool === true){
+        console.log('getting your submissions and user info');
         $http({
           method: "GET"
           ,url: 'https://moneyshotapi.herokuapp.com/api/get/userinfo/'+token
