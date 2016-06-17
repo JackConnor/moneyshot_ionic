@@ -118,16 +118,16 @@ angular.module('accountController', ['persistentPhotosFactory', 'userInfoFactory
         var userPhotos = userInfoData.photos;////this is all of a signed-in user's
         var photoLength = userInfoData.photos.length;
         $scope.userPhotos = userPhotos;
-        $scope.userSubmissions = userInfoData.submissions.slice(0, 20);
-        var backlengthFunc = function(){
-          if($scope.userSubmissions){
-            return $scope.userSubmissions.length*5;
-          }
-          else {
-            return 1;
-          }
-        }
-        var backLength = backlengthFunc();
+        $scope.userSubmissions = userInfoData.submissions  //.slice(0, 20);
+        // var backlengthFunc = function(){
+        //   if($scope.userSubmissions){
+        //     return $scope.userSubmissions.length*5;
+        //   }
+        //   else {
+        //     return 1;
+        //   }
+        // }
+        // var backLength = backlengthFunc();
         $scope.totalEarned = 0;
         $timeout(function(){
           $('.showSubmittedHolder').css({
