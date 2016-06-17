@@ -529,7 +529,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                         runVideoCache('runAnew');
                       }, 3000);
                       $state.go('tab.account');
-                    }, 1000);
+                    }, 1000);  
                   })
                 }
                 else if(amalgam == parseInt(set.length-1) && $scope.submitBar === false){
