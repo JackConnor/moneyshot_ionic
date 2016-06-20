@@ -47,34 +47,52 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       }
     }
     var zooming = findZoomed();////this determines if the screen is on zoom mode or not
-    function runVideoCache(controlVar){
+    function runVideoCache(controlVar, callback, cbParam){
       console.log(controlVar);
       if(controlVar === "runAnew"){
         userInfo.userInfoFunc(window.localStorage.webToken, true);////resets it
       }
       else {
-        $scope.userInfo = userInfo.userInfoFunc('blah', false);
-        if($scope.userInfo == undefined){
-          userInfo.userInfoFunc(window.localStorage.webToken, true);
+        $scope.cachedUser = userInfo.userInfoFunc('blah', false);
+        if($scope.cachedUser == undefined){
+          $scope.cachedUser = userInfo.userInfoFunc(window.localStorage.webToken, true);
+          callback(cbParam);
         }
       }
     }
-    runVideoCache();/////primes the video cache
+    // runVideoCache();/////primes the video cache
 
     /////end global variables///
     ////////////////////////////
+    if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+      ionic.Platform.ready(function(){
+        initPage();
+      })
+    }
+
+    function initPage(){
+      console.log('iknitting');
+      var runVideoCB = function(){
+        setLocalForage();
+      }
+      runVideoCache(controlVar, runVideoCB, cbParam)/////////this loads the videos
+    }
+
 
     //////functino to load camera and set up screen
     function removeTabsAndBar(){
       if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
         ionic.Platform.ready(function(){
           $('ion-tabs').addClass('tabs-item-hide');
-          uploadPhotos();
-          $timeout(function(){
-            ionic.Platform.showStatusBar(false);
-            // $ionicScrollDelegate.scrollTop(true);
-            $ionicScrollDelegate.freezeScroll(true);
-          }, 500);
+          ionic.Platform.showStatusBar(false);
+          // $ionicScrollDelegate.scrollTop(true);
+          $ionicScrollDelegate.freezeScroll(true);
+          // uploadPhotos();
+          // $timeout(function(){
+          //   ionic.Platform.showStatusBar(false);
+          //   // $ionicScrollDelegate.scrollTop(true);
+          //   $ionicScrollDelegate.freezeScroll(true);
+          // }, 500);
         });
       }
       else {
@@ -104,10 +122,12 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       .then(function(value){
         console.log(value);
         if(value === null || value === [null]){
+          $scope.mediaCache = [];
           localforage.setItem('storedPhotos', [])
           .then(function(dataVal){
             console.log('creating array');
             console.log(dataVal);
+            // runVideoCache()
           })
           .catch(function(err){
             console.log(err);
@@ -115,24 +135,34 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         }
         else {
           console.log('value is: '+value);
-          $scope.mediaCache = value;
+          $scope.mediaCache = value;/////first data added to scope.mediaCache
           console.log($scope.mediaCache);
-          var cachedUser = userInfo.userInfoFunc('blah', false);
-          $scope.cachedUser = cachedUser;
-          ////now we load up the videos
-          $timeout(function(){
-            var cachedUser = userInfo.userInfoFunc('blah', false);
-            $scope.cachedUser = cachedUser;
-            console.log(cachedUser);
-            console.log($scope.mediaCache);
-            var cacheVideo = cachedUser.tempVideoCache;
-            console.log(cacheVideo);
-            var vidLength = cacheVideo.length;
+          var cachedVideo = $scope.cachedUser.tempVideoCache;
+          console.log(cachedVideo);
+          var vidLength = cachedVideo.length;
+          if(typeof vidLength === 'integer' && vidLength > 0){
             for (var i = 0; i < vidLength; i++) {
-              $scope.mediaCache.push({type: 'videoTemp', link: cacheVideo[i].url, thumb: 'http://www.clickerzoneuk.co.uk/cz/wp-content/uploads/2010/10/PuppySmall.jpg', videoId: cacheVideo[i]._id});
+              $scope.mediaCache.push({type: 'videoTemp', link: cachedVideo[i].url, thumb: 'http://www.clickerzoneuk.co.uk/cz/wp-content/uploads/2010/10/PuppySmall.jpg', videoId: cachedVideo[i]._id});
               console.log($scope.mediaCache);
             }
-          }, 5000);
+          }
+          // var cachedUser = userInfo.userInfoFunc('blah', false);
+          // $scope.cachedUser = cachedUser;
+          // ////now we load up the videos
+          // $timeout(function(){
+          //   var cachedUser = userInfo.userInfoFunc('blah', false);
+          //   $scope.cachedUser = cachedUser;
+          //   console.log(cachedUser);
+          //   console.log($scope.mediaCache);
+          //   var cacheVideo = cachedUser.tempVideoCache;
+          //   console.log(cacheVideo);
+          //   runVideoCache()
+          //   var vidLength = cacheVideo.length;
+          //   for (var i = 0; i < vidLength; i++) {
+          //     $scope.mediaCache.push({type: 'videoTemp', link: cacheVideo[i].url, thumb: 'http://www.clickerzoneuk.co.uk/cz/wp-content/uploads/2010/10/PuppySmall.jpg', videoId: cacheVideo[i]._id});
+          //     console.log($scope.mediaCache);
+          //   }
+          // }, 5000);
           // if(cachedUser===undefined){
           //   $timeout(function(){
           //     var cachedUser = userInfo.userInfoFunc('blah', false);
@@ -222,10 +252,10 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
             $ionic.Platform.exitApp();
           });
         }
-        var startCallback = showCamera(showCallback);
-        startCamera(startCallback);
+        var startCallback = showCamera;
+        startCamera(startCallback, showCallback);////startCallback now firing?
         // setPictureCallback();
-      }, 2000);
+      }, 500);
 
 
       // cordova.plugins.camerapreview.setOnPictureTakenHandler(function(result){
@@ -256,7 +286,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       // });
     }
 
-    function startCamera(callback){
+    function startCamera(callback, CBparam){
       var screenWidth = window.innerWidth;
 
       var tapEnabled = false; //enable tap take picture
@@ -269,7 +299,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         var rect = {x: 0, y: 45, width: 375, height: 468.75};
       }
       cordova.plugins.camerapreview.startCamera(rect, 'back', tapEnabled, dragEnabled, toBack);
-      callback();
+      callback(CBparam);
     }
 
     function showCamera(callback){
