@@ -71,6 +71,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     function initCache(){
       var userToken = window.localStorage.webToken;
       setLocalForage();
+      console.log(userInfo.cacheOnly());
       if(userInfo.cacheOnly() == undefined){
         userInfo.promiseOnly(userToken)
         .then(function(data){
@@ -80,6 +81,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         })
       }
       else {
+        console.log($scope.cachedUser);
         $scope.cachedUser = userInfo.cacheOnly();
         runVideoCache($scope.cachedUser.tempVideoCache);
       }
@@ -90,9 +92,9 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       console.log(tempVideoArray);
       var vidLength = tempVideoArray.length;
       for (var i = 0; i < vidLength; i++) {
-        var thumbnailArr = tempVideoArray[i].url.split('').slice(0, vidLength-5);
+        var thumbnailArr = tempVideoArray[i].url.split('mov');
         console.log(thumbnailArr);
-        var thumbnail = thumbnailArr.join('')+"jpg";
+        var thumbnail = thumbnailArr[0]+"jpg";
         console.log(thumbnail);
 
         $scope.mediaCache.push({type: 'videoTemp', link: tempVideoArray[i].url, thumb: thumbnail, videoId: tempVideoArray[i]._id});
@@ -574,20 +576,23 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                   })
                   .then(function(newSubmission){
                     console.log('submission made '+hardI);
-                    userInfo.userInfoFunc(window.localStorage.webToken, true);
+                    // userInfo.userInfoFunc(window.localStorage.webToken, true);
                     $timeout(function(){
                       $scope.submitModalVar = false;
                       $scope.cameraModal = false;
                       localforage.setItem('storedPhotos', [])
                       .then(function(success){
                         console.log('submitted');
+                        $scope.cachedUser.tempVideoCache = [];
+                        userInfo.userInfoFunc('blah', false, $scope.cachedUser);
                         userInfo.userInfoFunc(window.localStorage.webToken, true);
+                        $state.reload(true);
                       })
                       .catch(function(err){
                         console.log(err);
                       })
                       $scope.cnt = 0;
-                      $state.reload(true);
+                      // $state.reload(true);
                     }, 1000);
                   })
                 }
@@ -633,20 +638,23 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                 })
                 .then(function(newSubmission){
                   console.log('new submission made '+hardI);
-                  userInfo.userInfoFunc(window.localStorage.webToken, true);
+                  // userInfo.userInfoFunc(window.localStorage.webToken, true);
                   setTimeout(function(){
                     $scope.submitModalVar = false;
                     $scope.cameraModal = false;
                     localforage.setItem('storedPhotos', [])
                     .then(function(success){
                       console.log('submitted');
+                      $scope.cachedUser.tempVideoCache = [];
+                      userInfo.userInfoFunc('blah', false, $scope.cachedUser);
                       userInfo.userInfoFunc(window.localStorage.webToken, true);
+                      $state.reload(true);
                     })
                     .catch(function(err){
                       console.log(err);
                     })
                     $scope.cnt = 0;
-                    $state.reload(true);
+                    // $state.reload(true);
                   }, 100);
                 })
               }
@@ -706,7 +714,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                     })
                     .then(function(newSubmission){
                       console.log('photo submission made '+hardI);
-                      userInfo.userInfoFunc(window.localStorage.webToken, true);
+                      // userInfo.userInfoFunc(window.localStorage.webToken, true);
 
                       setTimeout(function(){
                         $scope.submitModalVar = false;
@@ -714,12 +722,15 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                         localforage.setItem('storedPhotos', [])
                         .then(function(success){
                           console.log('submitted');
+                          $scope.cachedUser.tempVideoCache = [];
+                          userInfo.userInfoFunc('blah', false, $scope.cachedUser);
+                          userInfo.userInfoFunc(window.localStorage.webToken, true);
+                          $state.reload(true);
                         })
                         .catch(function(err){
                           console.log(err);
                         })
                         $scope.cnt = 0;
-                        $state.reload(true);
 
                       }, 100);
                     })
