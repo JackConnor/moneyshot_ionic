@@ -11,6 +11,9 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
   cameraCtrl.$inject = ['$http', '$state', '$scope', 'singlePhoto', 'Upload', '$q', '$cordovaCamera', '$cordovaFile', '$cordovaFileTransfer', 'signup', 'signin', 'newToken', '$cordovaCapture', '$cordovaStatusbar', '$timeout', '$ionicGesture', '$ionicScrollDelegate', '$interval', 'persistentPhotos', '$cordovaKeyboard', 'userInfo'];
   function cameraCtrl($http, $state, $scope, singlePhoto, Upload, $q, $cordovaCamera, $cordovaFile, $cordovaFileTransfer, signup, signin, newToken, $cordovaCapture, $cordovaStatusbar, $timeout, $ionicGesture, $ionicScrollDelegate, $interval, persistentPhotos, $cordovaKeyboard, userInfo){
+    console.log(userInfo.promiseOnly);
+    console.log(userInfo.userInfoFunc);
+    console.log(userInfo.onlyCache);
     $scope.mediaCache = [];
     // $scope.photoListLength      = 0;
     $scope.croppedPhoto         = '';
@@ -38,6 +41,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     var googId = 'AIzaSyDspcymxHqhUaiLh2YcwV67ZNhlGd4FyxQ';
     var count = 0;
     var eraseSubmitArr          = [];
+
     function findZoomed(){
       if(window.innerWidth === 320){
         return 'zoomed';
@@ -47,19 +51,6 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       }
     }
     var zooming = findZoomed();////this determines if the screen is on zoom mode or not
-    function runVideoCache(controlVar, callback, cbParam){
-      console.log(controlVar);
-      if(controlVar === "runAnew"){
-        userInfo.userInfoFunc(window.localStorage.webToken, true);////resets it
-      }
-      else {
-        $scope.cachedUser = userInfo.userInfoFunc('blah', false);
-        if($scope.cachedUser == undefined){
-          $scope.cachedUser = userInfo.userInfoFunc(window.localStorage.webToken, true);
-          callback(cbParam);
-        }
-      }
-    }
     // runVideoCache();/////primes the video cache
 
     /////end global variables///
@@ -70,10 +61,79 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       })
     }
 
+    /////function that fires on page init
     function initPage(){
       console.log('iknitting');
+      initCache();
+      uploadPhotos();
     }
 
+    /////funciotn to get cached videos and photos
+    function initCache(){
+      console.log(1);
+      var userToken = window.localStorage.webToken;
+      console.log(2);
+      setLocalForage();
+      console.log(userInfo.cacheOnly());
+      if(userInfo.cacheOnly() == undefined){
+        userInfo.promiseOnly(userToken)
+        .then(function(data){
+          console.log(data);
+          $scope.cachedUser = data.data;
+          userInfo.userInfoFunc(userToken, false, data.data);
+          console.log(userInfo.cacheOnly());
+        })
+      }
+      // runVideoCache("blah", function(){console.log('yoo')}, "yopp");
+    }
+
+    ///does all the video stuff
+    function runVideoCache(){
+      // console.log(controlVar);
+      // if(controlVar === "runAnew"){
+      //   userInfo.userInfoFunc(window.localStorage.webToken, true, true);////resets it
+      // }
+      // else {
+      //   $scope.cachedUser = userInfo.userInfoFunc('blah', false, true);
+      //   console.log($scope.cachedUser);
+      //   if($scope.cachedUser === undefined){
+      //     userInfo.userInfoFunc(window.localStorage.webToken, true, false)
+      //     .then(function(userData){
+      //       $scope.cachedUser = userData.data;
+      //       console.log($scope.cachedUser);
+      //       userInfo.userInfoFunc(window.localStorage.webToken, true, true);////sets the factory cached var for us
+      //     })
+      //
+      //     // $scope.cachedUser = userInfo.userInfoFunc(window.localStorage.webToken, true, false)
+      //     // .then(function(userData){
+      //     //
+      //     // })
+      //     // $timeout(function(){
+      //     //   console.log($scope.cachedUser);
+      //     //   var cachedVideo = $scope.cachedUser.tempVideoCache;
+      //     //   var vidLength = cachedVideo.length;
+      //     //   if(typeof vidLength === 'integer' && vidLength > 0){
+      //     //     for (var i = 0; i < vidLength; i++) {
+      //     //       $scope.mediaCache.push({type: 'videoTemp', link: cachedVideo[i].url, thumb: 'http://www.clickerzoneuk.co.uk/cz/wp-content/uploads/2010/10/PuppySmall.jpg', videoId: cachedVideo[i]._id});
+      //     //       console.log($scope.mediaCache);
+      //     //     }
+      //     //   }
+      //     // }, 10000);
+      //   }
+      //   else {
+      //     var cachedVideo = $scope.cachedUser.tempVideoCache;
+      //     console.log(cachedVideo);
+      //     var vidLength = cachedVideo.length;
+      //     if(typeof vidLength === 'integer' && vidLength > 0){
+      //       for (var i = 0; i < vidLength; i++) {
+      //         $scope.mediaCache.push({type: 'videoTemp', link: cachedVideo[i].url, thumb: 'http://www.clickerzoneuk.co.uk/cz/wp-content/uploads/2010/10/PuppySmall.jpg', videoId: cachedVideo[i]._id});
+      //         console.log($scope.mediaCache);
+      //       }
+      //     }
+      //     callback(cbParam);
+      //   }
+      // }
+    }
 
     //////functino to load camera and set up screen
     function removeTabsAndBar(){
@@ -118,7 +178,6 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       .then(function(value){
         console.log(value);
         if(value === null || value === [null]){
-          $scope.mediaCache = [];
           localforage.setItem('storedPhotos', [])
           .then(function(dataVal){
             console.log('creating array');
@@ -130,59 +189,15 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
           })
         }
         else {
-          console.log('value is: '+value);
-          $scope.mediaCache = value;/////first data added to scope.mediaCache
-          console.log($scope.mediaCache);
-          // var cachedUser = userInfo.userInfoFunc('blah', false);
-          // $scope.cachedUser = cachedUser;
-          // ////now we load up the videos
-          // $timeout(function(){
-          //   var cachedUser = userInfo.userInfoFunc('blah', false);
-          //   $scope.cachedUser = cachedUser;
-          //   console.log(cachedUser);
-          //   console.log($scope.mediaCache);
-          //   var cacheVideo = cachedUser.tempVideoCache;
-          //   console.log(cacheVideo);
-          //   runVideoCache()
-          //   var vidLength = cacheVideo.length;
-          //   for (var i = 0; i < vidLength; i++) {
-          //     $scope.mediaCache.push({type: 'videoTemp', link: cacheVideo[i].url, thumb: 'http://www.clickerzoneuk.co.uk/cz/wp-content/uploads/2010/10/PuppySmall.jpg', videoId: cacheVideo[i]._id});
-          //     console.log($scope.mediaCache);
-          //   }
-          // }, 5000);
-          // if(cachedUser===undefined){
-          //   $timeout(function(){
-          //     var cachedUser = userInfo.userInfoFunc('blah', false);
-          //     console.log(cachedUser);
-          //     if(cachedUser===undefined){
-          //       $timeout(function(){
-          //         var cachedUser = userInfo.userInfoFunc(window.localStorage.webToken, true);
-          //         $timeout(function(){
-          //           console.log(cachedUser);
-          //           for (var i = 0; i < cachedUser.tempVideoCache.length-1; i++) {
-          //             console.log($scope.mediaCache);
-          //             $scope.mediaCache.push({type: 'video', link: cachedUser.tempVideoCache[i].url, date: cachedUser.tempVideoCache[i].date, thumb: 'http://www.clickerzoneuk.co.uk/cz/wp-content/uploads/2010/10/PuppySmall.jpg'})
-          //             $scope.$apply();
-          //           }
-          //         }, 5000);
-          //       }, 5000);
-          //     }
-          //     else {
-          //       for (var i = 0; i < cachedUser.tempVideoCache.length-1; i++) {
-          //         console.log($scope.mediaCache);
-          //         $scope.mediaCache.push({type: 'video', link: cachedUser.tempVideoCache[i].url, date: cachedUser.tempVideoCache[i].date, thumb:'http://www.clickerzoneuk.co.uk/cz/wp-content/uploads/2010/10/PuppySmall.jpg'});
-          //         $scope.$apply();
-          //       }
-          //     }
-          //   }, 5000);
-          // }
-          // else {
-          //   for (var i = 0; i < cachedUser.tempVideoCache.length-1; i++) {
-          //     console.log($scope.mediaCache);
-          //     $scope.mediaCache.push({type: 'video', link: cachedUser.tempVideoCache[i].url, date: cachedUser.tempVideoCache[i].date, thumb: 'http://www.clickerzoneuk.co.uk/cz/wp-content/uploads/2010/10/PuppySmall.jpg'});
-          //     $scope.$apply();
-          //   }
-          // }
+          // console.log('elsing');
+          // console.log('value is: '+value);
+          var valLength = value.length;
+          // console.log(valLength);
+          for (var i = 0; i < valLength; i++) {
+            // console.log(i);
+            // console.log($scope.mediaCache);
+            $scope.mediaCache.push(value[i]);
+          }
         }
       })
       .catch(function(err){
@@ -232,7 +247,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         // cordova.plugins.camerapreview.startCamera(rect, 'back', tapEnabled, dragEnabled, toBack);
         var showCallback = function(){
           console.log('yoo camera show');
-          setPictureCallback(setLocalForage);
+          setPictureCallback();
           $(window).unload(function(){
             cordova.plugins.camerapreview.hide();
             cordova.plugins.camerapreview.stopCamera();
@@ -294,7 +309,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       callback();
     }
 
-    function setPictureCallback(callback){
+    function setPictureCallback(){
       cordova.plugins.camerapreview.setOnPictureTakenHandler(function(result){
         if($scope.cameraMode === "burst"){
           $scope.burstCounter--;
@@ -321,7 +336,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         }, 100);
         $scope.activePhoto = false;
       });
-      callback();
+      // callback();
     }
 
     $scope.takeCordovaPicture = function(){

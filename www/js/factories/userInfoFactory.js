@@ -6,17 +6,19 @@ angular.module('userInfoFactory', [])
 
   function userInfo($http){
     var userInfoCache;
+    console.log(userInfoCache);
+    console.log('fired');
 
-    function getUserInfo(token, bool){
-      console.log(token);
-      // alert(userInfoCache);
-      //////if there is a token, we do a lookup
-      if(bool === true){
-        console.log('getting your submissions and user info');
-        $http({
-          method: "GET"
-          ,url: 'https://moneyshotapi.herokuapp.com/api/get/userinfo/'+token
-        })
+    var promise = function(token){
+                    return $http({
+                      method: "GET"
+                      ,url: 'https://moneyshotapi.herokuapp.com/api/get/userinfo/'+token
+                    })
+                  }
+
+    function getUserInfo(token, httpBool, mediaData){
+      if(httpBool === true){
+        promise(token)
         .then(function(user){
           console.log(user);
           userInfoCache = user.data;
@@ -24,13 +26,23 @@ angular.module('userInfoFactory', [])
           console.log(userInfoCache);
           return userInfoCache
         })
+        .catch(function(err){
+          console.log(err);
+        })
       }
       else {
-        return userInfoCache;
+        userInfoCache = mediaData;
+        console.log(userInfoCache);
       }
+    }
+
+    function cacheOnly(){
+      return userInfoCache;
     }
 
     return {
       userInfoFunc: getUserInfo
+      ,promiseOnly: promise
+      ,cacheOnly: cacheOnly
     }
   }
