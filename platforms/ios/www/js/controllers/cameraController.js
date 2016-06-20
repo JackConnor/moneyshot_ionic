@@ -70,25 +70,31 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
     /////funciotn to get cached videos and photos
     function initCache(){
-      console.log(1);
       var userToken = window.localStorage.webToken;
-      console.log(2);
       setLocalForage();
-      console.log(userInfo.cacheOnly());
       if(userInfo.cacheOnly() == undefined){
         userInfo.promiseOnly(userToken)
         .then(function(data){
-          console.log(data);
           $scope.cachedUser = data.data;
           userInfo.userInfoFunc(userToken, false, data.data);
-          console.log(userInfo.cacheOnly());
+          runVideoCache($scope.cachedUser.tempVideoCache)
         })
+      }
+      else {
+        $scope.cachedUser = userInfo.cacheOnly();
+        runVideoCache($scope.cachedUser.tempVideoCache)
       }
       // runVideoCache("blah", function(){console.log('yoo')}, "yopp");
     }
 
     ///does all the video stuff
-    function runVideoCache(){
+    function runVideoCache(tempVideoArray){
+      console.log(tempVideoArray);
+      var vidLength = tempVideoArray.length;
+      for (var i = 0; i < vidLength; i++) {
+        $scope.mediaCache.push({type: 'videoTemp', link: tempVideoArray[i].url, thumb: 'http://www.clickerzoneuk.co.uk/cz/wp-content/uploads/2010/10/PuppySmall.jpg', videoId: tempVideoArray[i]._id});
+        console.log($scope.mediaCache);
+      }
       // console.log(controlVar);
       // if(controlVar === "runAnew"){
       //   userInfo.userInfoFunc(window.localStorage.webToken, true, true);////resets it
