@@ -31,8 +31,11 @@ angular.module('userInfoFactory', [])
         })
       }
       else {
+        console.log(mediaData);
+        mediaData.submissions = mediaData.submissions.reverse();
         userInfoCache = mediaData;
         console.log(userInfoCache);
+
       }
     }
 

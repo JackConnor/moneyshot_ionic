@@ -25,14 +25,14 @@ angular.module('accountController', ['persistentPhotosFactory', 'userInfoFactory
     $scope.scrollPosition        = 0;
     $scope.backgroundMultiple    = [];
 
-    console.log(userInfo.userInfoFunc('blah', false));
-    localforage.getItem('storedPhotos')
-    .then(function(photos){
-      console.log(photos);
-    })
-    .catch(function(err){
-      console.log(err);
-    })
+    console.log(userInfo.cacheOnly());
+    // localforage.getItem('storedPhotos')
+    // .then(function(photos){
+    //   console.log(photos);
+    // })
+    // .catch(function(err){
+    //   console.log(err);
+    // })
 
     function findZoomed(){
       if(window.innerWidth === 320){
@@ -96,7 +96,8 @@ angular.module('accountController', ['persistentPhotosFactory', 'userInfoFactory
     ///////////////////////////////////
 
     function getUserPhotos(token){
-      var userInfoData = userInfo.userInfoFunc('blah', false);
+      var userInfoData = userInfo.cacheOnly();
+      console.log(userInfoData);
       // alert(userInfoData)
       console.log(userInfo);
       if(userInfoData === null || userInfoData == undefined){
@@ -107,7 +108,7 @@ angular.module('accountController', ['persistentPhotosFactory', 'userInfoFactory
         userInfo.userInfoFunc(token, true);
         $timeout(function(){
           getUserPhotos(token);
-        }, 1500);
+        }, 200);
       }
       // else if($scope.userInfo === undefined){
       //   var userInfoData = userInfo.userInfoFunc(token, true);
