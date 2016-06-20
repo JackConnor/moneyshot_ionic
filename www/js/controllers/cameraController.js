@@ -67,18 +67,12 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     function initCache(){
       var userToken = window.localStorage.webToken;
       setLocalForage();
-      // if(userInfo.cacheOnly() == undefined){
-        userInfo.promiseOnly(userToken)
-        .then(function(data){
-          $scope.cachedUser = data.data;
-          userInfo.userInfoFunc(userToken, false, data.data);
-          runVideoCache($scope.cachedUser.tempVideoCache);
-        })
-      // }
-      // else {
-      //   $scope.cachedUser = userInfo.cacheOnly();
-      //   runVideoCache($scope.cachedUser.tempVideoCache);
-      // }
+      userInfo.promiseOnly(userToken)
+      .then(function(data){
+        $scope.cachedUser = data.data;
+        userInfo.userInfoFunc(userToken, false, data.data);
+        runVideoCache($scope.cachedUser.tempVideoCache);
+      });
     }
 
     ///does all the video stuff
