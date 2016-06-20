@@ -94,7 +94,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       console.log(tempVideoArray);
       var vidLength = tempVideoArray.length;
       for (var i = 0; i < vidLength; i++) {
-        var thumbnailArr = tempVideoArray[i].url.split('').slice(0, vidLength-4);
+        var thumbnailArr = tempVideoArray[i].url.split('').slice(0, vidLength-5);
         console.log(thumbnailArr);
         var thumbnail = thumbnailArr.join('')+"jpg";
         console.log(thumbnail);
