@@ -65,7 +65,6 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     function initPage(){
       console.log('iknitting');
       removeTabsAndBar(initCache);
-      // uploadPhotos();
     }
 
     /////funciotn to get cached videos and photos
@@ -78,15 +77,12 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
           $scope.cachedUser = data.data;
           userInfo.userInfoFunc(userToken, false, data.data);
           runVideoCache($scope.cachedUser.tempVideoCache);
-          uploadPhotos();
         })
       }
       else {
         $scope.cachedUser = userInfo.cacheOnly();
         runVideoCache($scope.cachedUser.tempVideoCache);
-        uploadPhotos();
       }
-      // runVideoCache("blah", function(){console.log('yoo')}, "yopp");
     }
 
     ///does all the video stuff
@@ -144,6 +140,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
           .then(function(dataVal){
             console.log('creating array');
             console.log(dataVal);
+            initCamera();
             // runVideoCache()
           })
           .catch(function(err){
@@ -160,6 +157,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
             // console.log($scope.mediaCache);
             $scope.mediaCache.push(value[i]);
           }
+          initCamera();
         }
       })
       .catch(function(err){
@@ -169,7 +167,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
     /////////////////////////////
     //function to launch camera and take photos
-    function uploadPhotos(){
+    function initCamera(){
       // setLocalForage();
       // var screenWidth = window.innerWidth;
       // var persistentLength = persistentPhotos().length;
