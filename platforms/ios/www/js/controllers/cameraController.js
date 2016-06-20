@@ -65,7 +65,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     function initPage(){
       console.log('iknitting');
       removeTabsAndBar(initCache);
-      uploadPhotos();
+      // uploadPhotos();
     }
 
     /////funciotn to get cached videos and photos
@@ -78,11 +78,13 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
           $scope.cachedUser = data.data;
           userInfo.userInfoFunc(userToken, false, data.data);
           runVideoCache($scope.cachedUser.tempVideoCache);
+          uploadPhotos();
         })
       }
       else {
         $scope.cachedUser = userInfo.cacheOnly();
-        runVideoCache($scope.cachedUser.tempVideoCache)
+        runVideoCache($scope.cachedUser.tempVideoCache);
+        uploadPhotos();
       }
       // runVideoCache("blah", function(){console.log('yoo')}, "yopp");
     }
