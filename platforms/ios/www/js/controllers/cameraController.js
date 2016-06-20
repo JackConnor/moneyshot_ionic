@@ -64,7 +64,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     /////function that fires on page init
     function initPage(){
       console.log('iknitting');
-      initCache();
+      removeTabsAndBar(initCache);
       uploadPhotos();
     }
 
@@ -77,7 +77,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         .then(function(data){
           $scope.cachedUser = data.data;
           userInfo.userInfoFunc(userToken, false, data.data);
-          runVideoCache($scope.cachedUser.tempVideoCache)
+          runVideoCache($scope.cachedUser.tempVideoCache);
         })
       }
       else {
@@ -142,20 +142,12 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     }
 
     //////functino to load camera and set up screen
-    function removeTabsAndBar(){
+    function removeTabsAndBar(callback){
       if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
-        ionic.Platform.ready(function(){
-          $('ion-tabs').addClass('tabs-item-hide');
-          ionic.Platform.showStatusBar(false);
-          // $ionicScrollDelegate.scrollTop(true);
-          $ionicScrollDelegate.freezeScroll(true);
-          // uploadPhotos();
-          // $timeout(function(){
-          //   ionic.Platform.showStatusBar(false);
-          //   // $ionicScrollDelegate.scrollTop(true);
-          //   $ionicScrollDelegate.freezeScroll(true);
-          // }, 500);
-        });
+        $('ion-tabs').addClass('tabs-item-hide');
+        ionic.Platform.showStatusBar(false);
+        $ionicScrollDelegate.freezeScroll(true);
+        callback();
       }
       else {
         $ionicScrollDelegate.scrollTop(true);
@@ -165,9 +157,10 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
           // $ionicScrollDelegate.scrollTop(true);
           $ionicScrollDelegate.freezeScroll(true);
         }, 500);
+        callback();
       }
     }
-    removeTabsAndBar();
+    // removeTabsAndBar();
 
     //////function to set up our tempprary photo storage between sessions
     function setLocalForage(){
