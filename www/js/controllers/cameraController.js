@@ -94,53 +94,14 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       console.log(tempVideoArray);
       var vidLength = tempVideoArray.length;
       for (var i = 0; i < vidLength; i++) {
-        $scope.mediaCache.push({type: 'videoTemp', link: tempVideoArray[i].url, thumb: 'http://www.clickerzoneuk.co.uk/cz/wp-content/uploads/2010/10/PuppySmall.jpg', videoId: tempVideoArray[i]._id});
+        var thumbnailArr = tempVideoArray[i].url.split('').slice(0, vidLength-4);
+        console.log(thumbnailArr);
+        var thumbnail = thumbnailArr.join('')+"jpg";
+        console.log(thumbnail);
+
+        $scope.mediaCache.push({type: 'videoTemp', link: tempVideoArray[i].url, thumb: thumbnail, videoId: tempVideoArray[i]._id});
         console.log($scope.mediaCache);
       }
-      // console.log(controlVar);
-      // if(controlVar === "runAnew"){
-      //   userInfo.userInfoFunc(window.localStorage.webToken, true, true);////resets it
-      // }
-      // else {
-      //   $scope.cachedUser = userInfo.userInfoFunc('blah', false, true);
-      //   console.log($scope.cachedUser);
-      //   if($scope.cachedUser === undefined){
-      //     userInfo.userInfoFunc(window.localStorage.webToken, true, false)
-      //     .then(function(userData){
-      //       $scope.cachedUser = userData.data;
-      //       console.log($scope.cachedUser);
-      //       userInfo.userInfoFunc(window.localStorage.webToken, true, true);////sets the factory cached var for us
-      //     })
-      //
-      //     // $scope.cachedUser = userInfo.userInfoFunc(window.localStorage.webToken, true, false)
-      //     // .then(function(userData){
-      //     //
-      //     // })
-      //     // $timeout(function(){
-      //     //   console.log($scope.cachedUser);
-      //     //   var cachedVideo = $scope.cachedUser.tempVideoCache;
-      //     //   var vidLength = cachedVideo.length;
-      //     //   if(typeof vidLength === 'integer' && vidLength > 0){
-      //     //     for (var i = 0; i < vidLength; i++) {
-      //     //       $scope.mediaCache.push({type: 'videoTemp', link: cachedVideo[i].url, thumb: 'http://www.clickerzoneuk.co.uk/cz/wp-content/uploads/2010/10/PuppySmall.jpg', videoId: cachedVideo[i]._id});
-      //     //       console.log($scope.mediaCache);
-      //     //     }
-      //     //   }
-      //     // }, 10000);
-      //   }
-      //   else {
-      //     var cachedVideo = $scope.cachedUser.tempVideoCache;
-      //     console.log(cachedVideo);
-      //     var vidLength = cachedVideo.length;
-      //     if(typeof vidLength === 'integer' && vidLength > 0){
-      //       for (var i = 0; i < vidLength; i++) {
-      //         $scope.mediaCache.push({type: 'videoTemp', link: cachedVideo[i].url, thumb: 'http://www.clickerzoneuk.co.uk/cz/wp-content/uploads/2010/10/PuppySmall.jpg', videoId: cachedVideo[i]._id});
-      //         console.log($scope.mediaCache);
-      //       }
-      //     }
-      //     callback(cbParam);
-      //   }
-      // }
     }
 
     //////functino to load camera and set up screen
