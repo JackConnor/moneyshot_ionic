@@ -8,7 +8,7 @@ function initCtrl($state, $http, $timeout) {
 
 
 	function checkToken(token) {
-		alert(token);
+		// alert(token);
 		if(token === undefined || token === 'undefined' || token === 'null' || token === null || token === ''){
 			// alert('signin')
 			$state.go( 'signin' )
