@@ -9,8 +9,8 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     };
   });
 
-  cameraCtrl.$inject = ['$http', '$state', '$scope', 'singlePhoto', 'Upload', '$q', '$cordovaCamera', '$cordovaFile', '$cordovaFileTransfer', 'signup', 'signin', 'newToken', '$cordovaCapture', '$cordovaStatusbar', '$timeout', '$ionicGesture', '$ionicScrollDelegate', '$interval', 'persistentPhotos', '$cordovaKeyboard', 'userInfo'];
-  function cameraCtrl($http, $state, $scope, singlePhoto, Upload, $q, $cordovaCamera, $cordovaFile, $cordovaFileTransfer, signup, signin, newToken, $cordovaCapture, $cordovaStatusbar, $timeout, $ionicGesture, $ionicScrollDelegate, $interval, persistentPhotos, $cordovaKeyboard, userInfo){
+  cameraCtrl.$inject = ['$http', '$state', '$scope', 'singlePhoto', 'Upload', '$q', '$cordovaFile', '$cordovaFileTransfer', 'signup', 'signin', 'newToken', '$cordovaCapture', '$cordovaStatusbar', '$timeout', '$ionicGesture', '$ionicScrollDelegate', '$interval', 'persistentPhotos', '$cordovaKeyboard', 'userInfo'];
+  function cameraCtrl($http, $state, $scope, singlePhoto, Upload, $q, $cordovaFile, $cordovaFileTransfer, signup, signin, newToken, $cordovaCapture, $cordovaStatusbar, $timeout, $ionicGesture, $ionicScrollDelegate, $interval, persistentPhotos, $cordovaKeyboard, userInfo){
     $scope.mediaCache = [];
     // $scope.photoListLength      = 0;
     $scope.croppedPhoto         = '';
@@ -52,26 +52,31 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
     /////end global variables///
     ////////////////////////////
-    if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
-      ionic.Platform.ready(function(){
-        initPage();
-      })
-    }
+    // if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+    ionic.Platform.ready(function(){
+      initPage();
+    })
+    // }
 
     /////function that fires on page init
     function initPage(){
+      console.log('yo');
+      // initCamera();
       removeTabsAndBar(initCache);
     }
 
     /////funciotn to get cached videos and photos
     function initCache(){
+      initCamera();
       var userToken = window.localStorage.webToken;
       setLocalForage();
       userInfo.promiseOnly(userToken)
       .then(function(data){
         $scope.cachedUser = data.data;
+        console.log(data);
         userInfo.userInfoFunc(userToken, false, data.data);
         runVideoCache($scope.cachedUser.tempVideoCache);
+        // initCamera();
       });
     }
 
@@ -123,7 +128,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         if(value === null || value === [null]){
           localforage.setItem('storedPhotos', [])
           .then(function(dataVal){
-            initCamera();
+
           })
           .catch(function(err){
             console.log(err);
@@ -134,7 +139,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
           for (var i = 0; i < valLength; i++) {
             $scope.mediaCache.push(value[i]);
           }
-          initCamera();
+          // initCamera();
         }
       })
       .catch(function(err){

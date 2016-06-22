@@ -1,31 +1,36 @@
 angular.module('initLoad', [])
 .controller( 'initCtrl', initCtrl )
 
-initCtrl.$inject = ['$state', '$http', '$timeout', '$cordovaStatusbar'];
+initCtrl.$inject = ['$state', '$http', '$timeout'];
 
-function initCtrl($state, $http, $timeout, $cordovaStatusbar) {
+function initCtrl($state, $http, $timeout) {
 	var vm = this;
 
 
 	function checkToken(token) {
-		if(token !== 'null' && token !== null && typeof token === 'string'){
-			$state.go( 'tab.camera' );
+		// alert(token);
+		if(token === undefined || token === 'undefined' || token === 'null' || token === null || token === ''){
+			// alert('signin')
+			$state.go( 'signin' )
 		}
 		else {
-			$state.go( 'signin' )
+			// alert('camera')
+			$state.go( 'tab.camera' );
 		}
 	}
 
-	if( /Android|webOS|iPhone|iPad|iPod/i.test(navigator.userAgent) ) {
-		document.addEventListener("deviceready", function(){
-			$timeout(function(){
+	document.addEventListener("deviceready", function(){
+		console.log('yo yo 1');
+		$timeout(function(){
+			if( /Android|webOS|iPhone|iPad|iPod/i.test(navigator.userAgent) ) {
 				var token = window.localStorage.webToken;
 				checkToken(token);
-			}, 3000);
-		})
-	}
-	else {
-		var token = window.localStorage.webToken;
-		checkToken();
-	}
+				console.log('yo yo 1');
+			}
+			// else {
+			// 	var token = window.localStorage.webToken;
+			// 	checkToken();
+			// }
+		}, 100);
+	});
 }

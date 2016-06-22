@@ -117,7 +117,7 @@ angular.module('starter', ['ionic', 'ngCordova', 'ngRoute', 'ngFileUpload', 'sta
       })
 
       .state('init', {
-        url: '/init',
+        url: '',
         cache: false,
         templateUrl: 'templates/init.html',
         controller: 'initCtrl',
@@ -126,6 +126,6 @@ angular.module('starter', ['ionic', 'ngCordova', 'ngRoute', 'ngFileUpload', 'sta
 
 
     // if none of the above states are matched, use this as the fallback
-    $urlRouterProvider.otherwise('/init');
+    $urlRouterProvider.otherwise('');
 
   });
