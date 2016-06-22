@@ -758,9 +758,7 @@ html {
 
 .intro-load {
   position: absolute;
-  width: 80%;
-  margin-left: 10%;
-  margin-top: 55%;
+  width: 100%;
   height: auto;
   z-index: 50000;
 }

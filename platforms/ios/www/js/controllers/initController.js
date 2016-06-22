@@ -6,16 +6,20 @@ initCtrl.$inject = ['$state', '$http', '$timeout'];
 function initCtrl($state, $http, $timeout) {
 	var vm = this;
 
+	// if(navigator.splashscreen){
+	//   navigator.splashscreen.show();
+	// }
+
 
 	function checkToken(token) {
 		// alert(token);
 		if(token === undefined || token === 'undefined' || token === 'null' || token === null || token === ''){
 			// alert('signin')
-			$state.go( 'signin' )
+			// $state.go( 'signin' )
 		}
 		else {
 			// alert('camera')
-			$state.go( 'tab.camera' );
+			// $state.go( 'tab.camera' );
 		}
 	}
 
