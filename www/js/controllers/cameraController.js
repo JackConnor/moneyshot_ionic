@@ -11,7 +11,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
   cameraCtrl.$inject = ['$http', '$state', '$scope', 'singlePhoto', 'Upload', '$q', '$cordovaFile', '$cordovaFileTransfer', 'signup', 'signin', 'newToken', '$cordovaCapture', '$cordovaStatusbar', '$timeout', '$ionicGesture', '$ionicScrollDelegate', '$interval', 'persistentPhotos', '$cordovaKeyboard', 'userInfo'];
   function cameraCtrl($http, $state, $scope, singlePhoto, Upload, $q, $cordovaFile, $cordovaFileTransfer, signup, signin, newToken, $cordovaCapture, $cordovaStatusbar, $timeout, $ionicGesture, $ionicScrollDelegate, $interval, persistentPhotos, $cordovaKeyboard, userInfo){
-    console.log($ionicScrollDelegate);
+    alert('in camera');
     $scope.mediaCache = [];
     // $scope.photoListLength      = 0;
     $scope.croppedPhoto         = '';
@@ -54,18 +54,29 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     /////end global variables///
     ////////////////////////////
     // if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
-    ionic.Platform.ready(function(){
-      initPage();
-      $ionicScrollDelegate.freezeScroll(true);
-    })
+    // ionic.Platform.ready(function(){
+    //   // $timeout(function(){
+    //     navigator.splashscreen.hide()
+    //     initPage();
+    //     $ionicScrollDelegate.freezeScroll(true);
+    //   // }, 1000);
+    // })
     // }
 
     /////function that fires on page init
     function initPage(){
-      console.log('yo');
-      // initCamera();
+      // console.log('yo');
+      // // initCamera();
+      // navigator.splashscreen.hide()
+      // // initPage();
+      // $ionicScrollDelegate.freezeScroll(true);
       removeTabsAndBar(initCache);
     }
+    $timeout(function(){
+      navigator.splashscreen.hide()
+      initPage();
+      $ionicScrollDelegate.freezeScroll(true);
+    }, 2000);
 
     /////funciotn to get cached videos and photos
     function initCache(){
