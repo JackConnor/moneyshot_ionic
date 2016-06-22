@@ -50,6 +50,10 @@
     <feature name="Flashlight">
         <param name="ios-package" value="Flashlight" />
     </feature>
+    <feature name="SplashScreen">
+        <param name="ios-package" value="CDVSplashScreen" />
+        <param name="onload" value="true" />
+    </feature>
     <plugins>
         <feature name="PKVideoThumbnail">
             <param name="ios-package" value="PKVideoThumbnail" />
@@ -112,8 +116,8 @@
     <preference name="UIWebViewBounce" value="false" />
     <preference name="android-minSdkVersion" value="16" />
     <preference name="SplashScreen" value="splash" />
-    <preference name="SplashScreenDelay" value="5000" />
     <preference name="AutoHideSplashScreen" value="false" />
+    <preference name="SplashScreenDelay" value="5000" />
     <preference name="ShowSplashScreenSpinner" value="false" />
     <preference name="FadeSplashScreen" value="false" />
 </widget>

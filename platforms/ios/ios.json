@@ -63,6 +63,10 @@
                         {
                             "xml": "<feature name=\"Flashlight\"><param name=\"ios-package\" value=\"Flashlight\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"SplashScreen\"><param name=\"ios-package\" value=\"CDVSplashScreen\" /><param name=\"onload\" value=\"true\" /></feature>",
+                            "count": 1
                         }
                     ],
                     "/widget/plugins": [
@@ -123,6 +127,9 @@
             "PACKAGE_NAME": "com.ionicframework.moneyshotionicapp178506"
         },
         "cordova-plugin-flashlight": {
+            "PACKAGE_NAME": "com.ionicframework.moneyshotionicapp178506"
+        },
+        "cordova-plugin-splashscreen": {
             "PACKAGE_NAME": "com.ionicframework.moneyshotionicapp178506"
         }
     },
@@ -468,6 +475,14 @@
             "pluginId": "cordova-plugin-flashlight",
             "clobbers": [
                 "window.plugins.flashlight"
+            ]
+        },
+        {
+            "file": "plugins/cordova-plugin-splashscreen/www/splashscreen.js",
+            "id": "cordova-plugin-splashscreen.SplashScreen",
+            "pluginId": "cordova-plugin-splashscreen",
+            "clobbers": [
+                "navigator.splashscreen"
             ]
         }
     ]

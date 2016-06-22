@@ -425,19 +425,12 @@ angular.module('accountController', ['persistentPhotosFactory', 'userInfoFactory
 
     /////signout option
     function hamburgerSignout(){
-      window.localStorage.webToken = null;
-      $('html').css({
-        backgroundColor: 'black'
-        ,opacity: 0.4
-      });
-      $timeout(function(){
-        $('html').css({
-          opacity: 1
-        });
-        $state.go('signin');
-        // $state.reload(true);
-      }, 2000);
 
+      var confirmSignout = confirm('Sign out?');
+      if(confirmSignout){
+        window.localStorage.setItem('webToken', null);
+        $state.go('signin');
+      }
     }
     $scope.hamburgerSignout = hamburgerSignout;
 

@@ -11,6 +11,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
   cameraCtrl.$inject = ['$http', '$state', '$scope', 'singlePhoto', 'Upload', '$q', '$cordovaFile', '$cordovaFileTransfer', 'signup', 'signin', 'newToken', '$cordovaCapture', '$cordovaStatusbar', '$timeout', '$ionicGesture', '$ionicScrollDelegate', '$interval', 'persistentPhotos', '$cordovaKeyboard', 'userInfo'];
   function cameraCtrl($http, $state, $scope, singlePhoto, Upload, $q, $cordovaFile, $cordovaFileTransfer, signup, signin, newToken, $cordovaCapture, $cordovaStatusbar, $timeout, $ionicGesture, $ionicScrollDelegate, $interval, persistentPhotos, $cordovaKeyboard, userInfo){
+    console.log($ionicScrollDelegate);
     $scope.mediaCache = [];
     // $scope.photoListLength      = 0;
     $scope.croppedPhoto         = '';
@@ -55,6 +56,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     // if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
     ionic.Platform.ready(function(){
       initPage();
+      $ionicScrollDelegate.freezeScroll(true);
     })
     // }
 
@@ -67,9 +69,9 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
     /////funciotn to get cached videos and photos
     function initCache(){
-      initCamera();
       var userToken = window.localStorage.webToken;
       setLocalForage();
+      initCamera();
       userInfo.promiseOnly(userToken)
       .then(function(data){
         $scope.cachedUser = data.data;
@@ -96,7 +98,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
         $('ion-tabs').addClass('tabs-item-hide');
         ionic.Platform.showStatusBar(false);
-        $ionicScrollDelegate.freezeScroll(true);
+        // $ionicScrollDelegate.freezeScroll(true);
         callback();
       }
       else {

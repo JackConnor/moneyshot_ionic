@@ -15,11 +15,11 @@ function initCtrl($state, $http, $timeout) {
 		// alert(token);
 		if(token === undefined || token === 'undefined' || token === 'null' || token === null || token === ''){
 			// alert('signin')
-			// $state.go( 'signin' )
+			$state.go( 'signin' )
 		}
 		else {
 			// alert('camera')
-			// $state.go( 'tab.camera' );
+			$state.go( 'tab.camera' );
 		}
 	}
 
@@ -28,6 +28,7 @@ function initCtrl($state, $http, $timeout) {
 		$timeout(function(){
 			if( /Android|webOS|iPhone|iPad|iPod/i.test(navigator.userAgent) ) {
 				var token = window.localStorage.webToken;
+				// alert(token)
 				checkToken(token);
 				console.log('yo yo 1');
 			}
@@ -35,6 +36,6 @@ function initCtrl($state, $http, $timeout) {
 			// 	var token = window.localStorage.webToken;
 			// 	checkToken();
 			// }
-		}, 100);
+		}, 3000);
 	});
 }

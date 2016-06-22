@@ -11,7 +11,7 @@ angular.module('signupController', ['userInfoFactory'])
   signupCtrl.$inject = ['$scope', '$http', '$state', 'signup', 'signin', 'newToken', '$cordovaStatusbar', '$window', '$timeout', '$interval', '$animateCss', '$ionicScrollDelegate', 'userInfo']
 
   function signupCtrl($scope, $http, $state, signup, signin, newToken, $cordovaStatusbar, $window, $timeout, $interval, $animateCss, $ionicScrollDelegate, userInfo){
-    console.log('Sign Loaded')
+    // alert('Sign Loaded')
     ///////////////global variables//////
     $scope.signupModalVar   = false;
     $scope.signinModalVar   = false;
@@ -23,7 +23,7 @@ angular.module('signupController', ['userInfoFactory'])
     $scope.newSigninModal   = false;
     $scope.introCounter     = 0;
     $scope.introTag = "Shoot Awesome Photos";
-    $ionicScrollDelegate.freezeScroll();
+    $ionicScrollDelegate.freezeScroll(true);
 
     ///////////////////////////////
     ////////intro swipe modal stuff
@@ -32,6 +32,8 @@ angular.module('signupController', ['userInfoFactory'])
         $cordovaStatusbar.style(1);
         $cordovaStatusbar.hide();
         $ionicScrollDelegate.freezeScroll(true);
+        navigator.splashscreen.hide();
+
       }, 100);
     });
 
@@ -331,6 +333,7 @@ angular.module('signupController', ['userInfoFactory'])
     function toSignin(){
       $interval.cancel($scope.swipeInterval);
       $scope.swipeInterval = null;
+      $ionicScrollDelegate.freezeScroll(true);
       $timeout(function(){
         $scope.introModal       = false;
         $scope.signinModalVar   = true;
@@ -355,6 +358,7 @@ angular.module('signupController', ['userInfoFactory'])
     function toSignup(){
       $interval.cancel($scope.swipeInterval);
       $scope.swipeInterval = null;
+      $ionicScrollDelegate.freezeScroll(true);
       $timeout(function(){
         $scope.signinModalVar   = false;
         $scope.introModal       = false;

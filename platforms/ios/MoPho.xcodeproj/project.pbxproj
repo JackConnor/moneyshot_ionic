@@ -45,6 +45,8 @@
 		82959D7B3D8748D0B56C8570 /* Screenshot.m in Sources */ = {isa = PBXBuildFile; fileRef = F251A1259CD74FC59F3D73EE /* Screenshot.m */; };
 		B4EF1BD1446A4DAFA8155F2A /* IonicCameraRoll.m in Sources */ = {isa = PBXBuildFile; fileRef = 720819AD0AF84D54BA4305D7 /* IonicCameraRoll.m */; };
 		598E86AFF4AA4EE7B8845810 /* Flashlight.m in Sources */ = {isa = PBXBuildFile; fileRef = 02168A7F53D54A00A9A880A5 /* Flashlight.m */; };
+		0B967569A64B4DE583C0FBF3 /* CDVSplashScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C90EFCBBA549829034CAEA /* CDVSplashScreen.m */; };
+		616FECEC643348CBACB2F7BE /* CDVViewController+SplashScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FA2559DA3EF497BB55D5717 /* CDVViewController+SplashScreen.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -133,6 +135,10 @@
 		85EC28AB2B0543CC8BF2F4C2 /* IonicCameraRoll.h */ = {isa = PBXFileReference; name = "IonicCameraRoll.h"; path = "com.drifty.cordova.cameraroll/IonicCameraRoll.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
 		02168A7F53D54A00A9A880A5 /* Flashlight.m */ = {isa = PBXFileReference; name = "Flashlight.m"; path = "cordova-plugin-flashlight/Flashlight.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
 		C9FB4D2D73A74FC19DBE1A94 /* Flashlight.h */ = {isa = PBXFileReference; name = "Flashlight.h"; path = "cordova-plugin-flashlight/Flashlight.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
+		D2C90EFCBBA549829034CAEA /* CDVSplashScreen.m */ = {isa = PBXFileReference; name = "CDVSplashScreen.m"; path = "cordova-plugin-splashscreen/CDVSplashScreen.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
+		6FA2559DA3EF497BB55D5717 /* CDVViewController+SplashScreen.m */ = {isa = PBXFileReference; name = "CDVViewController+SplashScreen.m"; path = "cordova-plugin-splashscreen/CDVViewController+SplashScreen.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
+		8BD3EA7C8DB546D2BF07A208 /* CDVSplashScreen.h */ = {isa = PBXFileReference; name = "CDVSplashScreen.h"; path = "cordova-plugin-splashscreen/CDVSplashScreen.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
+		A191729374AB44CB9FC50139 /* CDVViewController+SplashScreen.h */ = {isa = PBXFileReference; name = "CDVViewController+SplashScreen.h"; path = "cordova-plugin-splashscreen/CDVViewController+SplashScreen.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -294,6 +300,10 @@
 				85EC28AB2B0543CC8BF2F4C2 /* IonicCameraRoll.h */,
 				02168A7F53D54A00A9A880A5 /* Flashlight.m */,
 				C9FB4D2D73A74FC19DBE1A94 /* Flashlight.h */,
+				D2C90EFCBBA549829034CAEA /* CDVSplashScreen.m */,
+				6FA2559DA3EF497BB55D5717 /* CDVViewController+SplashScreen.m */,
+				8BD3EA7C8DB546D2BF07A208 /* CDVSplashScreen.h */,
+				A191729374AB44CB9FC50139 /* CDVViewController+SplashScreen.h */,
 			);
 			name = Plugins;
 			path = MoPho/Plugins;
@@ -436,6 +446,8 @@
 				82959D7B3D8748D0B56C8570 /* Screenshot.m in Sources */,
 				B4EF1BD1446A4DAFA8155F2A /* IonicCameraRoll.m in Sources */,
 				598E86AFF4AA4EE7B8845810 /* Flashlight.m in Sources */,
+				0B967569A64B4DE583C0FBF3 /* CDVSplashScreen.m in Sources */,
+				616FECEC643348CBACB2F7BE /* CDVViewController+SplashScreen.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

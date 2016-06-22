@@ -13,17 +13,17 @@
     <preference name="UIWebViewBounce" value="false" />
     <preference name="DisallowOverscroll" value="true" />
     <preference name="android-minSdkVersion" value="16" />
+    <preference name="AllowInlineMediaPlayback" value="true" />
     <preference name="BackupWebStorage" value="none" />
     <preference name="SplashScreen" value="splash" />
-    <preference name="SplashScreenDelay" value="5000" />
-    <preference name="AllowInlineMediaPlayback" value="true" />
     <preference name="AutoHideSplashScreen" value="false" />
+    <preference name="SplashScreenDelay" value="5000" />
     <preference name="ShowSplashScreenSpinner" value="false" />
     <preference name="FadeSplashScreen" value="false" />
     <!-- <preference name="StatusBarStyle" value="lightcontent" /> -->
     <!-- <preference name="StatusBarBackgroundColor" value="#ffffff" /> -->
     <feature name="StatusBar">
-        <param name="ios-package" onload="true" value="CDVStatusBar" />
+        <param name="ios-package" onload="false" value="CDVStatusBar" />
     </feature>
     <preference name="KeyboardDisplayRequiresUserAction" value="false" />
 

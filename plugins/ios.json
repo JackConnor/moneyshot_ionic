@@ -42,6 +42,9 @@
         },
         "cordova-plugin-flashlight": {
             "PACKAGE_NAME": "com.ionicframework.moneyshotionicapp178506"
+        },
+        "cordova-plugin-splashscreen": {
+            "PACKAGE_NAME": "com.ionicframework.moneyshotionicapp178506"
         }
     },
     "dependent_plugins": {
