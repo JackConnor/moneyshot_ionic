@@ -1135,6 +1135,13 @@ html {
   margin-right: auto;
 }
 
+.outlineFlash {
+  width: 100%;
+  border: 0px solid white;
+  height: 474px;
+  margin-top: 11px;
+}
+
 @media only screen and (min-width: 0px){
   .photoActiveFrame {
     width: 80px;
@@ -1999,6 +2006,10 @@ html {
     padding-top: 7px;
     border-radius: 3px;
     font-weight: 900;
+  }
+
+  .submitPhoto {
+    opacity: 0
   }
 
   .submitPhotoBacking {

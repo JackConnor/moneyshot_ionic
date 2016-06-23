@@ -247,10 +247,10 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       var dragEnabled = false; //enable preview box drag across the screen
       var toBack = false; //send preview box to the back of the webview
       if(screenWidth === 320){
-        var rect = {x: 0, y: 45, width: 320, height: 400};
+        var rect = {x: 2, y: 45, width: 316, height: 400};
       }
       else if(screenWidth === 375){
-        var rect = {x: 0, y: 45, width: 375, height: 468.75};
+        var rect = {x: 2, y: 45, width: 371, height: 468.75};
       }
       cordova.plugins.camerapreview.startCamera(rect, 'back', tapEnabled, dragEnabled, toBack);
       callback(CBparam);
@@ -263,67 +263,114 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
     function setPictureCallback(){
       cordova.plugins.camerapreview.setOnPictureTakenHandler(function(result){
-        if($scope.cameraMode === "burst"){
-          $scope.burstCounter--;
-        }
-        else if($scope.burstCounter > 0){
-          $scope.burstCounter = 0;
-        }
+        // console.log(result);
+        // if($scope.cameraMode === "burst"){
+        //   $scope.burstCounter--;
+        // }
+        // else if($scope.burstCounter > 0){
+        //   $scope.burstCounter = 0;
+        // }
+        // $scope.mediaCache.push('0')
         $scope.mediaCache.push({type: 'photo', link: 'data:image/png;base64,'+result[0], date: new Date()});
-        $scope.$apply();
-        cordova.plugins.camerapreview.show();
-        var windowPic = {type: 'photo', link: 'data:image/png;base64,'+result[0], date: new Date()};
+        // $scope.$apply();
+        // cordova.plugins.camerapreview.show();
+      //   var windowPic = {type: 'photo', link: 'data:image/png;base64,'+result[0], date: new Date()};
+      // if($scope.cameraMode === "burst"){
+      //   $('.outlineFlash').css({
+      //     borderWidth: '0px'
+      //   });
+      // }
+      $('.outlineFlash').css({
+        borderWidth: '0px'
+      });
+      if($scope.cameraMode === "photo"){
+        // cordova.plugins.camerapreview.show();
         localforage.setItem('storedPhotos', $scope.mediaCache)
         .then(function(newPhotoArr){
-          ///////////prevents from opening submit modal while the camera is still processing, to prevent crashes
-          $scope.cameraHot = false;
-          // console.log('false');
+
         })
         .catch(function(err){
           console.log(err);
         })
-        count++
-        $('.takePhotoButtonInner').animate({
-          backgroundColor: "white"
-        }, 100);
-        $scope.activePhoto = false;
+      }
+      else if($scope.intCounter%4 === 0){
+        localforage.setItem('storedPhotos', $scope.mediaCache)
+        .then(function(newPhotoArr){
+
+        })
+        .catch(function(err){
+          console.log(err);
+        })
+      }
+      //   count++
+      //   $('.takePhotoButtonInner').animate({
+      //     backgroundColor: "white"
+      //   }, 100);
+      //   $scope.activePhoto = false;
       });
       // callback();
     }
 
     $scope.takeCordovaPicture = function(){
-      if($scope.activePhoto === false && $scope.mediaCache.length < 20){
-        $scope.activePhoto = true;
-        $scope.cameraHot = true;
-        window.plugins.flashlight.switchOff();
-        cordova.plugins.camerapreview.takePicture({maxWidth: 2000, maxHeight: 2000});
+      if($scope.mediaCache.length < 20){
+        // $scope.activePhoto = true;
+        // $scope.cameraHot = true;
         // window.plugins.flashlight.switchOff();
-        $('.takePhotoButtonInner').css({
-          backgroundColor: "red"
+        cordova.plugins.camerapreview.takePicture();
+        $('.outlineFlash').css({
+          borderWidth: '2px'
         });
-        cordova.plugins.camerapreview.hide();
+        if($scope.cameraMode === "photo"){
+          window.plugins.flashlight.switchOff();
+          // cordova.plugins.camerapreview.hide();
+        }
+        // if($scope.cameraMode === "burst"){
+        //   $('.outlineFlash').css({
+        //     borderWidth: '2px'
+        //   });
+        // }
+        // window.plugins.flashlight.switchOff();
+        // $('.takePhotoButtonInner').css({
+        //   backgroundColor: "red"
+        // });
+        // cordova.plugins.camerapreview.hide();
         // $scope.photoListLength++;
       }
-      else if($scope.mediaCache.length >= 20 && $scope.cameraMode === 'photo'){
-        alert('Sorry, you can only send up to 25 pictures or photos at a time. Please erase a few to free up room to take more MoPhos. Thank you!')
+      else if($scope.mediaCache.length >= 20 && ($scope.cameraMode === 'photo')){
+        alert('Sorry, you can only send up to 20 pictures or photos at a time. Please erase a few to free up room to take more MoPhos. Thank you!')
       }
     }
 
     var photoInt = function(){
-      $scope.burstCounter = 7;
-       var photoInterval = $interval(function(){
-         if($scope.burstCounter > 0){
-           $scope.takeCordovaPicture();
-         }
-         else {
-           clearPhotoInt();
-           console.log('chamber empty');
-         }
-       }, 200);
+      $scope.intCounter = 0;
+      // $scope.cameraHot = true;
+      window.plugins.flashlight.switchOff();
+      var photoInterval = $interval(function(){
+        $scope.intCounter++
+        //  if($scope.burstCounter > 0){
+        $scope.takeCordovaPicture();
+        //  }
+        //  else {
+        //    clearPhotoInt();
+        //    console.log('chamber empty');
+        //  }
+      }, 400);
 
        function clearPhotoInt(){
-         $scope.burstCounter = 0;
+        //  $scope.burstCounter = 0;
          $interval.cancel(photoInterval);
+        //  $timeout(function(){
+          //  $scope.cameraHot = false;
+           localforage.setItem('storedPhotos', $scope.mediaCache)
+           .then(function(newPhotoArr){
+             ///////////prevents from opening submit modal while the camera is still processing, to prevent crashes
+            //  $scope.cameraHot = false;
+             // console.log('false');
+           })
+           .catch(function(err){
+             console.log(err);
+           })
+        //  }, 1000);
        }
        $scope.clearPhotoInt = clearPhotoInt;
       }
@@ -759,26 +806,26 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     $scope.backToSubmit = backToSubmit;
 
     function setCellSize(){
-      console.log('resizing');
+      // console.log('resizing');
       var cacheLength = $scope.mediaCache.length;
-      console.log(cacheLength);
+      // console.log(cacheLength);
       if(cacheLength <= 4){
         $timeout(function(){
           $('.submitCell').width('185px');
           $('.submitCell').height('185px');
-        }, 1000);
+        }, 750);
       }
       else if(cacheLength <= 9){
         $timeout(function(){
           $('.submitCell').width('123.33px');
           $('.submitCell').height('123.33px');
-        }, 2300);
+        }, 1500);
       }
       else if(cacheLength <= 16){
         $timeout(function(){
           $('.submitCell').width('92.5px');
           $('.submitCell').height('92.5px');
-        }, 3100);
+        }, 3000);
       }
     }
 
@@ -787,53 +834,83 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       if($scope.cameraHot === false){
         cordova.plugins.camerapreview.hide();
         $scope.submitModalVar = true;
-        // setCellSize();
+        setCellSize();
 
         ////////logic to adjust size of cells
-        setCellSize();
+        // setCellSize();
         // $timeout(function(){
         //   returnPlace();
         // }, 1500);
-        $timeout(function(){
+        // $timeout(function(){
           // cordova.plugins.camerapreview.stopCamera();
-        }, 200);
+        // }, 200);
 
-        $timeout(function(){
-          returnPlace();
+        // $timeout(function(){
+          //
+          // setCellSize();
           for (var i = 0; i < 5; i++) {
             if($scope.mediaCache[i]){
               $scope.mediaCacheTemp.push($scope.mediaCache[i]);
             }
           }
-        }, 750);
+        // }, 1000);
         $timeout(function(){
+          // setCellSize();
           for (var i = 5; i < 10; i++) {
             if($scope.mediaCache[i]){
               $scope.mediaCacheTemp.push($scope.mediaCache[i]);
             }
+            if($scope.mediaCache[i-5]){
+              var int = i-5
+              $(".submitPhoto"+int).css({
+                opacity: 1
+              })
+            }
+
           }
-        }, 1500);
+        }, 750);
         $timeout(function(){
+          // setCellSize();
+          // returnPlace();
           for (var i = 10; i < 15; i++) {
             if($scope.mediaCache[i]){
               $scope.mediaCacheTemp.push($scope.mediaCache[i]);
             }
+            if($scope.mediaCache[i-5]){
+              var int = i-5
+              $(".submitPhoto"+int).css({
+                opacity: 1
+              })
+            }
           }
-        }, 2250);
+        }, 1500);
         $timeout(function(){
+          // setCellSize();
           for (var i = 15; i < 20; i++) {
             if($scope.mediaCache[i]){
               $scope.mediaCacheTemp.push($scope.mediaCache[i]);
             }
-          }
-        }, 3000);
-        $timeout(function(){
-          for (var i = 20; i < 25; i++) {
-            if($scope.mediaCache[i]){
-              $scope.mediaCacheTemp.push($scope.mediaCache[i]);
+            if($scope.mediaCache[i-5]){
+              var int = i-5
+              $(".submitPhoto"+int).css({
+                opacity: 1
+              })
             }
           }
-        }, 3750);
+        }, 2750);
+        $timeout(function(){
+          for (var i = 20; i < 25; i++) {
+            // if($scope.mediaCache[i]){
+            //   $scope.mediaCacheTemp.push($scope.mediaCache[i]);
+            // }
+            if($scope.mediaCache[i-5]){
+              var int = i-5
+              $(".submitPhoto"+int).css({
+                opacity: 1
+              })
+            }
+          }
+        }, 3500);
       }
     }
 

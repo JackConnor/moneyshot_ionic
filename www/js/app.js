@@ -7,6 +7,7 @@
 // 'starter.controllers' is found in controllers.js
 function init($ionicPlatform) {
   $ionicPlatform.ready(function() {
+
     // alert('yo')
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -21,12 +22,15 @@ function init($ionicPlatform) {
     // setTimeout(function(){
     //   navigator.splashscreen.hide();
     // }, 5000);
-  });
+  })
+  .then(function(){
+    navigator.splashscreen.hide();
+  })
 
 }
 
 
-angular.module('starter', ['ionic', 'ngCordova', 'ngRoute', 'ngFileUpload', 'starter.services', 'accountController', 'cameraController', 'uploadController', 'signupController', 'allPhotosFactory', 'singlePhotoFactory', 'navbarHolderFactory', 'signupFactory', 'signinFactory', 'newTokenFactory', 'userPhotosFactory', 'decodeTokenFactory', 'userInfoFactory', 'ngTouch', 'bankController', 'initLoad', 'persistentPhotosFactory', 'ngStorage'])
+angular.module('starter', ['ionic', 'ngCordova', 'ngRoute', 'ngFileUpload', 'starter.services', 'accountController', 'cameraController', 'uploadController', 'signupController', 'allPhotosFactory', 'singlePhotoFactory', 'navbarHolderFactory', 'signupFactory', 'signinFactory', 'newTokenFactory', 'userPhotosFactory', 'decodeTokenFactory', 'userInfoFactory', 'ngTouch', 'bankController', 'initLoad', 'persistentPhotosFactory'])
 
 .run(init)
 
