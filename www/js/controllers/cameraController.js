@@ -64,7 +64,6 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     /////function that fires on page init
     function initPage(){
       removeTabsAndBar(initCache);
-      $ionicScrollDelegate.freezeAllScrolls();
     }
 
 
@@ -171,10 +170,10 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       //   $scope.mediaCache = photoArr;
       //   // $scope.photoListLength = photoArr.length;
       // })
-      $timeout(function(){
+      // $timeout(function(){
         $scope.activePhoto = false;
         $scope.cameraLaunched = true;
-      }, 750);
+      // }, 750);
       // var tapEnabled = false; //enable tap take picture
       // var dragEnabled = false; //enable preview box drag across the screen
       // var toBack = false; //send preview box to the back of the webview
@@ -285,6 +284,9 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         borderWidth: '0px'
       });
       if($scope.cameraMode === "photo"){
+        $timeout(function(){
+          $scope.activePhoto = false;
+        }, 200);
         // cordova.plugins.camerapreview.show();
         localforage.setItem('storedPhotos', $scope.mediaCache)
         .then(function(newPhotoArr){
@@ -294,7 +296,11 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
           console.log(err);
         })
       }
-      else if($scope.intCounter%4 === 0){
+      else {
+        $scope.activePhoto = false;
+      }
+
+      if($scope.intCounter%4 === 0){
         localforage.setItem('storedPhotos', $scope.mediaCache)
         .then(function(newPhotoArr){
 
@@ -307,7 +313,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       //   $('.takePhotoButtonInner').animate({
       //     backgroundColor: "white"
       //   }, 100);
-        $scope.activePhoto = false;
+        // $scope.activePhoto = false;
       });
       // callback();
     }
@@ -352,15 +358,17 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
           //  if($scope.burstCounter > 0){
           $scope.takeCordovaPicture();
         }
-      }, 400);
+      }, 300);
 
        function clearPhotoInt(){
+         $scope.activePhoto = true;
         //  $scope.burstCounter = 0;
          $interval.cancel(photoInterval);
         //  $timeout(function(){
           //  $scope.cameraHot = false;
            localforage.setItem('storedPhotos', $scope.mediaCache)
            .then(function(newPhotoArr){
+             $scope.activePhoto = false;
              ///////////prevents from opening submit modal while the camera is still processing, to prevent crashes
             //  $scope.cameraHot = false;
              // console.log('false');
@@ -829,7 +837,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
     function submitModalOpen(){
       console.log('opening');
-      if($scope.cameraHot === false){
+      if($scope.activePhoto === false){
         cordova.plugins.camerapreview.hide();
         $scope.submitModalVar = true;
         setCellSize();
@@ -858,12 +866,12 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
             if($scope.mediaCache[i]){
               $scope.mediaCacheTemp.push($scope.mediaCache[i]);
             }
-            if($scope.mediaCache[i-5]){
-              var int = i-5
-              $(".submitPhoto"+int).css({
-                opacity: 1
-              })
-            }
+            // if($scope.mediaCache[i-5]){
+            //   var int = i-5
+            //   $(".submitPhoto"+int).css({
+            //     opacity: 1
+            //   })
+            // }
 
           }
         }, 750);
@@ -874,12 +882,12 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
             if($scope.mediaCache[i]){
               $scope.mediaCacheTemp.push($scope.mediaCache[i]);
             }
-            if($scope.mediaCache[i-5]){
-              var int = i-5
-              $(".submitPhoto"+int).css({
-                opacity: 1
-              })
-            }
+            // if($scope.mediaCache[i-5]){
+            //   var int = i-5
+            //   $(".submitPhoto"+int).css({
+            //     opacity: 1
+            //   })
+            // }
           }
         }, 1500);
         $timeout(function(){
@@ -888,12 +896,12 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
             if($scope.mediaCache[i]){
               $scope.mediaCacheTemp.push($scope.mediaCache[i]);
             }
-            if($scope.mediaCache[i-5]){
-              var int = i-5
-              $(".submitPhoto"+int).css({
-                opacity: 1
-              })
-            }
+            // if($scope.mediaCache[i-5]){
+            //   var int = i-5
+            //   $(".submitPhoto"+int).css({
+            //     opacity: 1
+            //   })
+            // }
           }
         }, 2750);
         $timeout(function(){
@@ -901,12 +909,12 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
             // if($scope.mediaCache[i]){
             //   $scope.mediaCacheTemp.push($scope.mediaCache[i]);
             // }
-            if($scope.mediaCache[i-5]){
-              var int = i-5
-              $(".submitPhoto"+int).css({
-                opacity: 1
-              })
-            }
+            // if($scope.mediaCache[i-5]){
+            //   var int = i-5
+            //   $(".submitPhoto"+int).css({
+            //     opacity: 1
+            //   })
+            // }
           }
         }, 3500);
       }
