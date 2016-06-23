@@ -1,6 +1,6 @@
 {
     "ImageIO.framework": 2,
-    "CoreLocation.framework": 3,
+    "CoreLocation.framework": 2,
     "CoreImage.framework": 1,
     "OpenGLES.framework": 1,
     "GLKit.framework": 1,

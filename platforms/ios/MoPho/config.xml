@@ -54,6 +54,9 @@
         <param name="ios-package" value="CDVSplashScreen" />
         <param name="onload" value="true" />
     </feature>
+    <feature name="Geolocation">
+        <param name="ios-package" value="CDVLocation" />
+    </feature>
     <plugins>
         <feature name="PKVideoThumbnail">
             <param name="ios-package" value="PKVideoThumbnail" />

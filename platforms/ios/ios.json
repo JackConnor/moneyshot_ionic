@@ -67,6 +67,10 @@
                         {
                             "xml": "<feature name=\"SplashScreen\"><param name=\"ios-package\" value=\"CDVSplashScreen\" /><param name=\"onload\" value=\"true\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"Geolocation\"><param name=\"ios-package\" value=\"CDVLocation\" /></feature>",
+                            "count": 1
                         }
                     ],
                     "/widget/plugins": [
@@ -130,6 +134,9 @@
             "PACKAGE_NAME": "com.ionicframework.moneyshotionicapp178506"
         },
         "cordova-plugin-splashscreen": {
+            "PACKAGE_NAME": "com.ionicframework.moneyshotionicapp178506"
+        },
+        "cordova-plugin-geolocation": {
             "PACKAGE_NAME": "com.ionicframework.moneyshotionicapp178506"
         }
     },
@@ -483,6 +490,38 @@
             "pluginId": "cordova-plugin-splashscreen",
             "clobbers": [
                 "navigator.splashscreen"
+            ]
+        },
+        {
+            "file": "plugins/cordova-plugin-geolocation/www/Coordinates.js",
+            "id": "cordova-plugin-geolocation.Coordinates",
+            "pluginId": "cordova-plugin-geolocation",
+            "clobbers": [
+                "Coordinates"
+            ]
+        },
+        {
+            "file": "plugins/cordova-plugin-geolocation/www/PositionError.js",
+            "id": "cordova-plugin-geolocation.PositionError",
+            "pluginId": "cordova-plugin-geolocation",
+            "clobbers": [
+                "PositionError"
+            ]
+        },
+        {
+            "file": "plugins/cordova-plugin-geolocation/www/Position.js",
+            "id": "cordova-plugin-geolocation.Position",
+            "pluginId": "cordova-plugin-geolocation",
+            "clobbers": [
+                "Position"
+            ]
+        },
+        {
+            "file": "plugins/cordova-plugin-geolocation/www/geolocation.js",
+            "id": "cordova-plugin-geolocation.geolocation",
+            "pluginId": "cordova-plugin-geolocation",
+            "clobbers": [
+                "navigator.geolocation"
             ]
         }
     ]
