@@ -64,7 +64,7 @@ angular.module('accountController', ['persistentPhotosFactory', 'userInfoFactory
     addTopBar();
 
     $(window).unload(function(){
-      cordova.plugins.camerapreview.stopCamera();
+      // cordova.plugins.camerapreview.stopCamera();
       $ionic.Platform.exitApp();
     });
 

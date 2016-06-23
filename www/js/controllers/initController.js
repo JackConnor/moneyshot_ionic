@@ -16,12 +16,12 @@ function initCtrl($state, $http, $timeout) {
 		// alert(token);
 		if(token === undefined || token === 'undefined' || token === 'null' || token === null || token === ''){
 			// alert('signin')
-			// $state.go( 'signin' )
+			$state.go( 'signin' )
 		}
 		else {
 			// $timeout(function(){
 				// alert('camera')
-				// $state.go( 'tab.camera' );
+				$state.go( 'tab.camera' );
 			// }, 2000);
 		}
 	}
@@ -42,6 +42,6 @@ function initCtrl($state, $http, $timeout) {
 			// 	var token = window.localStorage.webToken;
 			// 	checkToken();
 			// }
-		}, 1000);
+		}, 3000);
 	});
 }

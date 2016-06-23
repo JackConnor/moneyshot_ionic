@@ -11,7 +11,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
   cameraCtrl.$inject = ['$http', '$state', '$scope', 'singlePhoto', 'Upload', '$q', '$cordovaFile', '$cordovaFileTransfer', 'signup', 'signin', 'newToken', '$cordovaCapture', '$cordovaStatusbar', '$timeout', '$ionicGesture', '$ionicScrollDelegate', '$interval', 'persistentPhotos', '$cordovaKeyboard', 'userInfo'];
   function cameraCtrl($http, $state, $scope, singlePhoto, Upload, $q, $cordovaFile, $cordovaFileTransfer, signup, signin, newToken, $cordovaCapture, $cordovaStatusbar, $timeout, $ionicGesture, $ionicScrollDelegate, $interval, persistentPhotos, $cordovaKeyboard, userInfo){
-    alert('in camera');
+    $ionicScrollDelegate.freezeScroll(true);
     $scope.mediaCache = [];
     // $scope.photoListLength      = 0;
     $scope.croppedPhoto         = '';
@@ -54,43 +54,41 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     /////end global variables///
     ////////////////////////////
     // if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
-    // ionic.Platform.ready(function(){
-    //   // $timeout(function(){
-    //     navigator.splashscreen.hide()
-    //     initPage();
-    //     $ionicScrollDelegate.freezeScroll(true);
-    //   // }, 1000);
-    // })
+    ionic.Platform.ready(function(){
+      navigator.splashscreen.hide()
+      initPage();
+      $ionicScrollDelegate.freezeScroll(true);
+    })
     // }
 
     /////function that fires on page init
     function initPage(){
-      // console.log('yo');
-      // // initCamera();
-      // navigator.splashscreen.hide()
-      // // initPage();
-      // $ionicScrollDelegate.freezeScroll(true);
       removeTabsAndBar(initCache);
     }
-    $timeout(function(){
-      navigator.splashscreen.hide()
-      initPage();
-      $ionicScrollDelegate.freezeScroll(true);
-    }, 2000);
+
 
     /////funciotn to get cached videos and photos
     function initCache(){
       var userToken = window.localStorage.webToken;
       setLocalForage();
       initCamera();
-      userInfo.promiseOnly(userToken)
-      .then(function(data){
-        $scope.cachedUser = data.data;
-        console.log(data);
-        userInfo.userInfoFunc(userToken, false, data.data);
+      //////need to toggle if info already loaded
+      var cacheOnly = userInfo.cacheOnly();
+      // alert(cacheOnly);
+      if(cacheOnly === undefined || cacheOnly === 'undefined'){
+        userInfo.promiseOnly(userToken)
+        .then(function(data){
+          $scope.cachedUser = data.data;
+          console.log(data);
+          userInfo.userInfoFunc(userToken, false, data.data);
+          runVideoCache($scope.cachedUser.tempVideoCache);
+          // initCamera();
+        });
+      }
+      else {
+        $scope.cachedUser = cacheOnly;
         runVideoCache($scope.cachedUser.tempVideoCache);
-        // initCamera();
-      });
+      }
     }
 
     ///does all the video stuff
@@ -204,7 +202,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
           setPictureCallback();
           $(window).unload(function(){
             cordova.plugins.camerapreview.hide();
-            cordova.plugins.camerapreview.stopCamera();
+            // cordova.plugins.camerapreview.stopCamera();
             $ionic.Platform.exitApp();
           });
         }
@@ -796,7 +794,9 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         // $timeout(function(){
         //   returnPlace();
         // }, 1500);
-
+        $timeout(function(){
+          // cordova.plugins.camerapreview.stopCamera();
+        }, 200);
 
         $timeout(function(){
           returnPlace();
@@ -840,6 +840,18 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     $scope.submitModalOpen = submitModalOpen;
 
     function backToPhotos(){
+      // var screenWidth = window.innerWidth;
+      //
+      // var tapEnabled = false; //enable tap take picture
+      // var dragEnabled = false; //enable preview box drag across the screen
+      // var toBack = false; //send preview box to the back of the webview
+      // if(screenWidth === 320){
+      //   var rect = {x: 0, y: 45, width: 320, height: 400};
+      // }
+      // else if(screenWidth === 375){
+      //   var rect = {x: 0, y: 45, width: 375, height: 468.75};
+      // }
+      // cordova.plugins.camerapreview.startCamera(rect, 'back', tapEnabled, dragEnabled, toBack);
       $timeout(function(){
         $scope.mediaCacheTemp = [];
         $scope.submitModalVar = false;
@@ -858,6 +870,9 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         // persistentPhotos($scope.mediaCache);
         cordova.plugins.camerapreview.hide();
         $state.go('tab.account');
+        // $timeout(function(){
+        //   cordova.plugins.camerapreview.stopCamera();
+        // }, 1000);
       }, 150);
     }
     $scope.leaveCamera = leaveCamera;
