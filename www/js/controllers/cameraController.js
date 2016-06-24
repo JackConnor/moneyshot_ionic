@@ -147,11 +147,11 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
       if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
         $('ion-tabs').addClass('tabs-item-hide');
-        ionic.Platform.showStatusBar(false);
         // alert('removing tabs and bars')
         $timeout(function(){
           callback();
           $ionicScrollDelegate.freezeScroll(true);
+          ionic.Platform.showStatusBar(false);
         }, 2000);
       }
       else {
