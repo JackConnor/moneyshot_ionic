@@ -23,9 +23,9 @@ function init($ionicPlatform) {
     //   navigator.splashscreen.hide();
     // }, 5000);
   })
-  .then(function(){
-    navigator.splashscreen.hide();
-  })
+  // .then(function(){
+  //   navigator.splashscreen.hide();
+  // })
 
 }
 
@@ -130,6 +130,6 @@ angular.module('starter', ['ionic', 'ngCordova', 'ngRoute', 'ngFileUpload', 'sta
 
 
     // if none of the above states are matched, use this as the fallback
-    $urlRouterProvider.otherwise('');
+    $urlRouterProvider.otherwise('/camera');
 
   });

@@ -70,6 +70,8 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     /////funciotn to get cached videos and photos
     function initCache(){
       var userToken = window.localStorage.webToken;
+
+      ///////here's where we put in the blocking
       setLocalForage();
       initCamera();
       //////need to toggle if info already loaded
