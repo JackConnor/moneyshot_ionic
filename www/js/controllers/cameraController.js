@@ -9,8 +9,8 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     };
   });
 
-  cameraCtrl.$inject = ['$http', '$state', '$scope', 'singlePhoto', 'Upload', '$q', '$cordovaFile', '$cordovaFileTransfer', 'signup', 'signin', 'newToken', '$cordovaCapture', '$cordovaStatusbar', '$timeout', '$ionicGesture', '$ionicScrollDelegate', '$interval', 'persistentPhotos', '$cordovaKeyboard', 'userInfo'];
-  function cameraCtrl($http, $state, $scope, singlePhoto, Upload, $q, $cordovaFile, $cordovaFileTransfer, signup, signin, newToken, $cordovaCapture, $cordovaStatusbar, $timeout, $ionicGesture, $ionicScrollDelegate, $interval, persistentPhotos, $cordovaKeyboard, userInfo){
+  cameraCtrl.$inject = ['$http', '$state', '$scope', 'singlePhoto', 'Upload', '$cordovaFile', '$cordovaFileTransfer', 'signup', 'signin', 'newToken', '$cordovaCapture', '$cordovaStatusbar', '$timeout', '$ionicGesture', '$ionicScrollDelegate', '$interval', 'persistentPhotos', '$cordovaKeyboard', 'userInfo'];
+  function cameraCtrl($http, $state, $scope, singlePhoto, Upload, $cordovaFile, $cordovaFileTransfer, signup, signin, newToken, $cordovaCapture, $cordovaStatusbar, $timeout, $ionicGesture, $ionicScrollDelegate, $interval, persistentPhotos, $cordovaKeyboard, userInfo){
     console.log(1);
     // alert('camera')
     // $ionicScrollDelegate.freezeScroll(true);
@@ -98,18 +98,23 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     /////function that fires on page init
     function initPage(){
       // navigator.splashscreen.hide();
-      removeTabsAndBar(initCache);
+      // document.addEventListener('deviceready', function(){
+        $('ion-tabs').addClass('tabs-item-hide');
+        removeTabsAndBar(initCache);
+      // })
       // $ionicScrollDelegate.freezeScroll(true);
     }
+
+    // ionic.Platform.ready(function(){
+    //   removeTabsAndBar(initCache);
+    // })
 
 
     /////funciotn to get cached videos and photos
     function initCache(){
       var userToken = window.localStorage.webToken;
       // $timeout(function(){
-      setLocalForage();
       // }, 2000);
-      initCamera();
       //////need to toggle if info already loaded
       var cacheOnly = userInfo.cacheOnly();
       // alert(cacheOnly);
@@ -120,13 +125,15 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
           console.log(data);
           userInfo.userInfoFunc(userToken, false, data.data);
           $scope.zooming              = findZoomed()////this determines if the screen is on zoom mode or not
-          runVideoCache($scope.cachedUser.tempVideoCache);
+          // runVideoCache($scope.cachedUser.tempVideoCache);
+          setLocalForage(runVideoCache, $scope.cachedUser.tempVideoCache);
           // initCamera();
         });
       }
       else {
         $scope.cachedUser = cacheOnly;
-        runVideoCache($scope.cachedUser.tempVideoCache);
+        // runVideoCache($scope.cachedUser.tempVideoCache);
+        setLocalForage(runVideoCache, $scope.cachedUser.tempVideoCache);
       }
     }
     console.log(6)
@@ -139,37 +146,50 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         var thumbnail = thumbnailArr[0]+"jpg";
 
         $scope.mediaCache.push({type: 'videoTemp', link: tempVideoArray[i].url, thumb: thumbnail, videoId: tempVideoArray[i]._id});
+        $scope.$apply();
       }
     }
 
     //////functino to load camera and set up screen
     function removeTabsAndBar(callback){
+      // alert('yo')
+      // $('ion-tabs').addClass('tabs-item-hide');
 
-      if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
-        $('ion-tabs').addClass('tabs-item-hide');
-        // alert('removing tabs and bars')
+      // alert('removing tabs and bars')
+      // $timeout(function(){
+        initCamera();
         $timeout(function(){
-          callback();
-          $ionicScrollDelegate.freezeScroll(true);
           ionic.Platform.showStatusBar(false);
+          callback();
         }, 2000);
-      }
-      else {
-        $ionicScrollDelegate.scrollTop(true);
-        $ionicScrollDelegate.freezeScroll(true);
-        $('ion-tabs').addClass('tabs-item-hide');
-        // $timeout(function(){
-          // $ionicScrollDelegate.scrollTop(true);
-          $ionicScrollDelegate.freezeScroll(true);
-        // }, 500);
-        callback();
-      }
+        // $ionicScrollDelegate.freezeScroll(true);
+      // }, 1000);
+
+      // if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+      //   $('ion-tabs').addClass('tabs-item-hide');
+      //   ionic.Platform.showStatusBar(false);
+      //   // alert('removing tabs and bars')
+      //   $timeout(function(){
+      //     callback();
+      //     $ionicScrollDelegate.freezeScroll(true);
+      //   }, 2000);
+      // }
+      // else {
+      //   $ionicScrollDelegate.scrollTop(true);
+      //   $ionicScrollDelegate.freezeScroll(true);
+      //   $('ion-tabs').addClass('tabs-item-hide');
+      //   // $timeout(function(){
+      //     // $ionicScrollDelegate.scrollTop(true);
+      //     $ionicScrollDelegate.freezeScroll(true);
+      //   // }, 500);
+      //   callback();
+      // }
     }
     console.log(7)
     // removeTabsAndBar();
 
     //////function to set up our tempprary photo storage between sessions
-    function setLocalForage(){
+    function setLocalForage(callback, cbParam){
       ////reset local forage cache, uncomment and comment active code to fix issues
       // localforage.setItem('storedPhotos', [])
       // .then(function(dataVal){
@@ -184,7 +204,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         if(value === null || value === [null]){
           localforage.setItem('storedPhotos', [])
           .then(function(dataVal){
-
+            callback(cbParam);
           })
           .catch(function(err){
             console.log(err);
@@ -194,8 +214,9 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
           var valLength = value.length;
           for (var i = 0; i < valLength; i++) {
             $scope.mediaCache.push(value[i]);
+            $scope.$apply();
           }
-          // initCamera();
+          callback(cbParam);
         }
       })
       .catch(function(err){

@@ -23,28 +23,41 @@ angular.module('signupController', ['userInfoFactory'])
     $scope.newSigninModal   = false;
     $scope.introCounter     = 0;
     $scope.introTag = "Shoot Awesome Photos";
-    $ionicScrollDelegate.freezeScroll(true);
 
     ///////////////////////////////
     ////////intro swipe modal stuff
-    document.addEventListener('deviceready', function(){
+    // document.addEventListener('deviceready', function(){
+    //   $scope.swipeInterval = $interval(function(){
+    //     introSwipeLeft();
+    //   }, 1750);
+    //   $timeout(function(){
+    //     $cordovaStatusbar.style(1);
+    //     $cordovaStatusbar.hide();
+    //     $ionicScrollDelegate.freezeScroll(true);
+    //     // navigator.splashscreen.hide();
+    //     $(window).unload(function(){
+    //       // cordova.plugins.camerapreview.stopCamera();
+    //       $ionic.Platform.exitApp();
+    //     });
+    //   }, 2000);
+    // });
+    $(window).unload(function(){
+      // cordova.plugins.camerapreview.stopCamera();
+      $ionic.Platform.exitApp();
+    });
+    function initPage(){
       $timeout(function(){
+              // alert('heyyyyyyy')
+        $scope.swipeInterval = $interval(function(){
+          introSwipeLeft();
+        }, 1750);
         $cordovaStatusbar.style(1);
         $cordovaStatusbar.hide();
         $ionicScrollDelegate.freezeScroll(true);
-        navigator.splashscreen.hide();
-
-      }, 100);
-    });
-
-    $(window).unload(function(){
-      cordova.plugins.camerapreview.stopCamera();
-      $ionic.Platform.exitApp();
-    });
-
-    $scope.swipeInterval = $interval(function(){
-      introSwipeLeft();
-    }, 1750);
+        // navigator.splashscreen.hide();
+      }, 3000);
+    }
+    $scope.initPage = initPage;
 
     function backToIntro(){
       $scope.signinModalVar = false;
