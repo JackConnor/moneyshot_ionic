@@ -1,8 +1,8 @@
 <ion-view view-title="Signin">
-  <div class="swipeIntro1" ng-if="introModal">
+  <div class="swipeIntro1" ng-if="introModal" >
     <div class="introSignin" ng-swipe-left='introSwipeLeft()' ng-swipe-right='introSwipeRight()'>
       <div class="signinLogo">
-        <img src="./img/assets/logoSlant@3x.png" ng-init='initPage()'></img>
+        <img src="./img/assets/logoSlant@3x.png"></img>
         <div class="signinTaglineBubble">
           <div class="signinTaglineText">
             Shoot Awesome Photos
@@ -25,8 +25,8 @@
           </div>
       </div>
     </div>
-    <div class="swipeIntroRow">
-      <div class="col-xs-3 swipeCell swipe1" ng-swipe-left='introSwipeLeft()' ng-swipe-right='introSwipeRight()' style="background-image: linear-gradient(to top, rgba(0,0,0,.2), rgba(0,0,0,.2)), url('./img/assets/parisHiltonAndNickyHiltonSeenAsTheyArrivingAtSexyFishRestaurant12@3x.png')">
+    <div class="swipeIntroRow" ng-init='initPage()'>
+      <div class="col-xs-3 swipeCell swipe1" id='swipe1' ng-swipe-left='introSwipeLeft()' ng-swipe-right='introSwipeRight()' style="background-image: linear-gradient(to top, rgba(0,0,0,.2), rgba(0,0,0,.2)), url('./img/assets/parisHiltonAndNickyHiltonSeenAsTheyArrivingAtSexyFishRestaurant12@3x.png')">
         <!-- <h4>Spot a celeb</h4> -->
       </div>
       <div class="col-xs-3 swipeCell swipe2" ng-swipe-left='introSwipeLeft()' ng-swipe-right='introSwipeRight()' style="background-image: linear-gradient(to top, rgba(0,0,0,.2), rgba(0,0,0,.2)), url('./img/sexy_girl.jpg')">

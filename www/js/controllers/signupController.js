@@ -12,6 +12,8 @@ angular.module('signupController', ['userInfoFactory'])
 
   function signupCtrl($scope, $http, $state, signup, signin, newToken, $cordovaStatusbar, $window, $timeout, $interval, $animateCss, $ionicScrollDelegate, userInfo){
     // alert('Sign Loaded')
+    // console.log($interval);
+    // console.log($timeout);
     ///////////////global variables//////
     $scope.signupModalVar   = false;
     $scope.signinModalVar   = false;
@@ -41,23 +43,34 @@ angular.module('signupController', ['userInfoFactory'])
     //     });
     //   }, 2000);
     // });
-    $(window).unload(function(){
-      // cordova.plugins.camerapreview.stopCamera();
-      $ionic.Platform.exitApp();
-    });
     function initPage(){
+      // navigator.splashscreen.hide();
+      // alert('initting');
       $timeout(function(){
-              // alert('heyyyyyyy')
         $scope.swipeInterval = $interval(function(){
           introSwipeLeft();
         }, 1750);
-        $cordovaStatusbar.style(1);
-        $cordovaStatusbar.hide();
-        $ionicScrollDelegate.freezeScroll(true);
-        // navigator.splashscreen.hide();
-      }, 3000);
+      }, 2000);
+      // $timeout(function(){
+      //         // alert('heyyyyyyy')
+      //   // $cordovaStatusbar.style(1);
+      //   $cordovaStatusbar.hide();
+      //   $ionicScrollDelegate.freezeScroll(true);
+      //   $(window).unload(function(){
+      //     // cordova.plugins.camerapreview.stopCamera();
+      //     $ionic.Platform.exitApp();
+      //   });
+      // }, 3000);
     }
     $scope.initPage = initPage;
+    // $('#swipe1').load(function(){
+    //   setTimeout(function(){
+    //     initPage();
+    //   }, 1000);
+    // })
+    // $('html').load(function(){
+    //   initPage();
+    // })
 
     function backToIntro(){
       $scope.signinModalVar = false;

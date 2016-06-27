@@ -13,6 +13,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
   function cameraCtrl($http, $state, $scope, singlePhoto, Upload, $cordovaFile, $cordovaFileTransfer, signup, signin, newToken, $cordovaCapture, $cordovaStatusbar, $timeout, $ionicGesture, $ionicScrollDelegate, $interval, persistentPhotos, $cordovaKeyboard, userInfo){
     console.log(1);
     // alert('camera')
+    // console.log('by jack')
     // $ionicScrollDelegate.freezeScroll(true);
     $scope.mediaCache = [];
     // $scope.photoListLength      = 0;
@@ -161,7 +162,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         $timeout(function(){
           ionic.Platform.showStatusBar(false);
           callback();
-        }, 2000);
+        }, 2500);
         // $ionicScrollDelegate.freezeScroll(true);
       // }, 1000);
 
@@ -636,11 +637,12 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
           submissionData.metaData.latitude = position.coords.latitude;
           submissionData.metaData.longitude = position.coords.longitude;
           submissionData.metaData.address = $scope.returnPlace;
-          submissionData.metaData.date = $scope.returnDate();
-          submissionData.metaData.who = $('.photoNameInput').val();
-          submissionData.metaData.what = $('.photoNameDesc').val();
         });
         submissionData.userId = userFullId;
+        submissionData.metaData.date = $scope.returnDate();
+        submissionData.metaData.who = $('.photoNameInput').val();
+        submissionData.metaData.what = $('.photoNameDesc').val();
+        console.log(submissionData);
 
         ////now iterate through to submit to backend
         //////set === mediacache
@@ -818,10 +820,12 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                   var amalgam = vids + phots;
                   console.log(amalgam);
                   if((parseInt(amalgam) == parseInt(set.length-1) || parseInt(set.length-1) === 0) && $scope.submitBar === true){
+                    console.log('submission dattaaaaaaaaa');
+                    console.log(submissionData);
                     console.log('at the end');
                     $http({
                       method: "POST"
-                      ,url: "https://moneyshotapi.herokuapp.com/api/new/submission"
+                      ,url: "http://192.168.0.5:5555/api/new/submission"
                       ,data: submissionData
                     })
                     .then(function(newSubmission){

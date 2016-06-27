@@ -166,7 +166,7 @@
           {{singleSubmission.metadata.who}}
         </div>
 
-        <ion-scroll class="submissionRepeatContainer">
+        <ion-scroll class="submissionRepeatContainer" has-bouncing='true'>
           <div class="submitCellAcct" ng-repeat='photo in singleSubmission.photos'>
             <div class="submitCellImageHolder {{photo.isVideo}}" >
               <img class='submitPhoto submitPhoto{{$index}}' id='submit{{$index}}' ng-src="{{photo.thumbnail}}" ng-click='goToCarousel(photo, $index, $event)'/>
