@@ -17,7 +17,7 @@ function init($ionicPlatform) {
     }
     if (window.StatusBar) {
       // org.apache.cordova.statusbar required
-      StatusBar.styleDefault();
+      StatusBar.styleDefault(); 
     }
     // setTimeout(function(){
     //   navigator.splashscreen.hide();
