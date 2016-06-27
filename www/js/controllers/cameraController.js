@@ -825,7 +825,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                     console.log('at the end');
                     $http({
                       method: "POST"
-                      ,url: "http://192.168.0.5:5555/api/new/submission"
+                      ,url: "https://moneyshotapi.herokuapp.com/api/new/submission"
                       ,data: submissionData
                     })
                     .then(function(newSubmission){
