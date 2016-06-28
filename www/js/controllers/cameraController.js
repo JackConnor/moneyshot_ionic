@@ -120,16 +120,16 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       var cacheOnly = userInfo.cacheOnly();
       // alert(cacheOnly);
       if(cacheOnly === undefined || cacheOnly === 'undefined'){
-        userInfo.promiseOnly(userToken)
-        .then(function(data){
-          $scope.cachedUser = data.data;
-          console.log(data);
-          userInfo.userInfoFunc(userToken, false, data.data);
+        // userInfo.promiseOnly(userToken)
+        // .then(function(data){
+        //   $scope.cachedUser = data.data;
+        //   console.log(data);
+        //   userInfo.userInfoFunc(userToken, false, data.data);
           $scope.zooming              = findZoomed()////this determines if the screen is on zoom mode or not
           // runVideoCache($scope.cachedUser.tempVideoCache);
           setLocalForage(runVideoCache, $scope.cachedUser.tempVideoCache);
           // initCamera();
-        });
+        // });
       }
       else {
         $scope.cachedUser = cacheOnly;
