@@ -2007,9 +2007,9 @@ html {
     border-radius: 3px;
     font-weight: 900;
   }
-/*
-  .submitPhoto {
-    opacity: 0
+
+  /*.submitPhoto {
+    opacity: 0;
   }*/
 
   .submitPhotoBacking {

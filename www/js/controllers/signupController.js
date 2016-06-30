@@ -44,13 +44,15 @@ angular.module('signupController', ['userInfoFactory'])
     //   }, 2000);
     // });
     function initPage(){
+      // alert('initting')
       // navigator.splashscreen.hide();
       // alert('initting');
-      $timeout(function(){
+      // $timeout(function(){
+        // alert('intervsl')
         $scope.swipeInterval = $interval(function(){
           introSwipeLeft();
         }, 1750);
-      }, 2000);
+      // }, 5000);
       // $timeout(function(){
       //         // alert('heyyyyyyy')
       //   // $cordovaStatusbar.style(1);
@@ -62,6 +64,12 @@ angular.module('signupController', ['userInfoFactory'])
       //   });
       // }, 3000);
     }
+    document.addEventListener('deviceready', function(){
+      // alert('device ready')
+      $timeout(function(){
+        initPage();
+      }, 4000);
+    })
     $scope.initPage = initPage;
     // $('#swipe1').load(function(){
     //   setTimeout(function(){
@@ -237,7 +245,7 @@ angular.module('signupController', ['userInfoFactory'])
 
                 // $http({
                 //   method: "POST"
-                //   ,url: "http://192.168.0.7:5555/api/signup/email"
+                //   ,url: "http://192.168.0.5:5555/api/signup/email"
                 //   ,data: {userEmail: email}
                 // })
                 // .then(function(mailCallback){
@@ -435,7 +443,6 @@ angular.module('signupController', ['userInfoFactory'])
       var confirmNewPw = $('.confirmNewPassword').val();
       if(newPass === confirmNewPw){
         var email = $('.getPwEmail').val();
-        alert(email+" "+newPass);
         $http({
           method: "POST"
           ,url: 'https://moneyshotapi.herokuapp.com/api/update/pw'

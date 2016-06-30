@@ -12,7 +12,7 @@ angular.module('userInfoFactory', [])
     var promise = function(token){
                     return $http({
                       method: "GET"
-                      ,url: 'https://moneyshotapi.herokuapp.com/api/get/userinfo/'+token
+                      ,url: 'http://192.168.0.5:5555/api/get/userinfo/'+token
                     })
                   }
 
@@ -20,14 +20,13 @@ angular.module('userInfoFactory', [])
       if(httpBool === true){
         promise(token)
         .then(function(user){
-          console.log(user);
           userInfoCache = user.data;
           userInfoCache.submissions = userInfoCache.submissions.reverse();
-          console.log(userInfoCache);
           return userInfoCache
         })
         .catch(function(err){
           console.log(err);
+          return err
         })
       }
       else {
