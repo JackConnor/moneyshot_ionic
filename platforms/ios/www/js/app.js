@@ -5,10 +5,18 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-function init($ionicPlatform) {
+function init($ionicPlatform, cameraFac) {
+  
+  // alert(cameraFac)
+  // cameraFac.pictureHandler();
+  // alert(  cordova.plugins.camerapreview)
+  // cordova.plugins.camerapreview.startCamera(rect, 'back', tapEnabled, dragEnabled, toBack);
   $ionicPlatform.ready(function() {
-
-    // alert('yo')
+    // ionic.Platform.showStatusBar(false);
+    // cordova.plugins.camerapreview.setOnPictureTakenHandler(function(result){
+    //   console.log(result);
+    //   // handlePhotoCallback(result);
+    // })
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
     if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
@@ -19,18 +27,12 @@ function init($ionicPlatform) {
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
     }
-    // setTimeout(function(){
-    //   navigator.splashscreen.hide();
-    // }, 5000);
   })
-  // .then(function(){
-  //   navigator.splashscreen.hide();
-  // })
 
 }
 
 
-angular.module('starter', ['ionic', 'ngCordova', 'ngRoute', 'ngFileUpload', 'starter.services', 'accountController', 'cameraController', 'uploadController', 'signupController', 'allPhotosFactory', 'singlePhotoFactory', 'navbarHolderFactory', 'signupFactory', 'signinFactory', 'newTokenFactory', 'userPhotosFactory', 'decodeTokenFactory', 'userInfoFactory', 'ngTouch', 'bankController', 'initLoad', 'persistentPhotosFactory'])
+angular.module('starter', ['ionic', 'ngCordova', 'ngRoute', 'ngFileUpload', 'starter.services', 'accountController', 'cameraController', 'uploadController', 'signupController', 'allPhotosFactory', 'singlePhotoFactory', 'navbarHolderFactory', 'signupFactory', 'signinFactory', 'newTokenFactory', 'userPhotosFactory', 'decodeTokenFactory', 'cameraFactory', 'userInfoFactory', 'ngTouch', 'bankController', 'initLoad', 'persistentPhotosFactory'])
 
 .run(init)
 

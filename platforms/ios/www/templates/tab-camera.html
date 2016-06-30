@@ -1,5 +1,8 @@
 <ion-view view-title="Camera">
   <ion-content class="" overflow-scroll='false' has-bouncing="false">
+    <div class="cameraIntroBlack" ng-if='launchModal'>
+
+    </div>
 
 
     <div class="photoCarouselModal" ng-if='photoCarouselBool'>
@@ -87,7 +90,7 @@
             {{mediaCache.length}}
           </div>
           <div class="takePhotoButton" ng-click='takeCordovaPicture()' ng-if='cameraMode==="photo" || cameraMode==="video"'>
-            <div class="takePhotoButtonInner"  ng-init='initCheckUser()'>
+            <div class="takePhotoButtonInner">
 
             </div>
           </div>

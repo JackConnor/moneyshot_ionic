@@ -196,7 +196,7 @@
 }
 - (void) invokeTakePicture:(CGFloat) maxWidth withHeight:(CGFloat) maxHeight {
         AVCaptureConnection *connection = [self.sessionManager.stillImageOutput connectionWithMediaType:AVMediaTypeVideo];
-        
+
         [self.sessionManager.stillImageOutput captureStillImageAsynchronouslyFromConnection:connection completionHandler:^(CMSampleBufferRef sampleBuffer, NSError *error) {
 
                  if (error) {
@@ -204,8 +204,8 @@
                  } else {
 
                          [self.cameraRenderController.renderLock lock];
-                         CIImage *previewCImage = self.cameraRenderController.latestFrame;
-                         CGImageRef previewImage = [self.cameraRenderController.ciContext createCGImage:previewCImage fromRect:previewCImage.extent];
+                        //  CIImage *previewCImage = self.cameraRenderController.latestFrame;
+                        //  CGImageRef previewImage = [self.cameraRenderController.ciContext createCGImage:previewCImage fromRect:previewCImage.extent];
                          [self.cameraRenderController.renderLock unlock];
 
                          NSData *imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:sampleBuffer];
@@ -250,7 +250,7 @@
                                  finalCImage = imageToFilter;
                          }
 
-                         CGImageRef finalImage = [self.cameraRenderController.ciContext createCGImage:finalCImage fromRect:finalCImage.extent];
+                        //  CGImageRef finalImage = [self.cameraRenderController.ciContext createCGImage:finalCImage fromRect:finalCImage.extent];
 
                         //  unsigned result = 0;
                         //  NSScanner *scanner = [NSScanner scannerWithString:finalImage];
@@ -270,7 +270,7 @@
                         //  NSLog(@"attempted String translation: %@", base64);
                         //  NSLog(@'captured: %@', imageData);
                         // CGImageRef cgImage = [self cgImageMethod];
-                        NSValue *cgImageValue = [NSValue valueWithBytes:finalImage objCType:@encode(CGImageRef)];
+                        // NSValue *cgImageValue = [NSValue valueWithBytes:finalImage objCType:@encode(CGImageRef)];
                         // NSLog(@"imagevalue: %@", cgImageValue);
                         // [params addObject:cgImageValue];
                         // NSLog(@"imageData: %@", imageData);
