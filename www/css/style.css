@@ -226,6 +226,12 @@ html {
   margin-left: 15px;
 }
 
+.cameraIntroBlack {
+  width: 500px;
+  height: 700px;
+  background-color: black;
+}
+
 .cameraLensHolder {
   height: 100%;
   width: 100%;

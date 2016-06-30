@@ -6,6 +6,7 @@
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
 function init($ionicPlatform, cameraFac) {
+  
   // alert(cameraFac)
   // cameraFac.pictureHandler();
   // alert(  cordova.plugins.camerapreview)

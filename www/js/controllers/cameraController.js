@@ -4,8 +4,10 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
   .controller('cameraCtrl', cameraCtrl)
 
   .run(function($ionicPlatform){
-    $ionicPlatform.ready(function(){
-    });
+    window.location.hasLaunched = false;
+    // ionic.Platform.ready(function(){
+    //   ionic.Platform.fullScreen(true);
+    // })
   })
 
   .filter('trustUrl', function ($sce) {
@@ -16,6 +18,8 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
   cameraCtrl.$inject = ['$http', '$state', '$scope', 'singlePhoto', 'Upload', '$cordovaFile', '$cordovaFileTransfer', 'signup', 'signin', 'newToken', '$cordovaCapture', '$cordovaStatusbar', '$timeout', '$ionicGesture', '$ionicScrollDelegate', '$interval', 'persistentPhotos', '$cordovaKeyboard', 'userInfo', 'cameraFac'];
   function cameraCtrl($http, $state, $scope, singlePhoto, Upload, $cordovaFile, $cordovaFileTransfer, signup, signin, newToken, $cordovaCapture, $cordovaStatusbar, $timeout, $ionicGesture, $ionicScrollDelegate, $interval, persistentPhotos, $cordovaKeyboard, userInfo, cameraFac){
+    $('ion-tabs').addClass('tabs-item-hide');
+    ionic.Platform.fullScreen(true, false);
     $scope.mediaCache = [];
     // $scope.photoListLength      = 0;
     $scope.croppedPhoto         = '';
@@ -33,6 +37,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     $scope.submitBar            = false;
     $scope.isDisabled           = false;
     $scope.inputsFocused        = false;
+    $scope.launchModal          = true;
     $scope.burstCounter         = 0;
     $scope.cameraMode           = 'photo';
     $scope.flashOnOff           = 'off'
@@ -63,9 +68,15 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         $state.go( 'signin' )
       }
       else {
-        // $timeout(function(){
-          initCache();
-        // }, 1000)
+        var hasLaunched = window.location.hasLaunched;
+        if(hasLaunched !== true){
+          var launchConfirm = confirm('Launch Camera?');
+        }
+        if(launchConfirm || hasLaunched){
+          $scope.launchModal = false;
+          window.location.hasLaunched = true;
+          setLaunchCamera();
+        }
       }
     }
     $scope.initCheckUser = initCheckUser;
@@ -76,6 +87,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       var isReady = ionic.Platform.isReady;
       // alert(isReady);
       if(isReady === true){
+        // navigator.splashscreen.hide();
         var screenWidth = window.innerWidth;
         var tapEnabled = false; //enable tap take picture
         var dragEnabled = false; //enable preview box drag across the screen
@@ -96,6 +108,9 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
           $scope.activePhoto = false;
           $scope.cameraLaunched = true;
         }, 1500);
+        $timeout(function(){
+          initCache();
+        },3000);
       }
       else {
         $timeout(function(){
@@ -113,36 +128,28 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     /////funciotn to get cached videos and photos
     function initCache(){
       // alert('in cache')
-      var launchConfirm = confirm('Launch Camera?');
-      if(launchConfirm){
-        $('ion-tabs').addClass('tabs-item-hide');
-        ionic.Platform.fullScreen(true);
-        var userToken = window.localStorage.webToken;
-        //////need to toggle if info already loaded
-        var cacheOnly = userInfo.cacheOnly();
-        // alert(cacheOnly);
-        // alert(cacheOnly);
-        if(cacheOnly === undefined || cacheOnly === 'undefined'){
-          userInfo.promiseOnly(userToken)
-          .then(function(data){
-            $scope.cachedUser = data.data;
-            console.log(data);
-            var cachedUser = userInfo.userInfoFunc(userToken, false, data.data);
-            console.log(cachedUser);
-            $scope.zooming              = findZoomed()////this determines if the screen is on zoom mode or not
-            runVideoCache($scope.cachedUser.tempVideoCache);
-            setLocalForage(runVideoCache, $scope.cachedUser.tempVideoCache);
-            // initCamera();
-          });
-        }
-        else {
-          $scope.cachedUser = cacheOnly;
+      var userToken = window.localStorage.webToken;
+      //////need to toggle if info already loaded
+      var cacheOnly = userInfo.cacheOnly();
+      // alert(cacheOnly);
+      // alert(cacheOnly);
+      if(cacheOnly === undefined || cacheOnly === 'undefined'){
+        userInfo.promiseOnly(userToken)
+        .then(function(data){
+          $scope.cachedUser = data.data;
+          console.log(data);
+          var cachedUser = userInfo.userInfoFunc(userToken, false, data.data);
+          console.log(cachedUser);
+          $scope.zooming              = findZoomed()////this determines if the screen is on zoom mode or not
           runVideoCache($scope.cachedUser.tempVideoCache);
           setLocalForage(runVideoCache, $scope.cachedUser.tempVideoCache);
-        }
+          // initCamera();
+        });
       }
       else {
-        $state.go('tab.account');
+        $scope.cachedUser = cacheOnly;
+        runVideoCache($scope.cachedUser.tempVideoCache);
+        setLocalForage(runVideoCache, $scope.cachedUser.tempVideoCache);
       }
     }
     console.log(6)
@@ -177,7 +184,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         if(value === null || value === [null]){
           localforage.setItem('storedPhotos', [])
           .then(function(dataVal){
-            setLaunchCamera();
+            // setLaunchCamera();
           })
           .catch(function(err){
             console.log(err);
@@ -189,7 +196,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
             $scope.mediaCache.push(value[i]);
             $scope.$apply();
           }
-          setLaunchCamera();
+          // setLaunchCamera();
           // runVideoCache($scope.cachedUser.tempVideoCache);
           // callback(cbParam);
         }
@@ -1000,10 +1007,10 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
           }, 50);
         }, 170);
         $timeout(function(){
-          if(zooming === 'zoomed'){
+          if($scope.zooming   === 'zoomed'){
             var sLeft = (index*70);
           }
-          else if(zooming === 'standard'){
+          else if($scope.zooming   === 'standard'){
             var sLeft = (index*70);
           }
           $ionicScrollDelegate.$getByHandle('carouselScroll').scrollTo(sLeft, 0, true);
