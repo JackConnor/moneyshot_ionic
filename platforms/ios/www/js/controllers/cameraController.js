@@ -19,7 +19,6 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
   cameraCtrl.$inject = ['$http', '$state', '$scope', 'singlePhoto', 'Upload', '$cordovaFile', '$cordovaFileTransfer', 'signup', 'signin', 'newToken', '$cordovaCapture', '$cordovaStatusbar', '$timeout', '$ionicGesture', '$ionicScrollDelegate', '$interval', 'persistentPhotos', '$cordovaKeyboard', 'userInfo', 'cameraFac'];
   function cameraCtrl($http, $state, $scope, singlePhoto, Upload, $cordovaFile, $cordovaFileTransfer, signup, signin, newToken, $cordovaCapture, $cordovaStatusbar, $timeout, $ionicGesture, $ionicScrollDelegate, $interval, persistentPhotos, $cordovaKeyboard, userInfo, cameraFac){
     $('ion-tabs').addClass('tabs-item-hide');
-    ionic.Platform.fullScreen(true, false);
     $scope.mediaCache = [];
     // $scope.photoListLength      = 0;
     $scope.croppedPhoto         = '';
@@ -70,6 +69,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
           var launchConfirm = confirm('Launch Camera?');
         }
         if(launchConfirm || hasLaunched){
+          ionic.Platform.fullScreen(true, false);
           $scope.launchModal = false;
           window.location.hasLaunched = true;
           setLaunchCamera();
@@ -87,7 +87,6 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         var tapEnabled = false; //enable tap take picture
         var dragEnabled = false; //enable preview box drag across the screen
         var toBack = false; //send preview box to the back of the webview
-        // console.log(cordova.plugins.camerapreview);
         if(screenWidth === 320){
           var rect = {x: 0, y: 45, width: 320, height: 400};
         }
@@ -102,10 +101,10 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
           cordova.plugins.camerapreview.show();
           $scope.activePhoto = false;
           $scope.cameraLaunched = true;
-        }, 1500);
+        }, 2500);
         $timeout(function(){
           initCache();
-        },3000);
+        },10000);
       }
       else {
         $timeout(function(){
@@ -114,7 +113,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       }
     }
     ionic.Platform.ready(function(){
-        initCheckUser();
+      initCheckUser();
     })
 
 
