@@ -729,10 +729,13 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     $scope.toggleView = toggleView;
 
     function leaveCamera(){
+      $('.cameraToAccount').css({
+        opacity: 0.3
+      });
       setTimeout(function(){
         cordova.plugins.camerapreview.hide();
         $state.go('tab.account');
-      }, 150);
+      }, 50);
     }
     $scope.leaveCamera = leaveCamera;
 
@@ -873,6 +876,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       else if($scope.zooming   === 'standard'){
         var dist = (index*70);
       }
+      console.log(dist);
       $ionicScrollDelegate.$getByHandle('carouselScroll').scrollTo(dist, 0, true);
     }
     $scope.openNewCarouselPhoto = openNewCarouselPhoto;
@@ -1006,6 +1010,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
     //////carousel swipe functions
     function photoCarouselSwipeLeft(){
+      console.log('swiping leftttttt');
         $scope.carouselSwipeActive = true;
         var centerP = findCenterPhoto();
         if(centerP.index+1 < $scope.mediaCache.length){
