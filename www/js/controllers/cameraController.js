@@ -1206,7 +1206,9 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       $('.backToPhotos').animate({
         opacity: 1
       }, 200);
-      selectPhotos();
+      if($scope.selectMode === true){
+        selectPhotos();
+      }
     }
     $scope.animateBack = animateBack;
 
