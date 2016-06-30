@@ -87,7 +87,6 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         var tapEnabled = false; //enable tap take picture
         var dragEnabled = false; //enable preview box drag across the screen
         var toBack = false; //send preview box to the back of the webview
-        // console.log(cordova.plugins.camerapreview);
         if(screenWidth === 320){
           var rect = {x: 0, y: 45, width: 320, height: 400};
         }
