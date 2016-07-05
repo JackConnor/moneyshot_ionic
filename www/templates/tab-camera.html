@@ -77,11 +77,11 @@
           </div>
         </div>
         <div class="cameraBlackLayer"></div>
-        <div class="col-xs-4 cameraButtonCell">
-          <div class="cameraToAccount" ng-click='leaveCamera()' ng-if='cachedUser.submissions.length > 0'>
-            Close
+        <div class="col-xs-4 cameraButtonCell" style='color: red;'>
+          <div class="cameraToAccount" ng-click='signout()' ng-if='!(cachedUser.submissions.length > 0)'>
+            Sign Out
           </div>
-          <div class="cameraToAccount" style='opacity: 0.2' ng-if='!(cachedUser.submissions.length > 0)'>
+          <div class="cameraToAccount" ng-click='leaveCamera()' ng-if='cachedUser.submissions.length > 0'>
             Close
           </div>
         </div>
