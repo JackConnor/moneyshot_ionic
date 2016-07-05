@@ -76,20 +76,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         }
       }
     }
-
     $scope.initCheckUser = initCheckUser;
-
-    /////signout option
-    function hamburgerSignout(){
-      var confirmSignout = confirm('Sign out?');
-      if(confirmSignout){
-        cordova.plugins.camerapreview.hide();
-        window.localStorage.setItem('webToken', null);
-        $state.go('signin');
-      }
-    }
-    $scope.signout = hamburgerSignout;
-
 
     function setLaunchCamera(){
       var isReady = ionic.Platform.isReady;
