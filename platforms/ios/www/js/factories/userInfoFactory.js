@@ -39,6 +39,8 @@ angular.module('userInfoFactory', [])
     }
 
     function cacheOnly(){
+      console.log('cache only');
+      console.log(userInfoCache);
       return userInfoCache;
     }
 

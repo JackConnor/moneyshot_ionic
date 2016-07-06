@@ -49,6 +49,10 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     var googId = 'AIzaSyDspcymxHqhUaiLh2YcwV67ZNhlGd4FyxQ';
     var count = 0;
     var eraseSubmitArr          = [];
+    if(window.location.hasLaunched === true){
+      console.log('fouuuuuuuuund it');
+      $scope.launchModal = false;
+    }
 
     //////function which will return the screenSize of the camera being used
     function findZoomed(){
@@ -191,7 +195,14 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     // launchPlatform();
     ionic.Platform.ready(function(){
       // alert('checking')
-      initCheckUser();
+      var userLoaded = userInfo.cacheOnly();
+      console.log(userLoaded);
+      if(userLoaded !== undefined || userLoaded !== 'undefined'){
+        $scope.cachedUser = userLoaded;
+      }
+      setTimeout(function(){
+        initCheckUser();
+      }, 100);
     })
 
     /////function to get cached videos and photos
@@ -199,6 +210,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       var userToken = window.localStorage.webToken;
       //////need to toggle if info already loaded
       var cacheOnly = userInfo.cacheOnly();
+      console.log(cacheOnly);
       if(cacheOnly === undefined || cacheOnly === 'undefined'){
         userInfo.promiseOnly(userToken)
         .then(function(data){

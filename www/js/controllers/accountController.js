@@ -25,15 +25,6 @@ angular.module('accountController', ['persistentPhotosFactory', 'userInfoFactory
     $scope.scrollPosition        = 0;
     $scope.backgroundMultiple    = [];
 
-    console.log(userInfo.cacheOnly());
-    // localforage.getItem('storedPhotos')
-    // .then(function(photos){
-    //   console.log(photos);
-    // })
-    // .catch(function(err){
-    //   console.log(err);
-    // })
-
     function findZoomed(){
       if(window.innerWidth === 320){
         return 'zoomed';
