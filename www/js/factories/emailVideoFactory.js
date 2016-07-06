@@ -8,7 +8,7 @@ angular.module('emailVideoFactory', [])
 
     function sendVideo(email, videoUrl){
       return $http({
-        url: 'http://192.168.0.10:5555/api/email/video'
+        url: 'https://moneyshotapi.herokuapp.com/api/email/video'
         ,method: "POST"
         ,data: {email: email, videoUrl: videoUrl}
       })

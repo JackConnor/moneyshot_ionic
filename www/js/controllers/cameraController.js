@@ -88,7 +88,6 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         }, 3000);
         $http({
           method: "POST"
-          // ,url: "http://192.168.0.6:5555/api/checktokensignin"
           ,url: "https://moneyshotapi.herokuapp.com/api/checktokensignin"
           ,data: {token: userToken}
         })

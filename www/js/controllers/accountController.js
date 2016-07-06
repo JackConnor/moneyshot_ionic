@@ -327,6 +327,29 @@ angular.module('accountController', ['persistentPhotosFactory', 'userInfoFactory
       $scope.sellModal = false;
     }
 
+
+      function setCellSize(){
+        var cacheLength = $scope.singleSubmission.photos.length;
+        if(cacheLength <= 4){
+          $timeout(function(){
+            $('.submitCellAcct').width('185px');
+            $('.submitCellAcct').height('185px');
+          }, 750);
+        }
+        else if(cacheLength <= 9){
+          $timeout(function(){
+            $('.submitCellAcct').width('123.33px');
+            $('.submitCellAcct').height('123.33px');
+          }, 1500);
+        }
+        else if(cacheLength <= 16){
+          $timeout(function(){
+            $('.submitCellAcct').width('92.5px');
+            $('.submitCellAcct').height('92.5px');
+          }, 3000);
+        }
+      }
+
     function openSubmission(subInfo, evt){
       $('ion-tabs').addClass('tabs-item-hide');
       $('.accountBody').css({
@@ -337,7 +360,7 @@ angular.module('accountController', ['persistentPhotosFactory', 'userInfoFactory
       $scope.singleSubmission = subInfo;
       $scope.singleSubmissionModal = true;
       setTimeout(function(){
-        // limitSubmissionModalScroll();
+        setCellSize();
       }, 200);
       $('.repeatContainer').css({
         opacity: 0
