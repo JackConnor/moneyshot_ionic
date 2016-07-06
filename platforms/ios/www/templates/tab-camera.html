@@ -1,7 +1,12 @@
 <ion-view view-title="Camera">
   <ion-content class="" overflow-scroll='false' has-bouncing="false">
     <div class="cameraIntroBlack" ng-if='launchModal'>
-
+      <div class="enterTip">
+        <p>
+          {{tip}}
+        </p>
+      </div>
+      <div class='enterButton' ng-click='goLaunch()' ng-if='enterButton'>Launch Camera</button>
     </div>
 
 
@@ -21,7 +26,7 @@
           <i class='fa fa-trash-o trashIcon' ng-click='eraseSinglePhoto()'></i>
         </div>
         <img ng-if='photoCarouselObject.type==="photo"' ng-src="{{photoCarouselObject.link}}" on-swipe-right='photoCarouselSwipeRight()' on-swipe-left='photoCarouselSwipeLeft()' class='mainPhotoCar'/>
-        <video ng-if='photoCarouselObject.type==="video" || photoCarouselObject.type==="videoTemp"' poster={{photoCarouselObject.thumb}} ng-src="{{photoCarouselObject.link | trustUrl}}" class='mainPhotoCar' webkit-playsinline id="carouselVideoCamera"></video>
+        <!-- <video ng-if='photoCarouselObject.type==="video" || photoCarouselObject.type==="videoTemp"' poster={{photoCarouselObject.thumb}} ng-src="{{photoCarouselObject.link | trustUrl}}" class='mainPhotoCar' webkit-playsinline id="carouselVideoCamera"></video> -->
       </div>
       <div class="photoActiveFrame">
 

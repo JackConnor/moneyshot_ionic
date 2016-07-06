@@ -12,6 +12,7 @@ function init($ionicPlatform, cameraFac) {
   // cordova.plugins.camerapreview.startCamera(rect, 'back', tapEnabled, dragEnabled, toBack);
   $ionicPlatform.ready(function() {
     $('window').unload(function(){
+      alert('yooooo')
       ionic.Platform.exitApp();
     })
     if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {

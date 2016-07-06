@@ -245,7 +245,7 @@ angular.module('signupController', ['userInfoFactory'])
 
                 // $http({
                 //   method: "POST"
-                //   ,url: "http://192.168.0.5:5555/api/signup/email"
+                //   ,url: "http://moneyshotapi.herokuapp.com/api/signup/email"
                 //   ,data: {userEmail: email}
                 // })
                 // .then(function(mailCallback){

@@ -12,7 +12,7 @@ angular.module('userInfoFactory', [])
     var promise = function(token){
                     return $http({
                       method: "GET"
-                      ,url: 'http://192.168.0.5:5555/api/get/userinfo/'+token
+                      ,url: 'http://moneyshotapi.herokuapp.com/api/get/userinfo/'+token
                     })
                   }
 

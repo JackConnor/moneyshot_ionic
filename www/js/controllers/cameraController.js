@@ -5,6 +5,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
   .run(function($ionicPlatform){
     window.location.hasLaunched = false;
+    console.log('yoooooooo');
     // ionic.Platform.ready(function(){
     //   ionic.Platform.fullScreen(true);
     // })
@@ -37,6 +38,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     $scope.isDisabled           = false;
     $scope.inputsFocused        = false;
     $scope.launchModal          = true;
+    $scope.enterButton          = false;
     $scope.burstCounter         = 0;
     $scope.cameraMode           = 'photo';
     $scope.flashOnOff           = 'off'
@@ -58,30 +60,77 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       }
     }
 
+    $scope.tip = '"always turn your video camera sideways, to capture tv-friendly videos"'
     function initCheckUser(){
+      console.log('starting');
       var userToken = window.localStorage.getItem('webToken');
-      if(userToken === undefined || userToken === 'undefined' || userToken === 'null' || userToken === null || userToken === ''){
-        $state.go( 'signin' )
+      // var userToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiI1NzUxMjZiMDA2OTQ5NzExMDBiYTZhY2UiLCJhY3RpdmUiOnRydWUsImlhdCI6MTQ2Nzc3NzY4NX0.795LmreEeAWEjZ_wYlCCYp4UjJ2sz4Pbjz1AgWy3b1k";
+      console.log(userToken);
+      navigator.geolocation.getCurrentPosition(function(pos, err){
+        console.log(pos);
+      });
+      var httpLoaded = false;
+      // alert(userToken)
+      if(userToken === null || userToken === "null"){
+        userToken = 'null'
       }
-      else {
-        var hasLaunched = window.location.hasLaunched;
-        if(hasLaunched !== true){
-          var launchConfirm = confirm('Launch Camera?');
+      setTimeout(function(){
+        console.log(httpLoaded);
+        if(httpLoaded === false){
+          initCheckUser();
         }
-        if(launchConfirm || hasLaunched){
-          ionic.Platform.fullScreen(true, false);
-          $scope.launchModal = false;
-          window.location.hasLaunched = true;
-          setLaunchCamera();
+      }, 3000);
+      $http({
+        method: "POST"
+        // ,url: "http://192.168.0.6:5555/api/checktokensignin"
+        ,url: "https://moneyshotapi.herokuapp.com/api/checktokensignin"
+        ,data: {token: userToken}
+      })
+      .then(function(data){
+        var newToken = data.data;
+        $scope.newToken = newToken;
+        // alert(newToken);
+        // console.log('in callback');
+        // console.log(data);
+        if(data.data === "no token"){
+          $state.go( 'signin' )
         }
-      }
+        else {
+          $scope.enterButton = true;
+          httpLoaded = true;
+          // $(".enterButton").on('click', function(){
+          //   alert('going for it')
+          //   var newToken = data.data;
+          //   $scope.newToken = newToken;
+          //   // window.location.setItem('webToken', newToken);
+          //   // var hasLaunched = window.location.hasLaunched;
+          //   // if(hasLaunched !== true){
+          //   //   var launchConfirm = confirm('Launch Camera?');
+          //   // }
+          //   if(launchConfirm || hasLaunched){
+          //     ionic.Platform.fullScreen(true, false);
+          //     $scope.launchModal = false;
+          //     window.location.hasLaunched = true;
+          //     setLaunchCamera();
+          //   }
+          // })
+        }
+      })
     }
-    $scope.initCheckUser = initCheckUser;
+    // $scope.initCheckUser = initCheckUser;
+
+    function goLaunch(){
+      ionic.Platform.fullScreen(true, false);
+      $scope.launchModal = false;
+      window.location.hasLaunched = true;
+      setLaunchCamera();
+    }
+    $scope.goLaunch = goLaunch;
 
     function setLaunchCamera(){
-      var isReady = ionic.Platform.isReady;
-      // alert(isReady);
-      if(isReady === true){
+      // var isReady = ionic.Platform.isReady;
+      // // alert(isReady);
+      // if(isReady === true){
         // navigator.splashscreen.hide();
         var screenWidth = window.innerWidth;
         var tapEnabled = false; //enable tap take picture
@@ -105,17 +154,30 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         $timeout(function(){
           initCache();
         },10000);
+      // }
+      // else {
+      //   $timeout(function(){
+      //     setLaunchCamera();
+      //   }, 1000);
+      // }
+    }
+    function launchPlatform(){
+      var isReady = ionic.Platform.isReady;
+      // alert(isReady);
+      if(isReady){
+        initCheckUser();
       }
       else {
         $timeout(function(){
-          setLaunchCamera();
+          launchPlatform();
         }, 1000);
       }
     }
+    // launchPlatform();
     ionic.Platform.ready(function(){
+      // alert('checking')
       initCheckUser();
     })
-
 
     /////function to get cached videos and photos
     function initCache(){
@@ -167,6 +229,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       // })
       localforage.getItem('storedPhotos')
       .then(function(value){
+        window.location.webToken = $scope.newToken;//////taking care of this;
         if(value === null || value === [null]){
           localforage.setItem('storedPhotos', [])
           .then(function(dataVal){
@@ -193,11 +256,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       cordova.plugins.camerapreview.show();
       callback();
     }
-    console.log(9)
 
-    function setPictureCallback(callback){
-
-    }
 
     function handlePhotoCallback(result){
       console.log(result);
