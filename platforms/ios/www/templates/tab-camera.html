@@ -9,8 +9,10 @@
           {{tip}}
         </p>
       </div>
-      <div class='enterButton' ng-click='goLaunch()' ng-if='enterButton'>Launch Camera</button>
+      <div class='enterButton' ng-click='goLaunch()' ng-if='enterButton'>Launch Camera</div>
+      </div>
     </div>
+
 
 
     <div class="photoCarouselModal" ng-if='photoCarouselBool'>
@@ -29,7 +31,7 @@
           <i class='fa fa-trash-o trashIcon' ng-click='eraseSinglePhoto()'></i>
         </div>
         <img ng-if='photoCarouselObject.type==="photo"' ng-src="{{photoCarouselObject.link}}" on-swipe-right='photoCarouselSwipeRight()' on-swipe-left='photoCarouselSwipeLeft()' class='mainPhotoCar'/>
-        <!-- <video ng-if='photoCarouselObject.type==="video" || photoCarouselObject.type==="videoTemp"' poster={{photoCarouselObject.thumb}} ng-src="{{photoCarouselObject.link | trustUrl}}" class='mainPhotoCar' webkit-playsinline id="carouselVideoCamera"></video> -->
+        <video ng-if='photoCarouselObject.type==="video" || photoCarouselObject.type==="videoTemp"' poster={{photoCarouselObject.thumb}} ng-src="{{photoCarouselObject.link | trustUrl}}" class='mainPhotoCar' webkit-playsinline id="carouselVideoCamera"></video>
       </div>
       <div class="photoActiveFrame">
 
@@ -45,20 +47,13 @@
       </ion-scroll>
     </div>
 
-
-    </div>
     <div class="cameraModal" ng-show='cameraModal==true'>
-
-
       <div class="cameraViewToggle" ng-click='animateToggle(); toggleView($event)'>
         <img class='toggleCameraIcon' src="./img/assets/camReverseLogo@3x.png"/>
       </div>
-
-
       <div class="cameraFlash" ng-click='toggleFlash(); animateFlash()'>
         <img src="./img/apple_flash.png" alt="" />
       </div>
-
       <!-- <div class="cameraLogoBurstOverlay" ng-if='burstCounter > 0'>
         {{burstCounter}}
       </div> -->
@@ -86,7 +81,7 @@
         </div>
         <div class="cameraBlackLayer"></div>
         <div class="col-xs-4 cameraButtonCell" style='color: red;'>
-          <div class="cameraToAccount" ng-click='tempSignout()' ng-if='!(cachedUser.submissions.length > 0)'>
+          <div class="cameraToAccount" ng-click='tempSignout()' ng-if='(cachedUser.submissions.length === 0)'>
             Sign Out
           </div>
           <div class="cameraToAccount" ng-click='leaveCamera()' ng-if='cachedUser.submissions.length > 0'>
@@ -156,9 +151,9 @@
           <i class='fa fa-trash' ng-click='batchErase()'></i>
         </div>
         <div class="submitAddInfoContainer">
-          <div class="locationHolder">
+          <!-- <div class="locationHolder">
             {{returnPlace}}<i class='fa fa-refresh' ng-click='findNewPlace()'></i>
-          </div>
+          </div> -->
           <div class="dateHolder">
             {{returnDate()}}
           </div>

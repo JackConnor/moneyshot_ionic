@@ -491,8 +491,9 @@ html {
   width: 100%;
   text-align: center;
   color: white;
-  font-size: 10px;
+  font-size: 14px;
   font-weight: 700;
+  padding-bottom: 5px;
 }
 
 .dateInput {
@@ -595,7 +596,7 @@ html {
   outline: 2px solid white;
   text-align: center;
   padding: auto;
-  font-size: 20px;
+  font-size: 22px;
   color: white;
 }
 
@@ -822,7 +823,7 @@ html {
   letter-spacing: 2px;
   border-radius: 3px;
   font-weight: 900;
-  font-size: 16px;
+  font-size: 19px;
   width: 40%;
   height: 45px;
   border-radius: 4px;

@@ -160,10 +160,10 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
           cordova.plugins.camerapreview.show();
           $scope.activePhoto = false;
           $scope.cameraLaunched = true;
-        }, 2500);
+        }, 500);
         $timeout(function(){
           initCache();
-        },10000);
+        },1000);
       // }
       // else {
       //   $timeout(function(){
@@ -846,7 +846,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     $scope.switchCamera = switchCamera;
 
     function returnDate(){
-      return moment().format('MMMM Do YYYY, h:mm:ss a');
+      return moment().format('MMMM Do YYYY, h:mm a');
     }
     $scope.returnDate = returnDate;
 
@@ -866,13 +866,14 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       var curr = navigator.geolocation.getCurrentPosition(function(pos){
         var longitude = pos.coords.longitude;
         var latitude = pos.coords.latitude;
-        var url = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location='+latitude+','+longitude+'&radius=100&rankBy=distance&types=establishment&key=AIzaSyDspcymxHqhUaiLh2YcwV67ZNhlGd4FyxQ'
+        var url = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location='+latitude+','+longitude+'&radius=100&rankBy=distance&key=AIzaSyDspcymxHqhUaiLh2YcwV67ZNhlGd4FyxQ'
         $http({
           method: "GET"
           ,url: url
           ,dataType: 'jsonp',
         })
         .then(function(posData){
+          console.log(posData);
           $scope.returnPlace = posData.data.results[0].vicinity;
         })
 
@@ -883,6 +884,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     ///////begin photo carousel animation work
     function goToCarousel(mediaData, index, evt){
       //////thsi is normal carousel functionality
+      console.log('yoooooooo carrrrrr');
       if($scope.selectMode === false){
         $scope.photoCarouselObject = mediaData;////this is always the centerpiece photo
         $(evt.currentTarget).css({
@@ -892,6 +894,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
           opacity: 1
         }, 169);
         $timeout(function(){
+          console.log('opening carousel');
           $scope.submitModaVar = false;
           $scope.photoCarouselBool = true;
           $timeout(function(){
