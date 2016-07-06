@@ -2,6 +2,9 @@
   <ion-content class="" overflow-scroll='false' has-bouncing="false">
     <div class="cameraIntroBlack" ng-if='launchModal'>
       <div class="enterTip">
+        <p class='enterTipTitle'>
+          PhotoJournalism tip:
+        </p>
         <p>
           {{tip}}
         </p>
@@ -83,7 +86,7 @@
         </div>
         <div class="cameraBlackLayer"></div>
         <div class="col-xs-4 cameraButtonCell" style='color: red;'>
-          <div class="cameraToAccount" ng-click='signout()' ng-if='!(cachedUser.submissions.length > 0)'>
+          <div class="cameraToAccount" ng-click='tempSignout()' ng-if='!(cachedUser.submissions.length > 0)'>
             Sign Out
           </div>
           <div class="cameraToAccount" ng-click='leaveCamera()' ng-if='cachedUser.submissions.length > 0'>

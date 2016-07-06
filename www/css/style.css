@@ -615,17 +615,30 @@ html {
 }
 
 .enterTip {
-  padding-top: 20px;
-  font-size: 18px;
-  padding: 10px;
+  font-size: 21px;
+  padding: 15px;
   text-align: center;
-  width: 250px;
-  height: 90px;
+  width: 300px;
+  height: auto;
   color: white;
   border: 2px solid white;
   border-radius: 5px;
   margin-left: auto;
   margin-right: auto;
+}
+
+.enterTip p {
+  margin: 0px;
+}
+
+.enterTipTitle {
+  text-align: left;
+  font-size: 16px;
+  font-style: italic;
+  font-weight: 900;
+  padding-left: 10px;
+  padding-bottom: 2px;
+  color: red;
 }
 
 .fbSignin {

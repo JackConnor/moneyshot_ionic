@@ -60,62 +60,53 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       }
     }
 
-    $scope.tip = '"always turn your video camera sideways, to capture tv-friendly videos"'
+    $scope.tipJar = [
+      '"always turn your video camera sideways, to capture tv-friendly videos"'
+      ,'"take multiple photos rapidly, to increase the chances of getting the perfect shot"'
+      ,'"interview snippets make great news content"'
+      ,'"take pictures of things that you would like to see on the news"'
+      ,'"be careful with the flash; the best photos often use environmental lighting"'
+    ]
+
+    $scope.tip = $scope.tipJar[Math.floor(Math.random()*5)];
     function initCheckUser(){
-      console.log('starting');
       var userToken = window.localStorage.getItem('webToken');
-      // var userToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiI1NzUxMjZiMDA2OTQ5NzExMDBiYTZhY2UiLCJhY3RpdmUiOnRydWUsImlhdCI6MTQ2Nzc3NzY4NX0.795LmreEeAWEjZ_wYlCCYp4UjJ2sz4Pbjz1AgWy3b1k";
-      console.log(userToken);
       navigator.geolocation.getCurrentPosition(function(pos, err){
-        console.log(pos);
+        // console.log(pos);
       });
-      var httpLoaded = false;
-      // alert(userToken)
-      if(userToken === null || userToken === "null"){
-        userToken = 'null'
+      var hasLaunched = window.location.hasLaunched;
+      if(hasLaunched === false){
+        var httpLoaded = false;
+        if(userToken === null || userToken === "null"){
+          userToken = 'null'
+        }
+        setTimeout(function(){
+          console.log(httpLoaded);
+          if(httpLoaded === false){
+            initCheckUser();
+          }
+        }, 3000);
+        $http({
+          method: "POST"
+          // ,url: "http://192.168.0.6:5555/api/checktokensignin"
+          ,url: "https://moneyshotapi.herokuapp.com/api/checktokensignin"
+          ,data: {token: userToken}
+        })
+        .then(function(data){
+          var newToken = data.data;
+          $scope.newToken = newToken;
+          if(data.data === "no token"){
+            $state.go( 'signin' )
+          }
+          else {
+            $scope.enterButton = true;
+            httpLoaded = true;
+          }
+        })
       }
-      setTimeout(function(){
-        console.log(httpLoaded);
-        if(httpLoaded === false){
-          initCheckUser();
-        }
-      }, 3000);
-      $http({
-        method: "POST"
-        // ,url: "http://192.168.0.6:5555/api/checktokensignin"
-        ,url: "https://moneyshotapi.herokuapp.com/api/checktokensignin"
-        ,data: {token: userToken}
-      })
-      .then(function(data){
-        var newToken = data.data;
-        $scope.newToken = newToken;
-        // alert(newToken);
-        // console.log('in callback');
-        // console.log(data);
-        if(data.data === "no token"){
-          $state.go( 'signin' )
-        }
-        else {
-          $scope.enterButton = true;
-          httpLoaded = true;
-          // $(".enterButton").on('click', function(){
-          //   alert('going for it')
-          //   var newToken = data.data;
-          //   $scope.newToken = newToken;
-          //   // window.location.setItem('webToken', newToken);
-          //   // var hasLaunched = window.location.hasLaunched;
-          //   // if(hasLaunched !== true){
-          //   //   var launchConfirm = confirm('Launch Camera?');
-          //   // }
-          //   if(launchConfirm || hasLaunched){
-          //     ionic.Platform.fullScreen(true, false);
-          //     $scope.launchModal = false;
-          //     window.location.hasLaunched = true;
-          //     setLaunchCamera();
-          //   }
-          // })
-        }
-      })
+      else {
+        goLaunch();
+      }
     }
     // $scope.initCheckUser = initCheckUser;
 
@@ -126,6 +117,25 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       setLaunchCamera();
     }
     $scope.goLaunch = goLaunch;
+
+    function tempSignout(){
+      window.localStorage.setItem('webToken', null);
+      cordova.plugins.camerapreview.hide();
+      $timeout(function(){
+        cordova.plugins.camerapreview.hide();
+      }, 500);
+      $timeout(function(){
+        cordova.plugins.camerapreview.hide();
+      }, 1000);
+      $timeout(function(){
+        cordova.plugins.camerapreview.hide();
+      }, 1500);
+      $timeout(function(){
+        cordova.plugins.camerapreview.hide();
+      }, 2500);
+      $state.go('signin');
+    }
+    $scope.tempSignout = tempSignout;
 
     function setLaunchCamera(){
       // var isReady = ionic.Platform.isReady;
