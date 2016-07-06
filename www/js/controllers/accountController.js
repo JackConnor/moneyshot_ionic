@@ -906,7 +906,12 @@ angular.module('accountController', ['persistentPhotosFactory', 'userInfoFactory
         navigator.notification.alert('sorry, you need to wait until a week has passed befre you can download a photo. This is so we can sell it at the maximum price, for all of our benefit. Thank you for your patience!');
       }
       else{
-        var confirmed = confirm('download this photo?');
+        if(link.isVideo){
+          var ocnfirmed = confirm('want us to email you this video?')
+        }
+        else {
+          var confirmed = confirm('download this photo?');
+        }
         console.log(confirmed);
         if(confirmed && ending==='g'){
           getBase64FromImageUrl(link.url);
