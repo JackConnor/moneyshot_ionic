@@ -57,6 +57,9 @@
     <feature name="Geolocation">
         <param name="ios-package" value="CDVLocation" />
     </feature>
+    <feature name="Notification">
+        <param name="ios-package" value="CDVNotification" />
+    </feature>
     <plugins>
         <feature name="PKVideoThumbnail">
             <param name="ios-package" value="PKVideoThumbnail" />

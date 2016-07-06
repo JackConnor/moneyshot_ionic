@@ -119,6 +119,12 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     $scope.goLaunch = goLaunch;
 
     function tempSignout(){
+      if($scope.flashOnOff === 'on'){
+        window.plugins.flashlight.switchOff();
+        $('.cameraFlash').css({
+          opacity: 1
+        });
+      }
       window.localStorage.setItem('webToken', null);
       cordova.plugins.camerapreview.hide();
       $timeout(function(){
@@ -269,13 +275,16 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
 
     function handlePhotoCallback(result){
-      console.log(result);
+      cordova.plugins.camerapreview.show();
       $scope.mediaCache.push({type: 'photo', link: 'data:image/png;base64,'+result[0], date: new Date()});
-      console.log($scope.mediaCache);
-      $('.outlineFlash').css({
-        borderWidth: '0px'
-      });
+      // console.log($scope.mediaCache);
+      // $('.outlineFlash').css({
+      //   borderWidth: '0px'
+      // });
       // $scope.$apply();
+      if($scope.flashOnOff === 'on'){
+        window.plugins.flashlight.switchOn();
+      }
       if($scope.cameraMode === "photo"){
         $timeout(function(){
           $scope.activePhoto = false;
@@ -307,15 +316,10 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       if($scope.mediaCache.length < 20 && $scope.activePhoto === false){
         $scope.activePhoto = true;
         cordova.plugins.camerapreview.takePicture();
-        $('.outlineFlash').css({
-          borderWidth: '2px'
-        });
-        if($scope.cameraMode === "photo"){
-          window.plugins.flashlight.switchOff();
-        }
+        cordova.plugins.camerapreview.hide();
       }
       else if($scope.mediaCache.length >= 20 && ($scope.cameraMode === 'photo')){
-        alert('Sorry, you can only send up to 20 pictures or photos at a time. Please erase a few to free up room to take more MoPhos. Thank you!')
+        navigator.notification.alert('Sorry, you can only send up to 20 pictures or photos at a time. Please erase a few to free up room to take more MoPhos. Thank you!')
       }
     }
     console.log(10)
@@ -324,6 +328,9 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       $scope.intCounter = 0;
       // $scope.cameraHot = true;
       window.plugins.flashlight.switchOff();
+      $('.cameraFlash').css({
+        opacity: 1
+      });
       var photoInterval = $interval(function(){
         if($scope.activePhoto === false){
           $scope.intCounter++
@@ -739,6 +746,12 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     }
 
     function submitModalOpen(){
+      if($scope.flashOnOff === 'on'){
+        window.plugins.flashlight.switchOff();
+        $('.cameraFlash').css({
+          opacity: 1
+        });
+      }
       if($scope.activePhoto === false){
         cordova.plugins.camerapreview.hide();
         $scope.submitModalVar = true;
@@ -797,6 +810,12 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     $scope.toggleView = toggleView;
 
     function leaveCamera(){
+      if($scope.flashOnOff === 'on'){
+        window.plugins.flashlight.switchOff();
+        $('.cameraFlash').css({
+          opacity: 1
+        });
+      }
       $('.cameraToAccount').css({
         opacity: 0.3
       });
@@ -1395,7 +1414,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         window.plugins.flashlight.switchOn();
         $scope.flashOnOff = 'on';
         $scope.flash = 'Flash off';
-        $('.cameraFlashButt').css({
+        $('.cameraFlash').css({
           opacity: 0.5
         });
       }
@@ -1403,7 +1422,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         window.plugins.flashlight.switchOff();
         $scope.flashOnOff = 'off';
         $scope.flash = 'Flash on';
-        $('.cameraFlashButt').css({
+        $('.cameraFlash').css({
           opacity: 1
         });
       }

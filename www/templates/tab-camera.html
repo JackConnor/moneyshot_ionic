@@ -51,7 +51,7 @@
       <div class="cameraViewToggle" ng-click='animateToggle(); toggleView($event)'>
         <img class='toggleCameraIcon' src="./img/assets/camReverseLogo@3x.png"/>
       </div>
-      <div class="cameraFlash" ng-click='toggleFlash(); animateFlash()'>
+      <div class="cameraFlash" ng-click='toggleFlash()'>
         <img src="./img/apple_flash.png" alt="" />
       </div>
       <!-- <div class="cameraLogoBurstOverlay" ng-if='burstCounter > 0'>
@@ -105,7 +105,10 @@
           <!-- <div class="takeVideoButton"  ng-if='cameraMode==="video"'></div> -->
         </div>
         <div class="col-xs-4 cameraButtonCell">
-          <div class="submitSetDiv" ng-click='animateSubmit(); submitModalOpen()'>
+          <div class="submitSetDiv" ng-click='animateSubmit(); submitModalOpen()' ng-if='cachedUser.submissions'>
+            Done
+          </div>
+          <div class="submitSetDiv" ng-if='!cachedUser.submissions' style='opacity:0.3'>
             Done
           </div>
         </div>

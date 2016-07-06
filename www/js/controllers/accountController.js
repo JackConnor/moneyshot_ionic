@@ -482,7 +482,7 @@ angular.module('accountController', ['persistentPhotosFactory', 'userInfoFactory
         ,data: {email: $scope.userInfo.email}
       })
       .then(function(data){
-        alert('Your Financial Data Has been Sent To Your Email');
+        navigator.notification.alert('Your Financial Data Has been Sent To Your Email');
       })
     }
     $scope.sendFinData = sendFinData;
@@ -901,16 +901,16 @@ angular.module('accountController', ['persistentPhotosFactory', 'userInfoFactory
       var minusConvert = moment(minusAWeek).format('YYYY-MM-DD HH:mm');
       var pastEmbargo = moment(minusConvert).isAfter(photoDate);
       if(!pastEmbargo){
-        alert('sorry, you need to wait until a week has passed befre you can download a photo. This is so we can sell it at the maximum price, for all of our benefit. Thank you for your patience!');
+        navigator.notification.alert('sorry, you need to wait until a week has passed befre you can download a photo. This is so we can sell it at the maximum price, for all of our benefit. Thank you for your patience!');
       }
       else{
         var confirmed = confirm('download this photo?');
         if(confirmed && ending==='g'){
           getBase64FromImageUrl(link.url);
-          alert('photo saved!');
+          navigator.notification.alert('photo saved!');
         }
         else if(confirmed && ending==='v'){
-          alert('This video has been emailed to your account. Enjoy!');
+          navigator.notification.alert('This video has been emailed to your account. Enjoy!');
         }
         else {
           console.log('changed my mind');

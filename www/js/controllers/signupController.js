@@ -211,23 +211,23 @@ angular.module('signupController', ['userInfoFactory'])
           .then(function(newUser){
             console.log(newUser);
             if(newUser.data === 'email already in use'){
-              alert('that email is already in the system, please try another one or login using your password');
+              navigator.notification.alert('that email is already in the system, please try another one or login using your password');
               $('.signupEmail').val('');
               $('.signupPassword').val('');
               $('.signupConfirmPassword').val('');
               return;
             }
             else if(newUser.data === 'please send a password'){
-              alert('you forgot your password');
+              navigator.notification.alert('you forgot your password');
               return;
             }
             else if(email.split('@').length < 2){
-              alert('You need an @');
+              navigator.notification.alert('You need an @');
               $('.signupPassword').val('');
               $('.signupConfirmPassword').val('');
             }
             else if(email.split('.').length < 2){
-              alert('Your email needs a proper ending');
+              navigator.notification.alert('Your email needs a proper ending');
               $('.signupPassword').val('');
               $('.signupConfirmPassword').val('');
             }
@@ -258,14 +258,14 @@ angular.module('signupController', ['userInfoFactory'])
           })
         }
         else {
-          alert('passwords dont match');
+          navigator.notification.alert('passwords dont match');
           $('.signupEmail').val('');
           $('.signupPassword').val('');
           $('.signupConfirmPassword').val('');
         }
       }
       else {
-        alert('sorry, your password must be at least 6 characters');
+        navigator.notification.alert('sorry, your password must be at least 6 characters');
         $('.signupEmail').val('');
         $('.signupPassword').val('');
         $('.signupConfirmPassword').val('');
@@ -285,18 +285,18 @@ angular.module('signupController', ['userInfoFactory'])
         opacity: 1
       }, 250);
       if(email.length < 1){
-        alert('Please include your email');
+        navigator.notification.alert('Please include your email');
       }
       else {
         signin(email, password)
         .then(function(signedInUser){
           if(signedInUser.data == 'no user found with that email address'){
-            alert('We could not find your email address')
+            navigator.notification.alert('We could not find your email address')
             $('.signupPassword').val('');
             $('.signupEmail').val('');
           }
           else if(signedInUser.data == 'incorrect password'){
-            alert('wrong password, please try again');
+            navigator.notification.alert('wrong password, please try again');
             $('.signupPassword').val('');
             $('.signupEmail').val('');
           }
@@ -413,13 +413,13 @@ angular.module('signupController', ['userInfoFactory'])
       })
       .then(function(pwCall){
         if(pwCall.data !== 'no user'){
-          alert('check your email for password information');
+          navigator.notification.alert('check your email for password information');
           $scope.newPwModal = false;
           $scope.getPasswordModal = false;
           window.location.reload();
         }
         else {
-          alert('whoops cant find that user, please enter a new email or check for typos');
+          navigator.notification.alert('whoops cant find that user, please enter a new email or check for typos');
         }
       })
     }
@@ -454,7 +454,7 @@ angular.module('signupController', ['userInfoFactory'])
 
       }
       else {
-        alert('your passwords dont match');
+        navigator.notification.alert('your passwords dont match');
       }
     }
     $scope.newPw = newPw;
@@ -543,19 +543,19 @@ angular.module('signupController', ['userInfoFactory'])
         }
         else if(i === emLength-1){
           if(atIndex === null){
-            alert('you need n @ sign');
+            navigator.notification.alert('you need n @ sign');
             $('.signupEmail').val('');
             $('.signupEmail').unblur();
             return false;
           }
           else if(dotIndex === null){
-            alert('you need a . i there');
+            navigator.notification.alert('you need a . i there');
             $('.signupEmail').val('');
             $('.signupEmail').unblur();
             return false
           }
           else if((atIndex >= dotIndex-2) || (atIndex === 0)){
-            alert('I think you have an issue with your email address');
+            navigator.notification.alert('I think you have an issue with your email address');
             $('.signupEmail').val('');
             $('.signupEmail').unblur();
             return false;
