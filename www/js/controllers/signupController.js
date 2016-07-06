@@ -398,6 +398,10 @@ angular.module('signupController', ['userInfoFactory'])
         $scope.introModal       = false;
         $scope.signupModalVar   = true;
         $cordovaStatusbar.show();
+        console.log($(".signupInputHolder").find('input'));
+        $(".signupInputHolder").find('input').on('blur', function(){
+          $ionicScrollDelegate.scrollTop();
+        })
       }, 200);
     }
     $scope.toSignup = toSignup;

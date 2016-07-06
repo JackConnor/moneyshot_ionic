@@ -432,7 +432,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
           $timeout(function(){
             $scope.alerted = false
           }, 1500);
-          alert('Sorry, you can only send up to 25 pictures or photos at a time. Please erase a few to free up room to take more MoPhos. Thank you!')
+          navigator.notification.alert('Sorry, you can only send up to 25 pictures or photos at a time. Please erase a few to free up room to take more MoPhos. Thank you!')
         }
       }
     }
@@ -482,7 +482,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         submitNameAndPhotos();
       }
       else {
-        alert('You seem to have missed a field')
+        navigator.notification.alert('You seem to have missed a field')
       }
     }
     $scope.submitPhotoName = submitPhotoName;

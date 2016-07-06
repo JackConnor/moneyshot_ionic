@@ -28,7 +28,7 @@ function init($ionicPlatform, cameraFac) {
 }
 
 
-angular.module('starter', ['ionic', 'ngCordova', 'ngRoute', 'ngFileUpload', 'starter.services', 'accountController', 'cameraController', 'uploadController', 'signupController', 'allPhotosFactory', 'singlePhotoFactory', 'navbarHolderFactory', 'signupFactory', 'signinFactory', 'newTokenFactory', 'userPhotosFactory', 'decodeTokenFactory', 'cameraFactory', 'userInfoFactory', 'ngTouch', 'bankController', 'initLoad', 'persistentPhotosFactory'])
+angular.module('starter', ['ionic', 'ngCordova', 'ngRoute', 'ngFileUpload', 'starter.services', 'accountController', 'cameraController', 'uploadController', 'signupController', 'allPhotosFactory', 'singlePhotoFactory', 'navbarHolderFactory', 'signupFactory', 'signinFactory', 'newTokenFactory', 'userPhotosFactory', 'decodeTokenFactory', 'cameraFactory', 'userInfoFactory', 'ngTouch', 'bankController', 'initLoad', 'persistentPhotosFactory', 'emailVideoFactory'])
 
 .run(init)
 

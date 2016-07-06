@@ -1,4 +1,4 @@
-angular.module('accountController', ['persistentPhotosFactory', 'userInfoFactory'])
+angular.module('accountController', ['persistentPhotosFactory', 'userInfoFactory', 'emailVideoFactory'])
 
   .controller('accountCtrl', acctCtrl)
 
@@ -8,9 +8,9 @@ angular.module('accountController', ['persistentPhotosFactory', 'userInfoFactory
     };
   })
 
-  acctCtrl.$inject = ['$http', '$state', '$scope', 'navbar', 'userPhotos', 'decodeToken', '$cordovaStatusbar', '$ionicScrollDelegate', 'persistentPhotos', '$timeout', '$cordovaFileTransfer', 'userInfo'];
+  acctCtrl.$inject = ['$http', '$state', '$scope', 'navbar', 'userPhotos', 'decodeToken', '$cordovaStatusbar', '$ionicScrollDelegate', 'persistentPhotos', '$timeout', '$cordovaFileTransfer', 'userInfo', 'emailThisVideo'];
 
-  function acctCtrl($http, $state, $scope, navbar, userPhotos, decodeToken, $cordovaStatusbar, $ionicScrollDelegate, persistentPhotos, $timeout, $cordovaFileTransfer, userInfo){
+  function acctCtrl($http, $state, $scope, navbar, userPhotos, decodeToken, $cordovaStatusbar, $ionicScrollDelegate, persistentPhotos, $timeout, $cordovaFileTransfer, userInfo, emailThisVideo){
     $scope.photoCarouselBool    = false;
     $scope.carouselMain       = [];
     $scope.showSold              = false;
@@ -482,7 +482,7 @@ angular.module('accountController', ['persistentPhotosFactory', 'userInfoFactory
         ,data: {email: $scope.userInfo.email}
       })
       .then(function(data){
-        alert('Your Financial Data Has been Sent To Your Email');
+        navigator.notification.alert('Your Financial Data Has been Sent To Your Email');
       })
     }
     $scope.sendFinData = sendFinData;
@@ -894,23 +894,31 @@ angular.module('accountController', ['persistentPhotosFactory', 'userInfoFactory
     img.src = url;
     }
     function downloadPhoto(link){
+      console.log(link);
       var ending = link.url.charAt(link.url.length-1);
+      console.log(ending);
       var date = new Date();
       var photoDate = moment(link.date).format('YYYY-MM-DD HH:mm');////date photo was taken
-      var minusAWeek = moment(date).subtract(7, 'days');
+      var minusAWeek = moment(date).subtract(0, 'days');
       var minusConvert = moment(minusAWeek).format('YYYY-MM-DD HH:mm');
       var pastEmbargo = moment(minusConvert).isAfter(photoDate);
       if(!pastEmbargo){
-        alert('sorry, you need to wait until a week has passed befre you can download a photo. This is so we can sell it at the maximum price, for all of our benefit. Thank you for your patience!');
+        navigator.notification.alert('sorry, you need to wait until a week has passed befre you can download a photo. This is so we can sell it at the maximum price, for all of our benefit. Thank you for your patience!');
       }
       else{
         var confirmed = confirm('download this photo?');
+        console.log(confirmed);
         if(confirmed && ending==='g'){
           getBase64FromImageUrl(link.url);
-          alert('photo saved!');
+          navigator.notification.alert('photo saved!');
         }
         else if(confirmed && ending==='v'){
-          alert('This video has been emailed to your account. Enjoy!');
+          navigator.notification.alert('This video has been emailed to your account. Enjoy!');
+          emailThisVideo('jack.connor83@gmail.com', link.url)
+          .then(function(data){
+            console.log(data);
+          })
+
         }
         else {
           console.log('changed my mind');
@@ -918,6 +926,10 @@ angular.module('accountController', ['persistentPhotosFactory', 'userInfoFactory
       }
     }
     $scope.downloadPhoto = downloadPhoto;
+
+    function downloadVideo(){
+
+    }
 
     function downloadArrow(){
       $('.photoCarouselModal').prepend(
