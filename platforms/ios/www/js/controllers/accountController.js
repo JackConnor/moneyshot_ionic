@@ -907,7 +907,7 @@ angular.module('accountController', ['persistentPhotosFactory', 'userInfoFactory
       }
       else{
         if(link.isVideo){
-          var ocnfirmed = confirm('want us to email you this video?')
+          var confirmed = confirm('want us to email you this video?')
         }
         else {
           var confirmed = confirm('download this photo?');
