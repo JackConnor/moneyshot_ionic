@@ -797,41 +797,61 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         $scope.submitModalVar = true;
         setCellSize();
         /////////the following set teh submit page up to prevent app crashes
-        for (var i = 0; i < 4; i++) {
-          if($scope.mediaCache[i]){
-            $scope.mediaCacheTemp.push($scope.mediaCache[i]);
-            console.log($scope.mediaCacheTemp);
-          }
-        }
+        // for (var i = 0; i < 4; i++) {
+        var mediaCachePart = $scope.mediaCache.slice(0, 4);
+        console.log(mediaCachePart);
+        $scope.mediaCacheTemp = mediaCachePart;
+        console.log($scope.mediaCacheTemp);
+          // if($scope.mediaCache[i]){
+          //   $scope.mediaCacheTemp.push($scope.mediaCache[i]);
+          //   console.log($scope.mediaCacheTemp);
+          // }
+        // }
         $timeout(function(){
-          for (var i = 4; i < 8; i++) {
-            if($scope.mediaCache[i]){
-              $scope.mediaCacheTemp.push($scope.mediaCache[i]);
-            }
-          }
-        }, 750);
+          // for (var i = 4; i < 8; i++) {
+          //   if($scope.mediaCache[i]){
+          //     $scope.mediaCacheTemp.push($scope.mediaCache[i]);
+          //   }
+          // }
+          var mediaCachePart = $scope.mediaCache.slice(0, 8);
+          console.log(mediaCachePart);
+          $scope.mediaCacheTemp = mediaCachePart;
+          console.log($scope.mediaCacheTemp);
+        }, 500);
         $timeout(function(){
-          for (var i = 8; i < 12; i++) {
-            if($scope.mediaCache[i]){
-              $scope.mediaCacheTemp.push($scope.mediaCache[i]);
-            }
-          }
+          var mediaCachePart = $scope.mediaCache.slice(0, 12);
+          console.log(mediaCachePart);
+          $scope.mediaCacheTemp = mediaCachePart;
+          console.log($scope.mediaCacheTemp);
+          // for (var i = 8; i < 12; i++) {
+          //   if($scope.mediaCache[i]){
+          //     $scope.mediaCacheTemp.push($scope.mediaCache[i]);
+          //   }
+          // }
+        }, 1000);
+        $timeout(function(){
+          var mediaCachePart = $scope.mediaCache.slice(0, 16);
+          console.log(mediaCachePart);
+          $scope.mediaCacheTemp = mediaCachePart;
+          console.log($scope.mediaCacheTemp);
+          // for (var i = 12; i < 16; i++) {
+          //   if($scope.mediaCache[i]){
+          //     $scope.mediaCacheTemp.push($scope.mediaCache[i]);
+          //   }
+          // }
         }, 1500);
-        $timeout(function(){
-          for (var i = 12; i < 16; i++) {
-            if($scope.mediaCache[i]){
-              $scope.mediaCacheTemp.push($scope.mediaCache[i]);
-            }
-          }
-        }, 2750);
         //////note: we're leaving this on ebelow in case we wan tto toggle back to 25 photos
         $timeout(function(){
-          for (var i = 16; i < 20; i++) {
-            if($scope.mediaCache[i]){
-              $scope.mediaCacheTemp.push($scope.mediaCache[i]);
-            }
-          }
-        }, 3500);
+          var mediaCachePart = $scope.mediaCache.slice(0, 20);
+          console.log(mediaCachePart);
+          $scope.mediaCacheTemp = mediaCachePart;
+          console.log($scope.mediaCacheTemp);
+          // for (var i = 16; i < 20; i++) {
+          //   if($scope.mediaCache[i]){
+          //     $scope.mediaCacheTemp.push($scope.mediaCache[i]);
+          //   }
+          // }
+        }, 2000);
       }
     }
 
