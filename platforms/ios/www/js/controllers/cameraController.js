@@ -728,6 +728,8 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     $scope.emergencyCancelSubmit = emergencyCancelSubmit;
 
     function leavePostSubmit(){
+      $scope.submitModalVar = false;
+      $scope.submitBar = false;
       $scope.postSubmit = false;
       $scope.cameraModal = true;
       localforage.setItem('storedPhotos', []);
