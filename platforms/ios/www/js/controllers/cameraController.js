@@ -5,10 +5,6 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
   .run(function($ionicPlatform){
     window.location.hasLaunched = false;
-    console.log('yoooooooo');
-    // ionic.Platform.ready(function(){
-    //   ionic.Platform.fullScreen(true);
-    // })
   })
 
   .filter('trustUrl', function ($sce) {
@@ -591,7 +587,8 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                         $scope.cachedUser.tempVideoCache = [];
                         userInfo.userInfoFunc('blah', false, $scope.cachedUser);
                         userInfo.userInfoFunc(window.localStorage.webToken, true);
-                        $state.reload(true);
+                        // $state.reload(true);
+                        $scope.postSubmit = true;
                       })
                       .catch(function(err){
                         console.log(err);
@@ -639,7 +636,8 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                       $scope.cachedUser.tempVideoCache = [];
                       userInfo.userInfoFunc('blah', false, $scope.cachedUser);
                       userInfo.userInfoFunc(window.localStorage.webToken, true);
-                      $state.reload(true);
+                      // $state.reload(true);
+                      $scope.postSubmit = true;
                     })
                     .catch(function(err){
                       console.log(err);
@@ -700,7 +698,8 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                           $scope.cachedUser.tempVideoCache = [];
                           userInfo.userInfoFunc('blah', false, $scope.cachedUser);
                           userInfo.userInfoFunc(window.localStorage.webToken, true);
-                          $state.reload(true);
+                          // $state.reload(true);
+                          $scope.postSubmit = true;
                         })
                         .catch(function(err){
                           console.log(err);
@@ -727,6 +726,16 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       $scope.isDisabled = true;
     }
     $scope.emergencyCancelSubmit = emergencyCancelSubmit;
+
+    function leavePostSubmit(){
+      $scope.postSubmit = false;
+      $scope.cameraModal = true;
+      localforage.setItem('storedPhotos', []);
+      userInfo.clearCache();
+      $scope.mediaCache = [];
+      goLaunch();
+    }
+    $scope.leavePostSubmit = leavePostSubmit;
 
     function backToSubmit(){
       $('.submitCropContainer').animate({

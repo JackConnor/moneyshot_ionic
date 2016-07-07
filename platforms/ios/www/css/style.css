@@ -1633,7 +1633,7 @@ html {
   color: white;
 }
 
-.signupInputHolder input[type='password'] {
+.signupInputHolder input[type='password'] { 
   margin-top: 10px;
   height: 45px;
   font-size: 14px;

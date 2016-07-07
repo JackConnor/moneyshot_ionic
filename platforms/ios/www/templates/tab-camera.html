@@ -10,7 +10,17 @@
         </p>
       </div>
       <div class='enterButton' ng-click='goLaunch()' ng-if='enterButton'>Launch Camera</div>
+    </div>
+    <div class="cameraIntroBlack" ng-if='postSubmit'>
+      <div class="enterTip">
+        <p class='enterTipTitle'>
+          PhotoJournalism tip:
+        </p>
+        <p>
+          {{tip}}
+        </p>
       </div>
+      <div class='enterButton' ng-click='leavePostSubmit()'>Launch Camera</div>
     </div>
 
 

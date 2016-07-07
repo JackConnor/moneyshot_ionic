@@ -44,9 +44,15 @@ angular.module('userInfoFactory', [])
       return userInfoCache;
     }
 
+    function clearCache(){
+      userInfoCache.tempVideoCache = [];
+      return userInfoCache;
+    }
+
     return {
       userInfoFunc: getUserInfo
       ,promiseOnly: promise
       ,cacheOnly: cacheOnly
+      ,clearCache: clearCache
     }
   }
