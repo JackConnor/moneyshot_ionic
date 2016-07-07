@@ -294,12 +294,12 @@ angular.module('accountController', ['persistentPhotosFactory', 'userInfoFactory
             $('.submitCellAcct').height('123.33px');
           }, 1500);
         }
-        else if(cacheLength <= 16){
-          $timeout(function(){
-            $('.submitCellAcct').width('92.5px');
-            $('.submitCellAcct').height('92.5px');
-          }, 3000);
-        }
+        // else if(cacheLength <= 16){
+        //   $timeout(function(){
+        //     $('.submitCellAcct').width('92.5px');
+        //     $('.submitCellAcct').height('92.5px');
+        //   }, 3000);
+        // }
       }
 
     function openSubmission(subInfo, evt){

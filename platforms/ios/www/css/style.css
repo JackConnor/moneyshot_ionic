@@ -1064,7 +1064,6 @@ html {
     width: 100%;
     margin-left: 0%;
     height: 400px;
-    padding-top: 20px;
     overflow: hidden;
 
   }
@@ -1099,7 +1098,6 @@ html {
     width: 100%;
     margin-left: 0%;
     height: 469px;
-    padding-top: 20px;
     overflow: hidden;
 
   }
@@ -1930,8 +1928,8 @@ html {
   }
 
   .submitCellAcct {
-    height: 63px;
-    width: 63px;
+    height: 92.5px;
+    width: 92.5px;
     padding: 0px;
     display: inline-block;
     overflow: hidden;
@@ -1950,8 +1948,8 @@ html {
   }
 
   .submitCellAcct {
-    height: 74px;
-    width: 74px;
+    height: 92.5px;
+    width: 92.5px;
     padding: 0px;
     display: inline-block;
     overflow: hidden;
