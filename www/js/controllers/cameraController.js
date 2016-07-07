@@ -253,37 +253,37 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     //////function to set up our tempprary photo storage between sessions
     function setLocalForage(callback, cbParam){
       ////reset local forage cache, uncomment and comment active code to fix issues
-      localforage.setItem('storedPhotos', [])
-      .then(function(dataVal){
-        console.log('creating array');
-        console.log(dataVal);
-      })
-      .catch(function(err){
-        console.log(err);
-      })
-      // localforage.getItem('storedPhotos')
-      // .then(function(value){
-      //   window.location.webToken = $scope.newToken;//////taking care of this;
-      //   if(value === null || value === [null]){
-      //     localforage.setItem('storedPhotos', [])
-      //     .then(function(dataVal){
-      //       // setLaunchCamera();
-      //     })
-      //     .catch(function(err){
-      //       console.log(err);
-      //     })
-      //   }
-      //   else {
-      //     var valLength = value.length;
-      //     for (var i = 0; i < valLength; i++) {
-      //       $scope.mediaCache.push(value[i]);
-      //       $scope.$apply();
-      //     }
-      //   }
+      // localforage.setItem('storedPhotos', [])
+      // .then(function(dataVal){
+      //   console.log('creating array');
+      //   console.log(dataVal);
       // })
       // .catch(function(err){
       //   console.log(err);
-      // });
+      // })
+      localforage.getItem('storedPhotos')
+      .then(function(value){
+        window.location.webToken = $scope.newToken;//////taking care of this;
+        if(value === null || value === [null]){
+          localforage.setItem('storedPhotos', [])
+          .then(function(dataVal){
+            // setLaunchCamera();
+          })
+          .catch(function(err){
+            console.log(err);
+          })
+        }
+        else {
+          var valLength = value.length;
+          for (var i = 0; i < valLength; i++) {
+            $scope.mediaCache.push(value[i]);
+            $scope.$apply();
+          }
+        }
+      })
+      .catch(function(err){
+        console.log(err);
+      });
     }
 
     function showCamera(callback){
@@ -777,12 +777,12 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
           $('.submitCell').height('123.33px');
         }, 1500);
       }
-      else if(cacheLength <= 16){
-        $timeout(function(){
-          $('.submitCell').width('92.5px');
-          $('.submitCell').height('92.5px');
-        }, 3000);
-      }
+      // else if(cacheLength <= 16){
+      //   $timeout(function(){
+      //     $('.submitCell').width('92.5px');
+      //     $('.submitCell').height('92.5px');
+      //   }, 3000);
+      // }
     }
 
     function submitModalOpen(){
@@ -797,39 +797,41 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         $scope.submitModalVar = true;
         setCellSize();
         /////////the following set teh submit page up to prevent app crashes
-        for (var i = 0; i < 5; i++) {
+        for (var i = 0; i < 4; i++) {
           if($scope.mediaCache[i]){
             $scope.mediaCacheTemp.push($scope.mediaCache[i]);
             console.log($scope.mediaCacheTemp);
           }
         }
         $timeout(function(){
-          for (var i = 5; i < 10; i++) {
+          for (var i = 4; i < 8; i++) {
             if($scope.mediaCache[i]){
               $scope.mediaCacheTemp.push($scope.mediaCache[i]);
             }
           }
         }, 750);
         $timeout(function(){
-          for (var i = 10; i < 15; i++) {
+          for (var i = 8; i < 12; i++) {
             if($scope.mediaCache[i]){
               $scope.mediaCacheTemp.push($scope.mediaCache[i]);
             }
           }
         }, 1500);
         $timeout(function(){
-          for (var i = 15; i < 20; i++) {
+          for (var i = 12; i < 16; i++) {
             if($scope.mediaCache[i]){
               $scope.mediaCacheTemp.push($scope.mediaCache[i]);
             }
           }
         }, 2750);
         //////note: we're leaving this on ebelow in case we wan tto toggle back to 25 photos
-        // $timeout(function(){
-        //   for (var i = 20; i < 25; i++) {
-        //
-        //   }
-        // }, 3500);
+        $timeout(function(){
+          for (var i = 16; i < 20; i++) {
+            if($scope.mediaCache[i]){
+              $scope.mediaCacheTemp.push($scope.mediaCache[i]);
+            }
+          }
+        }, 3500);
       }
     }
 
@@ -1175,18 +1177,24 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         $(evt.currentTarget).addClass('selectedP');
         var parent = $(evt.currentTarget).parent();
         parent.prepend(
-          "<p class='fa fa-check-circle photoCheck'></p>"
+          "<div class='photoCheckHolder'>"+
+            "<p class='fa fa-check-circle photoCheck'></p>"+
+          "</div>"
         );
       }
       else if($(evt.currentTarget).hasClass('selectedP')){
         $(evt.currentTarget).removeClass('selectedP');
         var parent = $(evt.currentTarget).parent();
+        parent.find('.photoCheckHolder').remove();
         parent.find('.photoCheck').remove();
       }
     }
 
     function selectPhotos(){
       if($scope.selectMode === false){
+        $('.submitCellImageHolder').css({
+          border: '1px solid black'
+        });
         $(".submitAddInfoContainer").animate({
           marginTop: '40px'
           ,opacity: 0.6
@@ -1198,6 +1206,9 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         }, 100)
       }
       else if($scope.selectMode === true){
+        $('.submitCellImageHolder').css({
+          border: '0px solid black'
+        });
         $(".submitAddInfoContainer").animate({
           marginTop: '10px'
           ,opacity: 1
@@ -1233,9 +1244,11 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
             for (var i = 0; i < allLength; i++) {
               var child = $(allPhotos[i]).find('img');
               if(child.hasClass('selectedP')){
+                $(allPhotos[i]).find('.photoCheckHolder').remove();
 
                 $scope.mediaCache.splice((i-eraseCount), 1);
                 $scope.mediaCacheTemp.splice((i-eraseCount), 1);
+                child.removeClass('selectedP');
                 $scope.$apply();
                 eraseCount++;
               }
