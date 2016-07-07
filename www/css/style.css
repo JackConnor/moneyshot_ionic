@@ -1622,6 +1622,28 @@ html {
   color: white;
 }
 
+.signupInputHolder input[type='text'] {
+  margin-top: 10px;
+  height: 45px;
+  font-size: 14px;
+  font-weight: 900;
+  width: 95%;
+  padding-top: 10px;
+  margin-left: 2.5%;
+  color: white;
+}
+
+.signupInputHolder input[type='password'] {
+  margin-top: 10px;
+  height: 45px;
+  font-size: 14px;
+  font-weight: 900;
+  width: 95%;
+  padding-top: 10px;
+  margin-left: 2.5%;
+  color: white;
+}
+
 
 .signupModal {
   padding-top: 105px;
@@ -1656,7 +1678,7 @@ html {
   margin-top: 20px;
 }
 
-.splashInput {
+/*.splashInput {
   margin-top: 10px;
   height: 45px;
   font-size: 14px;
@@ -1665,7 +1687,7 @@ html {
   padding-top: 10px;
   margin-left: 2.5%;
   color: white;
-}
+}*/
 
 @media only screen and (min-width: 0px){
   .submissionDataHolder {
