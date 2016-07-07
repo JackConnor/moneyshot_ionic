@@ -25,6 +25,7 @@ angular.module('signupController', ['userInfoFactory'])
     $scope.pwHide           = false;
     $scope.newSigninModal   = false;
     $scope.termsOpen        = false;
+    $scope.introBlocker     = true;
     $scope.introCounter     = 0;
     $scope.introTag = "Shoot Awesome Photos";
 
@@ -33,7 +34,13 @@ angular.module('signupController', ['userInfoFactory'])
     function initPage(){
       $scope.introCounter = 0;
       $interval.cancel($scope.swipeInterval);
-
+      // navigator.splashscreen.hide();
+      $(".blackIntroBlocker").animate({
+        opacity: 0
+      }, 400);
+      setTimeout(function(){
+        $scope.introBlocker = false;
+      }, 400);
       $scope.swipeInterval = $interval(function(){
         console.log('interval');
         introSwipeLeft();

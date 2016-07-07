@@ -123,7 +123,7 @@
     <preference name="android-minSdkVersion" value="16" />
     <preference name="SplashScreen" value="screen" />
     <preference name="AutoHideSplashScreen" value="true" />
-    <preference name="SplashScreenDelay" value="1200" />
+    <preference name="SplashScreenDelay" value="2500" />
     <preference name="ShowSplashScreenSpinner" value="false" />
     <preference name="FadeSplashScreen" value="false" />
 </widget>

@@ -201,6 +201,12 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       if(userLoaded !== undefined || userLoaded !== 'undefined'){
         $scope.cachedUser = userLoaded;
       }
+      else {
+        setTimeout(function(){
+          var newUser = userInfo.userInfoFunc();
+          console.log(newUser);
+        }, 1000);
+      }
       setTimeout(function(){
         initCheckUser();
       }, 100);
