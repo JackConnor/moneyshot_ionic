@@ -158,7 +158,7 @@
           </div>
         </div>
         <ion-scroll class="submitRepeat">
-          <div class="submitCell" ng-repeat='media in mediaCacheTemp'>
+          <div class="submitCell" ng-repeat='media in mediaCacheTemp track by $index'>
             <div class="submitCellImageHolder" >
               <img class='submitPhoto submitPhoto{{$index}}' id='submit{{$index}}' ng-src="{{media.link}}" ng-if='media.type=="photo"' ng-click='goToCarousel(media, $index, $event)'/>
               <img class='submitPhoto submitPhoto{{$index}}' id='submit{{$index}}' ng-src="{{media.thumb | trustUrl}}" ng-if='media.type=="video" || media.type==="videoTemp"' ng-click='goToCarousel(media, $index, $event)'/>

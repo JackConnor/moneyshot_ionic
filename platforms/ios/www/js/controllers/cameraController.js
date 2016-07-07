@@ -253,37 +253,37 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     //////function to set up our tempprary photo storage between sessions
     function setLocalForage(callback, cbParam){
       ////reset local forage cache, uncomment and comment active code to fix issues
-      // localforage.setItem('storedPhotos', [])
-      // .then(function(dataVal){
-      //   console.log('creating array');
-      //   console.log(dataVal);
-      // })
-      // .catch(function(err){
-      //   console.log(err);
-      // })
-      localforage.getItem('storedPhotos')
-      .then(function(value){
-        window.location.webToken = $scope.newToken;//////taking care of this;
-        if(value === null || value === [null]){
-          localforage.setItem('storedPhotos', [])
-          .then(function(dataVal){
-            // setLaunchCamera();
-          })
-          .catch(function(err){
-            console.log(err);
-          })
-        }
-        else {
-          var valLength = value.length;
-          for (var i = 0; i < valLength; i++) {
-            $scope.mediaCache.push(value[i]);
-            $scope.$apply();
-          }
-        }
+      localforage.setItem('storedPhotos', [])
+      .then(function(dataVal){
+        console.log('creating array');
+        console.log(dataVal);
       })
       .catch(function(err){
         console.log(err);
-      });
+      })
+      // localforage.getItem('storedPhotos')
+      // .then(function(value){
+      //   window.location.webToken = $scope.newToken;//////taking care of this;
+      //   if(value === null || value === [null]){
+      //     localforage.setItem('storedPhotos', [])
+      //     .then(function(dataVal){
+      //       // setLaunchCamera();
+      //     })
+      //     .catch(function(err){
+      //       console.log(err);
+      //     })
+      //   }
+      //   else {
+      //     var valLength = value.length;
+      //     for (var i = 0; i < valLength; i++) {
+      //       $scope.mediaCache.push(value[i]);
+      //       $scope.$apply();
+      //     }
+      //   }
+      // })
+      // .catch(function(err){
+      //   console.log(err);
+      // });
     }
 
     function showCamera(callback){
