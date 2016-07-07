@@ -89,12 +89,19 @@
           </div>
         </div>
         <div class="buttonDiv col-xs-4">
-          <div class="photoCount">
+          <div class="photoCount" ng-if='cameraLaunched'>
             {{mediaCache.length}}
           </div>
-          <div class="takePhotoButton" ng-click='takeCordovaPicture()' ng-if='cameraMode==="photo" || cameraMode==="video"'>
+          <div class="photoCount" ng-if='!cameraLaunched' style='opacity:0.6'>
+            {{mediaCache.length}}
+          </div>
+          <div class="takePhotoButton" ng-click='takeCordovaPicture()' ng-if='cameraLaunched'>
             <div class="takePhotoButtonInner">
 
+            </div>
+          </div>
+          <div class="takePhotoButton" ng-if='!cameraLaunched' style="opacity: 0.6">
+            <div class="takePhotoButtonInner">
             </div>
           </div>
           <div class="takeBurstButton" on-release='clearPhotoInt()' on-touch='photoInt()' ng-if='cameraMode==="burst"' >

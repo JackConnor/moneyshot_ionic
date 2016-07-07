@@ -49,8 +49,10 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     var googId = 'AIzaSyDspcymxHqhUaiLh2YcwV67ZNhlGd4FyxQ';
     var count = 0;
     var eraseSubmitArr          = [];
+
+
+    //////this catch is to prevent advice/button modal from persisting past initial load
     if(window.location.hasLaunched === true){
-      console.log('fouuuuuuuuund it');
       $scope.launchModal = false;
     }
 
@@ -168,11 +170,14 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
           cordova.plugins.camerapreview.startCamera(rect, 'back', tapEnabled, dragEnabled);
           cordova.plugins.camerapreview.show();
           $scope.activePhoto = false;
-          $scope.cameraLaunched = true;
+
         }, 500);
         $timeout(function(){
           initCache();
         },1000);
+        $timeout(function(){
+          $scope.cameraLaunched = true;
+        },2000);
       // }
       // else {
       //   $timeout(function(){
