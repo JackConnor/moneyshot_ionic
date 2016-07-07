@@ -28,48 +28,26 @@ angular.module('signupController', ['userInfoFactory'])
 
     ///////////////////////////////
     ////////intro swipe modal stuff
-    // document.addEventListener('deviceready', function(){
-    //   $scope.swipeInterval = $interval(function(){
-    //     introSwipeLeft();
-    //   }, 1750);
-    //   $timeout(function(){
-    //     $cordovaStatusbar.style(1);
-    //     $cordovaStatusbar.hide();
-    //     $ionicScrollDelegate.freezeScroll(true);
-    //     // navigator.splashscreen.hide();
-    //     $(window).unload(function(){
-    //       // cordova.plugins.camerapreview.stopCamera();
-    //       $ionic.Platform.exitApp();
-    //     });
-    //   }, 2000);
-    // });
     function initPage(){
-      // alert('initting')
-      // navigator.splashscreen.hide();
-      // alert('initting');
-      // $timeout(function(){
-        // alert('intervsl')
-        $scope.swipeInterval = $interval(function(){
-          introSwipeLeft();
-        }, 1750);
-      // }, 5000);
-      // $timeout(function(){
-      //         // alert('heyyyyyyy')
-      //   // $cordovaStatusbar.style(1);
-      //   $cordovaStatusbar.hide();
-      //   $ionicScrollDelegate.freezeScroll(true);
-      //   $(window).unload(function(){
-      //     // cordova.plugins.camerapreview.stopCamera();
-      //     $ionic.Platform.exitApp();
-      //   });
-      // }, 3000);
+      $scope.introCounter = 0;
+      $interval.cancel($scope.swipeInterval);
+
+      $scope.swipeInterval = $interval(function(){
+        console.log('interval');
+        introSwipeLeft();
+      }, 1750);
     }
-    document.addEventListener('deviceready', function(){
-      // alert('device ready')
-      $timeout(function(){
-        initPage();
-      }, 4000);
-    })
+    // if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+    //   document.addEventListener('deviceready', function(){
+    //     // alert('device ready')
+    //     $timeout(function(){
+    //       initPage();
+    //     }, 1000);
+    //   })
+    // }
+    // else {
+    //   initPage();
+    // }
     $scope.initPage = initPage;
     // $('#swipe1').load(function(){
     //   setTimeout(function(){

@@ -99,7 +99,7 @@ angular.module('accountController', ['persistentPhotosFactory', 'userInfoFactory
         userInfo.userInfoFunc(token, true);
         $timeout(function(){
           getUserPhotos(token);
-        }, 200);
+        }, 1000);
       }
       // else if($scope.userInfo === undefined){
       //   var userInfoData = userInfo.userInfoFunc(token, true);
@@ -111,51 +111,12 @@ angular.module('accountController', ['persistentPhotosFactory', 'userInfoFactory
         var photoLength = userInfoData.photos.length;
         $scope.userPhotos = userPhotos;
         $scope.userSubmissions = userInfoData.submissions  //.slice(0, 20);
-        // var backlengthFunc = function(){
-        //   if($scope.userSubmissions){
-        //     return $scope.userSubmissions.length*5;
-        //   }
-        //   else {
-        //     return 1;
-        //   }
-        // }
-        // var backLength = backlengthFunc();
         $scope.totalEarned = 0;
         $timeout(function(){
           $('.showSubmittedHolder').css({
             height: 'auto'
           });
         }, 1000);
-        function mapPhotos(){
-          var soldPhotos = [];
-          var offeredPhotos = [];
-          // for (var i = 0; i < photoLength; i++) {
-          //   if(userPhotos[i].status === 'sold'){
-          //     soldPhotos.push(userPhotos[i]);
-          //     $scope.totalEarned += userPhotos[i].price;
-          //     if(i == userPhotos.length-1){
-          //       $scope.allSoldPhotos = soldPhotos.reverse();
-          //     }
-          //   }
-          //   else if(userPhotos[i].status === 'offered for sale'){
-          //     offeredPhotos.push(userPhotos[i]);
-          //     $scope.totalEarned += userPhotos[i].price;
-          //     if(i === userPhotos.length-1){
-          //       $scope.allSoldPhotos = soldPhotos.reverse();
-          //     }
-          //   }
-          //   else {
-          //     if(i === userPhotos.length-1){
-          //       $scope.allSoldPhotos = soldPhotos.reverse();
-          //     }
-          //   }
-          // }
-          // for (var i = 0; i < 0; i++) {
-          //   $scope.backgroundMultiple.push('filler'+i);
-          // }
-          // setCss();
-        }
-        mapPhotos();
       }
     }
 
