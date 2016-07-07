@@ -37,26 +37,7 @@ angular.module('signupController', ['userInfoFactory'])
         introSwipeLeft();
       }, 1750);
     }
-    // if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
-    //   document.addEventListener('deviceready', function(){
-    //     // alert('device ready')
-    //     $timeout(function(){
-    //       initPage();
-    //     }, 1000);
-    //   })
-    // }
-    // else {
-    //   initPage();
-    // }
     $scope.initPage = initPage;
-    // $('#swipe1').load(function(){
-    //   setTimeout(function(){
-    //     initPage();
-    //   }, 1000);
-    // })
-    // $('html').load(function(){
-    //   initPage();
-    // })
 
     function backToIntro(){
       $scope.signinModalVar = false;

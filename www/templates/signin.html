@@ -117,8 +117,9 @@
           <input style='background-color:transparent' class='signupEmail splashInput form-control' placeholder='Email' type='text'></input>
           <input style='background-color:transparent' type="password" class='signupPassword splashInput form-control' placeholder='Password' ng-keyup='highlightSignup($event)'></input>
           <input style='background-color:transparent' type="password" class='signupConfirmPassword splashInput form-control' placeholder='Confirm password' ng-keyup='highlightSignup($event)'></input>
-          <!-- <input type="password" class='signupPassword splashInput' placeholder='Password'> -->
-          <!-- <div class='submitSignup subSignup' ng-click='signinToggleButton()'>SIGN IN</div> -->
+          <div class="termsAndConditions">
+            <input type="checkbox" class='termsAgree'>I agree to the following <span class='termsLink'>Terms and Conditions.</span>
+          </div>
         </div>
       </div>
       <div class="signinModal" ng-if='signinModalVar'>
