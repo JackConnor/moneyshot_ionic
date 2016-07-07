@@ -89,10 +89,7 @@
           </div>
         </div>
         <div class="buttonDiv col-xs-4">
-          <div class="photoCount" ng-if='cameraLaunched'>
-            {{mediaCache.length}}
-          </div>
-          <div class="photoCount" ng-if='!cameraLaunched' style='opacity:0.6'>
+          <div class="photoCount">
             {{mediaCache.length}}
           </div>
           <div class="takePhotoButton" ng-click='takeCordovaPicture()' ng-if='cameraLaunched'>
@@ -100,7 +97,7 @@
 
             </div>
           </div>
-          <div class="takePhotoButton" ng-if='!cameraLaunched' style="opacity: 0.6">
+          <div class="takePhotoButton" ng-if='!cameraLaunched'>
             <div class="takePhotoButtonInner">
             </div>
           </div>
