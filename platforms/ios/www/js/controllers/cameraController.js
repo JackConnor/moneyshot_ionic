@@ -88,7 +88,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         }
         setTimeout(function(){
           console.log(httpLoaded);
-          if(httpLoaded === false){
+          if(httpLoaded === false && window.location.hash === "#/tab/camera"){
             initCheckUser();
           }
         }, 3000);

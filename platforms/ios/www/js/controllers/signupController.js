@@ -168,6 +168,8 @@ angular.module('signupController', ['userInfoFactory'])
     // function to signup users who are new to the site
     function signupUser(){
       var validPW = checkPassword();
+      var termsChecked = $(".termsAgree").prop('checked');
+      console.log(termsChecked);
       $('.mophoSignin').css({
         opacity: .25
       });
@@ -179,55 +181,59 @@ angular.module('signupController', ['userInfoFactory'])
         var password = $('.signupPassword').val();
         var repassword = $('.signupConfirmPassword').val();
         if(password == repassword){
-          signup(email, password)
-          .then(function(newUser){
-            console.log(newUser);
-            if(newUser.data === 'email already in use'){
-              navigator.notification.alert('that email is already in the system, please try another one or login using your password');
-              $('.signupEmail').val('');
-              $('.signupPassword').val('');
-              $('.signupConfirmPassword').val('');
-              return;
-            }
-            else if(newUser.data === 'please send a password'){
-              navigator.notification.alert('you forgot your password');
-              return;
-            }
-            else if(email.split('@').length < 2){
-              navigator.notification.alert('You need an @');
-              $('.signupPassword').val('');
-              $('.signupConfirmPassword').val('');
-            }
-            else if(email.split('.').length < 2){
-              navigator.notification.alert('Your email needs a proper ending');
-              $('.signupPassword').val('');
-              $('.signupConfirmPassword').val('');
-            }
-            else {
-              newToken(newUser.data._id)
-              .then(function(ourToken){
-                var confirmSave = confirm('Would you like us to save your email and password?');
-                if(confirmSave){
-                  window.localStorage.setItem('mophoEmail', email);
-                  window.localStorage.setItem('mophoPw', password);
-                }
-                //////can we put the teaching screen right here?
-                $scope.ourTokenData = ourToken.data;
-                $scope.newSigninModal = true;
+          if(termsChecked === true){
+            signup(email, password)
+            .then(function(newUser){
+              console.log(newUser);
+              if(newUser.data === 'email already in use'){
+                navigator.notification.alert('that email is already in the system, please try another one or login using your password');
+                $('.signupEmail').val('');
+                $('.signupPassword').val('');
+                $('.signupConfirmPassword').val('');
+                return;
+              }
+              else if(newUser.data === 'please send a password'){
+                navigator.notification.alert('you forgot your password');
+                return;
+              }
+              else if(email.split('@').length < 2){
+                navigator.notification.alert('You need an @');
+                $('.signupPassword').val('');
+                $('.signupConfirmPassword').val('');
+              }
+              else if(email.split('.').length < 2){
+                navigator.notification.alert('Your email needs a proper ending');
+                $('.signupPassword').val('');
+                $('.signupConfirmPassword').val('');
+              }
+              else {
+                newToken(newUser.data._id)
+                .then(function(ourToken){
+                  var confirmSave = confirm('Would you like us to save your email and password?');
+                  if(confirmSave){
+                    window.localStorage.setItem('mophoEmail', email);
+                    window.localStorage.setItem('mophoPw', password);
+                  }
+                  //////can we put the teaching screen right here?
+                  $scope.ourTokenData = ourToken.data;
+                  $scope.newSigninModal = true;
 
-                // $http({
-                //   method: "POST"
-                //   ,url: "http://moneyshotapi.herokuapp.com/api/signup/email"
-                //   ,data: {userEmail: email}
-                // })
-                // .then(function(mailCallback){
-                //   console.log(mailCallback);
-                //   window.location.hash = "#/tab/camera";
-                //   window.reload();
-                // })
-              })
-            }
-          })
+                  $http({
+                    method: "POST"
+                    ,url: "http://moneyshotapi.herokuapp.com/api/signup/email"
+                    ,data: {userEmail: email}
+                  })
+                  .then(function(mailCallback){
+                    console.log(mailCallback);
+                    $state.go('camera');
+                  })
+                })
+              }
+            })
+          }
+          else {
+            navigator.notification.alert('Please read and agree to our terms and conditions')
+          }
         }
         else {
           navigator.notification.alert('passwords dont match');
