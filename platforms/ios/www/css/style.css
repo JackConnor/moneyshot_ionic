@@ -600,8 +600,38 @@ html {
   color: white;
 }
 
+.enterAccountButton {
+  margin-top: 20px;
+  width: 250px;
+  height: 60px;
+  color: white;
+  font-size: 23px;
+  text-align: center;
+  padding-top: 17px;
+  font-weight: 900;
+  border-radius: 5px;
+  border: 2px solid white;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .enterButton {
   margin-top: 50px;
+  width: 250px;
+  height: 60px;
+  background-color: red;
+  color: white;
+  font-size: 23px;
+  text-align: center;
+  padding-top: 17px;
+  font-weight: 900;
+  border-radius: 5px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.enterCamera {
+  margin-top: 75px;
   width: 250px;
   height: 60px;
   background-color: red;
@@ -1633,7 +1663,7 @@ html {
   color: white;
 }
 
-.signupInputHolder input[type='password'] { 
+.signupInputHolder input[type='password'] {
   margin-top: 10px;
   height: 45px;
   font-size: 14px;

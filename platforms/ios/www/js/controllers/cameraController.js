@@ -739,6 +739,13 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     }
     $scope.leavePostSubmit = leavePostSubmit;
 
+    function leavePostAccount(){
+      localforage.setItem('storedPhotos', []);
+      userInfo.clearCache();
+      $state.go('tab.account');
+    }
+    $scope.leavePostAccount = leavePostAccount;
+
     function backToSubmit(){
       $('.submitCropContainer').animate({
         marginLeft: 100+"%"
