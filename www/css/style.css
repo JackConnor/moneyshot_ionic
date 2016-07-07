@@ -2334,8 +2334,8 @@ html {
 .termsBack {
   margin-left: 5%;
   color: white;
-  font-size: 16px;
-  margin-top: 5px;
+  font-size: 20px;
+  margin-top: 15px;
   position: absolute;
 }
 
@@ -2347,7 +2347,7 @@ html {
   color: white;
   width: 90%;
   height: 500px;
-  margin-top: 35px;
+  margin-top: 50px;
   padding-top: 10px;
   font-size: 14px;
   margin-left: 5%;
@@ -2358,6 +2358,7 @@ html {
 .termsTextHolder p {
   width: 90%;
   margin-left: 5%;
+  text-align: center;
 }
 
 .testing {
