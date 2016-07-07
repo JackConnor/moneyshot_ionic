@@ -1622,16 +1622,6 @@ html {
   color: white;
 }
 
-.signupInputHolder input {
-  margin-top: 10px;
-  height: 45px;
-  font-size: 14px;
-  font-weight: 900;
-  width: 95%;
-  padding-top: 10px;
-  margin-left: 2.5%;
-  color: white;
-}
 
 .signupModal {
   padding-top: 105px;
@@ -1664,6 +1654,17 @@ html {
   border-radius: 4px;
   font-size: 40px;
   margin-top: 20px;
+}
+
+.splashInput {
+  margin-top: 10px;
+  height: 45px;
+  font-size: 14px;
+  font-weight: 900;
+  width: 95%;
+  padding-top: 10px;
+  margin-left: 2.5%;
+  color: white;
 }
 
 @media only screen and (min-width: 0px){
@@ -2309,6 +2310,54 @@ html {
   text-align: center;
   padding-top: 50px;
   opacity: 0.3;
+}
+
+.termsAgree {
+  display: inline-block;
+  width: 25px;
+}
+
+.termsAndConditions {
+  margin-top: 10px;
+  width: 95%;
+  margin-left: 2.5%;
+}
+
+.termsAndConditionsModal {
+  position: absolute;
+  width: 100%;
+  height: 700px;
+  background-color: black;
+  z-index: 5;
+}
+
+.termsBack {
+  margin-left: 5%;
+  color: white;
+  font-size: 16px;
+  margin-top: 5px;
+  position: absolute;
+}
+
+.termsLink {
+  color: #72bcd4;
+}
+
+.termsTextHolder {
+  color: white;
+  width: 90%;
+  height: 500px;
+  margin-top: 35px;
+  padding-top: 10px;
+  font-size: 14px;
+  margin-left: 5%;
+  border: 2px solid white;
+  overflow: scroll;
+}
+
+.termsTextHolder p {
+  width: 90%;
+  margin-left: 5%;
 }
 
 .testing {

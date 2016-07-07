@@ -11,6 +11,7 @@ angular.module('signupController', ['userInfoFactory'])
   signupCtrl.$inject = ['$scope', '$http', '$state', 'signup', 'signin', 'newToken', '$cordovaStatusbar', '$window', '$timeout', '$interval', '$animateCss', '$ionicScrollDelegate', 'userInfo']
 
   function signupCtrl($scope, $http, $state, signup, signin, newToken, $cordovaStatusbar, $window, $timeout, $interval, $animateCss, $ionicScrollDelegate, userInfo){
+    ionic.Platform.fullScreen(true, false);
     // alert('Sign Loaded')
     // console.log($interval);
     // console.log($timeout);
@@ -23,6 +24,7 @@ angular.module('signupController', ['userInfoFactory'])
     $scope.newPwModal       = false;
     $scope.pwHide           = false;
     $scope.newSigninModal   = false;
+    $scope.termsOpen        = false;
     $scope.introCounter     = 0;
     $scope.introTag = "Shoot Awesome Photos";
 
@@ -37,26 +39,18 @@ angular.module('signupController', ['userInfoFactory'])
         introSwipeLeft();
       }, 1750);
     }
-    // if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
-    //   document.addEventListener('deviceready', function(){
-    //     // alert('device ready')
-    //     $timeout(function(){
-    //       initPage();
-    //     }, 1000);
-    //   })
-    // }
-    // else {
-    //   initPage();
-    // }
     $scope.initPage = initPage;
-    // $('#swipe1').load(function(){
-    //   setTimeout(function(){
-    //     initPage();
-    //   }, 1000);
-    // })
-    // $('html').load(function(){
-    //   initPage();
-    // })
+
+    ///////terms and conditions function
+    function openTermsFunc(){
+      $scope.termsOpen = true;
+    }
+    $scope.openTermsFunc = openTermsFunc;
+
+    function termsBack(){
+      $scope.termsOpen = false;
+    }
+    $scope.termsBack = termsBack;
 
     function backToIntro(){
       $scope.signinModalVar = false;

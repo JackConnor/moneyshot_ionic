@@ -1,4 +1,209 @@
 <ion-view view-title="Signin">
+  <div class="termsAndConditionsModal" ng-if='termsOpen'>
+    <p class='termsBack' ng-click='termsBack()'>
+      <span class="fa fa-chevron-left"></span>Back
+    </p>
+    <div class="termsTextHolder">
+      <p>
+
+        1.    Definitions:<br>
+
+
+
+        This Mopho Website and Mobile App (“Website and Mobile App”) is owned and operated by London Entertainment, LLC whose contact details can be found at www.londonenterainment.com. The terms “Mopho”, “we”, “us”, “our” and “ours” when used in these Website and Mobile App Terms of Service mean Mopho, which includes all entities  under common ownership or control of Mopho. The terms “you”, “your” and “yours” when used in these Website and Mobile App Terms of Service mean any user of this Website and Mobile App.<br>
+
+        2.    Agreement:<br>
+
+
+
+        Access to and use of this Website and Mobile App and the information, materials, products and/or services available through this Website and Mobile App are subject to all applicable laws and regulations, and to these Terms of Service (which incorporate our Privacy Policy). By accessing this Website and Mobile App, you agree to these Terms of Service, which form a legally binding agreement between us and you. If you do not agree, please do not use this Website and Mobile App. These Terms of Service may be changed by us from time to time without specific notice to you. The latest Terms of Service will be posted on the Website and Mobile App, and you should always review these Terms of Service prior to using the Website and Mobile App, to ensure that you have a current understanding of the Terms of Service under which you are permitted to access and use this Website and Mobile App. Your continued use of the Website and Mobile App following such change confirms your acceptance of such changes and willingness to be bound by them. If you cannot access the Terms of Service over the Internet, we can provide a copy of the most recent Terms of Service by e-mail on request (can we?). Access to any part of this Website and Mobile App and/or use of any of the information, materials, products or other services provided through this Website and Mobile App is not intended to infringe or violate any applicable local laws, regulations or codes of practice, and to the extent that it may do so, such access and use is prohibited.<br>
+
+
+
+
+        3.    Intellectual Property:<br>
+
+
+
+        Unless otherwise indicated, the contents of this Website and Mobile App (including, without limitation, all names, logos, trademarks, the Website and Mobile App design, text, documents, content, selection and arrangement of elements, databases, organization, graphics, videos, photographs and images, compilations, magnetic translation, digital conversion, computer codes contained in the Website and Mobile App) (“Elements”) are owned by Mopho or its licensors and are protected by copyright, trademarks, database right and other intellectual property rights.<br>
+
+        You must not use any such Elements in any way other than is incidental to your use of this Website and Mobile App in accordance with these Terms of Service. The posting of any such Elements on this Website and Mobile App does not constitute a waiver of any right in such Elements and your access and use of this Website and Mobile App does not operate to transfer any rights in such Elements to you other than as expressly stated in these Terms of Service. Except as otherwise provided herein, none of these Elements may be used, copied, reproduced, distributed, republished, downloaded, modified, displayed, posted or transmitted in any form or by any means, including, but not limited to, electronic, mechanical, photocopying, recording, or otherwise, without our express prior written permission.<br>
+
+        The Mopho logo, all product names, all page headers, all custom graphics, all button icons, all trademarks, service marks and logos appearing on this Website and Mobile App, unless otherwise noted, are service marks, trademarks and/or trade names  of Mopho (the "Marks"). All other trademarks, product names, company names, logos, service marks and/or trade names mentioned, displayed, cited or otherwise indicated on the Website and Mobile App are the property of their respective owners. You agree not to display or use the Marks in any manner (whether for linking, framing or otherwise) without our prior written permission. You agree not to display or use trademarks, product names, company names, logos, service marks and/or trade names of other owners without the prior written permission of such owners. The use or misuse of the Marks or other trademarks, product names, company names, logos, service marks and/or trade names or any other materials contained herein, except as expressly permitted herein, is strictly prohibited.<br>
+
+        You may print off one copy, and may download extracts, of any page(s) from this Website and Mobile App for your own personal, non-commercial use only, provided that you keep intact all and any copyright and proprietary notices on such material. Any other use of the Elements is not allowed, unless we have provided you with our prior written permission.<br>
+        Any rights not expressly granted herein are reserved.<br>
+
+        4.    Hyperlink Disclaimer:<br>
+
+
+        This Website and Mobile App may contain links to, and/or advertisements for, other Website and Mobile Apps maintained by us, in addition to links to Website and Mobile Apps maintained by unrelated companies and persons (“third party Website and Mobile App”). An advertisement of, or link to, a third party Website and Mobile App does not mean that we approve, endorse or accept any responsibility for that third party Website and Mobile App, its content or use, or the use of products and services made available through such third party Website and Mobile App. We are not responsible for the actions, content, accuracy, opinions expressed, privacy policies, products or services provided through these links or made available through these resources or appearing in such third party Website and Mobile Apps, nor for any damages or losses, directly or indirectly, caused or alleged to have been caused as a result of your use or reliance on such third party Website and Mobile Apps. Such third party Website and Mobile Apps are not investigated, monitored or checked for accuracy, completeness or conformance with applicable laws and regulations by us. We do not make any representations whatsoever, or give any warranties of any kind, expressed, implied, or otherwise, about any Website and Mobile Apps which you may access through this Website and Mobile App, the content thereof, or the products and/or services made available through such Website and Mobile Apps. If you decide to leave our Website and Mobile App and access these other Website and Mobile Apps, you do so at your own risk. Please ensure that you familiarize yourself with all rules, policies (including privacy policies) and operating procedures of such Website and Mobile Apps which may apply to you when accessing such Website and Mobile Apps.<br>
+
+        5.    Links from other Website and Mobile Apps:<br>
+
+
+        You may link to this Website and Mobile App, but solely in accordance with our terms. Notwithstanding authorization to link to our Website and Mobile App, linking to any page other than our Website and Mobile App’s home page is strictly prohibited. Anyone providing access to this Website and Mobile App via links from another Website and Mobile App are solely responsible for the content, accuracy, opinions expressed, privacy policies, products or services of, or available through, the source Website and Mobile App and for any representations made or impressions created concerning Mopho. Authorization by us to link to this Website and Mobile App is given without assumption of any liability by us relating to such links, and we hereby disclaim any such liability. We reserve the right to withdraw any authorization to link to this Website and Mobile App at any time and for any reason.<br>
+
+        6.    No warranties:<br>
+
+
+
+        WHILST WE TAKE ALL REASONABLE CARE IN THE CREATION, SELECTION AND ASSEMBLY OF THE MATERIAL, THIS SITE IS PROVIDED ON AN “AS IS,” “AS AVAILABLE” BASIS, WITHOUT WARRANTIES OF ANY KIND. TO THE FULLEST EXTENT POSSIBLE PURSUANT TO APPLICABLE LAW, MOPHO, ITS AFFILIATES, SERVICE PROVIDERS AND LICENSORS DISCLAIM ALL WARRANTIES, EXPRESS, IMPLIED, STATUTORY OR OTHERWISE. WITHOUT LIMITING THE FOREGOING, MOPHO, ITS AFFILIATES, SERVICE PROVIDERS AND LICENSORS DO NOT REPRESENT OR WARRANT TO YOU OR YOUR COMPANY AND NEWSFLARE, ITS AFFILIATES, SERVICE PROVIDERS AND LICENSORS HEREBY DISCLAIM (A) ALL WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, TITLE AND NON-INFRINGEMENT; (B) WARRANTIES RELATING TO DELAYS, INTERRUPTIONS, ERRORS, OR OMISSIONS IN THE OPERATION OF THIS SITE OR ANY PART OF IT; (C) WARRANTIES RELATING TO THE TRANSMISSION OR DELIVERY OF THIS SITE OR ITS AVAILABILITY AT ANY PARTICULAR TIME OR LOCATION; (D) WARRANTIES RELATING TO THE USE, VALIDITY, ACCURACY, CURRENCY OR RELIABILITY OF, OR THE RESULTS OF THE USE OF THIS SITE OR ANY INFORMATION PUBLISHED ON THIS SITE; AND (E) WARRANTIES RELATING TO WEBSITE AND MOBILE APPS TO WHICH THIS SITE IS LINKED. Any material obtained by you through use of the Website and Mobile App is obtained at your own discretion and risk, and you will be solely responsible for any damage to your computer system or any loss of data that results from obtaining the material. It is your responsibility to evaluate (or take professional advice on) the accuracy and completeness of all information, statements, opinions and other material on this Website and Mobile App or any Website and Mobile App with which it is linked. Some jurisdictions do not allow the exclusion or disclaimer of certain warranties. Accordingly some of the above disclaimers may not apply to you. We do not seek to exclude or limit liability for fraudulent misrepresentation. Your statutory rights as a consumer, if any, are not affected hereby.<br>
+
+        7.    Exclusion of liability:<br>
+
+
+        TO THE FULLEST EXTENT PERMITTED BY APPLICABLE LAWS WE, ON BEHALF OF OURSELVES AND OUR EMPLOYEES, AGENTS, SUPPLIERS, AND CONTRACTORS EXCLUDE LIABILITY FOR ANY LOSSES AND EXPENSES OF WHATEVER NATURE AND HOWSOEVER ARISING INCLUDING, WITHOUT LIMITATION, ANY DIRECT, INDIRECT, SPECIAL, PUNITIVE, OR CONSEQUENTIAL DAMAGES, LOSS OF USE, LOSS OF DATA, LOSS CAUSED BY A VIRUS, LOSS OF INCOME OR PROFIT, LOSS OF OR DAMAGE TO PROPERTY, CLAIMS OF THIRD PARTIES, OR OTHER LOSSES OF ANY KIND OR CHARACTER, EVEN IF WE HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES OR LOSSES, ARISING OUT OF OR IN CONNECTION WITH THE ACCESS TO AND USE OF THIS WEBSITE AND MOBILE APP OR ANY WEBSITE AND MOBILE APP WITH WHICH IT IS LINKED. YOU ASSUME TOTAL RESPONSIBILITY FOR ESTABLISHING SUCH PROCEDURES FOR DATA BACK UP AND VIRUS CHECKING AS YOU CONSIDER NECESSARY. THIS IS A COMPREHENSIVE LIMITATION OF LIABILITY THAT APPLIES TO ALL LOSSES AND DAMAGES OF ANY KIND WHATSOEVER, WHETHER THE ALLEGED LIABILITY IS BASED ON CONTRACT, NEGLIGENCE, TORT, STRICT LIABILITY OR ANY OTHER BASIS. SOME JURISDICTIONS DO NOT ALLOW THE LIMITATIONS OF LIABILITY SET FORTH ABOVE, SO THESE LIMITATIONS OF LIABILITY MAY NOT APPLY TO YOU. IF ANY PART OF THIS LIMITATION OF LIABILITY IS FOUND TO BE INVALID OR UNENFORCEABLE FOR ANY REASON, THEN THE AGGREGATE LIABILITY OF NEWSFLARE , ITS AFFILIATES, SERVICE PROVIDERS AND LICENSORS UNDER SUCH CIRCUMSTANCES FOR LIABILITIES THAT OTHERWISE WOULD HAVE BEEN LIMITED, SHALL NOT EXCEED £100. WE DO NOT SEEK TO EXCLUDE OR LIMIT LIABILITY FOR FRAUDULENT MISREPRESENTATION. NOTHING IN THESE WEBSITE AND MOBILE APP TERMS OF USE SHALL BE CONSTRUED AS AN ATTEMPT TO EXCLUDE OUR LIABILITY FOR DEATH OR PERSONAL INJURY ARISING FROM OUR NEGLIGENCE.<br>
+
+        8.    Indemnity and release:<br>
+
+
+        You agree to indemnify, release and hold us harmless as well as our officers, directors, agents, representatives and employees from any claim, liability, loss, expense or demand, including reasonable legal fees, related to your breach of these Terms of Service, the infringement by you of any intellectual property or other right of any person or entity, or any other liabilities arising out of your use of this Website and Mobile App or any of the information, materials, products or services available through this Website and Mobile App.<br>
+
+        9.    Modification and discontinuation:<br>
+
+
+        We reserve the right at any time and from time to time, without notice and in our sole discretion, to modify, edit, delete, suspend or discontinue, temporarily or permanently, this Website and Mobile App (or any part of it) and/or the information, materials, products and/or services available through this Website and Mobile App (or any part of it) and/or to terminate your account and/or to block your use of the Website and Mobile App. You agree that we shall not be liable to you or to any third party for any such modification, editing, deletion, suspension, discontinuance or termination of this Website and Mobile App.<br>
+
+        10.Entire understanding, failure to enforce, and validity of terms:<br>
+
+
+
+        These Terms of Service, which include our and [link to Privacy Policy], comprise the entire understanding between you and us with respect to this Website and Mobile App, and no representation, statement, inducement oral or written, not contained herein shall bind any party to these Terms of Service. Our failure to enforce any provision of these Terms of Service shall not be deemed a waiver of such provision nor of the right to enforce such provision. If any provision of these Terms of Service is held by a court of competent jurisdiction to be invalid or contrary to law, such provision shall be changed and interpreted so as to best accomplish the objectives of the original provision to the fullest extent allowed by law, but in any event the remaining provisions of these Terms of Service shall remain in full force and effect.<br>
+
+        11.Waiver:<br>
+
+
+
+        Our failure at any time to require full performance of any provision of these Terms of Service or to exercise any right provided for herein shall not be deemed a waiver of such provision or such right. All waivers must be in writing. Unless the written waiver contains an express statement to the contrary, no waiver by Mopho of any breach of any provision of these Terms of Service or of any right provided for herein shall be construed as a waiver of any continuing or succeeding breach of such provision, a waiver of the provision itself, or a waiver of any right under these Terms of Service.<br>
+
+        12.Data protection consent:<br>
+
+
+
+        By agreeing to these Terms of Service, you acknowledge that you have read and understood the terms of our [link Privacy Policy] and that you agree with it. With the exception of personal data and Material (as defined below in paragraph XX), the submission of which is subject to our terms below), any communication or material you post or transmit to us over the Internet is, and will be treated as non-confidential and non-proprietary, unless specifically stated otherwise. Upon the transmission of any personal information to us, you expressly grant permission to us to disseminate and/or use such information for any lawful purpose as detailed in our [link Privacy Policy]. Posting or transmitting of any unlawful, threatening, libelous, defamatory, obscene, pornographic or obscene material or any material that could constitute or encourage conduct that would be considered a criminal offence or violation of any law is strictly prohibited, or which we in our sole discretion consider unacceptable (whether for ethical reasons or otherwise). We reserve the right to monitor your communications with us whether by mail, voice, fax, e-mail or any other form of transmission for the purposes of quality control, security, and training purposes. Notwithstanding the foregoing, all personal data provided to us as a result of this Website and Mobile App will be handled in accordance with our Privacy Policy.<br>
+
+        13.Access to the Site and damage to its integrity:<br>
+
+
+
+        You expressly agree not to use any software or manual procedure to copy our Website and Mobile App pages or to record or collect any information disclosed on these pages without our prior written consent. You expressly agree not to use any sort of device or software in order to disturb the good operation of this Website and Mobile App. You expressly agree not to act in a way which would disproportionately overload its infrastructure. [You agree not to use the Website and Mobile App to distribute computer viruses or other malicious code or to attempt any unauthorized access to any part or component of the Website and Mobile App, not to cause the whole or part of the Website and Mobile App to be interrupted, damaged, rendered less efficient or to impair the effectiveness or functionality of the Website and Mobile App in any way, and not to access, without authority, or interfere with, any part of our Website and Mobile App or any software used in the provision of our Website and Mobile App.<br>
+
+        14.Law & Jurisdiction:<br>
+
+
+
+        The Website and Mobile App is controlled by Mopho (llc, ltd?) from its offices in -----------------------------------------------------------------------------. Access to, or use of, this Website and Mobile App or information, materials, products and/or services on this Website and Mobile App may be prohibited by law in certain countries or jurisdictions. You are responsible for compliance with any applicable laws of the country from which you are accessing this Website and Mobile App. We make no representation that the information contained herein is appropriate or available for use in other locations outside the United Kingdom or the European Union. You agree that the laws of California will govern these Terms of Service, [including but without limitation Part II dealing with the terms for use of the Website and Mobile App and submission of material to the Website and Mobile App]. You consent to the non-exclusive jurisdiction of the Californian courts. We retain the right to bring legal proceedings in any jurisdiction where we believe that breach of this agreement is taking place or originating.<br>
+
+        15.Notification of Copyright Infringement:<br>
+
+
+
+        Mopho may terminate the accounts of users who infringe the intellectual property rights of others. If you believe that your material or work has been used or copied in a way that constitutes copyright infringement, and such infringement is occurring on the Website and Mobile App, send Mopho a notice containing: (i) a physical or electronic signature of the copyright owner or person authorized to act on behalf of the copyright owner; (ii) a description of the copyrighted work or works that you claim have been infringed and identification of what material in such work(s) is claimed to be infringing; (iii) a description of where the material that you claim is infringing is located on the Website and Mobile App; (iv) information sufficient to permit Mopho to contact you, such as your physical address, phone number, and email address; (v) a statement that you have a good faith belief that the use of the material you have identified is not authorized by the copyright owner, its agent, or the law; and (vi) a statement by you that the information in your notice is accurate and, under penalty of perjury, that you are the copyright owner or authorized to act on the copyright owner’s behalf.<br>
+        Mopho’s contact for notice of claims of copyright infringement can be reached as follows: INTERNET ADDRESS or PHONE NUMBER<br>
+
+        16.Take Down Policy:<br>
+
+
+
+        Mopho reserves the right to remove any material or contribution posted on the Website and Mobile App, if having received notice of a complaint, it reasonably believes that such material or contribution is unlawful, threatening, libelous, defamatory, obscene or pornographic.<br>
+
+        17.Contacting us:<br>
+
+
+
+        If you have any questions regarding these Terms of Service or any other matter, you may contact us by e-mailing us at mopho@gmail.com.<br>
+
+
+        Terms for use of the Website and Mobile App and submitting material.<br>
+
+
+        The Basics:<br>
+
+        1. You may submit accurate and genuine news stories to our Website and Mobile App as long as they are your original work, you have the right to market/sell them, and they do not break any law. If there is a problem with the material, it’s your responsibility.<br>
+
+        2. You keep the ownership of the copyright in what you have created and submit to us. You give Mopho the right to market and license your contributions for use by third parties. In exchange, Mopho will split any licensing income/fee obtained with you on the basis set out below. [Mopho/you, at the rate of 50:50, a level of split.<br>
+
+        3. Always get the permission of an appropriate adult before photographing or videoing a child. Should you try to obtain a model/property release for your material, it stands a greater chance of being licensed and may achieve a larger licensing fee than material without such a release.<br>
+
+        5. Mopho can attempt to sell your material on an exclusive basis.<br>
+
+        6. You are responsible for keeping the details of your user account safe. While we’ll do all we reasonably can to help you, Mopho is in no way responsible for any loss or damage resulting from the misuse of your user account.<br>
+
+        The Basics are just a quick overview and do not in any way replace the full Terms of Service. We recommend strongly that you read the full version of our Terms of Service as it relates to use of the Website and Mobile App and submission of material to us.<br>
+
+        By using our Website and Mobile App, you agree to the entire Terms of Service document.<br>
+
+
+        Terms for use of the Website and Mobile App and submission of material.<br>
+
+        Definitions<br>
+
+        1.    Acceptance:<br>
+
+
+        If you wish to submit any contribution, including any text, photographs, graphics, digital video or audio material (Material) to the Website and Mobile App you agree to be bound by these Terms of Service, and that any Material you submit shall be in accordance with these Terms of Service.<br>
+
+        2. Submission of Material:<br>
+
+        A. You may upload any Material to this Website and Mobile App which you believe may be of general interest to the public. You must not upload gratuitously offensive Material, or any Material which breaches any law or code of practice for publication, which is applicable where the Material may be viewed.<br>
+
+        By submitting your Material, you warrant and undertake that such Material:
+        1. Is your own original work or that you have obtained all the necessary rights to grant the license.
+        2. Was not produced by you in the course of your employment by another person or organization.
+        3. Does not infringe upon any statutory copyright or upon any common law right, proprietary right, or any other similar right of any third party.
+        4. Does not violate any law, [or code of practice], including by the manner in which it was obtained or created.
+        5. Is not libelous, defamatory or obscene
+        6. Was not taken by any hidden, surreptitious or illegal means or any other method that violates another person's privacy or publicity rights.
+        7. Is accurate, genuine and does not depict any event staged for the purpose of making the submission.
+        8. Where it includes images of children under age 16, the images have been obtained with the consent (in writing) of a relevant parent or adult.
+        9. Is not subject to any other contract, agreement or license.
+        B. Copyright in any Material you submit to the Website and Mobile App will remain with you, subject to any license granted under these Terms of Service.
+        C. If you do not want to grant Mopho the permissions set out above on these terms, please do not submit to, or share your Material with, Mopho.
+        D. Mopho does not endorse any Material or any opinion, recommendation, or advice expressed therein, and Mopho expressly disclaims any and all liability in connection with any Material submitted to and published on the Website and Mobile App. Mopho does not permit copyright infringing activities and/or infringement of intellectual property rights on its Website and Mobile App, and Mopho will remove all Material if properly notified that such Material infringes another's intellectual property rights. This is at Mopho’s sole discretion, and Mopho reserves the right to remove Material without any prior notice.
+
+        3. Grant of License:<br>
+
+        You hereby grant us and each user of the Website and Mobile App the non-exclusive license to access your Material through the Website and Mobile App, and to use, reproduce, distribute, display and perform and sublicense to distributors, resellers and end users such Material as permitted in accordance with the relevant license imposed through the functionality of the Website and Mobile App and under these Terms. The right for Mopho to use, display or grant further licenses to users in respect of your Material. At no time does Mopho hold or own any right of ownership over the Material. Mopho only holds a temporary right to market and use your Material through the functionalities of this Website and Mobile App.<br>
+
+        4. Exclusivity:<br>
+
+        A. You may submit Material to our Website and Mobile App on an exclusive basis.<br>
+        B. By submitting Material to the Website and Mobile App on an exclusive basis (Exclusive Material), you agree: that you will not grant or attempt to grant any rights in such Exclusive Material to any third parties. We aim to get the best possible price for your Material, but give no promise that it will be used or picked up by other parties.<br>
+        C. You agree that you will not grant any rights to any third parties which would conflict with the rights you have already granted to Mopho under this clause 4 of these Terms of Service Part II.<br>
+        D. Nothing in these Terms of Service shall prevent or seek to prevent you using Material for your own personal, non-commercial purposes.<br>
+
+        5. Mopho Account:<br>
+
+        A. In order to submit Material to our Website and Mobile App, you must create a Mopho user account (Mopho Account). You are expressly prohibited from using any other Mopho Account without our permission.<br>
+        B. In creating your Mopho Account, you represent and warrant that all the information you provide is accurate and complete. You are solely responsible for any activity occurring on your Mopho Account.<br>
+        C. You must keep your Mopho Account password secure and notify Mopho immediately of any breach of security or unauthorized use of your Mopho Account.<br>
+        D. Mopho accepts no liability for your losses caused by any unauthorized use of your Mopho Account; however, you may be liable for losses incurred by Mopho or other third parties due to such unauthorized use.<br>
+        E. We show your name (as specified by you when you open your Mopho Account) with any Material you submit to the Website and Mobile App, unless you request otherwise when you set up your Mopho Account, but for operational reasons this is not always possible. Mopho accepts no liability whatsoever if you are identified or identifiable from any Material you submit to the Website and Mobile App.<br>
+        F. Mopho may need to contact you for administrative or verification purposes in relation to your Material, or in relation to particular projects. You understand that by agreeing to create an account you may receive mailings from us. You may unsubscribe at any time by emailing mop@gmail.com  For full details of when and how we may use the information you provide to us please see our Privacy Policy.<br>
+
+        6. Mopho Account Termination Policy<br>
+
+        A. Mopho will terminate a user's access to its Website and Mobile App if, in its sole discretion, it determines that user to be a perceived, serious, or repeat infringer, or for any other reason whatsoever.<br>
+        B. Mopho reserves the right to decide whether Material submitted by any user is appropriate and complies with these Terms of Service for violations other than copyright infringement, such as, but not limited to, pornography, obscene or defamatory material. Mopho may remove such Material and/or terminate a user's access for uploading such material in violation of these Terms of Service at any time, without prior notice and at its sole discretion.<br>
+
+        7. Indemnity<br>
+
+        You expressly accept and acknowledge that you are entirely responsible for any Material which you submit to this Website and Mobile App. It is your responsibility to evaluate (or take professional advice on) the accuracy and completeness of all information, statements, opinions and other material contained in any Material you submit to this Website and Mobile App.<br>
+
+        8. Ability to Accept Terms of Service:<br>
+
+        You confirm that you are either 18 years old or older (is this important in this situation???), and are fully able and competent to enter into these Terms of Service (which, for the avoidance of doubt, include the Privacy Policy) and any terms, conditions, obligations, affirmations, representations, and warranties set forth in these Terms of Service and to abide by and comply with these Terms of Service.<br>
+
+        10. Assignment:<br>
+
+        These Terms of Service and any rights and licenses granted hereunder, may not be transferred, sublicensed, or assigned by you, but may be assigned or sublicensed by Mopho without restriction.<br>
+
+        11. Withholding Taxes:<br>
+        Mopho may withhold taxes and other fees from payments to you if required by applicable law.<br>
+      </p>
+    </div>
+  </div>
   <div class="swipeIntro1" ng-if="introModal" >
     <div class="introSignin" ng-swipe-left='introSwipeLeft()' ng-swipe-right='introSwipeRight()'>
       <div class="signinLogo">
@@ -117,8 +322,9 @@
           <input style='background-color:transparent' class='signupEmail splashInput form-control' placeholder='Email' type='text'></input>
           <input style='background-color:transparent' type="password" class='signupPassword splashInput form-control' placeholder='Password' ng-keyup='highlightSignup($event)'></input>
           <input style='background-color:transparent' type="password" class='signupConfirmPassword splashInput form-control' placeholder='Confirm password' ng-keyup='highlightSignup($event)'></input>
-          <!-- <input type="password" class='signupPassword splashInput' placeholder='Password'> -->
-          <!-- <div class='submitSignup subSignup' ng-click='signinToggleButton()'>SIGN IN</div> -->
+          <div class="termsAndConditions">
+            <input type="checkbox" class='termsAgree'>I agree to these <span class='termsLink' ng-click='openTermsFunc()'>Terms and Conditions.</span>
+          </div>
         </div>
       </div>
       <div class="signinModal" ng-if='signinModalVar'>
