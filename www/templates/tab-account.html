@@ -35,6 +35,14 @@
           </div>
         </div>
       </ion-scroll>
+      <div class="transactionData" ng-if="carouselMain.transactions.length > 0">
+        Total earned from this photo: {{carouselMain.price | currency}}
+        <div class="transactionCell" ng-repeat='tranny in carouselMain.transactions'>
+          earned: {{tranny.price | currency}}<br>
+          purchased by: {{tranny.purchaser}}<br>
+          date: {{tranny.date}}
+        </div>
+      </div>
     </div>
 
 
