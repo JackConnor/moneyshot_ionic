@@ -15,8 +15,8 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     };
   });
 
-  cameraCtrl.$inject = ['$http', '$state', '$scope', 'singlePhoto', 'Upload', '$cordovaFile', '$cordovaFileTransfer', 'signup', 'signin', 'newToken', '$cordovaCapture', '$cordovaStatusbar', '$timeout', '$ionicGesture', '$ionicScrollDelegate', '$interval', 'persistentPhotos', '$cordovaKeyboard', 'userInfo', 'cameraFac'];
-  function cameraCtrl($http, $state, $scope, singlePhoto, Upload, $cordovaFile, $cordovaFileTransfer, signup, signin, newToken, $cordovaCapture, $cordovaStatusbar, $timeout, $ionicGesture, $ionicScrollDelegate, $interval, persistentPhotos, $cordovaKeyboard, userInfo, cameraFac){
+  cameraCtrl.$inject = ['$http', '$state', '$scope', 'singlePhoto', 'Upload', '$cordovaFile', '$cordovaFileTransfer', 'signup', 'signin', 'newToken', '$cordovaCapture', '$cordovaStatusbar', '$timeout', '$ionicGesture', '$ionicScrollDelegate', '$interval', 'persistentPhotos', '$cordovaKeyboard', 'userInfo', 'cameraFac', '$localStorage'];
+  function cameraCtrl($http, $state, $scope, singlePhoto, Upload, $cordovaFile, $cordovaFileTransfer, signup, signin, newToken, $cordovaCapture, $cordovaStatusbar, $timeout, $ionicGesture, $ionicScrollDelegate, $interval, persistentPhotos, $cordovaKeyboard, userInfo, cameraFac, $localStorage){
     $('ion-tabs').addClass('tabs-item-hide');
     $scope.mediaCache = [];
     // $scope.photoListLength      = 0;
@@ -74,14 +74,15 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
     $scope.tip = $scope.tipJar[Math.floor(Math.random()*5)];
     function initCheckUser(){
-      var userToken = window.localStorage.getItem('webToken');
+      var userToken = $localStorage.webToken;
+      console.log(userToken);
       // navigator.geolocation.getCurrentPosition(function(pos, err){
       //   // console.log(pos);
       // });
       var hasLaunched = window.location.hasLaunched;
       if(hasLaunched === false){
         var httpLoaded = false;
-        if(userToken === null || userToken === "null"){
+        if(userToken === null || userToken === "null" || userToken === 'undefined' || userToken === undefined){
           userToken = 'null'
         }
         setTimeout(function(){
@@ -128,7 +129,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
           opacity: 1
         });
       }
-      window.localStorage.setItem('webToken', null);
+      $localStorage.webToken =  null;
       cordova.plugins.camerapreview.hide();
       $timeout(function(){
         cordova.plugins.camerapreview.hide();
@@ -215,7 +216,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
     /////function to get cached videos and photos
     function initCache(){
-      var userToken = window.localStorage.webToken;
+      var userToken = $localStorage.webToken;
       //////need to toggle if info already loaded
       var cacheOnly = userInfo.cacheOnly();
       console.log(cacheOnly);
@@ -402,7 +403,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
           ///////here we fire off video to temp storage on our server to save video in case of app closure
           $http({
             method: "GET"
-            ,url: "http://45.55.24.234:5555/api/decodetoken/"+window.localStorage.webToken
+            ,url: "http://45.55.24.234:5555/api/decodetoken/"+$localStorage.webToken
           })
           .then(function(decodedToken){
             console.log(decodedToken);
@@ -540,7 +541,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       //////first we need to find the users ID, so we can use it to make the post requests
       $http({
         method: "GET"
-        ,url: "http://45.55.24.234:5555/api/decodetoken/"+window.localStorage.webToken
+        ,url: "http://45.55.24.234:5555/api/decodetoken/"+$localStorage.webToken
       })
       .then(function(decodedToken){
         var userFullId = decodedToken.data.userId;
@@ -591,7 +592,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                       .then(function(success){
                         $scope.cachedUser.tempVideoCache = [];
                         userInfo.userInfoFunc('blah', false, $scope.cachedUser);
-                        userInfo.userInfoFunc(window.localStorage.webToken, true);
+                        userInfo.userInfoFunc($localStorage.webToken, true);
                         // $state.reload(true);
                         $scope.postSubmit = true;
                         $timeout(function(){
@@ -647,7 +648,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                     .then(function(success){
                       $scope.cachedUser.tempVideoCache = [];
                       userInfo.userInfoFunc('blah', false, $scope.cachedUser);
-                      userInfo.userInfoFunc(window.localStorage.webToken, true);
+                      userInfo.userInfoFunc($localStorage.webToken, true);
                       // $state.reload(true);
                       $scope.postSubmit = true;
                       $timeout(function(){
@@ -716,7 +717,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                         .then(function(success){
                           $scope.cachedUser.tempVideoCache = [];
                           userInfo.userInfoFunc('blah', false, $scope.cachedUser);
-                          userInfo.userInfoFunc(window.localStorage.webToken, true);
+                          userInfo.userInfoFunc($localStorage.webToken, true);
                           // $state.reload(true);
                           $scope.postSubmit = true;
                           $timeout(function(){
@@ -1042,6 +1043,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     function carouselScroll(){
       /////need to math this up tp dry it out
       var scrollPos = $ionicScrollDelegate.$getByHandle('carouselScroll').getScrollPosition().left;
+      console.log(scrollPos)
 
       if(scrollPos >= 0 && scrollPos < 36){
         var newMedia = $scope.mediaCache[0];

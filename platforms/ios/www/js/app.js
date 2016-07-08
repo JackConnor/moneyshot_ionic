@@ -7,16 +7,13 @@
 // 'starter.controllers' is found in controllers.js
 function init($ionicPlatform, $state, cameraFac) {
   // $(document).on('deviceready', function(){
-    navigator.geolocation.getCurrentPosition(function(pos, err){});
-    // function pos(){
-    //   // var confirmerInitialize = confirm('Go to app?');
-    //   // if(confirmerInitialize){
-    //   //   $state.reload(true);
-    //   // }
-    // }
-    // function err(){
-    //
-    // }
+    navigator.geolocation.getCurrentPosition(function(pos, err){})
+    function pos(){
+
+    }
+    function err(){
+
+    }
   // })
   // setTimeout(function(){
   //   // if(!window.location.needToReload){
@@ -42,12 +39,12 @@ function init($ionicPlatform, $state, cameraFac) {
 }
 
 
-angular.module('starter', ['ionic', 'ngCordova', 'ngRoute', 'ngFileUpload', 'starter.services', 'accountController', 'cameraController', 'uploadController', 'signupController', 'allPhotosFactory', 'singlePhotoFactory', 'navbarHolderFactory', 'signupFactory', 'signinFactory', 'newTokenFactory', 'userPhotosFactory', 'decodeTokenFactory', 'cameraFactory', 'userInfoFactory', 'ngTouch', 'bankController', 'initLoad', 'persistentPhotosFactory', 'emailVideoFactory'])
+angular.module('starter', ['ionic', 'ngCordova', 'ngRoute', 'ngFileUpload', 'starter.services', 'accountController', 'cameraController', 'ngStorage', 'uploadController', 'signupController', 'allPhotosFactory', 'singlePhotoFactory', 'navbarHolderFactory', 'signupFactory', 'signinFactory', 'newTokenFactory', 'userPhotosFactory', 'decodeTokenFactory', 'cameraFactory', 'userInfoFactory', 'ngTouch', 'bankController', 'initLoad', 'persistentPhotosFactory', 'emailVideoFactory'])
 
 .run(function(){
   setTimeout(function(){
     init();
-  }, 1000);
+  }, 1500);
 })
 
 

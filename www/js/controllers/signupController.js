@@ -8,9 +8,9 @@ angular.module('signupController', ['userInfoFactory'])
 
   .controller('signupCtrl', signupCtrl);
 
-  signupCtrl.$inject = ['$scope', '$http', '$state', 'signup', 'signin', 'newToken', '$cordovaStatusbar', '$window', '$timeout', '$interval', '$animateCss', '$ionicScrollDelegate', 'userInfo']
+  signupCtrl.$inject = ['$scope', '$http', '$state', 'signup', 'signin', 'newToken', '$cordovaStatusbar', '$window', '$timeout', '$interval', '$animateCss', '$ionicScrollDelegate', 'userInfo', '$localStorage']
 
-  function signupCtrl($scope, $http, $state, signup, signin, newToken, $cordovaStatusbar, $window, $timeout, $interval, $animateCss, $ionicScrollDelegate, userInfo){
+  function signupCtrl($scope, $http, $state, signup, signin, newToken, $cordovaStatusbar, $window, $timeout, $interval, $animateCss, $ionicScrollDelegate, userInfo, $localStorage){
     ionic.Platform.fullScreen(true, false);
     // alert('Sign Loaded')
     // console.log($interval);
@@ -218,8 +218,8 @@ angular.module('signupController', ['userInfoFactory'])
                 .then(function(ourToken){
                   var confirmSave = confirm('Would you like us to save your email and password?');
                   if(confirmSave){
-                    window.localStorage.setItem('mophoEmail', email);
-                    window.localStorage.setItem('mophoPw', password);
+                    $localStorage.mophoEmail = email;
+                    $localStorage.mophoPw = password;
                   }
                   //////can we put the teaching screen right here?
                   $scope.ourTokenData = ourToken.data;
@@ -290,11 +290,11 @@ angular.module('signupController', ['userInfoFactory'])
             newToken(signedInUser.data._id)
             .then(function(ourToken){
               //////this asks to store creds if it's a different user
-              if(email !== window.localStorage.mophoEmail || password !== window.localStorage.mophoPw){
+              if(email !== $localStorage.mophoEmail || password !== $localStorage.mophoPw){
                 var confirmChange = confirm('This seems to be a new login, would you like us to save your email and password?');
                 if(confirmChange){
-                  window.localStorage.mophoEmail = email;
-                  window.localStorage.mophoPw = password;
+                  $localStorage.mophoEmail = email;
+                  $localStorage.mophoPw = password;
                 }
               }
               var token = ourToken.data;
@@ -304,7 +304,7 @@ angular.module('signupController', ['userInfoFactory'])
               $scope.signupModalVar = false;
               $scope.signinModalVar = false;
               $scope.signupModalTabs = false;
-              window.localStorage.webToken = token;
+              $localStorage.webToken = token;
               $state.go('tab.camera');
             })
           }
@@ -352,18 +352,18 @@ angular.module('signupController', ['userInfoFactory'])
     function toSignin(){
       $interval.cancel($scope.swipeInterval);
       $scope.swipeInterval = null;
-      $ionicScrollDelegate.freezeScroll(true);
+      // $ionicScrollDelegate.freezeScroll(true);
       $timeout(function(){
         $scope.introModal       = false;
         $scope.signinModalVar   = true;
         $cordovaStatusbar.show();
         $timeout(function(){
           console.log('signingin');
-          if(window.localStorage.mophoEmail){
-            $('.signinEmail').val(window.localStorage.mophoEmail);
+          if($localStorage.mophoEmail){
+            $('.signinEmail').val($localStorage.mophoEmail);
           }
-          if(window.localStorage.mophoPw){
-            $('.signinPassword').val(window.localStorage.mophoPw);
+          if($localStorage.mophoPw){
+            $('.signinPassword').val($localStorage.mophoPw);
             $('.mophoSignin').css({
               color: '#3375dd'
             });
@@ -377,7 +377,7 @@ angular.module('signupController', ['userInfoFactory'])
     function toSignup(){
       $interval.cancel($scope.swipeInterval);
       $scope.swipeInterval = null;
-      $ionicScrollDelegate.freezeScroll(true);
+      // $ionicScrollDelegate.freezeScroll(true);
       $timeout(function(){
         $scope.signinModalVar   = false;
         $scope.introModal       = false;
@@ -457,7 +457,7 @@ angular.module('signupController', ['userInfoFactory'])
     $scope.closePwModal = closePwModal;
 
     function signoutUser(){
-      window.localStorage.webToken = "";
+      $localStorage.webToken = "";
       window.location.hash = "#/";
       window.location.reload();
     }
@@ -488,7 +488,7 @@ angular.module('signupController', ['userInfoFactory'])
 
     // function to check for a signed in user via their token
     function checkToken(){
-      var maybeToken = window.localStorage.webToken;
+      var maybeToken = $localStorage.webToken;
       if(maybeToken.length > 4){
         $scope.signupModalVar = false;
         $scope.signinModalVar = false;
@@ -674,7 +674,7 @@ angular.module('signupController', ['userInfoFactory'])
       $scope.signupModalVar = false;
       $scope.signinModalVar = false;
       $scope.signupModalTabs = false;
-      window.localStorage.webToken = token;
+      $localStorage.webToken = token;
       $state.go('tab.camera');
     }
     $scope.welcomeToCamera = welcomeToCamera;
