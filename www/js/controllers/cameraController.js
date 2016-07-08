@@ -3,13 +3,15 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
   .controller('cameraCtrl', cameraCtrl)
 
-  .run(function($ionicPlatform){
+  .run(function($ionicPlatform, $state){
     window.location.hasLaunched = false;
+    // navigator.geolocation.getCurrentPosition(function(pos, err){});
   })
 
   .filter('trustUrl', function ($sce) {
     return function(url) {
       return $sce.trustAsResourceUrl(url);
+
     };
   });
 
@@ -73,9 +75,9 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     $scope.tip = $scope.tipJar[Math.floor(Math.random()*5)];
     function initCheckUser(){
       var userToken = window.localStorage.getItem('webToken');
-      navigator.geolocation.getCurrentPosition(function(pos, err){
-        // console.log(pos);
-      });
+      // navigator.geolocation.getCurrentPosition(function(pos, err){
+      //   // console.log(pos);
+      // });
       var hasLaunched = window.location.hasLaunched;
       if(hasLaunched === false){
         var httpLoaded = false;
@@ -194,8 +196,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       }
     }
     // launchPlatform();
-    ionic.Platform.ready(function(){
-      // alert('checking')
+    ionic.Platform.ready(function(){      // alert('checking')
       var userLoaded = userInfo.cacheOnly();
       console.log(userLoaded);
       if(userLoaded !== undefined || userLoaded !== 'undefined'){

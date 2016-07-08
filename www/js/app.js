@@ -5,16 +5,30 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-function init($ionicPlatform, cameraFac) {
+function init($ionicPlatform, $state, cameraFac) {
+  // $(document).on('deviceready', function(){
+    navigator.geolocation.getCurrentPosition(function(pos, err){});
+    // function pos(){
+    //   // var confirmerInitialize = confirm('Go to app?');
+    //   // if(confirmerInitialize){
+    //   //   $state.reload(true);
+    //   // }
+    // }
+    // function err(){
+    //
+    // }
+  // })
+  // setTimeout(function(){
+  //   // if(!window.location.needToReload){
+  //     alert('Go to MoPho?')
+  //     $state.reload(true);
+  //   // }
+  // }, 3000);
   // alert(cameraFac)
   // cameraFac.pictureHandler();
   // alert(  cordova.plugins.camerapreview)
   // cordova.plugins.camerapreview.startCamera(rect, 'back', tapEnabled, dragEnabled, toBack);
   $ionicPlatform.ready(function() {
-    $('window').unload(function(){
-      alert('yooooo')
-      ionic.Platform.exitApp();
-    })
     if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
       cordova.plugins.Keyboard.disableScroll(true);
@@ -30,7 +44,11 @@ function init($ionicPlatform, cameraFac) {
 
 angular.module('starter', ['ionic', 'ngCordova', 'ngRoute', 'ngFileUpload', 'starter.services', 'accountController', 'cameraController', 'uploadController', 'signupController', 'allPhotosFactory', 'singlePhotoFactory', 'navbarHolderFactory', 'signupFactory', 'signinFactory', 'newTokenFactory', 'userPhotosFactory', 'decodeTokenFactory', 'cameraFactory', 'userInfoFactory', 'ngTouch', 'bankController', 'initLoad', 'persistentPhotosFactory', 'emailVideoFactory'])
 
-.run(init)
+.run(function(){
+  setTimeout(function(){
+    init();
+  }, 1000);
+})
 
 
 
