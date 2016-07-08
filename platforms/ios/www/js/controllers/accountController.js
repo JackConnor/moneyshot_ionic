@@ -551,6 +551,7 @@ angular.module('accountController', ['persistentPhotosFactory', 'userInfoFactory
 
     ///////begin photo carousel animation work
     function goToCarousel(mediaData, index, evt){
+      $ionicScrollDelegate.freezeScroll(false);
       $scope.carouselMain = mediaData;////this is always the centerpiece photo
       $(evt.currentTarget).css({
         opacity: 0.1
@@ -560,6 +561,7 @@ angular.module('accountController', ['persistentPhotosFactory', 'userInfoFactory
       }, 169);
       $timeout(function(){
         $scope.submitModaVar = false;
+        $scope.showSubmitted = false;
         $scope.photoCarouselBool = true;
         $timeout(function(){
           var width = $($('.mainPhotoHolder').children()[0]).width();
@@ -732,6 +734,9 @@ angular.module('accountController', ['persistentPhotosFactory', 'userInfoFactory
     $scope.playVid = playVid;
 
     function photoCarouselBack(){
+      $ionicScrollDelegate.scrollTop(true);
+      $scope.showSubmitted = true;
+      $ionicScrollDelegate.freezeScroll(true);
       $timeout(function(){
         $scope.photoCarouselBool = false;
         $scope.submitModaVar = true;
