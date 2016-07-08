@@ -36,11 +36,18 @@
         </div>
       </ion-scroll>
       <div class="transactionData" ng-if="carouselMain.transactions.length > 0">
-        Total earned from this photo: {{carouselMain.price | currency}}
+        <div class="transEarningsTitle">
+          <p>
+            <span>Photo Earnings</span>
+          </p>
+        </div>
+        <div class="transPhotoPrice">
+          Total: {{carouselMain.price | currency}}
+        </div>
         <div class="transactionCell" ng-repeat='tranny in carouselMain.transactions'>
-          earned: {{tranny.price | currency}}<br>
-          purchased by: {{tranny.purchaser}}<br>
-          date: {{tranny.date}}
+          <span class='transitionPrice'>{{tranny.purchaser}}</span><br>
+          {{tranny.price | currency}}<br>
+          {{tranny.date}}
         </div>
       </div>
     </div>
@@ -196,63 +203,9 @@
           </div>
         </div>
       </div>
-      <!-- <div class="submissionStatus photoStatusPending" ng-if='submission.price === 0 && submission.rejectedPhotosLength === 0'>
-        Pending
-      </div>
-      <div class="submissionStatus photoStatusRejected" ng-if="submission.rejectedPhotosLength === submission.photos.length">
-        No thanks
-      </div>
-      <div class="submissionStatus photoStatusPaid" ng-if='submission.price > 0'>
-        Paid!</br>
-        {{submission.price | currency}}
-      </div> -->
 
       <!-- /////begin repeat-photo container -->
       <div class="repeatContainer col-xs-12 " id='repeatContainer'>
-        <!-- /////begin tab for sold photos//// -->
-        <!-- <div class="" > -->
-          <!-- <div class="soldPhotosRepeatContainer col-xs-12" ng-if='showSold'>
-            <div class="sellPhotoModal" ng-if="sellModal">
-              <div class="sellX fa fa-times" ng-click='closeSellModal()'></div>
-              <div class="sellModalBlack" ng-click='closeSellModal()'></div>
-              <div class="sellModalContent col-xs-8 col-xs-offset-2">
-                <div class="sellPhotoHolder col-sm-8 col-sm-offset-2 col-xs-12 col-xs-offset-0">
-                  <img ng-src="{{singlePhotoData.url}}" ng-if="!singlePhotoData.isVideo" />
-                  <video ng-src="{{singlePhotoData.url | trustUrl}}" class="col-xs-12" controls ng-if="singlePhotoData.isVideo" poster='{{singlePhotoData.thumbnail}}'></video>
-                </div>
-                <div class="sellPrice col-xs-12">
-                  Sell this photo for {{singlePhotoData.price | currency}}?
-                </div>
-                <div class="sellButtonContainer col-xs-12">
-                  <div class="sellButton sellYes col-xs-6" ng-click='buyRejectPhoto("sold", singlePhotoData)'>
-                    Yes, Sell Photo
-                  </div>
-                  <div class="sellButton sellNo col-xs-6" ng-click='buyRejectPhoto("rejected", singlePhotoData)'>
-                    Reject Offer
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="soldPhotosRepeat col-md-6 col-xs-12" ng-repeat='soldPhoto in allSoldPhotos'>
-              <div class="soldInnerHolder">
-                <div class="blackLayerSingleModal"></div>
-                <div class="priceLayer" ng-click=''>
-                  <div class="priceInfo">
-                    {{soldPhoto.price | currency}}
-                  </div>
-                  <div class="ifSold" ng-if="soldPhoto.status == 'offered for sale'">
-                    Accept Offer
-                  </div>
-                  <div class='ifPaid' ng-if='soldPhoto.status == "sold"'>
-                    Sold!
-                  </div>
-                </div>
-                <img class='allSoldPhotosRepeat' ng-src="{{soldPhoto.url}}" ng-if='!soldPhoto.isVideo' />
-                <video ng-src="{{soldPhoto.url | trustUrl}}" class="col-xs-12" controls ng-if="soldPhoto.isVideo"></video>
-              </div>
-            </div>
-          </div> -->
-        <!-- </div> -->
         <div class="showSubmittedHolder" ng-if='showSubmitted'>
           <div class="submittedRow submittedRow{{$index}}" ng-repeat='submission in userSubmissions' ng-click='openSubmission(submission, $event)' >
             <div class="submitPhotosHolder">
@@ -283,62 +236,7 @@
             </div>
           </div>
         </div>
-        <!-- <div class="" ng-if='showFinance'>
-          <div class="earnings-bar">
-            <div class="earnings-bar-label">
-              Total Money Earned
-            </div>
-            <div class="earnings-bar-amount">
-              {{totalEarned | currency}}
-            </div>
-          </div>
-          <div class="finCell" ng-repeat='soldPhoto in allTransactions'>
-            <div class="finPhoto">
-              <img src="{{soldPhoto.photos[0].thumbnail}}" ng-click='openSingle(soldPhoto.photos[0], "sold")'/>
-            </div>
-            <div class="finDetails">
-              <div class="finPrice">
-                {{soldPhoto.price | currency}}
-              </div>
-              <div class="finDate">
-                Sold on <span class="text-dark">{{soldPhoto.photos[0].date}}</span>
-              </div>
-              <div class="finOpenImage" ng-click='openFin($event, soldPhoto)'>
-                More Details <i class="fa fa-angle-down" aria-hidden="true"></i>
-              </div>
-            </div>
-          </div>
-          <div class="cta-container">
-            <div class="cta-text">Let us know how to pay you</div>
-            <button class="cta-button" ng-click="goToBanking()">add/update payment info</button>
-          </div> -->
-          <!--<div class='sendFinDataButton col-xs-4 col-xs-offset-2' ng-click='sendFinData()'>Send Financial Data as Email</div> -->
-        <!-- </div> -->
       </div>
     </div>
-    <!-- <div class=""> -->
-      <!-- <div class="hamburgerBackground" ng-click='closeHamburgerBody($event)' ng-if="hamburgerOpen">
-      </div>
-      <div class="hamburgerMenu" ng-if="hamburgerOpen">
-        <div class="hamburgerCell hamburgerSignout">
-          <i class="fa fa-fw fa-cog" aria-hidden="true"></i> Profile Settings
-        </div>
-        <div class="hamburgerCell hamburgerSignout" ng-click="goToBanking()">
-          <i class="fa fa-fw fa-credit-card" aria-hidden="true"></i> Banks & Cards
-        </div>
-        <div class="hamburgerCell hamburgerSignout" ng-click="openIntro()">
-          <i class="fa fa-fw fa-question-circle-o" aria-hidden="true"></i> View Tutorial
-        </div>
-        <div class="hamburgerCell hamburgerSignout" ng-click="hamburgerSignout()">
-          <i class="fa fa-fw fa-sign-out" aria-hidden="true"></i> Sign Out
-        </div>
-      </div> -->
-      <!-- <div class="col-xs-8 col-xs-offset-2 nameTag">
-        MoPho
-      </div>
-      <div class="col-xs-2 hamburgerHolder" ng-click="openHamburger()">
-        <p class='fa fa-bars hamburgerIcon'></p>
-      </div> -->
-    <!-- </div> -->
   </ion-content>
 </ion-view>

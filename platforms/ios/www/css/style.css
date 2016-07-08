@@ -2430,14 +2430,40 @@ html {
 }
 
 .transactionCell {
+  padding: 5px;
+  border: 1px solid white;
+  text-align: center;
+  margin-top: 5px;
 }
 
 .transactionData {
   color: white;
   margin-top: 20px;
-  width: 90%;
-  margin-left: 5%;
+  width: 80%;
+  margin-left: 10%;
   padding-bottom: 20px;
+}
+
+.transEarningsTitle {
+  font-size: 20px;
+  text-align: center;
+}
+
+.transEarningsTitle p {
+  width: auto;
+}
+
+.transEarningsTitle span {
+  border-bottom: 1px solid white;
+  width: auto;
+}
+
+.transPhotoPrice {
+  text-align: center;
+}
+
+.transitionPrice {
+  font-size: 18px;
 }
 
 .trashBlackLayer {
