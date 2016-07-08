@@ -9,7 +9,7 @@ angular.module('userPhotosFactory', [])
     function getPhotos(userId){
       return $http({
         method: "GET"
-        ,url: "https://moneyshotapi.herokuapp.com/api/usersubmissions/"+userId
+        ,url: "http://45.55.24.234:5555/api/usersubmissions/"+userId
       })
     }
     return getPhotos;

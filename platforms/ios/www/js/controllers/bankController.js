@@ -18,7 +18,7 @@
     if ( $stateParams.stripe_data ) {
       $http({
         method: 'POST',
-        url: 'https://moneyshotapi.herokuapp.com/api/bank/addStripe',
+        url: 'http://45.55.24.234:5555/api/bank/addStripe',
         data: {
           token: token,
           stripe: $stateParams.stripe_data
@@ -97,7 +97,7 @@
         // Get one of our jwts
         return $http({
             method: 'POST',
-            url: 'https://moneyshotapi.herokuapp.com/api/bank/genToken',
+            url: 'http://45.55.24.234:5555/api/bank/genToken',
             data: {
               // TODO resolve issue with token from different server! so no need for email either store email on client side
               userId   : token.data.userId,

@@ -227,7 +227,7 @@ angular.module('signupController', ['userInfoFactory'])
 
                   $http({
                     method: "POST"
-                    ,url: "http://moneyshotapi.herokuapp.com/api/signup/email"
+                    ,url: "http://45.55.24.234:5555/api/signup/email"
                     ,data: {userEmail: email}
                   })
                   .then(function(mailCallback){
@@ -397,7 +397,7 @@ angular.module('signupController', ['userInfoFactory'])
       var email = $('.signupEmail').val().toLowerCase();
       $http({
         method: "POST"
-        ,url: "https://moneyshotapi.herokuapp.com/api/newpw/request"
+        ,url: "http://45.55.24.234:5555/api/newpw/request"
         ,data: {userEmail: email}
       })
       .then(function(pwCall){
@@ -434,7 +434,7 @@ angular.module('signupController', ['userInfoFactory'])
         var email = $('.getPwEmail').val();
         $http({
           method: "POST"
-          ,url: 'https://moneyshotapi.herokuapp.com/api/update/pw'
+          ,url: 'http://45.55.24.234:5555/api/update/pw'
           ,data: {email: email, password: newPass}
         })
         .then(function(updatedUser){

@@ -432,7 +432,7 @@ angular.module('accountController', ['persistentPhotosFactory', 'userInfoFactory
     function buyRejectPhoto(status, photo){
       $http({
         method: "POST"
-        ,url: 'https://moneyshotapi.herokuapp.com/api/photopurchase'
+        ,url: 'http://45.55.24.234:5555/api/photopurchase'
         ,data: {status: status, photoId: photo._id, userId: $scope.userInfo._id, refresh_token: $scope.userInfo.refresh_token, price: photo.price}
       })
       .then(function(updatedPhoto){
@@ -453,7 +453,7 @@ angular.module('accountController', ['persistentPhotosFactory', 'userInfoFactory
       }, 200);
       $http({
         method: "POST"
-        ,url: 'https://moneyshotapi.herokuapp.com/api/tocsv'
+        ,url: 'http://45.55.24.234:5555/api/tocsv'
         ,data: {email: $scope.userInfo.email}
       })
       .then(function(data){
@@ -464,7 +464,7 @@ angular.module('accountController', ['persistentPhotosFactory', 'userInfoFactory
 
     function getUserTransactions(){
       $http({
-        url: 'https://moneyshotapi.herokuapp.com/api/transactions/all'
+        url: 'http://45.55.24.234:5555/api/transactions/all'
         ,method: "POST"
         ,data: {userId: $scope.userInfo._id}
       })

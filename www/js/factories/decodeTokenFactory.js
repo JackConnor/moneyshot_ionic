@@ -8,7 +8,7 @@ angular.module('decodeTokenFactory', [])
     function getDecode(token){
       return $http({
         method: "GET"
-        ,url: "https://moneyshotapi.herokuapp.com/api/decodetoken/"+token
+        ,url: "http://45.55.24.234:5555/api/decodetoken/"+token
       })
     }
     return getDecode;
