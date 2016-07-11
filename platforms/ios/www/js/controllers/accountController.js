@@ -412,12 +412,14 @@ angular.module('accountController', ['persistentPhotosFactory', 'userInfoFactory
               console.log(callbackData);
             })
           }
-          localforage.setItem('storedPhotos', [])
-          .then(function(photos){
-            console.log(photos);
-            $localStorage.webToken = null;
-            $state.go('signin');
-          })
+          $timeout(function(){
+            localforage.setItem('storedPhotos', [])
+            .then(function(photos){
+              console.log(photos);
+              $localStorage.webToken = null;
+              $state.go('signin');
+            })
+          }, 1000);
         })
       }
     }

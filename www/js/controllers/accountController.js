@@ -407,17 +407,19 @@ angular.module('accountController', ['persistentPhotosFactory', 'userInfoFactory
         .then(function(storedArr){
           console.log(storedArr);
           for (var i = 0; i < storedArr.length; i++) {
-            $cordovaFileTransfer.upload('http://45.55.24.234:5555/api/temp/photo', storedArr[i].link, {params: {userId: $scope.userInfo._id}})
+            $cordovaFileTransfer.upload('http://192.168.0.7:5555/api/temp/photo', storedArr[i].link, {params: {userId: $scope.userInfo._id}})
             .then(function(callbackData){
               console.log(callbackData);
             })
           }
-          localforage.setItem('storedPhotos', [])
-          .then(function(photos){
-            console.log(photos);
-            $localStorage.webToken = null;
-            $state.go('signin');
-          })
+          $timeout(function(){
+            localforage.setItem('storedPhotos', [])
+            .then(function(photos){
+              console.log(photos);
+              $localStorage.webToken = null;
+              $state.go('signin');
+            })
+          }, 1000);
         })
       }
     }

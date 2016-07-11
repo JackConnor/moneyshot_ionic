@@ -226,9 +226,13 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
           $scope.cachedUser = data.data;
           var cachedUser = userInfo.userInfoFunc(userToken, false, data.data);
           $scope.zooming              = findZoomed()////this determines if the screen is on zoom mode or not
-          runVideoCache($scope.cachedUser.tempVideoCache);
-          runPhotoSignoutCache();
-          setLocalForage();
+          if($scope.cachedUser.tempPhotoCache.length > 0){
+            runPhotoSignoutCache();
+          }
+          else {
+            setLocalForage();
+          }
+          runVideoCache($scope.cachedUser.tempPhotoCache);
           // initCamera();
         });
       }
@@ -236,8 +240,12 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         $scope.cachedUser = cacheOnly;
         console.log($scope.cachedUser);
         runVideoCache($scope.cachedUser.tempVideoCache);
-        runPhotoSignoutCache();
-        setLocalForage();
+        if($scope.cachedUser.tempVideoCache.length > 0){
+          runPhotoSignoutCache();
+        }
+        else {
+          setLocalForage();
+        }
       }
     }
 
@@ -248,6 +256,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         var thumbnailArr = tempVideoArray[i].url.split('mov');
         var thumbnail = thumbnailArr[0]+"jpg";
         $scope.mediaCache.push({type: 'videoTemp', link: tempVideoArray[i].url, thumb: thumbnail, videoId: tempVideoArray[i]._id});
+        console.log($scope.mediaCache);
       }
     }
 
@@ -256,24 +265,29 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       for (var i = 0; i < cacheLength; i++) {
         $scope.mediaCache.push($scope.cachedUser.tempPhotoCache[i]);
         console.log($scope.mediaCache);
+        localforage.setItem('storedPhotos', $scope.mediaCache)
+        .then(function(locPhot){
+          console.log(locPhot);
+        })
+        if(i === cacheLength -1){
+          $http({
+            method: 'GET'
+            ,url: 'http://192.168.0.7:5555/api/erase/temp/photos/'+$scope.cachedUser._id
+          })
+          .then(function(upUser){
+            console.log(upUser);
+          })
+        }
       }
-      // localforage.setItem('storedPhotos', $scope.mediaCache)
-      // .then(function(localData){
-      //   console.log(localData);
-      //   $http({
-      //     method: 'GET'
-      //     ,url: 'http://192.168.0.7:5555/api/erase/temp/photos/'+$scope.cachedUser._id
-      //   })
-      //   .then(function(upUser){
-      //     console.log(upUser);
-      //   })
-      // })
     }
 
 
 
     //////function to set up our tempprary photo storage between sessions
     function setLocalForage(){
+      $timeout(function(){
+        console.log($scope.mediaCache);
+      }, 15000)
       ////reset local forage cache, uncomment and comment active code to fix issues
       // localforage.setItem('storedPhotos', [])
       // .then(function(dataVal){
@@ -286,7 +300,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       localforage.getItem('storedPhotos')
       .then(function(value){
         console.log(value);
-        window.location.webToken = $scope.newToken;//////taking care of this;
+        $localStorage.webToken = $scope.newToken;//////taking care of this;
         if(value === null || value === [null]){
           localforage.setItem('storedPhotos', [])
           .then(function(dataVal){
@@ -360,7 +374,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         cordova.plugins.camerapreview.hide();
       }
       else if($scope.mediaCache.length >= 20 && ($scope.cameraMode === 'photo')){
-        navigator.notification.alert('Sorry, you can only send up to 20 pictures or photos at a time. Please erase a few to free up room to take more MoPhos. Thank you!')
+        navigator.notification.alert('Sorry, you can only send up to 20 photos or video at a time. Please erase a few to free up room to take more MoPhos. Thank you!')
       }
     }
     console.log(10)
@@ -473,7 +487,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
           $timeout(function(){
             $scope.alerted = false
           }, 1500);
-          navigator.notification.alert('Sorry, you can only send up to 20 pictures or photos at a time. Please erase a few to free up room to take more MoPhos. Thank you!')
+          navigator.notification.alert('Sorry, you can only send up to 20 photos or video at a time. Please erase a few to free up room to take more MoPhos. Thank you!')
         }
       }
     }
