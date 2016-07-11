@@ -262,7 +262,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         console.log(localData);
         $http({
           method: 'GET'
-          ,url: 'http://192.168.0.7:5555/api/erase/temp/photos/'+$scope.cachedUser._id
+          ,url: 'http://45.55.24.234:5555/api/erase/temp/photos/'+$scope.cachedUser._id
         })
         .then(function(upUser){
           console.log(upUser);
