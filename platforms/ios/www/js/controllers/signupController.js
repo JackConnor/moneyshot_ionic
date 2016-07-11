@@ -325,7 +325,7 @@ angular.module('signupController', ['userInfoFactory'])
         });
         $timeout(function(){
           console.log('yoooooo');
-          $('.forgotPassword').text('ENter email for password link')
+          $('.forgotPassword').text('Enter email for password link');
         }, 20);
         $('.forgotPassword').animate({
           marginTop: 10+'px'

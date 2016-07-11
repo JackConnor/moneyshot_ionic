@@ -227,14 +227,17 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
           var cachedUser = userInfo.userInfoFunc(userToken, false, data.data);
           $scope.zooming              = findZoomed()////this determines if the screen is on zoom mode or not
           runVideoCache($scope.cachedUser.tempVideoCache);
-          setLocalForage(runVideoCache, $scope.cachedUser.tempVideoCache);
+          runPhotoSignoutCache();
+          setLocalForage();
           // initCamera();
         });
       }
       else {
         $scope.cachedUser = cacheOnly;
+        console.log($scope.cachedUser);
         runVideoCache($scope.cachedUser.tempVideoCache);
-        setLocalForage(runVideoCache, $scope.cachedUser.tempVideoCache);
+        runPhotoSignoutCache();
+        setLocalForage();
       }
     }
 
@@ -246,14 +249,23 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         var thumbnail = thumbnailArr[0]+"jpg";
 
         $scope.mediaCache.push({type: 'videoTemp', link: tempVideoArray[i].url, thumb: thumbnail, videoId: tempVideoArray[i]._id});
-        $scope.$apply();
+        // $scope.$apply();
+      }
+    }
+
+    function runPhotoSignoutCache(){
+      var cacheLength = $scope.cachedUser.tempPhotoCache.length;
+      for (var i = 0; i < cacheLength; i++) {
+        $scope.mediaCache.push({type: 'photo', link: $scope.cachedUser.tempPhotoCache[i], thumb: $scope.cachedUser.tempPhotoCache[i]});
+        console.log($scope.mediaCache);
+        // $scope.$apply();
       }
     }
 
 
 
     //////function to set up our tempprary photo storage between sessions
-    function setLocalForage(callback, cbParam){
+    function setLocalForage(){
       ////reset local forage cache, uncomment and comment active code to fix issues
       // localforage.setItem('storedPhotos', [])
       // .then(function(dataVal){
@@ -446,13 +458,13 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
           var thisEl = $('.outCameraModal')[0];
           animateClick(thisEl, 'white', 'transparent');
       }
-      else if($scope.mediaCache.length >= 20){
+      else if($scope.mediaCache.length > 20){
         if(!$scope.alerted){
           $scope.alerted = true;
           $timeout(function(){
             $scope.alerted = false
           }, 1500);
-          navigator.notification.alert('Sorry, you can only send up to 25 pictures or photos at a time. Please erase a few to free up room to take more MoPhos. Thank you!')
+          navigator.notification.alert('Sorry, you can only send up to 20 pictures or photos at a time. Please erase a few to free up room to take more MoPhos. Thank you!')
         }
       }
     }

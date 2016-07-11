@@ -8,9 +8,9 @@ angular.module('accountController', ['persistentPhotosFactory', 'userInfoFactory
     };
   })
 
-  acctCtrl.$inject = ['$http', '$state', '$scope', 'navbar', 'userPhotos', 'decodeToken', '$cordovaStatusbar', '$ionicScrollDelegate', 'persistentPhotos', '$timeout', '$cordovaFileTransfer', 'userInfo', 'emailThisVideo'];
+  acctCtrl.$inject = ['$http', '$state', '$scope', 'navbar', 'userPhotos', 'decodeToken', '$cordovaStatusbar', '$ionicScrollDelegate', 'persistentPhotos', '$timeout', '$cordovaFileTransfer', 'userInfo', 'emailThisVideo', '$localStorage', '$cordovaFileTransfer'];
 
-  function acctCtrl($http, $state, $scope, navbar, userPhotos, decodeToken, $cordovaStatusbar, $ionicScrollDelegate, persistentPhotos, $timeout, $cordovaFileTransfer, userInfo, emailThisVideo){
+  function acctCtrl($http, $state, $scope, navbar, userPhotos, decodeToken, $cordovaStatusbar, $ionicScrollDelegate, persistentPhotos, $timeout, $cordovaFileTransfer, userInfo, emailThisVideo, $localStorage, $cordovaFileTransfer){
     $scope.photoCarouselBool    = false;
     $scope.carouselMain       = [];
     $scope.showSold              = false;
@@ -120,7 +120,7 @@ angular.module('accountController', ['persistentPhotosFactory', 'userInfoFactory
       }
     }
 
-    var userToken = window.localStorage.webToken;
+    var userToken = $localStorage.webToken;
     getUserPhotos(userToken);
 
     // function checkToken(){
@@ -403,8 +403,22 @@ angular.module('accountController', ['persistentPhotosFactory', 'userInfoFactory
 
       var confirmSignout = confirm('Sign out?');
       if(confirmSignout){
-        window.localStorage.setItem('webToken', null);
-        $state.go('signin');
+        localforage.getItem('storedPhotos')
+        .then(function(storedArr){
+          console.log(storedArr);
+          for (var i = 0; i < storedArr.length; i++) {
+            $cordovaFileTransfer.upload('http://192.168.0.7:5555/api/temp/photo', storedArr[i].link, {params: {userId: $scope.userInfo._id}})
+            .then(function(callbackData){
+              console.log(callbackData);
+            })
+          }
+          localforage.setItem('storedPhotos', [])
+          .then(function(photos){
+            console.log(photos);
+            $localStorage.webToken = null;
+            $state.go('signin');
+          })
+        })
       }
     }
     $scope.hamburgerSignout = hamburgerSignout;
