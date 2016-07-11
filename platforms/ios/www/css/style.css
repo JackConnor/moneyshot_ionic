@@ -678,6 +678,19 @@ html {
   margin: 0px;
 }
 
+.enterTipPost {
+  font-size: 23px;
+  padding: 15px;
+  text-align: center;
+  width: 300px;
+  height: auto;
+  color: white;
+  border: 2px solid white;
+  border-radius: 5px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .enterTipTitle {
   text-align: left;
   font-size: 16px;
