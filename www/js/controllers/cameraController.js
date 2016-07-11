@@ -360,7 +360,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         cordova.plugins.camerapreview.hide();
       }
       else if($scope.mediaCache.length >= 20 && ($scope.cameraMode === 'photo')){
-        navigator.notification.alert('Sorry, you can only send up to 20 pictures or photos at a time. Please erase a few to free up room to take more MoPhos. Thank you!')
+        navigator.notification.alert('Sorry, you can only send up to 20 photos or video at a time. Please erase a few to free up room to take more MoPhos. Thank you!')
       }
     }
     console.log(10)
@@ -473,7 +473,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
           $timeout(function(){
             $scope.alerted = false
           }, 1500);
-          navigator.notification.alert('Sorry, you can only send up to 20 pictures or photos at a time. Please erase a few to free up room to take more MoPhos. Thank you!')
+          navigator.notification.alert('Sorry, you can only send up to 20 photos or video at a time. Please erase a few to free up room to take more MoPhos. Thank you!')
         }
       }
     }
