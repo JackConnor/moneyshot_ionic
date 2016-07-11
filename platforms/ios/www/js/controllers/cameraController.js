@@ -247,19 +247,27 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       for (var i = 0; i < vidLength; i++) {
         var thumbnailArr = tempVideoArray[i].url.split('mov');
         var thumbnail = thumbnailArr[0]+"jpg";
-
         $scope.mediaCache.push({type: 'videoTemp', link: tempVideoArray[i].url, thumb: thumbnail, videoId: tempVideoArray[i]._id});
-        // $scope.$apply();
       }
     }
 
     function runPhotoSignoutCache(){
       var cacheLength = $scope.cachedUser.tempPhotoCache.length;
       for (var i = 0; i < cacheLength; i++) {
-        $scope.mediaCache.push({type: 'photo', link: $scope.cachedUser.tempPhotoCache[i], thumb: $scope.cachedUser.tempPhotoCache[i]});
+        $scope.mediaCache.push($scope.cachedUser.tempPhotoCache[i]);
         console.log($scope.mediaCache);
-        // $scope.$apply();
       }
+      // localforage.setItem('storedPhotos', $scope.mediaCache)
+      // .then(function(localData){
+      //   console.log(localData);
+      //   $http({
+      //     method: 'GET'
+      //     ,url: 'http://192.168.0.7:5555/api/erase/temp/photos/'+$scope.cachedUser._id
+      //   })
+      //   .then(function(upUser){
+      //     console.log(upUser);
+      //   })
+      // })
     }
 
 
@@ -277,6 +285,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       // })
       localforage.getItem('storedPhotos')
       .then(function(value){
+        console.log(value);
         window.location.webToken = $scope.newToken;//////taking care of this;
         if(value === null || value === [null]){
           localforage.setItem('storedPhotos', [])
