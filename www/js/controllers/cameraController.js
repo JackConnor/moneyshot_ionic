@@ -427,9 +427,11 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         console.log($scope.flashOnOff);
         // CanvasCamera.setCameraPosition(1);
         cordova.plugins.camerapreview.switchCamera();
-        if($scope.flashOnOff === 'on'){
-          window.plugins.flashlight.switchOn();
-        }
+        $timeout(function(){
+          if($scope.flashOnOff === 'on'){
+            window.plugins.flashlight.switchOn();
+          }
+        }, 750);
         $scope.cameraToggle = true;
       }
     }
