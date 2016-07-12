@@ -418,11 +418,18 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     // function to flip the camera
     function flipCamera(){
       if($scope.cameraToggle){
-        CanvasCamera.setCameraPosition(2);
+        window.plugins.flashlight.switchOff();
+        // CanvasCamera.setCameraPosition(2);
+        cordova.plugins.camerapreview.switchCamera();
         $scope.cameraToggle = false;
       }
       else if(!$scope.cameraToggle) {
-        CanvasCamera.setCameraPosition(1);
+        console.log($scope.flashOnOff);
+        // CanvasCamera.setCameraPosition(1);
+        cordova.plugins.camerapreview.switchCamera();
+        if($scope.flashOnOff === 'on'){
+          window.plugins.flashlight.switchOn();
+        }
         $scope.cameraToggle = true;
       }
     }
@@ -1540,7 +1547,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
     /////function to switch flash on and off
     function toggleFlash(){
-      if($scope.flashOnOff === 'off'){
+      if($scope.flashOnOff === 'off' && $scope.cameraToggle === true){
         window.plugins.flashlight.switchOn();
         $scope.flashOnOff = 'on';
         $scope.flash = 'Flash off';
