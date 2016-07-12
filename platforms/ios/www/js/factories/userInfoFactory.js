@@ -49,10 +49,16 @@ angular.module('userInfoFactory', [])
       return userInfoCache;
     }
 
+    function clearUserInfo(){
+      console.log('clearing our cache baby');
+      userInfoCache = undefined;
+    }
+
     return {
       userInfoFunc: getUserInfo
       ,promiseOnly: promise
       ,cacheOnly: cacheOnly
       ,clearCache: clearCache
+      ,clearUserInfo: clearUserInfo
     }
   }
