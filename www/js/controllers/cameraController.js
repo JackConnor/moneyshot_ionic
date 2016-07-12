@@ -876,14 +876,22 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       var cacheLength = $scope.mediaCache.length;
       if(cacheLength <= 4){
         $timeout(function(){
-          $('.submitCell').width('185px');
-          $('.submitCell').height('185px');
+          // $('.submitCell').width('185px');
+          // $('.submitCell').height('185px');
+          $('.submitCell').animate({
+            width: '185px'
+            ,height: '185px'
+          }, 750)
         }, 750);
       }
       else if(cacheLength <= 9){
         $timeout(function(){
-          $('.submitCell').width('123.33px');
-          $('.submitCell').height('123.33px');
+          // $('.submitCell').width('123.33px');
+          // $('.submitCell').height('123.33px');
+          $('.submitCell').animate({
+            width: '185px'
+            ,height: '185px'
+          }, 750)
         }, 1500);
       }
       // else if(cacheLength <= 16){
