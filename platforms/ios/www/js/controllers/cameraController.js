@@ -1359,7 +1359,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     function selectPhotos(){
       if($scope.selectMode === false){
         $('.submitCellImageHolder').css({
-          border: '1px solid black'
+          border: '1px solid white'
         });
         $(".submitAddInfoContainer").animate({
           marginTop: '40px'

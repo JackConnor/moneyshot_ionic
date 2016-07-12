@@ -206,7 +206,6 @@ angular.module('signupController', ['userInfoFactory'])
                 else {
                   newToken(newUser.data._id)
                   .then(function(ourToken){
-                    // var confirmSave = confirm('Would you like us to save your email and password?');
                     var confirmErase = navigator.notification.confirm('Would you like us to save your email and password?', function(index){
                       console.log(index);
                       if(index === 1){
@@ -291,7 +290,6 @@ angular.module('signupController', ['userInfoFactory'])
               .then(function(ourToken){
                 //////this asks to store creds if it's a different user
                 if(email !== $localStorage.mophoEmail || password !== $localStorage.mophoPw){
-                  // var confirmChange = confirm('This seems to be a new login, would you like us to save your email and password?');
                   var confirmErase = navigator.notification.confirm('This seems to be a new login, would you like us to save your email and password?', function(index){
                     console.log(index);
                     if(index === 1){
