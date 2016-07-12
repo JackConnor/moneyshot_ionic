@@ -1429,6 +1429,7 @@ html {
   color: white !important;
   background-color: transparent;
   text-align: left;
+  padding-left: 15px;
 }
 
 .photoNameOverlay {
@@ -1911,6 +1912,14 @@ html {
 .submitAddInfoContainer {
   height: 50%;
   margin-top: 10px;
+}
+
+.submitAddInfoContainer input {
+  padding-left: 12px;
+}
+
+.submitAddInfoContainer textArea {
+  padding-left: 12px;
 }
 
 .submitBarBlack {
