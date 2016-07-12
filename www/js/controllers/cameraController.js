@@ -573,10 +573,11 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       var zeroProgress = 0;
       var progressPercentage = 100/setLength;
       var submissionData = {photos: [], videos: [], userId: '', metaData: {}};
+      var webToken = $localStorage.webToken;
       //////first we need to find the users ID, so we can use it to make the post requests
       $http({
         method: "GET"
-        ,url: "http://45.55.24.234:5555/api/decodetoken/"+$localStorage.webToken
+        ,url: "http://45.55.24.234:5555/api/decodetoken/"+ webToken
       })
       .then(function(decodedToken){
         var userFullId = decodedToken.data.userId;

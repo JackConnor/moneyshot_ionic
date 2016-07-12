@@ -120,10 +120,10 @@
           <!-- <div class="takeVideoButton"  ng-if='cameraMode==="video"'></div> -->
         </div>
         <div class="col-xs-4 cameraButtonCell">
-          <div class="submitSetDiv" ng-click='animateSubmit(); submitModalOpen()' ng-if='cachedUser.submissions'>
+          <div class="submitSetDiv" ng-click='animateSubmit(); submitModalOpen()' ng-if='cachedUser.submissions || mediaData.length > 0 '>
             Done
           </div>
-          <div class="submitSetDiv" ng-if='!cachedUser.submissions' style='opacity:0.3'>
+          <div class="submitSetDiv" ng-if='!cachedUser.submissions || mediaData.length === 0' style='opacity:0.3'>
             Done
           </div>
         </div>

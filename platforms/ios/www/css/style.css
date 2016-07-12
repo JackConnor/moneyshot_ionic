@@ -1756,6 +1756,8 @@ html {
 @media only screen and (min-width: 0px){
   .submissionDataHolder {
     /*padding-top: 20px;*/
+    width: 90%;
+    margin-left: 5%;
     height: 300px;
     color: white;
     font-size: 14px;
@@ -1770,6 +1772,8 @@ html {
 
 @media only screen and (min-width: 321px){
   .submissionDataHolder {
+    width: 90%;
+    margin-left: 5%;
     /*padding-top: 20px;*/
     height: 300px;
     color: white;
@@ -1786,6 +1790,7 @@ html {
 .submissionDataHolder span{
   font-size: 16px;
   font-weight: bolder;
+  height: 50px;
 }
 
 
@@ -1846,7 +1851,7 @@ html {
 
 @media only screen and (min-width: 0px){
   .submissionStatusReport {
-    margin-top: 55px;
+    margin-top: 25px;
     position: block;
     width: 100%;
     height: 70px;
@@ -1859,7 +1864,7 @@ html {
 
 @media only screen and (min-width: 321px){
   .submissionStatusReport {
-    margin-top: 105px;
+    margin-top: 55px;
     position: block;
     width: 100%;
     height: 70px;
