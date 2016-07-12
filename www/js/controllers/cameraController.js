@@ -876,23 +876,28 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       var cacheLength = $scope.mediaCache.length;
       if(cacheLength <= 4){
         $timeout(function(){
-          // $('.submitCell').width('185px');
-          // $('.submitCell').height('185px');
+          $('.submitCell').width('185px');
+          $('.submitCell').height('185px');
           $('.submitCell').animate({
-            width: '185px'
-            ,height: '185px'
-          }, 750)
-        }, 750);
+            opacity: 1
+          }, 200);
+        }, 125);
       }
-      else if(cacheLength <= 9){
+      else if(cacheLength < 9){
         $timeout(function(){
-          // $('.submitCell').width('123.33px');
-          // $('.submitCell').height('123.33px');
+          $('.submitCell').width('123.33px');
+          $('.submitCell').height('123.33px');
           $('.submitCell').animate({
-            width: '185px'
-            ,height: '185px'
-          }, 750)
-        }, 1500);
+            opacity: 1
+          }, 200);
+        }, 1100);
+      }
+      else {
+        // $timeout(function(){
+        //   $('.submitCell').animate({
+        //     opacity: 1
+        //   }, 200);
+        // }, 2100);
       }
       // else if(cacheLength <= 16){
       //   $timeout(function(){
@@ -912,27 +917,61 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       if($scope.activePhoto === false){
         cordova.plugins.camerapreview.hide();
         $scope.submitModalVar = true;
-        setCellSize();
         /////////the following set teh submit page up to prevent app crashes
         var mediaCachePart = $scope.mediaCache.slice(0, 4);
         $scope.mediaCacheTemp = mediaCachePart;
+        if($scope.mediaCache.length <= 8){
+          setCellSize();
+        }
+        else {
+          $timeout(function(){
+            $('.submitCell').css({
+              opacity: 1
+            });
+          }, 250);
+        }
 
         $timeout(function(){
           var mediaCachePart = $scope.mediaCache.slice(0, 8);
           $scope.mediaCacheTemp = mediaCachePart;
+          if($scope.mediaCache.length <= 8){
+            setCellSize();
+          }
+          else {
+            $timeout(function(){
+              $('.submitCell').css({
+                opacity: 1
+              });
+            }, 250);
+          }
         }, 500);
         $timeout(function(){
           var mediaCachePart = $scope.mediaCache.slice(0, 12);
           $scope.mediaCacheTemp = mediaCachePart;
+          $timeout(function(){
+            $('.submitCell').css({
+              opacity: 1
+            });
+          }, 250);
         }, 1000);
         $timeout(function(){
           var mediaCachePart = $scope.mediaCache.slice(0, 16);
           $scope.mediaCacheTemp = mediaCachePart;
+          $timeout(function(){
+            $('.submitCell').css({
+              opacity: 1
+            });
+          }, 250);
         }, 1500);
         //////note: we're leaving this on ebelow in case we wan tto toggle back to 25 photos
         $timeout(function(){
           var mediaCachePart = $scope.mediaCache.slice(0, 20);
           $scope.mediaCacheTemp = mediaCachePart;
+          $timeout(function(){
+            $('.submitCell').css({
+              opacity: 1
+            });
+          }, 250);
         }, 2000);
       }
     }
