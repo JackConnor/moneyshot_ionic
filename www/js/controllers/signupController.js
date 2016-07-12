@@ -12,9 +12,6 @@ angular.module('signupController', ['userInfoFactory'])
 
   function signupCtrl($scope, $http, $state, signup, signin, newToken, $cordovaStatusbar, $window, $timeout, $interval, $animateCss, $ionicScrollDelegate, userInfo, $localStorage){
     ionic.Platform.fullScreen(true, false);
-    // alert('Sign Loaded')
-    // console.log($interval);
-    // console.log($timeout);
     ///////////////global variables//////
     $scope.signupModalVar   = false;
     $scope.signinModalVar   = false;
@@ -42,7 +39,6 @@ angular.module('signupController', ['userInfoFactory'])
         $scope.introBlocker = false;
       }, 400);
       $scope.swipeInterval = $interval(function(){
-        console.log('interval');
         introSwipeLeft();
       }, 1750);
     }
@@ -92,7 +88,6 @@ angular.module('signupController', ['userInfoFactory'])
 
     ///adds text bubble to intro
     function addTagline(){
-      console.log($scope.introCounter);
       if($scope.introCounter == 0 || $scope.introCounter == 3){
         $($('.intro-dot-item')[0]).addClass('fa-circle-o');
         $($('.intro-dot-item')[0]).removeClass('fa-circle');
@@ -161,7 +156,6 @@ angular.module('signupController', ['userInfoFactory'])
 
     /////function to exit the intro modal
     function exitIntro(){
-      console.log('exiting intro');
       $('.tab-nav').css({
         height: 49+"px"
       })
@@ -176,7 +170,6 @@ angular.module('signupController', ['userInfoFactory'])
     function signupUser(){
       var validPW = checkPassword();
       var termsChecked = $(".termsAgree").prop('checked');
-      console.log(termsChecked);
       $('.mophoSignin').css({
         opacity: .25
       });
@@ -184,8 +177,6 @@ angular.module('signupController', ['userInfoFactory'])
         opacity: 1
       }, 250);
       var validEmail = regCheckEmail($('.signupEmail').val());
-      console.log($('.signupEmail').val());
-      console.log(validEmail);
       if(validEmail){
         if(validPW){
           var email = $('.signupEmail').val();
@@ -195,7 +186,6 @@ angular.module('signupController', ['userInfoFactory'])
             if(termsChecked === true){
               signup(email, password)
               .then(function(newUser){
-                console.log(newUser);
                 if(newUser.data === 'email already in use'){
                   navigator.notification.alert('that email is already in the system, please try another one or login using your password');
                 }
@@ -207,9 +197,8 @@ angular.module('signupController', ['userInfoFactory'])
                   newToken(newUser.data._id)
                   .then(function(ourToken){
                     var confirmErase = navigator.notification.confirm('Would you like us to save your email and password?', function(index){
-                      console.log(index);
                       if(index === 1){
-                        console.log('nawww');
+                        //callback
                       }
                       else if(index === 2){
                         saveCallback();
@@ -230,7 +219,6 @@ angular.module('signupController', ['userInfoFactory'])
                       ,data: {userEmail: email}
                     })
                     .then(function(mailCallback){
-                      console.log(mailCallback);
                       $state.go('camera');
                     })
                   })
@@ -291,9 +279,8 @@ angular.module('signupController', ['userInfoFactory'])
                 //////this asks to store creds if it's a different user
                 if(email !== $localStorage.mophoEmail || password !== $localStorage.mophoPw){
                   var confirmErase = navigator.notification.confirm('This seems to be a new login, would you like us to save your email and password?', function(index){
-                    console.log(index);
                     if(index === 1){
-                      console.log('nawww');
+                      //callback
                     }
                     else if(index === 2){
                       signinCallback();
@@ -326,8 +313,6 @@ angular.module('signupController', ['userInfoFactory'])
 
     //////function if a user forgets their password
     function getPassword(){
-      console.log('heyyy');
-      // $scope.getPasswordModal = true;
       //////new version of what this does
       if($scope.pwHide === false){
         $('.signinPassword').hide();
@@ -335,7 +320,6 @@ angular.module('signupController', ['userInfoFactory'])
           marginTop: 65+'px'
         });
         $timeout(function(){
-          console.log('yoooooo');
           $('.forgotPassword').text('Enter email for password link');
         }, 20);
         $('.forgotPassword').animate({
@@ -369,7 +353,6 @@ angular.module('signupController', ['userInfoFactory'])
         $scope.signinModalVar   = true;
         $cordovaStatusbar.show();
         $timeout(function(){
-          console.log('signingin');
           if($localStorage.mophoEmail){
             $('.signinEmail').val($localStorage.mophoEmail);
           }
@@ -394,7 +377,6 @@ angular.module('signupController', ['userInfoFactory'])
         $scope.introModal       = false;
         $scope.signupModalVar   = true;
         $cordovaStatusbar.show();
-        console.log($(".signupInputHolder").find('input'));
         $(".signupInputHolder").find('input').on('blur', function(){
           $ionicScrollDelegate.scrollTop();
         })
@@ -404,7 +386,6 @@ angular.module('signupController', ['userInfoFactory'])
 
 
     function retrievePW(email){
-      console.log('getting pw');
       var email = $('.signupEmail').val().toLowerCase();
       $http({
         method: "POST"
@@ -449,7 +430,7 @@ angular.module('signupController', ['userInfoFactory'])
           ,data: {email: email, password: newPass}
         })
         .then(function(updatedUser){
-          console.log(updatedUser);
+          //callback
         })
 
       }
@@ -512,7 +493,6 @@ angular.module('signupController', ['userInfoFactory'])
       }
     }
 
-    // console.log(window.location.href);
 
     ////////password character checking
     function checkPassword(){
@@ -589,7 +569,6 @@ angular.module('signupController', ['userInfoFactory'])
     $scope.backToSliderFunc = backToSliderFunc;
 
     function highlightSignup(e){
-      console.log(e);
       var pw = $('.signupPassword').val();
       var repw = $('.signupConfirmPassword').val();
       var pwLength = $('.signupPassword').val().length;
@@ -597,15 +576,10 @@ angular.module('signupController', ['userInfoFactory'])
       var checked = $(".termsAgree").prop('checked');
       var validEmail = regCheckEmail($('.signupEmail').val());
       if($scope.signupModalVar){
-        console.log('signup');
-        console.log(pw);
-        console.log(repw);
         if(e.keyCode === 13){
-          console.log('signing in');
           signupUser();
         }
         if(pwLength > 5 && pw === repw && checked && validEmail){
-          console.log('larger');
           $('.mophoSignin').css({
             color: '#3375dd'
           });
@@ -620,14 +594,10 @@ angular.module('signupController', ['userInfoFactory'])
     $scope.highlightSignup = highlightSignup;
 
     function highlightSignin(e){
-      console.log(e);
-      console.log(e.keyCode);
       var pw = $('.signinPassword').val();
       var pwLength = pw.length;
-      console.log(pwLength);
       var checkEmail = regCheckEmail($('.signinEmail').val());
       if(e.keyCode === 13){
-        console.log('signing in');
         signinUser();
       }
       else if(pwLength > 5 && checkEmail){
@@ -682,7 +652,6 @@ angular.module('signupController', ['userInfoFactory'])
     $scope.pwXClick = pwXClick;
 
     function welcomeToCamera(evt){
-      console.log(evt);
       $(evt.currentTarget).css({
         opacity: 0.1
       });
