@@ -1422,7 +1422,6 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
               if(i === allLength-1){
                 localforage.setItem('storedPhotos', $scope.mediaCache)
                 .then(function(newArray){
-                  setCellSize();
                   selectPhotos();
                 })
                 .catch(function(err){
