@@ -75,10 +75,6 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     $scope.tip = $scope.tipJar[Math.floor(Math.random()*5)];
     function initCheckUser(){
       var userToken = $localStorage.webToken;
-      console.log(userToken);
-      // navigator.geolocation.getCurrentPosition(function(pos, err){
-      //   // console.log(pos);
-      // });
       var hasLaunched = window.location.hasLaunched;
       if(hasLaunched === false){
         var httpLoaded = false;
@@ -86,7 +82,6 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
           userToken = 'null'
         }
         setTimeout(function(){
-          console.log(httpLoaded);
           if(httpLoaded === false && window.location.hash === "#/tab/camera"){
             initCheckUser();
           }
@@ -97,7 +92,6 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
           ,data: {token: userToken}
         })
         .then(function(data){
-          console.log('new token data');
           var newToken = data.data;
           $scope.newToken = newToken;
           if(data.data === "no token"){
@@ -132,7 +126,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       }
       var confirmErase = navigator.notification.confirm('Sign Out of this app?', function(index){
         if(index === 1){
-          console.log('nawww');
+          //callback
         }
         else if(index === 2){
           signoutCallback();
@@ -147,7 +141,6 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
           ,url: "http://45.55.24.234:5555/api/decodetoken/"+webToken
         })
         .then(function(webTokenData){
-          console.log(webTokenData);
           var userId = webTokenData.data.userId
           localforage.getItem('storedPhotos')
           .then(function(storedArr){
@@ -163,9 +156,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
               var counter = 0;
               for (var i = 0; i < storedLength; i++) {
                 var beginning = storedArr[i].link.slice(0, 4);
-                console.log(beginning);
                 if(beginning === 'http'){
-                  console.log('that was one that that was already run');
                   $http({
                     method: "POST"
                     ,url: 'http://192.168.0.5:5555/api/temp/photo/http'
@@ -175,7 +166,6 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                     counter++
                     if(counter === storedLength - 1){
                       localforage.setItem('storedPhotos', []);
-                      console.log(data);
                       $localStorage.webToken = null;
                       userInfo.clearUserInfo();
                       gangloadTurnoff();
@@ -188,17 +178,12 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                   })
                 }
                 else {
-                  console.log('rawww');
-                  console.log(storedArr[i]);
-                  console.log(userId);
                   $cordovaFileTransfer.upload('http://192.168.0.5:5555/api/temp/photo', storedArr[i].link, {params: {userId: userId}})
                   .then(function(callbackData){
-                    console.log(callbackData);
                     localforage.setItem('storedPhotos', [])
                     .then(function(photos){
                       counter++
                       if(counter === storedLength - 1){
-                        console.log(photos);
                         userInfo.clearUserInfo();
                         localforage.setItem('storedPhotos', []);
                         $localStorage.webToken = null;
@@ -291,14 +276,12 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     // launchPlatform();
     ionic.Platform.ready(function(){      // alert('checking')
       var userLoaded = userInfo.cacheOnly();
-      console.log(userLoaded);
       if(userLoaded !== undefined || userLoaded !== 'undefined'){
         $scope.cachedUser = userLoaded;
       }
       else {
         setTimeout(function(){
           var newUser = userInfo.userInfoFunc();
-          console.log(newUser);
         }, 1000);
       }
       setTimeout(function(){
@@ -311,15 +294,12 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       var userToken = $localStorage.webToken;
       //////need to toggle if info already loaded
       var cacheOnly = userInfo.cacheOnly();
-      console.log('heres the cache: '+cacheOnly);
-      console.log(cacheOnly);
       if(cacheOnly === undefined || cacheOnly === 'undefined'){
         userInfo.promiseOnly(userToken)
         .then(function(data){
           $scope.cachedUser = data.data;
           var cachedUser = userInfo.userInfoFunc(userToken, false, data.data);
           $scope.zooming              = findZoomed()////this determines if the screen is on zoom mode or not
-          console.log('length: ', $scope.cachedUser.tempPhotoCache.length);
           if($scope.cachedUser.tempPhotoCache.length > 0){
             runPhotoSignoutCache();
           }
@@ -332,10 +312,8 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       }
       else {
         $scope.cachedUser = cacheOnly;
-        console.log($scope.cachedUser);
         runVideoCache($scope.cachedUser.tempVideoCache);
         var tempLength = $scope.cachedUser.tempPhotoCache.length;
-        console.log(tempLength);
         if(tempLength > 0){
           runPhotoSignoutCache();
         }
@@ -352,7 +330,6 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         var thumbnailArr = tempVideoArray[i].url.split('mov');
         var thumbnail = thumbnailArr[0]+"jpg";
         $scope.mediaCache.push({type: 'videoTemp', link: tempVideoArray[i].url, thumb: thumbnail, videoId: tempVideoArray[i]._id});
-        console.log($scope.mediaCache);
       }
     }
 
@@ -360,10 +337,9 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       var cacheLength = $scope.cachedUser.tempPhotoCache.length;
       for (var i = 0; i < cacheLength; i++) {
         $scope.mediaCache.push($scope.cachedUser.tempPhotoCache[i]);
-        console.log($scope.mediaCache);
         localforage.setItem('storedPhotos', $scope.mediaCache)
         .then(function(locPhot){
-          console.log(locPhot);
+          /////callback
         })
         if(i === cacheLength - 1){
           $http({
@@ -371,7 +347,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
             ,url: 'http://192.168.0.5:5555/api/erase/temp/photos/'+$scope.cachedUser._id
           })
           .then(function(upUser){
-            console.log(upUser);
+            /////callback
           })
         }
       }
@@ -392,12 +368,11 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       // })
       localforage.getItem('storedPhotos')
       .then(function(value){
-        console.log(value);
         $localStorage.webToken = $scope.newToken;//////taking care of this;
         if(value === null || value === [null]){
           localforage.setItem('storedPhotos', [])
           .then(function(dataVal){
-            // setLaunchCamera();
+            // callback
           })
           .catch(function(err){
             console.log(err);
@@ -439,7 +414,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         }, 200);
         localforage.setItem('storedPhotos', $scope.mediaCache)
         .then(function(newPhotoArr){
-          console.log(newPhotoArr);
+          //callback
         })
         .catch(function(err){
           console.log(err);
@@ -470,7 +445,6 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         navigator.notification.alert('Sorry, you can only send up to 20 photos or video at a time. Please erase a few to free up room to take more MoPhos. Thank you!')
       }
     }
-    console.log(10)
 
     var photoInt = function(){
       $scope.intCounter = 0;
@@ -517,8 +491,6 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         $scope.cameraToggle = false;
       }
       else if(!$scope.cameraToggle) {
-        console.log($scope.flashOnOff);
-        // CanvasCamera.setCameraPosition(1);
         cordova.plugins.camerapreview.switchCamera();
         $timeout(function(){
           if($scope.flashOnOff === 'on'){
@@ -535,8 +507,6 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       if($scope.activePhoto === false && $scope.mediaCache.length < 20){
         $cordovaCapture.captureVideo({quality : 100})
         .then(function(result){
-          console.log(result);
-
           ///////here we fire off video to temp storage on our server to save video in case of app closure
           var webToken = $localStorage.webToken;
           $http({
@@ -544,13 +514,9 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
             ,url: "http://45.55.24.234:5555/api/decodetoken/"+webToken
           })
           .then(function(decodedToken){
-            console.log(decodedToken);
             $cordovaFileTransfer.upload('http://45.55.24.234:5555/api/temp/video', result[0].fullPath, {params: {userId: decodedToken.data.userId}}, true)
             .then(function(updatedUser){
-              console.log(updatedUser);
-              console.log(updatedUser.response);
-              console.log(updatedUser.response);
-              console.log(JSON.parse(updatedUser.response));
+              //callback
             })
           });
 
@@ -683,7 +649,6 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       var progressPercentage = 100/setLength;
       var submissionData = {photos: [], videos: [], userId: '', metaData: {}};
       var webToken = $localStorage.webToken;
-      console.log(webToken);
       //////first we need to find the users ID, so we can use it to make the post requests
       $http({
         method: "GET"
@@ -702,12 +667,9 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         submissionData.metaData.what = $('.photoNameDesc').val();
         ////now iterate through to submit to backend
         for (var i = 0; i < set.length; i++) {
-          var hardI = 'hard'+i
-          console.log(hardI);
           if(set[i].type === "video"){
             $cordovaFileTransfer.upload('http://45.55.24.234:5555/api/upload/video', set[i].link, {})
             .then(function(){
-              console.log('anotherPhoto');
               var progressElement = $('.submitProgressBar');
               if(zeroProgress <= 100){
                 zeroProgress += progressPercentage;
@@ -1138,7 +1100,6 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
           ,dataType: 'jsonp',
         })
         .then(function(posData){
-          console.log(posData);
           $scope.returnPlace = posData.data.results[0].vicinity;
         })
 
@@ -1149,7 +1110,6 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     ///////begin photo carousel animation work
     function goToCarousel(mediaData, index, evt){
       //////thsi is normal carousel functionality
-      console.log('yoooooooo carrrrrr');
       if($scope.selectMode === false){
         $ionicScrollDelegate.freezeScroll(true);
         $scope.photoCarouselObject = mediaData;////this is always the centerpiece photo
@@ -1160,7 +1120,6 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
           opacity: 1
         }, 169);
         $timeout(function(){
-          console.log('opening carousel');
           $scope.submitModaVar = false;
           $scope.photoCarouselBool = true;
           $timeout(function(){
@@ -1213,7 +1172,6 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       else if($scope.zooming   === 'standard'){
         var dist = (index*70);
       }
-      console.log(dist);
       $ionicScrollDelegate.$getByHandle('carouselScroll').scrollTo(dist, 0, true);
     }
     $scope.openNewCarouselPhoto = openNewCarouselPhoto;
@@ -1240,131 +1198,105 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     function carouselScroll(){
       /////need to math this up tp dry it out
       var scrollPos = $ionicScrollDelegate.$getByHandle('carouselScroll').getScrollPosition().left;
-      console.log(scrollPos)
 
       if(scrollPos >= 0 && scrollPos < 36){
         var newMedia = $scope.mediaCache[0];
-        console.log(newMedia);
         changeCarouselPhoto(newMedia);
       }
       else if(scrollPos >= 36 && scrollPos < 105){
         var newMedia = $scope.mediaCache[1];
-        console.log(newMedia);
         changeCarouselPhoto(newMedia);
       }
       else if(scrollPos >= 106 && scrollPos < 175){
         var newMedia = $scope.mediaCache[2];
-        console.log(newMedia);
         changeCarouselPhoto(newMedia);
       }
       else if(scrollPos >= 176 && scrollPos < 245){
         var newMedia = $scope.mediaCache[3];
-        console.log(newMedia);
         changeCarouselPhoto(newMedia);
       }
       else if(scrollPos >= 246 && scrollPos < 315){
         var newMedia = $scope.mediaCache[4];
-        console.log(newMedia);
         changeCarouselPhoto(newMedia);
       }
       else if(scrollPos >= 316 && scrollPos < 385){
         var newMedia = $scope.mediaCache[5];
-        console.log(newMedia);
         changeCarouselPhoto(newMedia);
       }
       else if(scrollPos >= 386 && scrollPos < 455){
         var newMedia = $scope.mediaCache[6];
-        console.log(newMedia);
         changeCarouselPhoto(newMedia);
       }
       else if(scrollPos >= 456 && scrollPos < 525){
         var newMedia = $scope.mediaCache[7];
-        console.log(newMedia);
         changeCarouselPhoto(newMedia);
       }
       else if(scrollPos >= 526 && scrollPos < 595){
         var newMedia = $scope.mediaCache[8];
-        console.log(newMedia);
         changeCarouselPhoto(newMedia);
       }
       else if(scrollPos >= 596 && scrollPos < 665){
         var newMedia = $scope.mediaCache[9];
-        console.log(newMedia);
         changeCarouselPhoto(newMedia);
       }
       else if(scrollPos >= 666 && scrollPos < 735){
         var newMedia = $scope.mediaCache[10];
-        console.log(newMedia);
         changeCarouselPhoto(newMedia);
       }
       else if(scrollPos >= 736 && scrollPos < 805){
         var newMedia = $scope.mediaCache[11];
-        console.log(newMedia);
         changeCarouselPhoto(newMedia);
       }
       else if(scrollPos >= 806 && scrollPos < 875){
         var newMedia = $scope.mediaCache[12];
-        console.log(newMedia);
         changeCarouselPhoto(newMedia);
       }
       else if(scrollPos >= 876 && scrollPos < 945){
         var newMedia = $scope.mediaCache[13];
-        console.log(newMedia);
         changeCarouselPhoto(newMedia);
       }
       else if(scrollPos >= 946 && scrollPos < 1015){
         var newMedia = $scope.mediaCache[14];
-        console.log(newMedia);
         changeCarouselPhoto(newMedia);
       }
       else if(scrollPos >= 1016 && scrollPos < 1085){
         var newMedia = $scope.mediaCache[15];
-        console.log(newMedia);
         changeCarouselPhoto(newMedia);
       }
       else if(scrollPos >= 1086 && scrollPos < 1155){
         var newMedia = $scope.mediaCache[16];
-        console.log(newMedia);
         changeCarouselPhoto(newMedia);
       }
       else if(scrollPos >= 1156 && scrollPos < 1225){
         var newMedia = $scope.mediaCache[17];
-        console.log(newMedia);
         changeCarouselPhoto(newMedia);
       }
       else if(scrollPos >= 1226 && scrollPos < 1295){
         var newMedia = $scope.mediaCache[18];
-        console.log(newMedia);
         changeCarouselPhoto(newMedia);
       }
       else if(scrollPos >= 1296 && scrollPos < 1365){
         var newMedia = $scope.mediaCache[19];
-        console.log(newMedia);
         changeCarouselPhoto(newMedia);
       }
       else if(scrollPos >= 1366 && scrollPos < 1435){
         var newMedia = $scope.mediaCache[20];
-        console.log(newMedia);
         changeCarouselPhoto(newMedia);
       }
       else if(scrollPos >= 1436 && scrollPos < 1505){
         var newMedia = $scope.mediaCache[21];
-        console.log(newMedia);
         changeCarouselPhoto(newMedia);
       }
       else if(scrollPos >= 1506 && scrollPos < 1575){
         var newMedia = $scope.mediaCache[22];
-        console.log(newMedia);
         changeCarouselPhoto(newMedia);
       }
       else if(scrollPos >= 1576 && scrollPos < 1635){
         var newMedia = $scope.mediaCache[23];
-        console.log(newMedia);
         changeCarouselPhoto(newMedia);
       }
       else if(scrollPos >= 1636 && scrollPos < 1705){
         var newMedia = $scope.mediaCache[24];
-        console.log(newMedia);
         changeCarouselPhoto(newMedia);
       }
     }
@@ -1372,7 +1304,6 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
     //////carousel swipe functions
     function photoCarouselSwipeLeft(){
-      console.log('swiping leftttttt');
         $scope.carouselSwipeActive = true;
         var centerP = findCenterPhoto();
         if(centerP.index+1 < $scope.mediaCache.length){
@@ -1463,12 +1394,10 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
     function batchErase(){
       var selectedLength = $(".selectedP").length;
-      console.log(selectedLength);
       if(selectedLength > 0){
         var confirmErase = navigator.notification.confirm('Erase all selected photos?', function(index){
-          console.log(index);
           if(index === 1){
-            console.log('nawww');
+            //callback
           }
           else if(index === 2){
             performErase();
@@ -1516,9 +1445,8 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
     function eraseSinglePhoto(){
       var confirmErase = navigator.notification.confirm('Erase this photo?', function(index){
-        console.log(index);
         if(index === 1){
-          console.log('nawww');
+          //callback
         }
         else if(index === 2){
           eraseSingleCallback();
