@@ -183,9 +183,7 @@ angular.module('signupController', ['userInfoFactory'])
       $('.mophoSignin').animate({
         opacity: 1
       }, 250);
-      var regEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-      console.log(regEmail.test($('.signupEmail').val()));
-      var validEmail = regEmail.test($('.signupEmail').val());
+      var validEmail = regCheckEmail($('.signupEmail').val());
       if(validEmail){
         if(validPW){
           var email = $('.signupEmail').val();
@@ -271,6 +269,7 @@ angular.module('signupController', ['userInfoFactory'])
     function signinUser(){
       var email = $('.signinEmail').val();
       var password = $('.signinPassword').val();
+      var checkEmail = regCheckEmail($('.signinEmail').val());
       $('.mophoSignin').css({
         opacity: .25
       });
@@ -281,42 +280,47 @@ angular.module('signupController', ['userInfoFactory'])
         navigator.notification.alert('Please include your email');
       }
       else {
-        signin(email, password)
-        .then(function(signedInUser){
-          if(signedInUser.data == 'no user found with that email address'){
-            navigator.notification.alert('We could not find your email address')
-            $('.signupPassword').val('');
-            $('.signupEmail').val('');
-          }
-          else if(signedInUser.data == 'incorrect password'){
-            navigator.notification.alert('wrong password, please try again');
-            $('.signupPassword').val('');
-            $('.signupEmail').val('');
-          }
-          else {
-            $scope.signupModalTabs = false;
-            newToken(signedInUser.data._id)
-            .then(function(ourToken){
-              //////this asks to store creds if it's a different user
-              if(email !== $localStorage.mophoEmail || password !== $localStorage.mophoPw){
-                var confirmChange = confirm('This seems to be a new login, would you like us to save your email and password?');
-                if(confirmChange){
-                  $localStorage.mophoEmail = email;
-                  $localStorage.mophoPw = password;
-                }
-              }
-              var token = ourToken.data;
-              //////gets user's info to save
-              userInfo.userInfoFunc(token, true);
-              //////user info saved
-              $scope.signupModalVar = false;
-              $scope.signinModalVar = false;
+        if(checkEmail){
+          signin(email, password)
+          .then(function(signedInUser){
+            if(signedInUser.data == 'no user found with that email address'){
+              navigator.notification.alert('We could not find your email address')
+              $('.signupPassword').val('');
+              $('.signupEmail').val('');
+            }
+            else if(signedInUser.data == 'incorrect password'){
+              navigator.notification.alert('wrong password, please try again');
+              $('.signupPassword').val('');
+              $('.signupEmail').val('');
+            }
+            else {
               $scope.signupModalTabs = false;
-              $localStorage.webToken = token;
-              $state.go('tab.camera');
-            })
-          }
-        })
+              newToken(signedInUser.data._id)
+              .then(function(ourToken){
+                //////this asks to store creds if it's a different user
+                if(email !== $localStorage.mophoEmail || password !== $localStorage.mophoPw){
+                  var confirmChange = confirm('This seems to be a new login, would you like us to save your email and password?');
+                  if(confirmChange){
+                    $localStorage.mophoEmail = email;
+                    $localStorage.mophoPw = password;
+                  }
+                }
+                var token = ourToken.data;
+                //////gets user's info to save
+                userInfo.userInfoFunc(token, true);
+                //////user info saved
+                $scope.signupModalVar = false;
+                $scope.signinModalVar = false;
+                $scope.signupModalTabs = false;
+                $localStorage.webToken = token;
+                $state.go('tab.camera');
+              })
+            }
+          })
+        }
+        else {
+          alert('An invalid email format was entered, please fix this and try again, thank you.')
+        }
       }
     }
     $scope.signinUser = signinUser;
@@ -565,9 +569,9 @@ angular.module('signupController', ['userInfoFactory'])
     }
     $scope.checkValidEmail = checkValidEmail;
 
-    function regCheckEmail(){
+    function regCheckEmail(email){
       var regEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-      var validEmail = regEmail.test($('.signupEmail').val());
+      var validEmail = regEmail.test(email);
       return validEmail;
     }
 
@@ -592,7 +596,7 @@ angular.module('signupController', ['userInfoFactory'])
       var pwLength = $('.signupPassword').val().length;
       var rePwLength = $('.signupConfirmPassword').val().length;
       var checked = $(".termsAgree").prop('checked');
-      var validEmail = regCheckEmail();
+      var validEmail = regCheckEmail($('.signupEmail').val());
       if($scope.signupModalVar){
         console.log('signup');
         console.log(pw);
@@ -622,16 +626,17 @@ angular.module('signupController', ['userInfoFactory'])
       var pw = $('.signinPassword').val();
       var pwLength = pw.length;
       console.log(pwLength);
+      var checkEmail = regCheckEmail($('.signinEmail').val());
       if(e.keyCode === 13){
         console.log('signing in');
         signinUser();
       }
-      else if(pwLength > 5){
+      else if(pwLength > 5 && checkEmail){
         $('.mophoSignin').css({
           color: '#3375dd'
         });
       }
-      else if(pwLength <= 5){
+      else {
         $('.mophoSignin').css({
           color: 'gray'
         });
