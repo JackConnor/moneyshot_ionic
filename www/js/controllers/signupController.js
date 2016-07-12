@@ -246,16 +246,16 @@ angular.module('signupController', ['userInfoFactory'])
           }
           else {
             navigator.notification.alert('Your passwords dont match, please fix, thank you.');
-            $('.signupEmail').val('');
-            $('.signupPassword').val('');
-            $('.signupConfirmPassword').val('');
+            // $('.signupEmail').val('');
+            // $('.signupPassword').val('');
+            // $('.signupConfirmPassword').val('');
           }
         }
         else {
           navigator.notification.alert('sorry, your password must be at least 6 characters, thank you.');
-          $('.signupEmail').val('');
-          $('.signupPassword').val('');
-          $('.signupConfirmPassword').val('');
+          // $('.signupEmail').val('');
+          // $('.signupPassword').val('');
+          // $('.signupConfirmPassword').val('');
         }
       }
       else {

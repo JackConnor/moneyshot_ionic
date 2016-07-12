@@ -317,9 +317,6 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
     //////function to set up our tempprary photo storage between sessions
     function setLocalForage(){
-      $timeout(function(){
-        console.log($scope.mediaCache);
-      }, 15000)
       ////reset local forage cache, uncomment and comment active code to fix issues
       // localforage.setItem('storedPhotos', [])
       // .then(function(dataVal){
