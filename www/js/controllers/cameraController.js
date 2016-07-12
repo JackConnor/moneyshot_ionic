@@ -1381,6 +1381,8 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         });
         $('.finalizeMophos').text('Finalize Mophos');
         $('.selectPhotos').text('Select');
+        $scope.selectMode = false;
+        $scope.$apply();
         /////logic for it to all set back
         var allPhotos = $('.submitCellImageHolder');
         var allLength = allPhotos.length;
@@ -1391,7 +1393,6 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
             $(allPhotos[i]).find('.photoCheck').remove();
           }
         }
-        $scope.selectMode = false;
       }
     }
     $scope.selectPhotos = selectPhotos;
@@ -1409,7 +1410,6 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
             performErase();
           }
         }, 'Erase All?', ['Cancel', 'Yes'])
-        console.log(confirmErase);
         function performErase(){
           localforage.getItem('storedPhotos')
           .then(function(storedArr){
