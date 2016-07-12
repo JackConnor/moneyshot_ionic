@@ -184,6 +184,8 @@ angular.module('signupController', ['userInfoFactory'])
         opacity: 1
       }, 250);
       var validEmail = regCheckEmail($('.signupEmail').val());
+      console.log($('.signupEmail').val());
+      console.log(validEmail);
       if(validEmail){
         if(validPW){
           var email = $('.signupEmail').val();
@@ -196,24 +198,10 @@ angular.module('signupController', ['userInfoFactory'])
                 console.log(newUser);
                 if(newUser.data === 'email already in use'){
                   navigator.notification.alert('that email is already in the system, please try another one or login using your password');
-                  $('.signupEmail').val('');
-                  $('.signupPassword').val('');
-                  $('.signupConfirmPassword').val('');
-                  return;
                 }
                 else if(newUser.data === 'please send a password'){
                   navigator.notification.alert('you forgot your password');
                   return;
-                }
-                else if(email.split('@').length < 2){
-                  navigator.notification.alert('You need an @');
-                  $('.signupPassword').val('');
-                  $('.signupConfirmPassword').val('');
-                }
-                else if(email.split('.').length < 2){
-                  navigator.notification.alert('Your email needs a proper ending');
-                  $('.signupPassword').val('');
-                  $('.signupConfirmPassword').val('');
                 }
                 else {
                   newToken(newUser.data._id)
@@ -246,20 +234,14 @@ angular.module('signupController', ['userInfoFactory'])
           }
           else {
             navigator.notification.alert('Your passwords dont match, please fix, thank you.');
-            $('.signupEmail').val('');
-            $('.signupPassword').val('');
-            $('.signupConfirmPassword').val('');
           }
         }
         else {
           navigator.notification.alert('sorry, your password must be at least 6 characters, thank you.');
-          $('.signupEmail').val('');
-          $('.signupPassword').val('');
-          $('.signupConfirmPassword').val('');
         }
       }
       else {
-        alert('There appears to be a formatting issue with your password. Please check adn try again, thank you.');
+        alert('There appears to be a formatting issue with your email. Please check and try again, thank you.');
       }
     }
     $scope.submitSignup = signupUser;
