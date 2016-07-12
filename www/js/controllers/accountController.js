@@ -409,8 +409,6 @@ angular.module('accountController', ['persistentPhotosFactory', 'userInfoFactory
           signoutCallback();
         }
       }, 'Sign Out?', ['No', 'Yes'])
-
-      // var confirmSignout = confirm('Sign out?');
       function signoutCallback(){
         localforage.getItem('storedPhotos')
         .then(function(storedArr){
@@ -904,7 +902,7 @@ angular.module('accountController', ['persistentPhotosFactory', 'userInfoFactory
       console.log(ending);
       var date = new Date();
       var photoDate = moment(link.date).format('YYYY-MM-DD HH:mm');////date photo was taken
-      var minusAWeek = moment(date).subtract(7, 'days');
+      var minusAWeek = moment(date).subtract(0, 'days');
       var minusConvert = moment(minusAWeek).format('YYYY-MM-DD HH:mm');
       var pastEmbargo = moment(minusConvert).isAfter(photoDate);
       if(!pastEmbargo){
@@ -912,26 +910,45 @@ angular.module('accountController', ['persistentPhotosFactory', 'userInfoFactory
       }
       else{
         if(link.isVideo){
-          var confirmed = confirm('want us to email you this video?')
+          // var confirmed = confirm('want us to email you this video?')
+          var confirmErase = navigator.notification.confirm('Want us to email you this video?', function(index){
+            console.log(index);
+            if(index === 1){
+              console.log('nawww');
+            }
+            else if(index === 2){
+              downloadCallback(ending)
+            }
+          }, 'Get this Video?', ['Cancel', 'Yes'])
         }
         else {
-          var confirmed = confirm('download this photo?');
+          var confirmErase = navigator.notification.confirm('Download this photo?', function(index){
+            console.log(index);
+            if(index === 1){
+              console.log('nawww');
+            }
+            else if(index === 2){
+              downloadCallback(ending)
+            }
+          }, 'Download Photo?', ['Cancel', 'Yes'])
         }
         console.log(confirmed);
-        if(confirmed && ending==='g'){
-          getBase64FromImageUrl(link.url);
-          navigator.notification.alert('photo saved!');
-        }
-        else if(confirmed && ending==='v'){
-          navigator.notification.alert('This video has been emailed to your account. Enjoy!');
-          emailThisVideo('jack.connor83@gmail.com', link.url)
-          .then(function(data){
-            console.log(data);
-          })
+        function downloadCallback(ending){
+          if(ending==='g'){
+            getBase64FromImageUrl(link.url);
+            navigator.notification.alert('photo saved!');
+          }
+          else if(ending==='v'){
+            navigator.notification.alert('This video has been emailed to your account. Enjoy!');
+            emailThisVideo('jack.connor83@gmail.com', link.url)
+            .then(function(data){
+              console.log(data);
+            })
 
-        }
-        else {
-          console.log('changed my mind');
+          }
+          else {
+            console.log('changed my mind');
+          }
         }
       }
     }
