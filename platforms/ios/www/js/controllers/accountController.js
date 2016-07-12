@@ -400,9 +400,18 @@ angular.module('accountController', ['persistentPhotosFactory', 'userInfoFactory
 
     /////signout option
     function hamburgerSignout(){
+      var confirmErase = navigator.notification.confirm('Sign Out of this app?', function(index){
+        console.log(index);
+        if(index === 1){
+          console.log('nawww');
+        }
+        else if(index === 2){
+          signoutCallback();
+        }
+      }, 'Sign Out?', ['No', 'Yes'])
 
-      var confirmSignout = confirm('Sign out?');
-      if(confirmSignout){
+      // var confirmSignout = confirm('Sign out?');
+      function signoutCallback(){
         localforage.getItem('storedPhotos')
         .then(function(storedArr){
           console.log(storedArr);
