@@ -241,7 +241,7 @@ angular.module('signupController', ['userInfoFactory'])
         }
       }
       else {
-        alert('There appears to be a formatting issue with your email. Please check and try again, thank you.');
+        navigator.notification.alert('There appears to be a formatting issue with your email. Please check and try again, thank you.');
       }
     }
     $scope.submitSignup = signupUser;
@@ -301,7 +301,7 @@ angular.module('signupController', ['userInfoFactory'])
           })
         }
         else {
-          alert('An invalid email format was entered, please fix this and try again, thank you.')
+          navigator.notification.alert('An invalid email format was entered, please fix this and try again, thank you.')
         }
       }
     }

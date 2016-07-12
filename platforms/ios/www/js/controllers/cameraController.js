@@ -1397,8 +1397,18 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     $scope.selectPhotos = selectPhotos;
 
     function batchErase(){
-      var confirmErase = confirm('Erase all selected photos?');
-      if(confirm){
+      // var confirmErase = confirm('Erase all selected photos?');
+      var confirmErase = navigator.notification.confirm('Erase all selected photos?', function(index){
+        console.log(index);
+        if(index === 1){
+          console.log('nawww');
+        }
+        else if(index === 2){
+          performErase();
+        }
+      }, 'Erase All?', ['Cancel', 'Yes'])
+      console.log(confirmErase);
+      function performErase(){
         localforage.getItem('storedPhotos')
         .then(function(storedArr){
           var stored = storedArr;
@@ -1429,7 +1439,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
               }
             }
           }, 50);
-        })
+        });
       }
     }
     $scope.batchErase = batchErase;
