@@ -129,31 +129,35 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
           opacity: 1
         });
       }
-      localforage.getItem('storedPhotos')
-      .then(function(storedArr){
-        console.log(storedArr);
-        console.log(storedArr.length);
-        for (var i = 0; i < storedArr.length; i++) {
-          console.log('saving one: '+storedArr[i].link);
-          console.log($cordovaFileTransfer);
-          console.log($scope.userInfo._id);
-          $cordovaFileTransfer.upload('http://192.168.0.6:5555/api/temp/photo', storedArr[i].link, {params: {userId: $scope.userInfo._id}})
-          .then(function(callbackData){
-            console.log('in the callback');
-            console.log(callbackData);
-          })
-        }
-        $timeout(function(){
-          console.log('in the timeout baby');
-          localforage.setItem('storedPhotos', [])
-          .then(function(photos){
-            console.log(photos);
-            gangloadTurnoff();
-            $localStorage.webToken = null;
-            $state.go('signin');
-          })
-        }, 1000);
-      })
+
+      /////need to fix nexr
+      // localforage.getItem('storedPhotos')
+      // .then(function(storedArr){
+      //   console.log(storedArr);
+      //   console.log(storedArr.length);
+      //   for (var i = 0; i < storedArr.length; i++) {
+      //     console.log('saving one: '+storedArr[i].link);
+      //     console.log($cordovaFileTransfer);
+      //     console.log($scope.userInfo._id);
+      //     $cordovaFileTransfer.upload('http://192.168.0.6:5555/api/temp/photo', storedArr[i].link, {params: {userId: $scope.userInfo._id}})
+      //     .then(function(callbackData){
+      //       console.log('in the callback');
+      //       console.log(callbackData);
+      //     })
+      //   }
+      //   $timeout(function(){
+      //     console.log('in the timeout baby');
+      //     localforage.setItem('storedPhotos', [])
+      //     .then(function(photos){
+      //       console.log(photos);
+      //       gangloadTurnoff();
+      //       $localStorage.webToken = null;
+      //       $state.go('signin');
+      //     })
+      //   }, 1000);
+      // })
+      ////////end area to fix next
+
       function gangloadTurnoff(){
         cordova.plugins.camerapreview.hide();
         $timeout(function(){
@@ -169,7 +173,9 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
           cordova.plugins.camerapreview.hide();
         }, 2500);
       }
-      // $state.go('signin');
+      gangloadTurnoff();
+      $localStorage.webToken = null;
+      $state.go('signin');
     }
     $scope.tempSignout = tempSignout;
 
