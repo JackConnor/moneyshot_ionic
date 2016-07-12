@@ -566,6 +566,12 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     }
     $scope.closeLoadingModal = closeLoadingModal;
 
+    ////function to alert he user that they need to dd a photo to preocede
+    function alertNeedPhoto(){
+      alert("Please take a photo before sending us anything, thank you.");
+    }
+    $scope.alertNeedPhoto = alertNeedPhoto;
+
     function submitNameAndPhotos(){
       var submissionData;
       var set = $scope.mediaCache;
