@@ -183,77 +183,85 @@ angular.module('signupController', ['userInfoFactory'])
       $('.mophoSignin').animate({
         opacity: 1
       }, 250);
-      if(validPW){
-        var email = $('.signupEmail').val();
-        var password = $('.signupPassword').val();
-        var repassword = $('.signupConfirmPassword').val();
-        if(password == repassword){
-          if(termsChecked === true){
-            signup(email, password)
-            .then(function(newUser){
-              console.log(newUser);
-              if(newUser.data === 'email already in use'){
-                navigator.notification.alert('that email is already in the system, please try another one or login using your password');
-                $('.signupEmail').val('');
-                $('.signupPassword').val('');
-                $('.signupConfirmPassword').val('');
-                return;
-              }
-              else if(newUser.data === 'please send a password'){
-                navigator.notification.alert('you forgot your password');
-                return;
-              }
-              else if(email.split('@').length < 2){
-                navigator.notification.alert('You need an @');
-                $('.signupPassword').val('');
-                $('.signupConfirmPassword').val('');
-              }
-              else if(email.split('.').length < 2){
-                navigator.notification.alert('Your email needs a proper ending');
-                $('.signupPassword').val('');
-                $('.signupConfirmPassword').val('');
-              }
-              else {
-                newToken(newUser.data._id)
-                .then(function(ourToken){
-                  var confirmSave = confirm('Would you like us to save your email and password?');
-                  if(confirmSave){
-                    $localStorage.mophoEmail = email;
-                    $localStorage.mophoPw = password;
-                  }
-                  //////can we put the teaching screen right here?
-                  $scope.ourTokenData = ourToken.data;
-                  $scope.newSigninModal = true;
+      var regEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      console.log(regEmail.test($('.signupEmail').val()));
+      var validEmail = regEmail.test($('.signupEmail').val());
+      if(validEmail){
+        if(validPW){
+          var email = $('.signupEmail').val();
+          var password = $('.signupPassword').val();
+          var repassword = $('.signupConfirmPassword').val();
+          if(password == repassword){
+            if(termsChecked === true){
+              signup(email, password)
+              .then(function(newUser){
+                console.log(newUser);
+                if(newUser.data === 'email already in use'){
+                  navigator.notification.alert('that email is already in the system, please try another one or login using your password');
+                  $('.signupEmail').val('');
+                  $('.signupPassword').val('');
+                  $('.signupConfirmPassword').val('');
+                  return;
+                }
+                else if(newUser.data === 'please send a password'){
+                  navigator.notification.alert('you forgot your password');
+                  return;
+                }
+                else if(email.split('@').length < 2){
+                  navigator.notification.alert('You need an @');
+                  $('.signupPassword').val('');
+                  $('.signupConfirmPassword').val('');
+                }
+                else if(email.split('.').length < 2){
+                  navigator.notification.alert('Your email needs a proper ending');
+                  $('.signupPassword').val('');
+                  $('.signupConfirmPassword').val('');
+                }
+                else {
+                  newToken(newUser.data._id)
+                  .then(function(ourToken){
+                    var confirmSave = confirm('Would you like us to save your email and password?');
+                    if(confirmSave){
+                      $localStorage.mophoEmail = email;
+                      $localStorage.mophoPw = password;
+                    }
+                    //////can we put the teaching screen right here?
+                    $scope.ourTokenData = ourToken.data;
+                    $scope.newSigninModal = true;
 
-                  $http({
-                    method: "POST"
-                    ,url: "http://45.55.24.234:5555/api/signup/email"
-                    ,data: {userEmail: email}
+                    $http({
+                      method: "POST"
+                      ,url: "http://45.55.24.234:5555/api/signup/email"
+                      ,data: {userEmail: email}
+                    })
+                    .then(function(mailCallback){
+                      console.log(mailCallback);
+                      $state.go('camera');
+                    })
                   })
-                  .then(function(mailCallback){
-                    console.log(mailCallback);
-                    $state.go('camera');
-                  })
-                })
-              }
-            })
+                }
+              })
+            }
+            else {
+              navigator.notification.alert('Please read and agree to our terms and conditions')
+            }
           }
           else {
-            navigator.notification.alert('Please read and agree to our terms and conditions')
+            navigator.notification.alert('passwords dont match');
+            $('.signupEmail').val('');
+            $('.signupPassword').val('');
+            $('.signupConfirmPassword').val('');
           }
         }
         else {
-          navigator.notification.alert('passwords dont match');
+          navigator.notification.alert('sorry, your password must be at least 6 characters');
           $('.signupEmail').val('');
           $('.signupPassword').val('');
           $('.signupConfirmPassword').val('');
         }
       }
       else {
-        navigator.notification.alert('sorry, your password must be at least 6 characters');
-        $('.signupEmail').val('');
-        $('.signupPassword').val('');
-        $('.signupConfirmPassword').val('');
+        alert('There appears to be a formatting issue with your password. Please check adn try again, thank you.');
       }
     }
     $scope.submitSignup = signupUser;

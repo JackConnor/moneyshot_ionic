@@ -129,21 +129,51 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
           opacity: 1
         });
       }
-      $localStorage.webToken =  null;
-      cordova.plugins.camerapreview.hide();
-      $timeout(function(){
+
+      /////need to fix nexr
+      localforage.getItem('storedPhotos')
+      .then(function(storedArr){
+        console.log(storedArr);
+        console.log(storedArr.length);
+        for (var i = 0; i < storedArr.length; i++) {
+          console.log('saving one: '+storedArr[i].link);
+          console.log($cordovaFileTransfer);
+          console.log($scope.userInfo._id);
+          $cordovaFileTransfer.upload('http://192.168.0.6:5555/api/temp/photo', storedArr[i].link, {params: {userId: $scope.userInfo._id}})
+          .then(function(callbackData){
+            console.log('in the callback');
+            console.log(callbackData);
+          })
+        }
+        $timeout(function(){
+          console.log('in the timeout baby');
+          localforage.setItem('storedPhotos', [])
+          .then(function(photos){
+            console.log(photos);
+            gangloadTurnoff();
+            $localStorage.webToken = null;
+            $state.go('signin');
+          })
+        }, 1000);
+      })
+      ////////end area to fix next
+
+      function gangloadTurnoff(){
         cordova.plugins.camerapreview.hide();
-      }, 500);
-      $timeout(function(){
-        cordova.plugins.camerapreview.hide();
-      }, 1000);
-      $timeout(function(){
-        cordova.plugins.camerapreview.hide();
-      }, 1500);
-      $timeout(function(){
-        cordova.plugins.camerapreview.hide();
-      }, 2500);
-      $state.go('signin');
+        $timeout(function(){
+          cordova.plugins.camerapreview.hide();
+        }, 500);
+        $timeout(function(){
+          cordova.plugins.camerapreview.hide();
+        }, 1000);
+        $timeout(function(){
+          cordova.plugins.camerapreview.hide();
+        }, 1500);
+        $timeout(function(){
+          cordova.plugins.camerapreview.hide();
+        }, 2500);
+      }
+      // $state.go('signin');
     }
     $scope.tempSignout = tempSignout;
 
@@ -445,9 +475,10 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
           console.log(result);
 
           ///////here we fire off video to temp storage on our server to save video in case of app closure
+          var webToken = $localStorage.webToken;
           $http({
             method: "GET"
-            ,url: "http://45.55.24.234:5555/api/decodetoken/"+$localStorage.webToken
+            ,url: "http://45.55.24.234:5555/api/decodetoken/"+webToken
           })
           .then(function(decodedToken){
             console.log(decodedToken);
@@ -589,6 +620,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       var progressPercentage = 100/setLength;
       var submissionData = {photos: [], videos: [], userId: '', metaData: {}};
       var webToken = $localStorage.webToken;
+      console.log(webToken);
       //////first we need to find the users ID, so we can use it to make the post requests
       $http({
         method: "GET"
