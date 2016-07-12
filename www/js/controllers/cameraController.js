@@ -1545,7 +1545,9 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         $scope.flashOnOff = 'on';
         $scope.flash = 'Flash off';
         $('.cameraFlash').css({
-          opacity: 0.5
+          opacity: 0.3
+          ,color: 'black'
+          ,backgroundColor: 'white'
         });
       }
       else if($scope.flashOnOff === 'on') {
@@ -1554,6 +1556,8 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         $scope.flash = 'Flash on';
         $('.cameraFlash').css({
           opacity: 1
+          ,color: 'white'
+          ,backgroundColor: 'black'
         });
       }
     }
