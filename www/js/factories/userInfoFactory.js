@@ -52,6 +52,7 @@ angular.module('userInfoFactory', [])
     function clearUserInfo(){
       console.log('clearing our cache baby');
       userInfoCache = undefined;
+      console.log(userInfoCache);
     }
 
     return {

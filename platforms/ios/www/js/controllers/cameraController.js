@@ -97,6 +97,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
           ,data: {token: userToken}
         })
         .then(function(data){
+          console.log('new token data');
           var newToken = data.data;
           $scope.newToken = newToken;
           if(data.data === "no token"){
@@ -151,46 +152,66 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
           localforage.getItem('storedPhotos')
           .then(function(storedArr){
             var storedLength = storedArr.length;
-            for (var i = 0; i < storedLength; i++) {
-              var beginning = storedArr[i].link.slice(0, 4);
-              console.log(beginning);
-              if(beginning === 'http'){
-                console.log('that was one that that was already run');
-                $http({
-                  method: "POST"
-                  ,url: 'http://192.168.0.5:5555/api/temp/photo/http'
-                  ,data: {userId: userId, photo: storedArr[i].link, thumb: storedArr[i].thumb}
-                })
-                .then(function(data){
-                  console.log(data);
-                  $localStorage.webToken = null;
-                  userInfo.clearUserInfo();
-                  gangloadTurnoff();
-                  $state.go('signin');
-                })
-                .catch(function(err){
-                  console.log(err);
-                })
-              }
-              else {
-                console.log('rawww');
-                console.log(storedArr[i]);
-                console.log(userId);
-                $cordovaFileTransfer.upload('http://192.168.0.5:5555/api/temp/photo', storedArr[i].link, {params: {userId: userId}})
-                .then(function(callbackData){
-                  console.log(callbackData);
-                  localforage.setItem('storedPhotos', [])
-                  .then(function(photos){
-                    console.log(photos);
-                    userInfo.clearUserInfo();
-                    $localStorage.webToken = null;
-                    gangloadTurnoff();
-                    $state.go('signin');
+            if(storedLength === 0){
+              $localStorage.webToken = null;
+              userInfo.clearUserInfo();
+              gangloadTurnoff();
+              window.location.hasLaunched = false;
+              $state.go('signin');
+            }
+            else {
+              var counter = 0;
+              for (var i = 0; i < storedLength; i++) {
+                var beginning = storedArr[i].link.slice(0, 4);
+                console.log(beginning);
+                if(beginning === 'http'){
+                  console.log('that was one that that was already run');
+                  $http({
+                    method: "POST"
+                    ,url: 'http://192.168.0.5:5555/api/temp/photo/http'
+                    ,data: {userId: userId, photo: storedArr[i].link, thumb: storedArr[i].thumb}
                   })
-                })
-                .catch(function(err){
-                  console.log(err);
-                })
+                  .then(function(data){
+                    counter++
+                    if(counter === storedLength - 1){
+                      localforage.setItem('storedPhotos', []);
+                      console.log(data);
+                      $localStorage.webToken = null;
+                      userInfo.clearUserInfo();
+                      gangloadTurnoff();
+                      window.location.hasLaunched = false;
+                      $state.go('signin');
+                    }
+                  })
+                  .catch(function(err){
+                    console.log(err);
+                  })
+                }
+                else {
+                  console.log('rawww');
+                  console.log(storedArr[i]);
+                  console.log(userId);
+                  $cordovaFileTransfer.upload('http://192.168.0.5:5555/api/temp/photo', storedArr[i].link, {params: {userId: userId}})
+                  .then(function(callbackData){
+                    console.log(callbackData);
+                    localforage.setItem('storedPhotos', [])
+                    .then(function(photos){
+                      counter++
+                      if(counter === storedLength - 1){
+                        console.log(photos);
+                        userInfo.clearUserInfo();
+                        localforage.setItem('storedPhotos', []);
+                        $localStorage.webToken = null;
+                        gangloadTurnoff();
+                        window.location.hasLaunched = false;
+                        $state.go('signin');
+                      }
+                    })
+                  })
+                  .catch(function(err){
+                    console.log(err);
+                  })
+                }
               }
             }
           })
@@ -290,6 +311,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       var userToken = $localStorage.webToken;
       //////need to toggle if info already loaded
       var cacheOnly = userInfo.cacheOnly();
+      console.log('heres the cache: '+cacheOnly);
       console.log(cacheOnly);
       if(cacheOnly === undefined || cacheOnly === 'undefined'){
         userInfo.promiseOnly(userToken)
@@ -297,6 +319,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
           $scope.cachedUser = data.data;
           var cachedUser = userInfo.userInfoFunc(userToken, false, data.data);
           $scope.zooming              = findZoomed()////this determines if the screen is on zoom mode or not
+          console.log('length: ', $scope.cachedUser.tempPhotoCache.length);
           if($scope.cachedUser.tempPhotoCache.length > 0){
             runPhotoSignoutCache();
           }
@@ -311,7 +334,9 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         $scope.cachedUser = cacheOnly;
         console.log($scope.cachedUser);
         runVideoCache($scope.cachedUser.tempVideoCache);
-        if($scope.cachedUser.tempVideoCache.length > 0){
+        var tempLength = $scope.cachedUser.tempPhotoCache.length;
+        console.log(tempLength);
+        if(tempLength > 0){
           runPhotoSignoutCache();
         }
         else {
@@ -340,10 +365,10 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         .then(function(locPhot){
           console.log(locPhot);
         })
-        if(i === cacheLength -1){
+        if(i === cacheLength - 1){
           $http({
             method: 'GET'
-            ,url: 'http://192.168.0.7:5555/api/erase/temp/photos/'+$scope.cachedUser._id
+            ,url: 'http://192.168.0.5:5555/api/erase/temp/photos/'+$scope.cachedUser._id
           })
           .then(function(upUser){
             console.log(upUser);

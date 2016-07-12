@@ -412,43 +412,62 @@ angular.module('accountController', ['persistentPhotosFactory', 'userInfoFactory
         localforage.getItem('storedPhotos')
         .then(function(storedArr){
           var storedLength = storedArr.length;
-          for (var i = 0; i < storedLength; i++) {
-            var beginning = storedArr[i].link.slice(0, 4);
-            console.log(beginning);
-            if(beginning === 'http'){
-              console.log('that was one that that was already run');
-              $http({
-                method: "POST"
-                ,url: 'http://192.168.0.5:5555/api/temp/photo/http'
-                ,data: {userId: $scope.userInfo._id, photo: storedArr[i].link, thumb: storedArr[i].thumb}
-              })
-              .then(function(data){
-                console.log(data);
-                $localStorage.webToken = null;
-                userInfo.clearUserInfo();
-                $state.go('signin');
-              })
-              .catch(function(err){
-                console.log(err);
-              })
-            }
-            else {
-              $cordovaFileTransfer.upload('http://192.168.0.5:5555/api/temp/photo', storedArr[i].link, {params: {userId: $scope.userInfo._id}})
-              .then(function(callbackData){
-                alert('any callback')
-                console.log(callbackData);
-                localforage.setItem('storedPhotos', [])
-                .then(function(photos){
-                  console.log(photos);
-                  userInfo.clearUserInfo();
-                  $localStorage.webToken = null;
-                  $state.go('signin');
+          if(storedLength === 0){
+            $localStorage.webToken = null;
+            localforage.setItem('storedPhotos', []);
+            userInfo.clearUserInfo();
+            window.location.hasLaunched = false;
+            $state.go('signin');
+          }
+          else {
+            var counter = 0;
+            for (var i = 0; i < storedLength; i++) {
+              var beginning = storedArr[i].link.slice(0, 4);
+              console.log(beginning);
+              if(beginning === 'http'){
+                console.log('that was one that that was already run');
+                $http({
+                  method: "POST"
+                  ,url: 'http://192.168.0.5:5555/api/temp/photo/http'
+                  ,data: {userId: $scope.userInfo._id, photo: storedArr[i].link, thumb: storedArr[i].thumb}
                 })
-              })
-              .catch(function(err){
-                console.log(err);
-              })
-            }
+                .then(function(data){
+                  counter++;
+                  if(counter === storedLength-1){
+                    console.log(data);
+                    $localStorage.webToken = null;
+                    localforage.setItem('storedPhotos', []);
+                    userInfo.clearUserInfo();
+                    window.location.hasLaunched = false;
+                    $state.go('signin');
+                  }
+                })
+                .catch(function(err){
+                  console.log(err);
+                })
+              }
+              else {
+                $cordovaFileTransfer.upload('http://192.168.0.5:5555/api/temp/photo', storedArr[i].link, {params: {userId: $scope.userInfo._id}})
+                .then(function(callbackData){
+                  console.log(callbackData);
+                  localforage.setItem('storedPhotos', [])
+                  .then(function(photos){
+                    counter++;
+                    if(counter === storedLength-1){
+                      console.log(photos);
+                      userInfo.clearUserInfo();
+                      localforage.setItem('storedPhotos', []);
+                      $localStorage.webToken = null;
+                      window.location.hasLaunched = false;
+                      $state.go('signin');
+                    }
+                  })
+                })
+                .catch(function(err){
+                  console.log(err);
+                })
+              }
+            }  
           }
         })
       }
