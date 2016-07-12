@@ -639,9 +639,11 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         ////now iterate through to submit to backend
         for (var i = 0; i < set.length; i++) {
           var hardI = 'hard'+i
+          console.log(hardI);
           if(set[i].type === "video"){
             $cordovaFileTransfer.upload('http://45.55.24.234:5555/api/upload/video', set[i].link, {})
-            .then(function(callbackImage){
+            .then(function(){
+              console.log('anotherPhoto');
               var progressElement = $('.submitProgressBar');
               if(zeroProgress <= 100){
                 zeroProgress += progressPercentage;
@@ -662,7 +664,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                 var vids = submissionData.videos.length;
                 var phots = submissionData.photos.length;
                 var amalgam = vids + phots;
-                if((parseInt(amalgam) == parseInt(set.length-1) || parseInt(set.length-1) === 0) && $scope.submitBar === true){
+                if((parseInt(amalgam) == parseInt(set.length) || parseInt(set.length) === 0) && $scope.submitBar === true){
                   $http({
                     method: "POST"
                     ,url: "http://45.55.24.234:5555/api/new/submission"
@@ -694,7 +696,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                     }, 1000);
                   })
                 }
-                else if((parseInt(amalgam) == parseInt(set.length-1) || parseInt(set.length-1) === 0) && $scope.submitBar === false){
+                else if((parseInt(amalgam) == parseInt(set.length) || parseInt(set.length) === 0) && $scope.submitBar === false){
                   $scope.isDisabled = false;
                 }
               })
@@ -718,7 +720,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
               var vids = submissionData.videos.length;
               var phots = submissionData.photos.length;
               var amalgam = vids + phots;
-              if((parseInt(amalgam) == parseInt(set.length-1) || parseInt(set.length-1) === 0) && $scope.submitBar === true){
+              if((parseInt(amalgam) == parseInt(set.length) || parseInt(set.length) === 0) && $scope.submitBar === true){
                 $http({
                   method: "POST"
                   ,url: "http://45.55.24.234:5555/api/new/submission"
@@ -750,7 +752,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                   }, 100);
                 })
               }
-              else if((parseInt(amalgam) == parseInt(set.length-1) || parseInt(set.length-1) === 0) && $scope.submitBar === false){
+              else if((parseInt(amalgam) == parseInt(set.length) || parseInt(set.length) === 0) && $scope.submitBar === false){
                 $scope.isDisabled = false;
               }
             })
@@ -787,7 +789,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                   var vids = submissionData.videos.length;
                   var phots = submissionData.photos.length;
                   var amalgam = vids + phots;
-                  if((parseInt(amalgam) == parseInt(set.length-1) || parseInt(set.length-1) === 0) && $scope.submitBar === true){
+                  if((parseInt(amalgam) == parseInt(set.length) || parseInt(set.length) === 0) && $scope.submitBar === true){
                     $http({
                       method: "POST"
                       ,url: "http://45.55.24.234:5555/api/new/submission"
@@ -820,7 +822,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                       }, 100);
                     })
                   }
-                  else if((parseInt(amalgam) == parseInt(set.length-1) || parseInt(set.length-1) === 0) && $scope.submitBar === false){
+                  else if((parseInt(amalgam) == parseInt(set.length) || parseInt(set.length) === 0) && $scope.submitBar === false){
                     $scope.isDisabled = false;
                   }
                 })
