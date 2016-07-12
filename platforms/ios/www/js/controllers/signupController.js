@@ -206,8 +206,18 @@ angular.module('signupController', ['userInfoFactory'])
                 else {
                   newToken(newUser.data._id)
                   .then(function(ourToken){
-                    var confirmSave = confirm('Would you like us to save your email and password?');
-                    if(confirmSave){
+                    // var confirmSave = confirm('Would you like us to save your email and password?');
+                    var confirmErase = navigator.notification.confirm('Would you like us to save your email and password?', function(index){
+                      console.log(index);
+                      if(index === 1){
+                        console.log('nawww');
+                      }
+                      else if(index === 2){
+                        saveCallback();
+                      }
+                    }, 'Save Login Information?', ['No Thanks', 'Yes'])
+
+                    function saveCallback(){
                       $localStorage.mophoEmail = email;
                       $localStorage.mophoPw = password;
                     }
@@ -267,13 +277,13 @@ angular.module('signupController', ['userInfoFactory'])
           .then(function(signedInUser){
             if(signedInUser.data == 'no user found with that email address'){
               navigator.notification.alert('We could not find your email address')
-              $('.signupPassword').val('');
-              $('.signupEmail').val('');
+              // $('.signupPassword').val('');
+              // $('.signupEmail').val('');
             }
             else if(signedInUser.data == 'incorrect password'){
               navigator.notification.alert('wrong password, please try again');
-              $('.signupPassword').val('');
-              $('.signupEmail').val('');
+              // $('.signupPassword').val('');
+              // $('.signupEmail').val('');
             }
             else {
               $scope.signupModalTabs = false;
@@ -281,11 +291,20 @@ angular.module('signupController', ['userInfoFactory'])
               .then(function(ourToken){
                 //////this asks to store creds if it's a different user
                 if(email !== $localStorage.mophoEmail || password !== $localStorage.mophoPw){
-                  var confirmChange = confirm('This seems to be a new login, would you like us to save your email and password?');
-                  if(confirmChange){
+                  // var confirmChange = confirm('This seems to be a new login, would you like us to save your email and password?');
+                  var confirmErase = navigator.notification.confirm('This seems to be a new login, would you like us to save your email and password?', function(index){
+                    console.log(index);
+                    if(index === 1){
+                      console.log('nawww');
+                    }
+                    else if(index === 2){
+                      signinCallback();
+                    }
+                  }, 'Save Information?', ['Cancel', 'Yes'])
+                  function signinCallback(){
                     $localStorage.mophoEmail = email;
                     $localStorage.mophoPw = password;
-                  }
+                  };
                 }
                 var token = ourToken.data;
                 //////gets user's info to save

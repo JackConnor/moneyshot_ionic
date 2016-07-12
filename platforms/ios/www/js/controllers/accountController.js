@@ -902,7 +902,7 @@ angular.module('accountController', ['persistentPhotosFactory', 'userInfoFactory
       console.log(ending);
       var date = new Date();
       var photoDate = moment(link.date).format('YYYY-MM-DD HH:mm');////date photo was taken
-      var minusAWeek = moment(date).subtract(0, 'days');
+      var minusAWeek = moment(date).subtract(7, 'days');
       var minusConvert = moment(minusAWeek).format('YYYY-MM-DD HH:mm');
       var pastEmbargo = moment(minusConvert).isAfter(photoDate);
       if(!pastEmbargo){
@@ -910,7 +910,6 @@ angular.module('accountController', ['persistentPhotosFactory', 'userInfoFactory
       }
       else{
         if(link.isVideo){
-          // var confirmed = confirm('want us to email you this video?')
           var confirmErase = navigator.notification.confirm('Want us to email you this video?', function(index){
             console.log(index);
             if(index === 1){

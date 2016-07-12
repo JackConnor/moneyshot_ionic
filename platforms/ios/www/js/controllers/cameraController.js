@@ -1397,7 +1397,6 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     $scope.selectPhotos = selectPhotos;
 
     function batchErase(){
-      // var confirmErase = confirm('Erase all selected photos?');
       var confirmErase = navigator.notification.confirm('Erase all selected photos?', function(index){
         console.log(index);
         if(index === 1){
@@ -1445,8 +1444,16 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     $scope.batchErase = batchErase;
 
     function eraseSinglePhoto(){
-      var confirming = confirm('Erase this photo?');
-      if(confirming){
+      var confirmErase = navigator.notification.confirm('Erase this photo?', function(index){
+        console.log(index);
+        if(index === 1){
+          console.log('nawww');
+        }
+        else if(index === 2){
+          eraseSingleCallback();
+        }
+      }, 'Erase?', ['Cancel', 'Yes'])
+      function eraseSingleCallback(){
         var mediaLength = $scope.mediaCache.length;
         var testLink1 = $scope.photoCarouselObject.link;
         for (var i = 0; i < mediaLength; i++) {
