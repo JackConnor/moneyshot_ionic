@@ -895,11 +895,11 @@ angular.module('accountController', ['persistentPhotosFactory', 'userInfoFactory
       console.log(ending);
       var date = new Date();
       var photoDate = moment(link.date).format('YYYY-MM-DD HH:mm');////date photo was taken
-      var minusAWeek = moment(date).subtract(0, 'days');
+      var minusAWeek = moment(date).subtract(7, 'days');
       var minusConvert = moment(minusAWeek).format('YYYY-MM-DD HH:mm');
       var pastEmbargo = moment(minusConvert).isAfter(photoDate);
       if(!pastEmbargo){
-        navigator.notification.alert('sorry, you need to wait until a week has passed befre you can download a photo. This is so we can sell it at the maximum price, for all of our benefit. Thank you for your patience!');
+        navigator.notification.alert('Sorry, you need to wait until a week has passed before you can download a photo. This is so we can sell it at the maximum price, for all of our benefits. Thank you for your patience!');
       }
       else{
         if(link.isVideo){
