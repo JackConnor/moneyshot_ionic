@@ -1084,10 +1084,10 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
     ///////begin photo carousel animation work
     function goToCarousel(mediaData, index, evt){
-      $ionicScrollDelegate.freezeScroll(true);
       //////thsi is normal carousel functionality
       console.log('yoooooooo carrrrrr');
       if($scope.selectMode === false){
+        $ionicScrollDelegate.freezeScroll(true);
         $scope.photoCarouselObject = mediaData;////this is always the centerpiece photo
         $(evt.currentTarget).css({
           opacity: 0.1
@@ -1397,48 +1397,55 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     $scope.selectPhotos = selectPhotos;
 
     function batchErase(){
-      var confirmErase = navigator.notification.confirm('Erase all selected photos?', function(index){
-        console.log(index);
-        if(index === 1){
-          console.log('nawww');
-        }
-        else if(index === 2){
-          performErase();
-        }
-      }, 'Erase All?', ['Cancel', 'Yes'])
-      console.log(confirmErase);
-      function performErase(){
-        localforage.getItem('storedPhotos')
-        .then(function(storedArr){
-          var stored = storedArr;
-          var arrObj =  $.makeArray(document.getElementsByClassName('submitCellImageHolder'));
-          var eraseCount = 0;
-          $timeout(function(){
-            var allPhotos = $('.submitCellImageHolder');
-            var allLength = allPhotos.length;
-            for (var i = 0; i < allLength; i++) {
-              var child = $(allPhotos[i]).find('img');
-              if(child.hasClass('selectedP')){
-                $(allPhotos[i]).find('.photoCheckHolder').remove();
+      var selectedLength = $(".selectedP").length;
+      console.log(selectedLength);
+      if(selectedLength > 0){
+        var confirmErase = navigator.notification.confirm('Erase all selected photos?', function(index){
+          console.log(index);
+          if(index === 1){
+            console.log('nawww');
+          }
+          else if(index === 2){
+            performErase();
+          }
+        }, 'Erase All?', ['Cancel', 'Yes'])
+        console.log(confirmErase);
+        function performErase(){
+          localforage.getItem('storedPhotos')
+          .then(function(storedArr){
+            var stored = storedArr;
+            var arrObj =  $.makeArray(document.getElementsByClassName('submitCellImageHolder'));
+            var eraseCount = 0;
+            $timeout(function(){
+              var allPhotos = $('.submitCellImageHolder');
+              var allLength = allPhotos.length;
+              for (var i = 0; i < allLength; i++) {
+                var child = $(allPhotos[i]).find('img');
+                if(child.hasClass('selectedP')){
+                  $(allPhotos[i]).find('.photoCheckHolder').remove();
 
-                $scope.mediaCache.splice((i-eraseCount), 1);
-                $scope.mediaCacheTemp.splice((i-eraseCount), 1);
-                child.removeClass('selectedP');
-                $scope.$apply();
-                eraseCount++;
+                  $scope.mediaCache.splice((i-eraseCount), 1);
+                  $scope.mediaCacheTemp.splice((i-eraseCount), 1);
+                  child.removeClass('selectedP');
+                  $scope.$apply();
+                  eraseCount++;
+                }
+                if(i === allLength-1){
+                  localforage.setItem('storedPhotos', $scope.mediaCache)
+                  .then(function(newArray){
+                    selectPhotos();
+                  })
+                  .catch(function(err){
+                    console.log(err);
+                  });
+                }
               }
-              if(i === allLength-1){
-                localforage.setItem('storedPhotos', $scope.mediaCache)
-                .then(function(newArray){
-                  selectPhotos();
-                })
-                .catch(function(err){
-                  console.log(err);
-                });
-              }
-            }
-          }, 50);
-        });
+            }, 50);
+          });
+        }
+      }
+      else {
+        navigator.notification.alert('Please select some photos to erase, thank you.')
       }
     }
     $scope.batchErase = batchErase;

@@ -1537,6 +1537,8 @@ html {
 .selectTrashHolder i{
   color: white;
   font-size: 24px;
+  width: 40px;
+  height: 40px;
 }
 
 .sendFinDataButton {
