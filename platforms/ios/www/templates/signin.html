@@ -325,7 +325,7 @@
         <div class="signupInputHolder">
           <!-- <h1>Sign in</h1> -->
           <!-- <input type="text" class='signupEmail splashInput form-control' placeholder='Email'> -->
-          <input style='background-color:transparent' class='signupEmail splashInput form-control' placeholder='Email' type='text'></input>
+          <input style='background-color:transparent' class='signupEmail splashInput form-control' placeholder='Email' type='text' ng-keyup='highlightSignup($event)'></input>
           <input style='background-color:transparent' type="password" class='signupPassword splashInput form-control' placeholder='Password' ng-keyup='highlightSignup($event)'></input>
           <input style='background-color:transparent' type="password" class='signupConfirmPassword splashInput form-control' placeholder='Confirm password' ng-keyup='highlightSignup($event)'></input>
           <div class="termsAndConditions">

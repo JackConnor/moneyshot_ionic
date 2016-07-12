@@ -243,18 +243,18 @@ angular.module('signupController', ['userInfoFactory'])
               })
             }
             else {
-              navigator.notification.alert('Please read and agree to our terms and conditions')
+              navigator.notification.alert('Please read and agree to our terms and conditions, thank you.')
             }
           }
           else {
-            navigator.notification.alert('passwords dont match');
+            navigator.notification.alert('Your passwords dont match, please fix, thank you.');
             $('.signupEmail').val('');
             $('.signupPassword').val('');
             $('.signupConfirmPassword').val('');
           }
         }
         else {
-          navigator.notification.alert('sorry, your password must be at least 6 characters');
+          navigator.notification.alert('sorry, your password must be at least 6 characters, thank you.');
           $('.signupEmail').val('');
           $('.signupPassword').val('');
           $('.signupConfirmPassword').val('');
@@ -565,6 +565,12 @@ angular.module('signupController', ['userInfoFactory'])
     }
     $scope.checkValidEmail = checkValidEmail;
 
+    function regCheckEmail(){
+      var regEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      var validEmail = regEmail.test($('.signupEmail').val());
+      return validEmail;
+    }
+
     function backToSliderFunc(){
       $cordovaStatusbar.hide();
       $timeout(function(){
@@ -585,6 +591,8 @@ angular.module('signupController', ['userInfoFactory'])
       var repw = $('.signupConfirmPassword').val();
       var pwLength = $('.signupPassword').val().length;
       var rePwLength = $('.signupConfirmPassword').val().length;
+      var checked = $(".termsAgree").prop('checked');
+      var validEmail = regCheckEmail();
       if($scope.signupModalVar){
         console.log('signup');
         console.log(pw);
@@ -593,13 +601,13 @@ angular.module('signupController', ['userInfoFactory'])
           console.log('signing in');
           signupUser();
         }
-        if(pwLength > 5 &&  pw == repw){
+        if(pwLength > 5 && pw === repw && checked && validEmail){
           console.log('larger');
           $('.mophoSignin').css({
             color: '#3375dd'
           });
         }
-        else if(pwLength <= 5 || pw !== repw){
+        else if(pwLength <= 5 || pw !== repw || !checked){
           $('.mophoSignin').css({
             color: 'gray'
           });
