@@ -18,12 +18,22 @@
           </div>
         </div>
         <div class="watermarkLayer" ng-if="!carouselMain.isVideo" on-swipe-right='photoCarouselSwipeRight()' on-swipe-left='photoCarouselSwipeLeft()'>
-          <div class="watermarkCell watermarkPending">
+          <div class="watermarkCell watermarkPending" ng-if='carouselMain.orientation===portrait'>
+            MoPho
+          </div>
+          <div class="watermarkCell watermarkPending" ng-if='carouselMain.orientation!==portrait' style='margin-top: 242px'>
             MoPho
           </div>
         </div>
         <i class='fa fa-download' ng-click='downloadPhoto(carouselMain)'></i>
-        <img ng-if="!carouselMain.isVideo" ng-src="{{carouselMain.url}}" on-swipe-right='photoCarouselSwipeRight()' on-swipe-left='photoCarouselSwipeLeft()' class='mainPhotoCar'/>
+
+        <img class="mainPhotoHolderAcctPortrait" ng-if="!carouselMain.isVideo && carouselMain.orientation==='portrait'" ng-src="{{carouselMain.url}}" on-swipe-right='photoCarouselSwipeRight()' on-swipe-left='photoCarouselSwipeLeft()' class='mainPhotoCar'/>
+
+        <img class="mainPhotoHolderAcctRight" ng-if="!carouselMain.isVideo && carouselMain.orientation==='right'" ng-src="{{carouselMain.url}}" on-swipe-right='photoCarouselSwipeRight()' on-swipe-left='photoCarouselSwipeLeft()' class='mainPhotoCar'/>
+
+        <img class="mainPhotoHolderAcctLeft" ng-if="!carouselMain.isVideo && carouselMain.orientation==='left'" ng-src="{{carouselMain.url}}" on-swipe-right='photoCarouselSwipeRight()' on-swipe-left='photoCarouselSwipeLeft()' class='mainPhotoCar'/>
+
+
         <video ng-if="carouselMain.isVideo" ng-src="{{carouselMain.url | trustUrl}}"  poster="{{carouselMain.thumbnail}}" webkit-playsinline id='carouselVideo'>
         </video>
       </div>
@@ -169,12 +179,14 @@
 
         <ion-scroll class="submissionRepeatContainer" has-bouncing='true'>
           <div class="submitCellAcct" ng-repeat='photo in singleSubmission.photos'>
-            <div class="submitCellImageHolder {{photo.isVideo}}" >
+            <div class="submitCellImageHolder" ng-if='photo.orientation==="portrait"'>
               <img class='submitPhoto submitPhoto{{$index}}' id='submit{{$index}}' ng-src="{{photo.thumbnail}}" ng-click='goToCarousel(photo, $index, $event)'/>
-              <!-- <img class='submitPhoto submitPhoto{{$index}}' id='submit{{$index}}' ng-src="{{photo.thumbnail}}" ng-if='photo.isVideo' ng-click='goToCarousel(photo, $index, $event)'/> -->
-              <!-- <video id='submit{{$index}}' ng-if='photo.isVideo' poster='{{photo.thumbnail}}' source ng-src="{{photo.url}}" type="video/mp4"> -->
-                  <!-- (Your Browser Doesn't Support Video) -->
-              </video>
+            </div>
+            <div class="submitCellImageHolder" ng-if='photo.orientation==="right"'>
+              <img class='submitPhoto submitPhoto{{$index}}' id='submit{{$index}}' ng-src="{{photo.thumbnail}}" ng-click='goToCarousel(photo, $index, $event)'/>
+            </div>
+            <div class="submitCellImageHolder" ng-if='photo.orientation==="left"'>
+              <img  class='submitPhoto submitPhoto{{$index}}' id='submit{{$index}}' ng-src="{{photo.thumbnail}}" ng-click='goToCarousel(photo, $index, $event)'/>
             </div>
           </div>
         </ion-scroll>

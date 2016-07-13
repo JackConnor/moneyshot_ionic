@@ -811,16 +811,16 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
           else if(set[i].type === "photo"){
             function photoIife(currentP){
               var currentPhoto = currentP;
-              var photoOptions = {
-                  quality : 95,
-                  destinationType : Camera.DestinationType.FILE_URI,
-                  sourceType : Camera.PictureSourceType.Camera ,
-                  allowEdit : true,
-                  encodingType: Camera.EncodingType.JPEG,
-                  popoverOptions: CameraPopoverOptions,
-                  saveToPhotoAlbum: false
-              };
-              $cordovaFileTransfer.upload('http://45.55.24.234:5555/api/newimage', currentPhoto.link, photoOptions)
+              // var photoOptions = {
+              //     quality : 95,
+              //     destinationType : Camera.DestinationType.FILE_URI,
+              //     sourceType : Camera.PictureSourceType.Camera ,
+              //     allowEdit : true,
+              //     encodingType: Camera.EncodingType.JPEG,
+              //     popoverOptions: CameraPopoverOptions,
+              //     saveToPhotoAlbum: false
+              // };
+              $cordovaFileTransfer.upload('http://192.168.0.6:5555/api/newimage', currentPhoto.link, {params: {orientation: currentPhoto.orientation}})
               .then(function(callbackImage){
                 var progressElement = $('.submitProgressBar');
                 if(zeroProgress <= 100){
@@ -832,8 +832,8 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                 var parsedPhoto = JSON.parse(callbackImage.response);
                 $http({
                   method: "POST"
-                  ,url: "http://45.55.24.234:5555/api/createphotos"
-                  ,data: {url: parsedPhoto.secure_url, thumbnail: parsedPhoto.thumbnail, userId: userFullId, isVid: false}
+                  ,url: "http://192.168.0.6:5555/api/createphotos"
+                  ,data: {url: parsedPhoto.secure_url, thumbnail: parsedPhoto.thumbnail, userId: userFullId, isVid: false, orientation: currentPhoto.orientation}
                 })
                 .then(function(newPhoto){
                   submissionData.photos.push(newPhoto.data._id);
