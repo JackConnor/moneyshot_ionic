@@ -60,9 +60,17 @@
       <ion-scroll direction='x' has-bouncing='false' delegate-handle='carouselScroll' class="photoCarouselHolder" on-scroll='carouselScroll()'>
         <div class="photoCarouselInner">
           <div class="photoCarouselCell" ng-repeat="media in mediaCacheTemp track by $index" id='{{$index}}'>
-            <img ng-if='media.type==="photo"' ng-src="{{media.link}}" ng-click='clickCarouselPhoto(media, $index)'/>
-            <img ng-if='media.type==="video" || media.type==="videoTemp"' ng-src="{{media.thumb | trustUrl}}" ng-click='clickCarouselPhoto(media, $index)'/>
-            <!-- <video ng-if='media.type==="video"' ng-src="{{media.link}}" ng-click='openNewCarouselPhoto(media, $index)' poster="{{media.thumb}}"/> -->
+            <img ng-if='media.type==="photo" && media.orientation==="portrait"' ng-src="{{media.link}}" ng-click='clickCarouselPhoto(media, $index)'/ >
+            <img ng-if='(media.type==="video" || media.type==="videoTemp") && media.orientation==="portrait"' ng-src="{{media.thumb | trustUrl}}" ng-click='clickCarouselPhoto(media, $index)'/>
+
+
+            <img style='-webkit-transform: rotate(90deg)' ng-if='media.type==="photo" && media.orientation==="right"' ng-src="{{media.link}}" ng-click='clickCarouselPhoto(media, $index)'/ >
+            <img style='-webkit-transform: rotate(90deg)' ng-if='(media.type==="video" || media.type==="videoTemp") && media.orientation==="right"' ng-src="{{media.thumb | trustUrl}}" ng-click='clickCarouselPhoto(media, $index)'/>
+
+            <img style='-webkit-transform: rotate(-90deg)' ng-if='media.type==="photo" && media.orientation==="left"' ng-src="{{media.link}}" ng-click='clickCarouselPhoto(media, $index)'/ >
+            <img style='-webkit-transform: rotate(-90deg)' ng-if='(media.type==="video" || media.type==="videoTemp") && media.orientation==="left"' ng-src="{{media.thumb | trustUrl}}" ng-click='clickCarouselPhoto(media, $index)'/>
+
+
           </div>
         </div>
       </ion-scroll>
