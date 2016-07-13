@@ -1000,6 +1000,17 @@ html {
 .mainPhotoCarTwo {
 }
 
+.mainPhotoFrameRight {
+  width: 375px;
+  height: 100%;
+}
+
+.mainPhotoFrameRight img{
+  height: 100%;
+  width: auto;
+  -webkit-transform: rotate(90deg);
+}
+
 @media only screen and (min-width: 0px){
   .mainPhotoHolder {
     width: 100%;
@@ -1009,7 +1020,7 @@ html {
     overflow: hidden;
   }
 
-  .mainPhotoHolder img{
+  .mainFramePortrait img{
     width: 100%;
     height: 586px;
     /*position: absolute;*/
@@ -1017,7 +1028,7 @@ html {
     /*padding-top: 5%;*/
   }
 
-  .mainPhotoHolder video{
+  .mainFramePortrait video{
     width: 320px;
     height: 586px;
     /*position: absolute;*/
@@ -1049,7 +1060,7 @@ html {
     overflow: hidden;
   }
 
-  .mainPhotoHolder img{
+  .mainFramePortrait img{
     width: 100%;
     height: 667px;
     /*position: absolute;*/
@@ -1057,7 +1068,7 @@ html {
     /*padding-top: 5%;*/
   }
 
-  .mainPhotoHolder video{
+  .mainFramePortrait video{
     width: 100%;
     height: 667px;
     /*position: absolute;*/

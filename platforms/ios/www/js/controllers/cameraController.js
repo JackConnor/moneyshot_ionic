@@ -421,7 +421,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
     function handlePhotoCallback(result){
       cordova.plugins.camerapreview.show();
-      $scope.mediaCache.push({type: 'photo', link: 'data:image/png;base64,'+result[0], date: new Date()});
+      $scope.mediaCache.push({type: 'photo', link: 'data:image/png;base64,'+result[0], date: new Date(), orientation: $scope.orientation});
       // console.log($scope.mediaCache);
       // $('.outlineFlash').css({
       //   borderWidth: '0px'
