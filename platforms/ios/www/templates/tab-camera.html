@@ -179,8 +179,21 @@
           </div>
         </div>
         <ion-scroll class="submitRepeat">
+          <!--                <img style='-webkit-transform: rotate(90deg)' class='submitPhoto submitPhoto{{$index}}' id='submit{{$index}}' ng-src="{{media.link}}" ng-if='media.type=="photo" && media.orientation==="right"' ng-click='goToCarousel(media, $index, $event)'/>
+                        <img style='-webkit-transform: rotate(90deg)' class='submitPhoto submitPhoto{{$index}}' id='submit{{$index}}' ng-src="{{media.thumb | trustUrl}}" ng-if='(media.type=="video" || media.type==="videoTemp") && media.orientation==="right"' ng-click='goToCarousel(media, $index, $event)'/>-->
           <div class="submitCell" ng-repeat='media in mediaCacheTemp track by $index'>
-            <div class="submitCellImageHolder" >
+
+            <div class="submitCellImageHolder" ng-if="media.orientation==='portrait'">
+              <img class='submitPhoto submitPhoto{{$index}}' id='submit{{$index}}' ng-src="{{media.link}}" ng-if='media.type=="photo"' ng-click='goToCarousel(media, $index, $event)'/>
+              <img class='submitPhoto submitPhoto{{$index}}' id='submit{{$index}}' ng-src="{{media.thumb | trustUrl}}" ng-if='media.type=="video" || media.type==="videoTemp"' ng-click='goToCarousel(media, $index, $event)'/>
+            </div>
+
+            <div style='-webkit-transform: rotate(90deg)' class="submitCellImageHolder" ng-if="media.orientation==='right'">
+              <img class='submitPhoto submitPhoto{{$index}}' id='submit{{$index}}' ng-src="{{media.link}}" ng-if='media.type=="photo"' ng-click='goToCarousel(media, $index, $event)'/>
+              <img class='submitPhoto submitPhoto{{$index}}' id='submit{{$index}}' ng-src="{{media.thumb | trustUrl}}" ng-if='media.type=="video" || media.type==="videoTemp"' ng-click='goToCarousel(media, $index, $event)'/>
+            </div>
+
+            <div style='-webkit-transform: rotate(-90deg)' ng-if="media.orientation==='left'" class="submitCellImageHolder" >
               <img class='submitPhoto submitPhoto{{$index}}' id='submit{{$index}}' ng-src="{{media.link}}" ng-if='media.type=="photo"' ng-click='goToCarousel(media, $index, $event)'/>
               <img class='submitPhoto submitPhoto{{$index}}' id='submit{{$index}}' ng-src="{{media.thumb | trustUrl}}" ng-if='media.type=="video" || media.type==="videoTemp"' ng-click='goToCarousel(media, $index, $event)'/>
             </div>
