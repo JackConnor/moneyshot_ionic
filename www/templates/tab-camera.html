@@ -46,7 +46,11 @@
           <video ng-if='photoCarouselObject.type==="video" || photoCarouselObject.type==="videoTemp"' poster={{photoCarouselObject.thumb}} ng-src="{{photoCarouselObject.link | trustUrl}}" class='mainPhotoCar' webkit-playsinline id="carouselVideoCamera"></video>
         </div>
         <div class="mainPhotoFrameRight" ng-if='photoCarouselObject.orientation === "right"'>
-          <img ng-if='photoCarouselObject.type==="photo"' ng-src="{{photoCarouselObject.link}}" on-swipe-right='photoCarouselSwipeRight()' on-swipe-left='photoCarouselSwipeLeft()' class='mainPhotoCar'/>
+          <img ng-if='photoCarouselObject.type==="photo"' ng-src="{{photoCarouselObject.link}}" on-swipe-right='photoCarouselSwipeRight()' on-swipe-left='photoCarouselSwipeLeft()'/>
+          <video ng-if='photoCarouselObject.type==="video" || photoCarouselObject.type==="videoTemp"' poster={{photoCarouselObject.thumb}} ng-src="{{photoCarouselObject.link | trustUrl}}" class='mainPhotoCar' webkit-playsinline id="carouselVideoCamera"></video>
+        </div>
+        <div class="mainPhotoFrameLeft" ng-if='photoCarouselObject.orientation === "left"'>
+          <img ng-if='photoCarouselObject.type==="photo"' ng-src="{{photoCarouselObject.link}}" on-swipe-right='photoCarouselSwipeRight()' on-swipe-left='photoCarouselSwipeLeft()'/>
           <video ng-if='photoCarouselObject.type==="video" || photoCarouselObject.type==="videoTemp"' poster={{photoCarouselObject.thumb}} ng-src="{{photoCarouselObject.link | trustUrl}}" class='mainPhotoCar' webkit-playsinline id="carouselVideoCamera"></video>
         </div>
       </div>
