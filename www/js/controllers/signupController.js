@@ -600,7 +600,7 @@ angular.module('signupController', ['userInfoFactory'])
       if(e.keyCode === 13){
         signinUser();
       }
-      else if(pwLength > 5 && checkEmail){
+      else if(checkEmail){
         $('.mophoSignin').css({
           color: '#3375dd'
         });

@@ -128,4 +128,5 @@
     <preference name="SplashScreenDelay" value="1500" />
     <preference name="ShowSplashScreenSpinner" value="false" />
     <preference name="FadeSplashScreen" value="false" />
+    <preference name="Orientation" value="portrait" />
 </widget>

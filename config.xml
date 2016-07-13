@@ -21,6 +21,7 @@
   <preference name="ShowSplashScreenSpinner" value="false"/>
   <preference name="FadeSplashScreen" value="false"/>
   <preference name="KeyboardDisplayRequiresUserAction" value="false"/>
+  <preference name="Orientation" value="portrait" />
   <feature name="StatusBar">
     <param name="ios-package" onload="false" value="CDVStatusBar"/>
   </feature>

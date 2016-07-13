@@ -428,7 +428,7 @@ angular.module('accountController', ['persistentPhotosFactory', 'userInfoFactory
                 console.log('that was one that that was already run');
                 $http({
                   method: "POST"
-                  ,url: 'http://192.168.0.5:5555/api/temp/photo/http'
+                  ,url: 'http://45.55.24.234/api/temp/photo/http'
                   ,data: {userId: $scope.userInfo._id, photo: storedArr[i].link, thumb: storedArr[i].thumb}
                 })
                 .then(function(data){
@@ -447,7 +447,7 @@ angular.module('accountController', ['persistentPhotosFactory', 'userInfoFactory
                 })
               }
               else {
-                $cordovaFileTransfer.upload('http://192.168.0.5:5555/api/temp/photo', storedArr[i].link, {params: {userId: $scope.userInfo._id}})
+                $cordovaFileTransfer.upload('http://45.55.24.234/api/temp/photo', storedArr[i].link, {params: {userId: $scope.userInfo._id}})
                 .then(function(callbackData){
                   console.log(callbackData);
                   localforage.setItem('storedPhotos', [])
