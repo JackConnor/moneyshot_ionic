@@ -534,6 +534,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         .then(function(result){
           ///////here we fire off video to temp storage on our server to save video in case of app closure
           var webToken = $localStorage.webToken;
+          console.log(webToken);
           $http({
             method: "GET"
             ,url: "http://45.55.24.234:5555/api/decodetoken/"+webToken
@@ -674,6 +675,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       var progressPercentage = 100/setLength;
       var submissionData = {photos: [], videos: [], userId: '', metaData: {}};
       var webToken = $localStorage.webToken;
+      console.log(webToken);
       //////first we need to find the users ID, so we can use it to make the post requests
       $http({
         method: "GET"
@@ -820,7 +822,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
               //     popoverOptions: CameraPopoverOptions,
               //     saveToPhotoAlbum: false
               // };
-              $cordovaFileTransfer.upload('http://192.168.0.6:5555/api/newimage', currentPhoto.link, {params: {orientation: currentPhoto.orientation}})
+              $cordovaFileTransfer.upload('http://45.55.24.234:5555/api/newimage', currentPhoto.link, {params: {orientation: currentPhoto.orientation}})
               .then(function(callbackImage){
                 var progressElement = $('.submitProgressBar');
                 if(zeroProgress <= 100){
@@ -832,7 +834,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                 var parsedPhoto = JSON.parse(callbackImage.response);
                 $http({
                   method: "POST"
-                  ,url: "http://192.168.0.6:5555/api/createphotos"
+                  ,url: "http://45.55.24.234:5555/api/createphotos"
                   ,data: {url: parsedPhoto.secure_url, thumbnail: parsedPhoto.thumbnail, userId: userFullId, isVid: false, orientation: currentPhoto.orientation}
                 })
                 .then(function(newPhoto){
