@@ -138,70 +138,64 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       /////need to fix nexr
       function signoutCallback(){
         var webToken = $localStorage.webToken;
-        $http({
-          method: "GET"
-          ,url: "http://45.55.24.234:5555/api/decodetoken/"+webToken
-        })
-        .then(function(webTokenData){
-          var userId = webTokenData.data.userId
-          localforage.getItem('storedPhotos')
-          .then(function(storedArr){
-            var storedLength = storedArr.length;
-            if(storedLength === 0){
-              $localStorage.webToken = null;
-              userInfo.clearUserInfo();
-              gangloadTurnoff();
-              window.location.hasLaunched = false;
-              $state.go('signin');
-            }
-            else {
-              var counter = 0;
-              for (var i = 0; i < storedLength; i++) {
-                var beginning = storedArr[i].link.slice(0, 4);
-                if(beginning === 'http'){
-                  $http({
-                    method: "POST"
-                    ,url: 'http://45.55.24.234:5555/api/temp/photo/http'
-                    ,data: {userId: userId, photo: storedArr[i].link, thumb: storedArr[i].thumb}
-                  })
-                  .then(function(data){
+        var userId = $scope.cachedUser._id;
+        localforage.getItem('storedPhotos')
+        .then(function(storedArr){
+          var storedLength = storedArr.length;
+          if(storedLength === 0){
+            $localStorage.webToken = null;
+            userInfo.clearUserInfo();
+            gangloadTurnoff();
+            window.location.hasLaunched = false;
+            $state.go('signin');
+          }
+          else {
+            var counter = 0;
+            for (var i = 0; i < storedLength; i++) {
+              var beginning = storedArr[i].link.slice(0, 4);
+              if(beginning === 'http'){
+                $http({
+                  method: "POST"
+                  ,url: 'http://45.55.24.234:5555/api/temp/photo/http'
+                  ,data: {userId: userId, photo: storedArr[i].link, thumb: storedArr[i].thumb}
+                })
+                .then(function(data){
+                  counter++
+                  if(counter === storedLength - 1){
+                    localforage.setItem('storedPhotos', []);
+                    $localStorage.webToken = null;
+                    userInfo.clearUserInfo();
+                    gangloadTurnoff();
+                    window.location.hasLaunched = false;
+                    $state.go('signin');
+                  }
+                })
+                .catch(function(err){
+                  console.log(err);
+                })
+              }
+              else {
+                $cordovaFileTransfer.upload('http://45.55.24.234:5555/api/temp/photo', storedArr[i].link, {params: {userId: userId}})
+                .then(function(callbackData){
+                  localforage.setItem('storedPhotos', [])
+                  .then(function(photos){
                     counter++
                     if(counter === storedLength - 1){
+                      userInfo.clearUserInfo();
                       localforage.setItem('storedPhotos', []);
                       $localStorage.webToken = null;
-                      userInfo.clearUserInfo();
                       gangloadTurnoff();
                       window.location.hasLaunched = false;
                       $state.go('signin');
                     }
                   })
-                  .catch(function(err){
-                    console.log(err);
-                  })
-                }
-                else {
-                  $cordovaFileTransfer.upload('http://45.55.24.234:5555/api/temp/photo', storedArr[i].link, {params: {userId: userId}})
-                  .then(function(callbackData){
-                    localforage.setItem('storedPhotos', [])
-                    .then(function(photos){
-                      counter++
-                      if(counter === storedLength - 1){
-                        userInfo.clearUserInfo();
-                        localforage.setItem('storedPhotos', []);
-                        $localStorage.webToken = null;
-                        gangloadTurnoff();
-                        window.location.hasLaunched = false;
-                        $state.go('signin');
-                      }
-                    })
-                  })
-                  .catch(function(err){
-                    console.log(err);
-                  })
-                }
+                })
+                .catch(function(err){
+                  console.log(err);
+                })
               }
             }
-          })
+          }
         })
       }
       ////////end area to fix next
@@ -560,19 +554,19 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         $cordovaCapture.captureVideo({quality : 100})
         .then(function(result){
           ///////here we fire off video to temp storage on our server to save video in case of app closure
-          var webToken = $localStorage.webToken;
-          console.log(webToken);
-          $http({
-            method: "GET"
-            ,url: "http://45.55.24.234:5555/api/decodetoken/"+webToken
-          })
-          .then(function(decodedToken){
-            console.log(decodedToken);
-            $cordovaFileTransfer.upload('http://45.55.24.234:5555/api/temp/video', result[0].fullPath, {params: {userId: decodedToken.data.userId}}, true)
+          // var webToken = $localStorage.webToken;
+          // console.log(webToken);
+          // $http({
+          //   method: "GET"
+          //   ,url: "http://45.55.24.234:5555/api/decodetoken/"+webToken
+          // })
+          // .then(function(decodedToken){
+            // console.log(decodedToken);
+            $cordovaFileTransfer.upload('http://45.55.24.234:5555/api/temp/video', result[0].fullPath, {params: {userId: $scope.cachedUser._id}}, true)
             .then(function(updatedUser){
               //callback
             })
-          });
+          // });
 
           ////////////////
           // $scope.photoListLength++;
@@ -705,85 +699,22 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       var webToken = $localStorage.webToken;
       console.log(webToken);
       //////first we need to find the users ID, so we can use it to make the post requests
-      $http({
-        method: "GET"
-        ,url: "http://45.55.24.234:5555/api/decodetoken/"+ webToken
-      })
-      .then(function(decodedToken){
-        var userFullId = decodedToken.data.userId;
-        navigator.geolocation.getCurrentPosition(function(position){
-          submissionData.metaData.latitude = position.coords.latitude;
-          submissionData.metaData.longitude = position.coords.longitude;
-          submissionData.metaData.address = $scope.returnPlace;
-        });
-        submissionData.userId = userFullId;
-        submissionData.metaData.date = $scope.returnDate();
-        submissionData.metaData.who = $('.photoNameInput').val();
-        submissionData.metaData.what = $('.photoNameDesc').val();
-        ////now iterate through to submit to backend
-        for (var i = 0; i < set.length; i++) {
-          if(set[i].type === "video"){
-            $cordovaFileTransfer.upload('http://45.55.24.234:5555/api/upload/video', set[i].link, {})
-            .then(function(){
-              var progressElement = $('.submitProgressBar');
-              if(zeroProgress <= 100){
-                zeroProgress += progressPercentage;
-                progressElement.animate({
-                  width: zeroProgress+"%"
-                }, 200);
-              }
-              var splitUrl = callbackImage.response.split('');
-              var sliced = splitUrl.slice(1, callbackImage.response.split('').length - 1).join('');
-
-              $http({
-                method: "POST"
-                ,url: "http://45.55.24.234:5555/api/createphotos"
-                ,data: {url: sliced, userId: userFullId, isVid: true}
-              })
-              .then(function(newVid){
-                submissionData.videos.push(newVid.data._id);
-                var vids = submissionData.videos.length;
-                var phots = submissionData.photos.length;
-                var amalgam = vids + phots;
-                if((parseInt(amalgam) == parseInt(set.length) || parseInt(set.length) === 0) && $scope.submitBar === true){
-                  $http({
-                    method: "POST"
-                    ,url: "http://45.55.24.234:5555/api/new/submission"
-                    ,data: submissionData
-                  })
-                  .then(function(newSubmission){
-                    $timeout(function(){
-                      localforage.setItem('storedPhotos', [])
-                      .then(function(success){
-                        $scope.cachedUser.tempVideoCache = [];
-                        userInfo.userInfoFunc('blah', false, $scope.cachedUser);
-                        userInfo.userInfoFunc($localStorage.webToken, true);
-                        // $state.reload(true);
-                        $scope.postSubmit = true;
-                        $timeout(function(){
-                          $(".cameraPostBlack").animate({
-                            opacity: 1
-                          }, 400);
-                        }, 250);
-                        $timeout(function(){
-                          $scope.submitModalVar = false;
-                          $scope.cameraModal = false;
-                        }, 650);
-                      })
-                      .catch(function(err){
-                        console.log(err);
-                      })
-                      $scope.cnt = 0;
-                    }, 1000);
-                  })
-                }
-                else if((parseInt(amalgam) == parseInt(set.length) || parseInt(set.length) === 0) && $scope.submitBar === false){
-                  $scope.isDisabled = false;
-                }
-              })
-            })
-          }
-          else if(set[i].type === "videoTemp"){
+      console.log($scope.cachedUser);
+      var userFullId = $scope.cachedUser._id;
+      navigator.geolocation.getCurrentPosition(function(position){
+        submissionData.metaData.latitude = position.coords.latitude;
+        submissionData.metaData.longitude = position.coords.longitude;
+        submissionData.metaData.address = $scope.returnPlace;
+      });
+      submissionData.userId = userFullId;
+      submissionData.metaData.date = $scope.returnDate();
+      submissionData.metaData.who = $('.photoNameInput').val();
+      submissionData.metaData.what = $('.photoNameDesc').val();
+      ////now iterate through to submit to backend
+      for (var i = 0; i < set.length; i++) {
+        if(set[i].type === "video"){
+          $cordovaFileTransfer.upload('http://45.55.24.234:5555/api/upload/video', set[i].link, {})
+          .then(function(){
             var progressElement = $('.submitProgressBar');
             if(zeroProgress <= 100){
               zeroProgress += progressPercentage;
@@ -791,10 +722,13 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                 width: zeroProgress+"%"
               }, 200);
             }
+            var splitUrl = callbackImage.response.split('');
+            var sliced = splitUrl.slice(1, callbackImage.response.split('').length - 1).join('');
+
             $http({
               method: "POST"
               ,url: "http://45.55.24.234:5555/api/createphotos"
-              ,data: {url: set[i].link, userId: userFullId, isVid: true}////////PROBLEM   Ned to get that userOd above, it's shooting nulls
+              ,data: {url: sliced, userId: userFullId, isVid: true}
             })
             .then(function(newVid){
               submissionData.videos.push(newVid.data._id);
@@ -808,7 +742,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                   ,data: submissionData
                 })
                 .then(function(newSubmission){
-                  setTimeout(function(){
+                  $timeout(function(){
                     localforage.setItem('storedPhotos', [])
                     .then(function(success){
                       $scope.cachedUser.tempVideoCache = [];
@@ -830,89 +764,144 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                       console.log(err);
                     })
                     $scope.cnt = 0;
-                  }, 100);
+                  }, 1000);
                 })
               }
               else if((parseInt(amalgam) == parseInt(set.length) || parseInt(set.length) === 0) && $scope.submitBar === false){
                 $scope.isDisabled = false;
               }
             })
+          })
+        }
+        else if(set[i].type === "videoTemp"){
+          var progressElement = $('.submitProgressBar');
+          if(zeroProgress <= 100){
+            zeroProgress += progressPercentage;
+            progressElement.animate({
+              width: zeroProgress+"%"
+            }, 200);
           }
-          else if(set[i].type === "photo"){
-            function photoIife(currentP){
-              var currentPhoto = currentP;
-              // var photoOptions = {
-              //     quality : 95,
-              //     destinationType : Camera.DestinationType.FILE_URI,
-              //     sourceType : Camera.PictureSourceType.Camera ,
-              //     allowEdit : true,
-              //     encodingType: Camera.EncodingType.JPEG,
-              //     popoverOptions: CameraPopoverOptions,
-              //     saveToPhotoAlbum: false
-              // };
-              $cordovaFileTransfer.upload('http://45.55.24.234:5555/api/newimage', currentPhoto.link, {params: {orientation: currentPhoto.orientation}})
-              .then(function(callbackImage){
-                var progressElement = $('.submitProgressBar');
-                if(zeroProgress <= 100){
-                  zeroProgress += progressPercentage;
-                  progressElement.animate({
-                    width: zeroProgress+"%"
-                  }, 200);
-                }
-                var parsedPhoto = JSON.parse(callbackImage.response);
-                $http({
-                  method: "POST"
-                  ,url: "http://45.55.24.234:5555/api/createphotos"
-                  ,data: {url: parsedPhoto.secure_url, thumbnail: parsedPhoto.thumbnail, userId: userFullId, isVid: false, orientation: currentPhoto.orientation}
-                })
-                .then(function(newPhoto){
-                  submissionData.photos.push(newPhoto.data._id);
-                  var vids = submissionData.videos.length;
-                  var phots = submissionData.photos.length;
-                  var amalgam = vids + phots;
-                  if((parseInt(amalgam) == parseInt(set.length) || parseInt(set.length) === 0) && $scope.submitBar === true){
-                    $http({
-                      method: "POST"
-                      ,url: "http://45.55.24.234:5555/api/new/submission"
-                      ,data: submissionData
-                    })
-                    .then(function(newSubmission){
-                      setTimeout(function(){
-                        localforage.setItem('storedPhotos', [])
-                        .then(function(success){
-                          $scope.cachedUser.tempVideoCache = [];
-                          userInfo.userInfoFunc('blah', false, $scope.cachedUser);
-                          userInfo.userInfoFunc($localStorage.webToken, true);
-                          // $state.reload(true);
-                          $scope.postSubmit = true;
-                          $timeout(function(){
-                            $(".cameraPostBlack").animate({
-                              opacity: 1
-                            }, 400);
-                          }, 250);
-                          $timeout(function(){
-                            $scope.submitModalVar = false;
-                            $scope.cameraModal = false;
-                          }, 650);
-                        })
-                        .catch(function(err){
-                          console.log(err);
-                        })
-                        $scope.cnt = 0;
-
-                      }, 100);
-                    })
-                  }
-                  else if((parseInt(amalgam) == parseInt(set.length) || parseInt(set.length) === 0) && $scope.submitBar === false){
-                    $scope.isDisabled = false;
-                  }
-                })
+          $http({
+            method: "POST"
+            ,url: "http://45.55.24.234:5555/api/createphotos"
+            ,data: {url: set[i].link, userId: userFullId, isVid: true}////////PROBLEM   Ned to get that userOd above, it's shooting nulls
+          })
+          .then(function(newVid){
+            submissionData.videos.push(newVid.data._id);
+            var vids = submissionData.videos.length;
+            var phots = submissionData.photos.length;
+            var amalgam = vids + phots;
+            if((parseInt(amalgam) == parseInt(set.length) || parseInt(set.length) === 0) && $scope.submitBar === true){
+              $http({
+                method: "POST"
+                ,url: "http://45.55.24.234:5555/api/new/submission"
+                ,data: submissionData
+              })
+              .then(function(newSubmission){
+                setTimeout(function(){
+                  localforage.setItem('storedPhotos', [])
+                  .then(function(success){
+                    $scope.cachedUser.tempVideoCache = [];
+                    userInfo.userInfoFunc('blah', false, $scope.cachedUser);
+                    userInfo.userInfoFunc($localStorage.webToken, true);
+                    // $state.reload(true);
+                    $scope.postSubmit = true;
+                    $timeout(function(){
+                      $(".cameraPostBlack").animate({
+                        opacity: 1
+                      }, 400);
+                    }, 250);
+                    $timeout(function(){
+                      $scope.submitModalVar = false;
+                      $scope.cameraModal = false;
+                    }, 650);
+                  })
+                  .catch(function(err){
+                    console.log(err);
+                  })
+                  $scope.cnt = 0;
+                }, 100);
               })
             }
-            photoIife(set[i]);
-          }
+            else if((parseInt(amalgam) == parseInt(set.length) || parseInt(set.length) === 0) && $scope.submitBar === false){
+              $scope.isDisabled = false;
+            }
+          })
         }
-      });
+        else if(set[i].type === "photo"){
+          function photoIife(currentP){
+            var currentPhoto = currentP;
+            // var photoOptions = {
+            //     quality : 95,
+            //     destinationType : Camera.DestinationType.FILE_URI,
+            //     sourceType : Camera.PictureSourceType.Camera ,
+            //     allowEdit : true,
+            //     encodingType: Camera.EncodingType.JPEG,
+            //     popoverOptions: CameraPopoverOptions,
+            //     saveToPhotoAlbum: false
+            // };
+            $cordovaFileTransfer.upload('http://45.55.24.234:5555/api/newimage', currentPhoto.link, {params: {orientation: currentPhoto.orientation}})
+            .then(function(callbackImage){
+              var progressElement = $('.submitProgressBar');
+              if(zeroProgress <= 100){
+                zeroProgress += progressPercentage;
+                progressElement.animate({
+                  width: zeroProgress+"%"
+                }, 200);
+              }
+              var parsedPhoto = JSON.parse(callbackImage.response);
+              $http({
+                method: "POST"
+                ,url: "http://45.55.24.234:5555/api/createphotos"
+                ,data: {url: parsedPhoto.secure_url, thumbnail: parsedPhoto.thumbnail, userId: userFullId, isVid: false, orientation: currentPhoto.orientation}
+              })
+              .then(function(newPhoto){
+                submissionData.photos.push(newPhoto.data._id);
+                var vids = submissionData.videos.length;
+                var phots = submissionData.photos.length;
+                var amalgam = vids + phots;
+                if((parseInt(amalgam) == parseInt(set.length) || parseInt(set.length) === 0) && $scope.submitBar === true){
+                  $http({
+                    method: "POST"
+                    ,url: "http://45.55.24.234:5555/api/new/submission"
+                    ,data: submissionData
+                  })
+                  .then(function(newSubmission){
+                    setTimeout(function(){
+                      localforage.setItem('storedPhotos', [])
+                      .then(function(success){
+                        $scope.cachedUser.tempVideoCache = [];
+                        userInfo.userInfoFunc('blah', false, $scope.cachedUser);
+                        userInfo.userInfoFunc($localStorage.webToken, true);
+                        // $state.reload(true);
+                        $scope.postSubmit = true;
+                        $timeout(function(){
+                          $(".cameraPostBlack").animate({
+                            opacity: 1
+                          }, 400);
+                        }, 250);
+                        $timeout(function(){
+                          $scope.submitModalVar = false;
+                          $scope.cameraModal = false;
+                        }, 650);
+                      })
+                      .catch(function(err){
+                        console.log(err);
+                      })
+                      $scope.cnt = 0;
+
+                    }, 100);
+                  })
+                }
+                else if((parseInt(amalgam) == parseInt(set.length) || parseInt(set.length) === 0) && $scope.submitBar === false){
+                  $scope.isDisabled = false;
+                }
+              })
+            })
+          }
+          photoIife(set[i]);
+        }
+      }
     }
 
     function emergencyCancelSubmit(){
@@ -1380,7 +1369,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                     console.log('gotta erase this shit');
                     $http({
                       method: "POST"
-                      ,url: 'http://192.168.0.10:5555/api/delete/temp/video'
+                      ,url: 'http://45.55.24.234:5555/api/delete/temp/video'
                       ,data: {userId: $scope.cachedUser._id, videoId: currentMedia._id}
                     })
                     .then(function(results){
