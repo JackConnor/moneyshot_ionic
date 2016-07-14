@@ -943,37 +943,47 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
     function setCellSize(){
       var cacheLength = $scope.mediaCache.length;
-      if(cacheLength <= 4){
-        $timeout(function(){
-          $('.submitCell').width('185px');
-          $('.submitCell').height('185px');
-          $('.submitCell').animate({
-            opacity: 1
-          }, 200);
-        }, 125);
+      console.log($scope.zooming);
+      if($scope.zooming === 'zoomed'){
+        if(cacheLength <= 4){
+          $timeout(function(){
+            $('.submitCell').width('157.5px');
+            $('.submitCell').height('157.5px');
+            $('.submitCell').animate({
+              opacity: 1
+            }, 200);
+          }, 125);
+        }
+        else if(cacheLength < 9){
+          $timeout(function(){
+            $('.submitCell').width('105px');
+            $('.submitCell').height('105px');
+            $('.submitCell').animate({
+              opacity: 1
+            }, 200);
+          }, 1100);
+        }
       }
-      else if(cacheLength < 9){
-        $timeout(function(){
-          $('.submitCell').width('123.33px');
-          $('.submitCell').height('123.33px');
-          $('.submitCell').animate({
-            opacity: 1
-          }, 200);
-        }, 1100);
+      else if ($scope.zooming === 'standard'){
+        if(cacheLength <= 4){
+          $timeout(function(){
+            $('.submitCell').width('185px');
+            $('.submitCell').height('185px');
+            $('.submitCell').animate({
+              opacity: 1
+            }, 200);
+          }, 125);
+        }
+        else if(cacheLength < 9){
+          $timeout(function(){
+            $('.submitCell').width('123.33px');
+            $('.submitCell').height('123.33px');
+            $('.submitCell').animate({
+              opacity: 1
+            }, 200);
+          }, 1100);
+        }
       }
-      else {
-        // $timeout(function(){
-        //   $('.submitCell').animate({
-        //     opacity: 1
-        //   }, 200);
-        // }, 2100);
-      }
-      // else if(cacheLength <= 16){
-      //   $timeout(function(){
-      //     $('.submitCell').width('92.5px');
-      //     $('.submitCell').height('92.5px');
-      //   }, 3000);
-      // }
     }
 
     function submitModalOpen(){
