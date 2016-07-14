@@ -343,9 +343,18 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       var cacheLength = $scope.cachedUser.tempPhotoCache.length;
       for (var i = 0; i < cacheLength; i++) {
         $scope.mediaCache.push($scope.cachedUser.tempPhotoCache[i]);
-        localforage.setItem('storedPhotos', $scope.mediaCache)
-        .then(function(locPhot){
-          /////callback
+        var allPhotos = [];
+        for (var i = 0; i < $scope.mediaCache.length; i++) {
+          if($scope.mediaCache[i].type === 'photo'){
+            allPhotos.push($scope.mediaCache[i])
+          }
+        }
+        localforage.setItem('storedPhotos', allPhotos)
+        .then(function(newPhotoArr){
+          console.log(newPhotoArr);
+        })
+        .catch(function(err){
+          console.log(err);
         })
         if(i === cacheLength - 1){
           $http({
@@ -440,13 +449,9 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
           $scope.activePhoto = false;
         }, 200);
         var allPhotos = [];
-        console.log($scope.mediaCache);
-        console.log($scope.mediaCache.length);
         for (var i = 0; i < $scope.mediaCache.length; i++) {
-          console.log($scope.mediaCache[i]);
           if($scope.mediaCache[i].type === 'photo'){
             allPhotos.push($scope.mediaCache[i])
-            console.log(allPhotos);
           }
         }
         localforage.setItem('storedPhotos', allPhotos)
@@ -513,14 +518,19 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
          $interval.cancel(photoInterval);
         //  $timeout(function(){
           //  $scope.cameraHot = false;
-           localforage.setItem('storedPhotos', $scope.mediaCache)
-           .then(function(newPhotoArr){
-             $scope.activePhoto = false;
-             ///////////prevents from opening submit modal while the camera is still processing, to prevent crashes
-           })
-           .catch(function(err){
-             console.log(err);
-           })
+          var allPhotos = [];
+          for (var i = 0; i < $scope.mediaCache.length; i++) {
+            if($scope.mediaCache[i].type === 'photo'){
+              allPhotos.push($scope.mediaCache[i])
+            }
+          }
+          localforage.setItem('storedPhotos', allPhotos)
+          .then(function(newPhotoArr){
+            console.log(newPhotoArr);
+          })
+          .catch(function(err){
+            console.log(err);
+          })
         //  }, 1000);
        }
        $scope.clearPhotoInt = clearPhotoInt;
@@ -554,22 +564,11 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         $cordovaCapture.captureVideo({quality : 100})
         .then(function(result){
           ///////here we fire off video to temp storage on our server to save video in case of app closure
-          // var webToken = $localStorage.webToken;
-          // console.log(webToken);
-          // $http({
-          //   method: "GET"
-          //   ,url: "http://45.55.24.234:5555/api/decodetoken/"+webToken
-          // })
-          // .then(function(decodedToken){
-            // console.log(decodedToken);
-            $cordovaFileTransfer.upload('http://45.55.24.234:5555/api/temp/video', result[0].fullPath, {params: {userId: $scope.cachedUser._id}}, true)
-            .then(function(updatedUser){
-              //callback
-            })
-          // });
-
+          $cordovaFileTransfer.upload('http://45.55.24.234:5555/api/temp/video', result[0].fullPath, {params: {userId: $scope.cachedUser._id}}, true)
+          .then(function(updatedUser){
+            //callback
+          })
           ////////////////
-          // $scope.photoListLength++;
           var pathFull = result[0].fullPath;///////this is what we need to add to our cache
           var thumbOpts = {
             mode: 'file'
@@ -1386,13 +1385,19 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                 }
                 if(i === allLength-1){
                   selectPhotos();
-                  localforage.setItem('storedPhotos', $scope.mediaCache)
-                  .then(function(newArray){
-                    //callback
+                  var allPhotos = [];
+                  for (var i = 0; i < $scope.mediaCache.length; i++) {
+                    if($scope.mediaCache[i].type === 'photo'){
+                      allPhotos.push($scope.mediaCache[i])
+                    }
+                  }
+                  localforage.setItem('storedPhotos', allPhotos)
+                  .then(function(newPhotoArr){
+                    console.log(newPhotoArr);
                   })
                   .catch(function(err){
                     console.log(err);
-                  });
+                  })
                 }
               }
             }, 50);
@@ -1429,7 +1434,13 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
             $scope.mediaCacheTemp.splice(i, 1);
             var caughtIt = parseInt(String(i));
             $scope.eraseStopper = true;
-            localforage.setItem('storedPhotos', $scope.mediaCache)
+            var allPhotos = [];
+            for (var i = 0; i < $scope.mediaCache.length; i++) {
+              if($scope.mediaCache[i].type === 'photo'){
+                allPhotos.push($scope.mediaCache[i])
+              }
+            }
+            localforage.setItem('storedPhotos', allPhotos)
             .then(function(success){
               $scope.eraseStopper = false;
               if(mediaLength === 1){
