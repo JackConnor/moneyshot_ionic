@@ -262,18 +262,18 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       //   }, 1000);
       // }
     }
-    function launchPlatform(){
-      var isReady = ionic.Platform.isReady;
-      // alert(isReady);
-      if(isReady){
-        initCheckUser();
-      }
-      else {
-        $timeout(function(){
-          launchPlatform();
-        }, 1000);
-      }
-    }
+    // function launchPlatform(){
+    //   var isReady = ionic.Platform.isReady;
+    //   // alert(isReady);
+    //   if(isReady){
+    //     initCheckUser();
+    //   }
+    //   else {
+    //     $timeout(function(){
+    //       launchPlatform();
+    //     }, 1000);
+    //   }
+    // }
     // launchPlatform();
     ionic.Platform.ready(function(){      // alert('checking')
       var userLoaded = userInfo.cacheOnly();
@@ -287,7 +287,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       }
       setTimeout(function(){
         initCheckUser();
-      }, 100);
+      }, 1000);
     })
 
     /////function to get cached videos and photos

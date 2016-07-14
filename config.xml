@@ -17,7 +17,7 @@
   <preference name="BackupWebStorage" value="none"/>
   <preference name="SplashScreen" value="screen"/>
   <preference name="AutoHideSplashScreen" value="true"/>
-  <preference name="SplashScreenDelay" value="1500"/>
+  <preference name="SplashScreenDelay" value="2250"/>
   <preference name="ShowSplashScreenSpinner" value="false"/>
   <preference name="FadeSplashScreen" value="false"/>
   <preference name="KeyboardDisplayRequiresUserAction" value="false"/>

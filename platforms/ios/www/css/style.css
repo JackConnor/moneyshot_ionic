@@ -17,6 +17,10 @@ html {
   opacity: 1;
 }
 
+ion-content {
+  background-color: black;
+}
+
 /*Begin Tab Stuff*/
 .tabs {
   background-color: black;
