@@ -914,17 +914,18 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     }
     $scope.leavePostAccount = leavePostAccount;
 
-    function backToSubmit(){
-      $ionicScrollDelegate.freezeScroll(false);
-      $('.submitCropContainer').animate({
-        marginLeft: 100+"%"
-      }, 700);
-      setTimeout(function(){
-        $('#image').remove();
-        $('.cropper-container').remove();
-      });
-    }
-    $scope.backToSubmit = backToSubmit;
+    ////old related to crop funciotn
+    // function backToSubmit(){
+    //   $ionicScrollDelegate.freezeScroll(false);
+    //   $('.submitCropContainer').animate({
+    //     marginLeft: 100+"%"
+    //   }, 700);
+    //   setTimeout(function(){
+    //     $('#image').remove();
+    //     $('.cropper-container').remove();
+    //   });
+    // }
+    // $scope.backToSubmit = backToSubmit;
 
     function setCellSize(){
       var cacheLength = $scope.mediaCache.length;
@@ -962,6 +963,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     }
 
     function submitModalOpen(){
+      $ionicScrollDelegate.freezeScroll(false);
       if($scope.flashOnOff === 'on'){
         window.plugins.flashlight.switchOff();
         $('.cameraFlash').css({
@@ -1033,6 +1035,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     $scope.submitModalOpen = submitModalOpen;
 
     function backToPhotos(){
+      $ionicScrollDelegate.freezeScroll(true);
       $timeout(function(){
         $scope.mediaCacheTemp = [];
         $scope.submitModalVar = false;
@@ -1184,6 +1187,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     $scope.goToCarousel = goToCarousel;
 
     function photoCarouselBack(){
+      $ionicScrollDelegate.freezeScroll(false);
       $scope.submitModaVar = true;
       setCellSize();
       $timeout(function(){
@@ -1230,8 +1234,9 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       /////need to math this up tp dry it out
       var scrollPos = $ionicScrollDelegate.$getByHandle('carouselScroll').getScrollPosition().left;
       console.log(scrollPos);
-      var multiple = 75;//note this will change on zoom mode
-      var newMediaIndex = Math.floor(scrollPos/75);
+      var multiple = 70;//note this will change on zoom mode
+      var newMediaIndex = Math.floor((scrollPos+35)/70);
+      console.log(newMediaIndex);
       changeCarouselPhoto($scope.mediaCache[newMediaIndex]);
 
       // if(scrollPos >= 0 && scrollPos < multiple*.5){
