@@ -429,7 +429,7 @@ angular.module('accountController', ['persistentPhotosFactory', 'userInfoFactory
                 $http({
                   method: "POST"
                   ,url: 'http://45.55.24.234:5555/api/temp/photo/http'
-                  ,data: {userId: $scope.userInfo._id, photo: storedArr[i].link, thumb: storedArr[i].thumb}
+                  ,data: {userId: $scope.userInfo._id, photo: storedArr[i].link, thumb: storedArr[i].thumb, orientation: storedArr[i].orientation}
                 })
                 .then(function(data){
                   counter++;
@@ -447,7 +447,7 @@ angular.module('accountController', ['persistentPhotosFactory', 'userInfoFactory
                 })
               }
               else {
-                $cordovaFileTransfer.upload('http://45.55.24.234:5555/api/temp/photo', storedArr[i].link, {params: {userId: $scope.userInfo._id}})
+                $cordovaFileTransfer.upload('http://45.55.24.234:5555/api/temp/photo', storedArr[i].link, {params: {userId: $scope.userInfo._id, orientation: storedArr[i].orientation}})
                 .then(function(callbackData){
                   console.log(callbackData);
                   localforage.setItem('storedPhotos', [])

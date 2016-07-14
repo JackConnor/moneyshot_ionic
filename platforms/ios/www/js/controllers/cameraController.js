@@ -372,15 +372,15 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
     //////function to set up our tempprary photo storage between sessions
     function setLocalForage(){
-      //reset local forage cache, uncomment and comment active code to fix issues
-      // localforage.setItem('storedPhotos', [])
-      // .then(function(dataVal){
-      //   console.log('creating array');
-      //   console.log(dataVal);
-      // })
-      // .catch(function(err){
-      //   console.log(err);
-      // })
+      // reset local forage cache, uncomment and comment active code to fix issues
+      localforage.setItem('storedPhotos', [])
+      .then(function(dataVal){
+        console.log('creating array');
+        console.log(dataVal);
+      })
+      .catch(function(err){
+        console.log(err);
+      })
       window.addEventListener("deviceorientation", function(event){
         var gamma = event.gamma;
         if(gamma < 110 && 70 < gamma){
@@ -400,31 +400,31 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         }
         // console.log($scope.orientation);
       });
-      localforage.getItem('storedPhotos')
-      .then(function(value){
-        console.log(value);
-        $localStorage.webToken = $scope.newToken;//////taking care of this;
-        if(value === null || value === [null]){
-          localforage.setItem('storedPhotos', [])
-          .then(function(dataVal){
-            // callback
-          })
-          .catch(function(err){
-            console.log(err);
-          })
-        }
-        else {
-          var valLength = value.length;
-          for (var i = 0; i < valLength; i++) {
-            $scope.mediaCache.push(value[i]);
-            console.log($scope.mediaCache);
-            $scope.$apply();
-          }
-        }
-      })
-      .catch(function(err){
-        console.log(err);
-      });
+      // localforage.getItem('storedPhotos')
+      // .then(function(value){
+      //   console.log(value);
+      //   $localStorage.webToken = $scope.newToken;//////taking care of this;
+      //   if(value === null || value === [null]){
+      //     localforage.setItem('storedPhotos', [])
+      //     .then(function(dataVal){
+      //       // callback
+      //     })
+      //     .catch(function(err){
+      //       console.log(err);
+      //     })
+      //   }
+      //   else {
+      //     var valLength = value.length;
+      //     for (var i = 0; i < valLength; i++) {
+      //       $scope.mediaCache.push(value[i]);
+      //       console.log($scope.mediaCache);
+      //       $scope.$apply();
+      //     }
+      //   }
+      // })
+      // .catch(function(err){
+      //   console.log(err);
+      // });
     }
 
     function showCamera(callback){
@@ -1224,6 +1224,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     $scope.openNewCarouselPhoto = openNewCarouselPhoto;
 
     function clickCarouselPhoto(mediaData, index){
+      $scope.photoCarouselObject = mediaData;
       var mediaLength = $('.photoCarouselCell').length;
       if($scope.zooming  === 'zoomed'){
         var dist = (index*70);
@@ -1350,36 +1351,28 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
           }
         }, 'Erase All?', ['Cancel', 'Yes'])
         function performErase(){
-          console.log('1');
           localforage.getItem('storedPhotos')
           .then(function(storedArr){
-            console.log(2);
             var stored = storedArr;
             var arrObj =  $.makeArray(document.getElementsByClassName('submitCellImageHolder'));
             var eraseCount = 0;
             $timeout(function(){
-              console.log(3);
               var allPhotos = $('.submitCellImageHolder');
               var allLength = allPhotos.length;
               for (var i = 0; i < allLength; i++) {
                 var child = $(allPhotos[i]).find('img');
-                console.log(4);
                 if(child.hasClass('selectedP')){
-                  console.log(7);
                   $(allPhotos[i]).find('.photoCheckHolder').remove();
                   ////////////need to check vor tempVideo, so we can send an http call to remove this from the uses temp storage
                   var currentMedia = $scope.mediaCache[i-eraseCount];
                   if(currentMedia.type === 'videoTemp'){
-                    console.log(6);
-                    console.log('gotta erase this shit');
                     $http({
                       method: "POST"
                       ,url: 'http://45.55.24.234:5555/api/delete/temp/video'
                       ,data: {userId: $scope.cachedUser._id, videoId: currentMedia._id}
                     })
                     .then(function(results){
-                      console.log(5);
-                      console.log(results);
+
                     })
                   }
 
@@ -1389,25 +1382,21 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                   child.removeClass('selectedP');
                   $scope.$apply();
                   eraseCount++;
-                  console.log(8);
                 }
                 if(i === allLength-1){
-                  console.log(9);
                   selectPhotos();
                   var allPhotos = [];
                   for (var k = 0; k < $scope.mediaCache.length; k++) {
-                    console.log(10);
-                    console.log('in loop');
                     if($scope.mediaCache[i].type === 'photo'){
                       allPhotos.push($scope.mediaCache[k])
                     }
                   }
                   localforage.setItem('storedPhotos', allPhotos)
                   .then(function(newPhotoArr){
-                    console.log(newPhotoArr);
                     if($scope.mediaCache.length === 0){
-                      backToPhotos();
-                      console.log(12);
+                      $timeout(function(){
+                        backToPhotos();
+                      })
                     }
                   })
                   .catch(function(err){
