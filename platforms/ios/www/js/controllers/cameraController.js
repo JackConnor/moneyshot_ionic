@@ -1291,9 +1291,15 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
             "<p class='fa fa-check-circle photoCheck'></p>"+
           "</div>"
         );
+        $(evt.currentTarget).css({
+          opacity: 0.6
+        });
       }
       else if($(evt.currentTarget).hasClass('selectedP')){
         $(evt.currentTarget).removeClass('selectedP');
+        $(evt.currentTarget).css({
+          opacity: 1
+        });
         var parent = $(evt.currentTarget).parent();
         parent.find('.photoCheckHolder').remove();
         parent.find('.photoCheck').remove();
@@ -1334,6 +1340,9 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
           if(child.hasClass('selectedP')){
             child.removeClass('selectedP');
             $(allPhotos[i]).find('.photoCheck').remove();
+            $(child).css({
+              opacity: 1
+            })
           }
         }
       }
@@ -1362,6 +1371,9 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
               var allLength = allPhotos.length;
               for (var i = 0; i < allLength; i++) {
                 var child = $(allPhotos[i]).find('img');
+                $(child).css({
+                  opacity: 1
+                });
                 if(child.hasClass('selectedP')){
                   $(allPhotos[i]).find('.photoCheckHolder').remove();
                   ////////////need to check vor tempVideo, so we can send an http call to remove this from the uses temp storage
