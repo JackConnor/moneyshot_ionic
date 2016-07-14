@@ -373,14 +373,14 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     //////function to set up our tempprary photo storage between sessions
     function setLocalForage(){
       // reset local forage cache, uncomment and comment active code to fix issues
-      localforage.setItem('storedPhotos', [])
-      .then(function(dataVal){
-        console.log('creating array');
-        console.log(dataVal);
-      })
-      .catch(function(err){
-        console.log(err);
-      })
+      // localforage.setItem('storedPhotos', [])
+      // .then(function(dataVal){
+      //   console.log('creating array');
+      //   console.log(dataVal);
+      // })
+      // .catch(function(err){
+      //   console.log(err);
+      // })
       window.addEventListener("deviceorientation", function(event){
         var gamma = event.gamma;
         if(gamma < 110 && 70 < gamma){
@@ -400,31 +400,31 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         }
         // console.log($scope.orientation);
       });
-      // localforage.getItem('storedPhotos')
-      // .then(function(value){
-      //   console.log(value);
-      //   $localStorage.webToken = $scope.newToken;//////taking care of this;
-      //   if(value === null || value === [null]){
-      //     localforage.setItem('storedPhotos', [])
-      //     .then(function(dataVal){
-      //       // callback
-      //     })
-      //     .catch(function(err){
-      //       console.log(err);
-      //     })
-      //   }
-      //   else {
-      //     var valLength = value.length;
-      //     for (var i = 0; i < valLength; i++) {
-      //       $scope.mediaCache.push(value[i]);
-      //       console.log($scope.mediaCache);
-      //       $scope.$apply();
-      //     }
-      //   }
-      // })
-      // .catch(function(err){
-      //   console.log(err);
-      // });
+      localforage.getItem('storedPhotos')
+      .then(function(value){
+        console.log(value);
+        $localStorage.webToken = $scope.newToken;//////taking care of this;
+        if(value === null || value === [null]){
+          localforage.setItem('storedPhotos', [])
+          .then(function(dataVal){
+            // callback
+          })
+          .catch(function(err){
+            console.log(err);
+          })
+        }
+        else {
+          var valLength = value.length;
+          for (var i = 0; i < valLength; i++) {
+            $scope.mediaCache.push(value[i]);
+            console.log($scope.mediaCache);
+            $scope.$apply();
+          }
+        }
+      })
+      .catch(function(err){
+        console.log(err);
+      });
     }
 
     function showCamera(callback){
@@ -1225,6 +1225,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
     function clickCarouselPhoto(mediaData, index){
       $scope.photoCarouselObject = mediaData;
+      console.log(mediaData);
       var mediaLength = $('.photoCarouselCell').length;
       if($scope.zooming  === 'zoomed'){
         var dist = (index*70);

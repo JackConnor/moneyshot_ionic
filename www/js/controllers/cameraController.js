@@ -1225,6 +1225,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
     function clickCarouselPhoto(mediaData, index){
       $scope.photoCarouselObject = mediaData;
+      console.log(mediaData);
       var mediaLength = $('.photoCarouselCell').length;
       if($scope.zooming  === 'zoomed'){
         var dist = (index*70);
