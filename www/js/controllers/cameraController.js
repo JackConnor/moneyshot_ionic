@@ -674,7 +674,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       $(".submitPhotoBacking").animate({
         opacity: 0
       }, 250);
-      $ionicScrollDelegate.freezeScroll(true);
+      // $ionicScrollDelegate.freezeScroll(true);
       $timeout(function(){
         $scope.submitPhotoModal = false;
         $scope.submitBar        = true;
@@ -977,7 +977,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     }
 
     function submitModalOpen(){
-      $ionicScrollDelegate.freezeScroll(false);
+      $ionicScrollDelegate.$getByHandle('carouselScroll').freezeScroll(false);
       if($scope.flashOnOff === 'on'){
         window.plugins.flashlight.switchOff();
         $('.cameraFlash').css({
@@ -1049,7 +1049,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     $scope.submitModalOpen = submitModalOpen;
 
     function backToPhotos(){
-      $ionicScrollDelegate.freezeScroll(true);
+      // $ionicScrollDelegate.freezeScroll(true);
       $timeout(function(){
         $scope.mediaCacheTemp = [];
         $scope.submitModalVar = false;
@@ -1157,7 +1157,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     function goToCarousel(mediaData, index, evt){
       //////thsi is normal carousel functionality
       if($scope.selectMode === false){
-        $ionicScrollDelegate.freezeScroll(true);
+        // $ionicScrollDelegate.freezeScroll(true);
         $scope.photoCarouselObject = mediaData;////this is always the centerpiece photo
         $(evt.currentTarget).css({
           opacity: 0.1
@@ -1201,7 +1201,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     $scope.goToCarousel = goToCarousel;
 
     function photoCarouselBack(){
-      $ionicScrollDelegate.freezeScroll(false);
+      // $ionicScrollDelegate.freezeScroll(false);
       $scope.submitModaVar = true;
       setCellSize();
       $timeout(function(){
