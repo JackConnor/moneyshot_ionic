@@ -41,7 +41,7 @@
           <div class="trashBlackLayer"></div>
           <i class='fa fa-trash-o trashIcon' ng-click='eraseSinglePhoto()'></i>
         </div>
-        <div class="mainFramePortrait" ng-if='photoCarouselObject.orientation === "portrait" || photoCarouselObject.type === "video"'>
+        <div class="mainFramePortrait" ng-if='photoCarouselObject.orientation === "portrait" || photoCarouselObject.type === "video" || photoCarouselObject.type === "videoTemp"'>
           <img ng-if='photoCarouselObject.type==="photo"' ng-src="{{photoCarouselObject.link}}" on-swipe-right='photoCarouselSwipeRight()' on-swipe-left='photoCarouselSwipeLeft()' class='mainPhotoCar'/>
           <video ng-if='photoCarouselObject.type==="video" || photoCarouselObject.type==="videoTemp"' poster={{photoCarouselObject.thumb}} ng-src="{{photoCarouselObject.link | trustUrl}}" class='mainPhotoCar' webkit-playsinline id="carouselVideoCamera"></video>
         </div>
@@ -61,14 +61,11 @@
         <div class="photoCarouselInner">
           <div class="photoCarouselCell" ng-repeat="media in mediaCacheTemp track by $index" id='{{$index}}'>
             <img ng-if='media.type==="photo" && media.orientation==="portrait"' ng-src="{{media.link}}" ng-click='clickCarouselPhoto(media, $index)'/ >
-            <img ng-if='(media.type==="video" || media.type==="videoTemp") && media.orientation==="portrait"' ng-src="{{media.thumb | trustUrl}}" ng-click='clickCarouselPhoto(media, $index)'/>
-
+            <img ng-if='(media.type==="video" || media.type==="videoTemp")' ng-src="{{media.thumb | trustUrl}}" ng-click='clickCarouselPhoto(media, $index)'/>
 
             <img style='-webkit-transform: rotate(90deg)' ng-if='media.type==="photo" && media.orientation==="right"' ng-src="{{media.link}}" ng-click='clickCarouselPhoto(media, $index)'/ >
-            <img style='-webkit-transform: rotate(90deg)' ng-if='(media.type==="video" || media.type==="videoTemp") && media.orientation==="right"' ng-src="{{media.thumb | trustUrl}}" ng-click='clickCarouselPhoto(media, $index)'/>
 
             <img style='-webkit-transform: rotate(-90deg)' ng-if='media.type==="photo" && media.orientation==="left"' ng-src="{{media.link}}" ng-click='clickCarouselPhoto(media, $index)'/ >
-            <img style='-webkit-transform: rotate(-90deg)' ng-if='(media.type==="video" || media.type==="videoTemp") && media.orientation==="left"' ng-src="{{media.thumb | trustUrl}}" ng-click='clickCarouselPhoto(media, $index)'/>
 
 
           </div>
@@ -179,11 +176,9 @@
           </div>
         </div>
         <ion-scroll class="submitRepeat">
-          <!--                <img style='-webkit-transform: rotate(90deg)' class='submitPhoto submitPhoto{{$index}}' id='submit{{$index}}' ng-src="{{media.link}}" ng-if='media.type=="photo" && media.orientation==="right"' ng-click='goToCarousel(media, $index, $event)'/>
-                        <img style='-webkit-transform: rotate(90deg)' class='submitPhoto submitPhoto{{$index}}' id='submit{{$index}}' ng-src="{{media.thumb | trustUrl}}" ng-if='(media.type=="video" || media.type==="videoTemp") && media.orientation==="right"' ng-click='goToCarousel(media, $index, $event)'/>-->
           <div class="submitCell" ng-repeat='media in mediaCacheTemp track by $index'>
 
-            <div class="submitCellImageHolder" ng-if="media.orientation==='portrait' || media.type ==='video'">
+            <div class="submitCellImageHolder {{media.type}}" ng-if="media.orientation==='portrait' || media.type ==='video' || media.type ==='videoTemp'">
               <img class='submitPhoto submitPhoto{{$index}}' id='submit{{$index}}' ng-src="{{media.link}}" ng-if='media.type=="photo"' ng-click='goToCarousel(media, $index, $event)'/>
               <img class='submitPhoto submitPhoto{{$index}}' id='submit{{$index}}' ng-src="{{media.thumb | trustUrl}}" ng-if='media.type=="video" || media.type==="videoTemp"' ng-click='goToCarousel(media, $index, $event)'/>
             </div>

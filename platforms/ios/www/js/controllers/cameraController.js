@@ -161,7 +161,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                 if(beginning === 'http'){
                   $http({
                     method: "POST"
-                    ,url: 'http://45.55.24.234/api/temp/photo/http'
+                    ,url: 'http://45.55.24.234:5555/api/temp/photo/http'
                     ,data: {userId: userId, photo: storedArr[i].link, thumb: storedArr[i].thumb}
                   })
                   .then(function(data){
@@ -180,7 +180,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                   })
                 }
                 else {
-                  $cordovaFileTransfer.upload('http://45.55.24.234/api/temp/photo', storedArr[i].link, {params: {userId: userId}})
+                  $cordovaFileTransfer.upload('http://45.55.24.234:5555/api/temp/photo', storedArr[i].link, {params: {userId: userId}})
                   .then(function(callbackData){
                     localforage.setItem('storedPhotos', [])
                     .then(function(photos){
@@ -227,6 +227,9 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     $scope.tempSignout = tempSignout;
 
     function setLaunchCamera(){
+      $timeout(function(){
+        console.log($scope.mediaCache);
+      }, 6000);
         $ionicScrollDelegate.freezeScroll(true);
         $ionicScrollDelegate.scrollTop();
       // var isReady = ionic.Platform.isReady;
@@ -303,14 +306,14 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         .then(function(data){
           $scope.cachedUser = data.data;
           var cachedUser = userInfo.userInfoFunc(userToken, false, data.data);
-          $scope.zooming              = findZoomed()////this determines if the screen is on zoom mode or not
+          $scope.zooming = findZoomed()////this determines if the screen is on zoom mode or not
           if($scope.cachedUser.tempPhotoCache.length > 0){
             runPhotoSignoutCache();
           }
           else {
             setLocalForage();
           }
-          runVideoCache($scope.cachedUser.tempPhotoCache);
+          runVideoCache($scope.cachedUser.tempVideoCache);
           // initCamera();
         });
       }
@@ -329,11 +332,16 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
     ///does all the video stuff
     function runVideoCache(tempVideoArray){
+      console.log(tempVideoArray);
+      console.log('video 1');
+      console.log('video 2');
       var vidLength = tempVideoArray.length;
+      console.log($scope.mediaCache);
       for (var i = 0; i < vidLength; i++) {
         var thumbnailArr = tempVideoArray[i].url.split('mov');
         var thumbnail = thumbnailArr[0]+"jpg";
         $scope.mediaCache.push({type: 'videoTemp', link: tempVideoArray[i].url, thumb: thumbnail, videoId: tempVideoArray[i]._id});
+        console.log($scope.mediaCache);
       }
     }
 
@@ -348,7 +356,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         if(i === cacheLength - 1){
           $http({
             method: 'GET'
-            ,url: 'http://45.55.24.234/api/erase/temp/photos/'+$scope.cachedUser._id
+            ,url: 'http://45.55.24.234:5555/api/erase/temp/photos/'+$scope.cachedUser._id
           })
           .then(function(upUser){
             /////callback
@@ -361,7 +369,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
     //////function to set up our tempprary photo storage between sessions
     function setLocalForage(){
-      ////reset local forage cache, uncomment and comment active code to fix issues
+      //reset local forage cache, uncomment and comment active code to fix issues
       // localforage.setItem('storedPhotos', [])
       // .then(function(dataVal){
       //   console.log('creating array');
@@ -389,9 +397,9 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         }
         // console.log($scope.orientation);
       });
-      // alert(window.orientation);
       localforage.getItem('storedPhotos')
       .then(function(value){
+        console.log(value);
         $localStorage.webToken = $scope.newToken;//////taking care of this;
         if(value === null || value === [null]){
           localforage.setItem('storedPhotos', [])
@@ -406,6 +414,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
           var valLength = value.length;
           for (var i = 0; i < valLength; i++) {
             $scope.mediaCache.push(value[i]);
+            console.log($scope.mediaCache);
             $scope.$apply();
           }
         }
@@ -436,9 +445,19 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         $timeout(function(){
           $scope.activePhoto = false;
         }, 200);
-        localforage.setItem('storedPhotos', $scope.mediaCache)
+        var allPhotos = [];
+        console.log($scope.mediaCache);
+        console.log($scope.mediaCache.length);
+        for (var i = 0; i < $scope.mediaCache.length; i++) {
+          console.log($scope.mediaCache[i]);
+          if($scope.mediaCache[i].type === 'photo'){
+            allPhotos.push($scope.mediaCache[i])
+            console.log(allPhotos);
+          }
+        }
+        localforage.setItem('storedPhotos', allPhotos)
         .then(function(newPhotoArr){
-          //callback
+          console.log(newPhotoArr);
         })
         .catch(function(err){
           console.log(err);
@@ -449,7 +468,13 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       }
 
       if($scope.intCounter%4 === 0){
-        localforage.setItem('storedPhotos', $scope.mediaCache)
+        var allPhotos = [];
+        for (var i = 0; i < $scope.mediaCache.length; i++) {
+          if($scope.mediaCache[i].type === 'photo'){
+            allPhotos.push($scope.mediaCache[i])
+          }
+        }
+        localforage.setItem('storedPhotos', allPhotos)
         .then(function(newPhotoArr){
 
         })
@@ -542,6 +567,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
             ,url: "http://45.55.24.234:5555/api/decodetoken/"+webToken
           })
           .then(function(decodedToken){
+            console.log(decodedToken);
             $cordovaFileTransfer.upload('http://45.55.24.234:5555/api/temp/video', result[0].fullPath, {params: {userId: decodedToken.data.userId}}, true)
             .then(function(updatedUser){
               //callback
@@ -1348,6 +1374,20 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                 var child = $(allPhotos[i]).find('img');
                 if(child.hasClass('selectedP')){
                   $(allPhotos[i]).find('.photoCheckHolder').remove();
+                  ////////////need to check vor tempVideo, so we can send an http call to remove this from the uses temp storage
+                  var currentMedia = $scope.mediaCache[i-eraseCount];
+                  if(currentMedia.type === 'videoTemp'){
+                    console.log('gotta erase this shit');
+                    $http({
+                      method: "POST"
+                      ,url: 'http://192.168.0.10:5555/api/delete/temp/video'
+                      ,data: {userId: $scope.cachedUser._id, videoId: currentMedia._id}
+                    })
+                    .then(function(results){
+                      console.log(results);
+                    })
+                  }
+
 
                   $scope.mediaCache.splice((i-eraseCount), 1);
                   $scope.mediaCacheTemp.splice((i-eraseCount), 1);
