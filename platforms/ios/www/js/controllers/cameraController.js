@@ -1243,27 +1243,18 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
     //////carousel swipe functions
     function photoCarouselSwipeLeft(){
-        $scope.carouselSwipeActive = true;
-        var centerP = findCenterPhoto();
-        if(centerP.index+1 < $scope.mediaCache.length){
-          openNewCarouselPhoto($scope.mediaCache[centerP.index+1], centerP.index+1, 'left');
-        }
+      var currentScrollLeft = $ionicScrollDelegate.$getByHandle('carouselScroll').getScrollPosition().left;
+      var normalizedLeftIndex = Math.floor((currentScrollLeft+35)/70);
+      ////now we scroll
+      $ionicScrollDelegate.$getByHandle('carouselScroll').scrollTo((normalizedLeftIndex+1)*70, 0, true);
     }
     $scope.photoCarouselSwipeLeft = photoCarouselSwipeLeft;
 
     function photoCarouselSwipeRight(){
       var currentScrollLeft = $ionicScrollDelegate.$getByHandle('carouselScroll').getScrollPosition().left;
       var normalizedLeftIndex = Math.floor((currentScrollLeft+35)/70);
-      console.log(normalizedLeftIndex);
-      console.log(currentScrollLeft);
-
-
+      ////now we scroll
       $ionicScrollDelegate.$getByHandle('carouselScroll').scrollTo((normalizedLeftIndex-1)*70, 0, true);
-      // var centerP = findCenterPhoto();
-      // console.log(centerP);
-      // if(centerP.index > 0){
-      //   openNewCarouselPhoto($scope.mediaCache[centerP.index-1], centerP.index-1, 'right')
-      // }
     }
     $scope.photoCarouselSwipeRight = photoCarouselSwipeRight;
 
