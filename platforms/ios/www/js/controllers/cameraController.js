@@ -344,9 +344,9 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       for (var i = 0; i < cacheLength; i++) {
         $scope.mediaCache.push($scope.cachedUser.tempPhotoCache[i]);
         var allPhotos = [];
-        for (var i = 0; i < $scope.mediaCache.length; i++) {
-          if($scope.mediaCache[i].type === 'photo'){
-            allPhotos.push($scope.mediaCache[i])
+        for (var k = 0; k < $scope.mediaCache.length; k++) {
+          if($scope.mediaCache[k].type === 'photo'){
+            allPhotos.push($scope.mediaCache[k])
           }
         }
         localforage.setItem('storedPhotos', allPhotos)
@@ -1350,21 +1350,27 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
           }
         }, 'Erase All?', ['Cancel', 'Yes'])
         function performErase(){
+          console.log('1');
           localforage.getItem('storedPhotos')
           .then(function(storedArr){
+            console.log(2);
             var stored = storedArr;
             var arrObj =  $.makeArray(document.getElementsByClassName('submitCellImageHolder'));
             var eraseCount = 0;
             $timeout(function(){
+              console.log(3);
               var allPhotos = $('.submitCellImageHolder');
               var allLength = allPhotos.length;
               for (var i = 0; i < allLength; i++) {
                 var child = $(allPhotos[i]).find('img');
+                console.log(4);
                 if(child.hasClass('selectedP')){
+                  console.log(7);
                   $(allPhotos[i]).find('.photoCheckHolder').remove();
                   ////////////need to check vor tempVideo, so we can send an http call to remove this from the uses temp storage
                   var currentMedia = $scope.mediaCache[i-eraseCount];
                   if(currentMedia.type === 'videoTemp'){
+                    console.log(6);
                     console.log('gotta erase this shit');
                     $http({
                       method: "POST"
@@ -1372,6 +1378,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                       ,data: {userId: $scope.cachedUser._id, videoId: currentMedia._id}
                     })
                     .then(function(results){
+                      console.log(5);
                       console.log(results);
                     })
                   }
@@ -1382,18 +1389,26 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                   child.removeClass('selectedP');
                   $scope.$apply();
                   eraseCount++;
+                  console.log(8);
                 }
                 if(i === allLength-1){
+                  console.log(9);
                   selectPhotos();
                   var allPhotos = [];
-                  for (var i = 0; i < $scope.mediaCache.length; i++) {
+                  for (var k = 0; k < $scope.mediaCache.length; k++) {
+                    console.log(10);
+                    console.log('in loop');
                     if($scope.mediaCache[i].type === 'photo'){
-                      allPhotos.push($scope.mediaCache[i])
+                      allPhotos.push($scope.mediaCache[k])
                     }
                   }
                   localforage.setItem('storedPhotos', allPhotos)
                   .then(function(newPhotoArr){
                     console.log(newPhotoArr);
+                    if($scope.mediaCache.length === 0){
+                      backToPhotos();
+                      console.log(12);
+                    }
                   })
                   .catch(function(err){
                     console.log(err);
@@ -1435,9 +1450,9 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
             var caughtIt = parseInt(String(i));
             $scope.eraseStopper = true;
             var allPhotos = [];
-            for (var i = 0; i < $scope.mediaCache.length; i++) {
-              if($scope.mediaCache[i].type === 'photo'){
-                allPhotos.push($scope.mediaCache[i])
+            for (var k = 0; k < $scope.mediaCache.length; k++) {
+              if($scope.mediaCache[k].type === 'photo'){
+                allPhotos.push($scope.mediaCache[k])
               }
             }
             localforage.setItem('storedPhotos', allPhotos)
