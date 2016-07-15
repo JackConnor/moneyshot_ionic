@@ -1169,6 +1169,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       if($scope.selectMode === false){
         // $ionicScrollDelegate.freezeScroll(true);
         $scope.photoCarouselObject = mediaData;////this is always the centerpiece photo
+        $scope.$apply();
         $(evt.currentTarget).css({
           opacity: 0.1
         });
