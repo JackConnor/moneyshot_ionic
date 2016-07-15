@@ -179,14 +179,19 @@
 
         <ion-scroll class="submissionRepeatContainer" has-bouncing='true'>
           <div class="submitCellAcct" ng-repeat='photo in singleSubmission.photos'>
+
             <div class="submitCellImageHolder" ng-if='photo.orientation==="portrait"'>
               <img class='submitPhoto submitPhoto{{$index}}' id='submit{{$index}}' ng-src="{{photo.thumbnail}}" ng-click='goToCarousel(photo, $index, $event)'/>
             </div>
+
             <div class="submitCellImageHolder" ng-if='photo.orientation==="right"'>
-              <img class='submitPhoto submitPhoto{{$index}}' id='submit{{$index}}' ng-src="{{photo.thumbnail}}" ng-click='goToCarousel(photo, $index, $event)'/>
+              <img class='submitPhoto submitPhoto{{$index}}' id='submit{{$index}}' ng-src="{{photo.thumbnail}}" ng-click='goToCarousel(photo, $index, $event)' ng-if='!photo.isVideo'/>
+              <img class='submitPhoto submitPhoto{{$index}}' id='submit{{$index}}' ng-src="{{photo.thumbnail}}" ng-click='goToCarousel(photo, $index, $event)' ng-if='photo.isVideo' style='margin-top: 22px;'/>
             </div>
+
             <div class="submitCellImageHolder" ng-if='photo.orientation==="left"'>
-              <img  class='submitPhoto submitPhoto{{$index}}' id='submit{{$index}}' ng-src="{{photo.thumbnail}}" ng-click='goToCarousel(photo, $index, $event)'/>
+              <img class='submitPhoto submitPhoto{{$index}}' id='submit{{$index}}' ng-src="{{photo.thumbnail}}" ng-click='goToCarousel(photo, $index, $event)' ng-if='!photo.isVideo'/>
+              <img class='submitPhoto submitPhoto{{$index}}' id='submit{{$index}}' ng-src="{{photo.thumbnail}}" ng-click='goToCarousel(photo, $index, $event)' ng-if='photo.isVideo' style='margin-top: 22px;'/>
             </div>
           </div>
         </ion-scroll>

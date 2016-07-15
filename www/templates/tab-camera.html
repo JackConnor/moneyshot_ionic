@@ -183,7 +183,7 @@
               <!-- video portrait mode -->
               <img class='submitPhoto submitPhoto{{$index}}' id='submit{{$index}}' ng-src="{{media.thumb | trustUrl}}" ng-if='(media.type=="video" || media.type==="videoTemp") && media.orientation==="portrait"' ng-click='goToCarousel(media, $index, $event)'/>
               <!-- video landscape mode -->
-              <img class='submitPhoto submitPhoto{{$index}}' id='submit{{$index}}' ng-src="{{media.thumb | trustUrl}}" ng-if='(media.type=="video" || media.type==="videoTemp") && media.orientation!=="portrait"' ng-click='goToCarousel(media, $index, $event)' style='margin-top: 25px;'/>
+              <img class='submitPhoto submitPhoto{{$index}}' id='submit{{$index}}' ng-src="{{media.thumb | trustUrl}}" ng-if='(media.type=="video" || media.type==="videoTemp") && media.orientation!=="portrait"' ng-click='goToCarousel(media, $index, $event)' style='margin-top: 22px;'/>
             </div>
 
             <div style='-webkit-transform: rotate(90deg)' class="submitCellImageHolder" ng-if="media.orientation==='right'">

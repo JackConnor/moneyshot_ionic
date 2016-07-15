@@ -718,6 +718,8 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       ////now iterate through to submit to backend
       for (var i = 0; i < set.length; i++) {
         console.log(set[i]);
+        var elOrientation = set[i].orientation;
+        console.log(elOrientation);
         if(set[i].type === "video"){
           $cordovaFileTransfer.upload('http://45.55.24.234:5555/api/upload/video', set[i].link, {})
           .then(function(callbackImage){
@@ -734,7 +736,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
             $http({
               method: "POST"
               ,url: "http://192.168.0.18:5555/api/createphotos"
-              ,data: {url: sliced, userId: userFullId, isVid: true, orientation: set[i].orientation}
+              ,data: {url: sliced, userId: userFullId, isVid: true, orientation: elOrientation}
             })
             .then(function(newVid){
               submissionData.videos.push(newVid.data._id);
@@ -791,7 +793,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
           $http({
             method: "POST"
             ,url: "http://192.168.0.18:5555/api/createphotos"
-            ,data: {url: set[i].link, userId: userFullId, isVid: true, orientation: set[i].orientation}////////PROBLEM   Ned to get that userOd above, it's shooting nulls
+            ,data: {url: set[i].link, userId: userFullId, isVid: true, orientation: elOrientation}////////PROBLEM   Ned to get that userOd above, it's shooting nulls
           })
           .then(function(newVid){
             submissionData.videos.push(newVid.data._id);
