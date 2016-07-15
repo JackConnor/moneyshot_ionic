@@ -945,7 +945,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
     function setCellSize(){
       var cacheLength = $scope.mediaCache.length;
-      console.log($scope.zooming);
+      $scope.zooming = findZoomed();
       if($scope.zooming === 'zoomed'){
         if(cacheLength <= 4){
           $timeout(function(){
