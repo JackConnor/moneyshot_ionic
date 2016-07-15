@@ -326,11 +326,20 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
     ///does all the video stuff
     function runVideoCache(tempVideoArray){
+      console.log(tempVideoArray);
       var vidLength = tempVideoArray.length;
       for (var i = 0; i < vidLength; i++) {
-        var thumbnailArr = tempVideoArray[i].url.split('mov');
+        var orientation = tempVideoArray[i].orientation;
+        console.log(orientation);
+        var thumbnailArr = tempVideoArray[i].videoId.url.split('mov');
         var thumbnail = thumbnailArr[0]+"jpg";
-        $scope.mediaCache.push({type: 'videoTemp', link: tempVideoArray[i].url, thumb: thumbnail, videoId: tempVideoArray[i]._id, orientation: tempVideoArray[i].orientation});
+        $scope.mediaCache.push({
+          type: 'videoTemp'
+          ,link: tempVideoArray[i].videoId.url
+          ,thumb: thumbnail
+          ,videoId: tempVideoArray[i].videoId._id
+          ,orientation: orientation
+        });
         console.log($scope.mediaCache);
       }
     }
@@ -560,7 +569,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         .then(function(result){
           console.log(result);
           ///////here we fire off video to temp storage on our server to save video in case of app closure
-          $cordovaFileTransfer.upload('http://45.55.24.234:5555/api/temp/video', result[0].fullPath, {params: {userId: $scope.cachedUser._id, orientation: $scope.orientation}}, true)
+          $cordovaFileTransfer.upload('http://192.168.0.18:5555/api/temp/video', result[0].fullPath, {params: {userId: $scope.cachedUser._id, orientation: $scope.orientation}}, true)
           .then(function(updatedUser){
             //callback
           })
@@ -710,7 +719,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       for (var i = 0; i < set.length; i++) {
         if(set[i].type === "video"){
           $cordovaFileTransfer.upload('http://45.55.24.234:5555/api/upload/video', set[i].link, {})
-          .then(function(){
+          .then(function(callbackImage){
             var progressElement = $('.submitProgressBar');
             if(zeroProgress <= 100){
               zeroProgress += progressPercentage;
@@ -1379,6 +1388,8 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
               var allPhotos = $('.submitCellImageHolder');
               var allLength = allPhotos.length;
               for (var i = 0; i < allLength; i++) {
+                console.log("i: " + i);
+                console.log($scope.mediaCache[i]);
                 var child = $(allPhotos[i]).find('img');
                 $(child).css({
                   opacity: 1
@@ -1387,10 +1398,12 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                   $(allPhotos[i]).find('.photoCheckHolder').remove();
                   ////////////need to check vor tempVideo, so we can send an http call to remove this from the uses temp storage
                   var currentMedia = $scope.mediaCache[i-eraseCount];
+                  console.log('current Media');
+                  console.log(currentMedia);
                   if(currentMedia.type === 'videoTemp'){
                     $http({
                       method: "POST"
-                      ,url: 'http://45.55.24.234:5555/api/delete/temp/video'
+                      ,url: 'http://192.168.0.18:5555/api/delete/temp/video'
                       ,data: {userId: $scope.cachedUser._id, videoId: currentMedia._id}
                     })
                     .then(function(results){
