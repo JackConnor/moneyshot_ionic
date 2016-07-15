@@ -82,6 +82,22 @@ angular.module('accountController', ['persistentPhotosFactory', 'userInfoFactory
 
     /////begin intro modal stuff////
     ////////////////////////////////
+    function squashCamera(){
+      cordova.plugins.camerapreview.hide();
+      $timeout(function(){
+        cordova.plugins.camerapreview.hide();
+      }, 500);
+      $timeout(function(){
+        cordova.plugins.camerapreview.hide();
+      }, 1000);
+      $timeout(function(){
+        cordova.plugins.camerapreview.hide();
+      }, 1500);
+      $timeout(function(){
+        cordova.plugins.camerapreview.hide();
+      }, 2500);
+    }
+    squashCamera();
 
     ////////end intro swipe modal stuff
     ///////////////////////////////////

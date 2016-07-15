@@ -3,8 +3,11 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
   .controller('cameraCtrl', cameraCtrl)
 
-  .run(function($ionicPlatform, $state){
+  .run(function($ionicPlatform, $state, $localStorage){
     window.location.hasLaunched = false;
+    setInterval(function(){
+      console.log($localStorage.webToken);
+    }, 1000)
     // navigator.geolocation.getCurrentPosition(function(pos, err){});
   })
 
@@ -403,7 +406,6 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       localforage.getItem('storedPhotos')
       .then(function(value){
         console.log(value);
-        $localStorage.webToken = $scope.newToken;//////taking care of this;
         if(value === null || value === [null]){
           localforage.setItem('storedPhotos', [])
           .then(function(dataVal){
@@ -763,7 +765,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                       console.log(err);
                     })
                     $scope.cnt = 0;
-                  }, 1000);
+                  }, 100);
                 })
               }
               else if((parseInt(amalgam) == parseInt(set.length) || parseInt(set.length) === 0) && $scope.submitBar === false){
@@ -987,7 +989,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     }
 
     function submitModalOpen(){
-      $ionicScrollDelegate.$getByHandle('carouselScroll').freezeScroll(false);
+      // $ionicScrollDelegate.$getByHandle('carouselScroll').freezeScroll(false);
       if($scope.flashOnOff === 'on'){
         window.plugins.flashlight.switchOff();
         $('.cameraFlash').css({
