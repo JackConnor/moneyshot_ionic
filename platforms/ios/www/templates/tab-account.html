@@ -41,7 +41,11 @@
       <ion-scroll direction='x' has-bouncing='false' delegate-handle='carouselScroll' scrollbar-x=false class="photoCarouselHolder" on-scroll='carouselScroll()'>
         <div class="photoCarouselInner">
           <div class="photoCarouselCellAcct" ng-repeat="photo in singleSubmission.photos">
-            <img ng-src="{{photo.thumbnail}}" id='{{$index}}' ng-click='clickCarouselPhoto(photo, $index)'/>
+
+            <img ng-src="{{photo.thumbnail}}" id='{{$index}}' ng-click='clickCarouselPhoto(photo, $index)' ng-if='!photo.isVideo || (photo.isVideo && photo.orientation === "portrait")'/>
+
+            <img ng-src="{{photo.thumbnail}}" id='{{$index}}' ng-click='clickCarouselPhoto(photo, $index)' ng-if='(photo.isVideo && photo.orientation !== "portrait")' style='height: 100%; width: auto; margin-top: 0'/>
+
           </div>
         </div>
       </ion-scroll>
@@ -230,7 +234,11 @@
                 <img src="{{submission.photos[0].thumbnail}}" alt="" />
               </div>
               <div class="subPhotoCell subPhoto0" ng-if='submission.photos[0] && submission.photos[0].isVideo'>
-                <img ng-src={{submission.photos[0].thumbnail}}></img>
+
+                <img ng-src={{submission.photos[0].thumbnail}} ng-if='submission.photos[0].orientation === "portrait"'></img>
+
+                <img ng-src={{submission.photos[0].thumbnail}} ng-if='submission.photos[0].orientation !== "portrait"' style='width: auto; margin-left: -10px'></img>
+
               </div>
             </div>
             <div class="submissionInfo" >
