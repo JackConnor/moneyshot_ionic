@@ -5,9 +5,6 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
   .run(function($ionicPlatform, $state, $localStorage){
     window.location.hasLaunched = false;
-    setInterval(function(){
-      console.log($localStorage.webToken);
-    }, 1000)
     // navigator.geolocation.getCurrentPosition(function(pos, err){});
   })
 
@@ -329,15 +326,11 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
     ///does all the video stuff
     function runVideoCache(tempVideoArray){
-      console.log(tempVideoArray);
-      console.log('video 1');
-      console.log('video 2');
       var vidLength = tempVideoArray.length;
-      console.log($scope.mediaCache);
       for (var i = 0; i < vidLength; i++) {
         var thumbnailArr = tempVideoArray[i].url.split('mov');
         var thumbnail = thumbnailArr[0]+"jpg";
-        $scope.mediaCache.push({type: 'videoTemp', link: tempVideoArray[i].url, thumb: thumbnail, videoId: tempVideoArray[i]._id});
+        $scope.mediaCache.push({type: 'videoTemp', link: tempVideoArray[i].url, thumb: thumbnail, videoId: tempVideoArray[i]._id, orientation: tempVideoArray[i].orientation});
         console.log($scope.mediaCache);
       }
     }
@@ -565,8 +558,9 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       if($scope.activePhoto === false && $scope.mediaCache.length < 20){
         $cordovaCapture.captureVideo({quality : 100})
         .then(function(result){
+          console.log(result);
           ///////here we fire off video to temp storage on our server to save video in case of app closure
-          $cordovaFileTransfer.upload('http://45.55.24.234:5555/api/temp/video', result[0].fullPath, {params: {userId: $scope.cachedUser._id}}, true)
+          $cordovaFileTransfer.upload('http://45.55.24.234:5555/api/temp/video', result[0].fullPath, {params: {userId: $scope.cachedUser._id, orientation: $scope.orientation}}, true)
           .then(function(updatedUser){
             //callback
           })
@@ -590,6 +584,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
               ,link: pathFull
               ,thumb: thumbnail
               ,date: new Date()
+              ,orientation: $scope.orientation
             });
            })
            .catch( function(err){
@@ -996,6 +991,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
           opacity: 1
         });
       }
+      console.log($scope.mediaCache);
       if($scope.activePhoto === false){
         cordova.plugins.camerapreview.hide();
         $scope.submitModalVar = true;

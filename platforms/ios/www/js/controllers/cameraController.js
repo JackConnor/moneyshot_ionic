@@ -5,9 +5,6 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
   .run(function($ionicPlatform, $state, $localStorage){
     window.location.hasLaunched = false;
-    setInterval(function(){
-      console.log($localStorage.webToken);
-    }, 1000)
     // navigator.geolocation.getCurrentPosition(function(pos, err){});
   })
 
@@ -565,6 +562,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       if($scope.activePhoto === false && $scope.mediaCache.length < 20){
         $cordovaCapture.captureVideo({quality : 100})
         .then(function(result){
+          console.log(result);
           ///////here we fire off video to temp storage on our server to save video in case of app closure
           $cordovaFileTransfer.upload('http://45.55.24.234:5555/api/temp/video', result[0].fullPath, {params: {userId: $scope.cachedUser._id}}, true)
           .then(function(updatedUser){
@@ -590,6 +588,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
               ,link: pathFull
               ,thumb: thumbnail
               ,date: new Date()
+              ,orientation: $scope.orientation
             });
            })
            .catch( function(err){
@@ -996,6 +995,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
           opacity: 1
         });
       }
+      console.log($scope.mediaCache);
       if($scope.activePhoto === false){
         cordova.plugins.camerapreview.hide();
         $scope.submitModalVar = true;
