@@ -717,6 +717,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       submissionData.metaData.what = $('.photoNameDesc').val();
       ////now iterate through to submit to backend
       for (var i = 0; i < set.length; i++) {
+        console.log(set[i]);
         if(set[i].type === "video"){
           $cordovaFileTransfer.upload('http://45.55.24.234:5555/api/upload/video', set[i].link, {})
           .then(function(callbackImage){
@@ -729,11 +730,11 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
             }
             var splitUrl = callbackImage.response.split('');
             var sliced = splitUrl.slice(1, callbackImage.response.split('').length - 1).join('');
-
+            console.log(set[i]);
             $http({
               method: "POST"
-              ,url: "http://45.55.24.234:5555/api/createphotos"
-              ,data: {url: sliced, userId: userFullId, isVid: true}
+              ,url: "http://192.168.0.18:5555/api/createphotos"
+              ,data: {url: sliced, userId: userFullId, isVid: true, orientation: set[i].orientation}
             })
             .then(function(newVid){
               submissionData.videos.push(newVid.data._id);
@@ -743,7 +744,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
               if((parseInt(amalgam) == parseInt(set.length) || parseInt(set.length) === 0) && $scope.submitBar === true){
                 $http({
                   method: "POST"
-                  ,url: "http://45.55.24.234:5555/api/new/submission"
+                  ,url: "http://192.168.0.18:5555/api/new/submission"
                   ,data: submissionData
                 })
                 .then(function(newSubmission){
@@ -786,10 +787,11 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
               width: zeroProgress+"%"
             }, 200);
           }
+          console.log(set[i]);
           $http({
             method: "POST"
-            ,url: "http://45.55.24.234:5555/api/createphotos"
-            ,data: {url: set[i].link, userId: userFullId, isVid: true}////////PROBLEM   Ned to get that userOd above, it's shooting nulls
+            ,url: "http://192.168.0.18:5555/api/createphotos"
+            ,data: {url: set[i].link, userId: userFullId, isVid: true, orientation: set[i].orientation}////////PROBLEM   Ned to get that userOd above, it's shooting nulls
           })
           .then(function(newVid){
             submissionData.videos.push(newVid.data._id);
@@ -1404,7 +1406,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                     $http({
                       method: "POST"
                       ,url: 'http://192.168.0.18:5555/api/delete/temp/video'
-                      ,data: {userId: $scope.cachedUser._id, videoId: currentMedia._id}
+                      ,data: {userId: $scope.cachedUser._id, videoId: currentMedia.videoId}
                     })
                     .then(function(results){
 
