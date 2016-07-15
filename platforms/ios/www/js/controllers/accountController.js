@@ -279,28 +279,45 @@ angular.module('accountController', ['persistentPhotosFactory', 'userInfoFactory
       $scope.sellModal = false;
     }
 
-
-      function setCellSize(){
-        var cacheLength = $scope.singleSubmission.photos.length;
+    function findZoomed(){
+      if(window.innerWidth === 320){
+        return 'zoomed';
+      }
+      else if(window.innerWidth === 375){
+        return 'standard';
+      }
+    }
+    $scope.zooming = findZoomed();
+    function setCellSize(){
+      var cacheLength = $scope.singleSubmission.photos.length;
+      if($scope.zooming === 'zoomed'){
         if(cacheLength <= 4){
-          $timeout(function(){
-            $('.submitCellAcct').width('185px');
-            $('.submitCellAcct').height('185px');
-          }, 750);
+          // $timeout(function(){
+            $('.submitCellAcct').width('157.5px');
+            $('.submitCellAcct').height('157.5px');
+          // }, 750);
         }
         else if(cacheLength <= 9){
-          $timeout(function(){
+          // $timeout(function(){
+            $('.submitCellAcct').width('105px');
+            $('.submitCellAcct').height('105px');
+          // }, 1500);
+        }
+      }
+      else if($scope.zooming === 'standard'){
+        if(cacheLength <= 4){
+          // $timeout(function(){
+            $('.submitCellAcct').width('185px');
+            $('.submitCellAcct').height('185px');
+          // }, 750);
+        }
+        else if(cacheLength <= 9){
+          // $timeout(function(){
             $('.submitCellAcct').width('123.33px');
             $('.submitCellAcct').height('123.33px');
-          }, 1500);
         }
-        // else if(cacheLength <= 16){
-        //   $timeout(function(){
-        //     $('.submitCellAcct').width('92.5px');
-        //     $('.submitCellAcct').height('92.5px');
-        //   }, 3000);
-        // }
       }
+    }
 
     function openSubmission(subInfo, evt){
       $('ion-tabs').addClass('tabs-item-hide');
@@ -313,7 +330,7 @@ angular.module('accountController', ['persistentPhotosFactory', 'userInfoFactory
       $scope.singleSubmissionModal = true;
       setTimeout(function(){
         setCellSize();
-      }, 200);
+      }, 20);
       $('.repeatContainer').css({
         opacity: 0
       })

@@ -2002,8 +2002,8 @@ ion-content {
 
 @media only screen and (min-width: 0px){
   .submitCell {
-    height: 92.5px;
-    width: 92.5px;
+    height: 78.75px;
+    width: 78.75px;
     padding: 0px;
     display: inline-block;
     overflow: hidden;
@@ -2012,8 +2012,8 @@ ion-content {
   }
 
   .submitCellAcct {
-    height: 92.5px;
-    width: 92.5px;
+    height: 78.75px;
+    width: 78.75px;
     padding: 0px;
     display: inline-block;
     overflow: hidden;
