@@ -1408,15 +1408,14 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
           }
         }, 'Erase All?', ['Cancel', 'Yes'])
         function performErase(){
-          localforage.getItem('storedPhotos')
-          .then(function(storedArr){
-            var stored = storedArr;
-            var arrObj =  $.makeArray(document.getElementsByClassName('submitCellImageHolder'));
-            console.log(arrObj);
+          // localforage.getItem('storedPhotos')
+          // .then(function(storedArr){
+            // var stored = storedArr;
             var eraseCount = 0;
             $timeout(function(){
-              var allPhotos = $('.submitCellImageHolder');
-              var allLength = allPhotos.length;
+              var allPhotos = $.makeArray(document.getElementsByClassName('submitCellImageHolder'));
+              console.log(allPhotos);
+              var allLength = $scope.mediaCache.length;
               console.log(allLength);
               var allTemps = [];
               for (var i = 0; i < allLength; i++) {
@@ -1465,7 +1464,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                 }
               }
             }, 50);
-          });
+          // });
         }
       }
       else {
@@ -1476,11 +1475,12 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
     function eraseTemps(tempArr){
       console.log(tempArr);
+      console.log(tempArr.lengths);
       for (var i = 0; i < tempArr.length; i++) {
         console.log('erasing');
         $http({
           method: "POST"
-          ,url: 'http://45.55.24.234:5555/api/delete/temp/video'
+          ,url: 'http://192.168.0.5:5555/api/delete/temp/video'
           ,data: {userId: $scope.cachedUser._id, videoId: tempArr[i]}
         })
         .then(function(results){
