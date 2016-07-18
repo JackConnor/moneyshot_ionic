@@ -1406,7 +1406,7 @@ ion-content {
 .photoCarouselInner {
   height: 70px;
   padding: 0px;
-  margin-left: 152.5px;
+  /*margin-left: 152.5px;*/
   position: absolute;
   /*border-top: 1px solid white;
   border-bottom: 1px solid white;*/
