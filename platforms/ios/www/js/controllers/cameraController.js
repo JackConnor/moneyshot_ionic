@@ -823,7 +823,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
           $http({
             method: "POST"
             ,url: "http://45.55.24.234:5555/api/createphotos"
-            ,data: {url: set[i].link, userId: userFullId, isVid: true, orientation: elOrientation}////////PROBLEM   Ned to get that userOd above, it's shooting nulls
+            ,data: {url: set[i].link, userId: userFullId, isVid: true, orientation: set[i].orientation}////////PROBLEM   Ned to get that userOd above, it's shooting nulls
           })
           .then(function(newVid){
             submissionData.videos.push(newVid.data._id);
