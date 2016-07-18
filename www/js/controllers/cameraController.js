@@ -1644,9 +1644,18 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       $scope.inputsFocused = false;
       $timeout(function(){
         if(!$scope.inputsFocused){
-          $('.submitRepeat').animate({
-            height: '340px'
-          }, 250);
+          var screenHeight = $(window).height();
+          console.log(screenHeight);
+          if(screenHeight === 568){
+            $('.submitRepeat').animate({
+              height: '290px'
+            }, 250);
+          }
+          else {
+            $('.submitRepeat').animate({
+              height: '340px'
+            }, 250);
+          }
           $scope.isDisabled = false;
         }
       }, 1000);
@@ -1657,9 +1666,18 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       $scope.inputsFocused = false;
       $timeout(function(){
         if(!$scope.inputsFocused){
-          $('.submitRepeat').animate({
-            height: '340px'
-          }, 250);
+          var screenHeight = $(window).height();
+          console.log(screenHeight);
+          if(screenHeight === 568){
+            $('.submitRepeat').animate({
+              height: '290px'
+            }, 250);
+          }
+          else {
+            $('.submitRepeat').animate({
+              height: '340px'
+            }, 250);
+          }
           $scope.isDisabled = false;
         }
       }, 1000);

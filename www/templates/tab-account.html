@@ -56,7 +56,7 @@
 
             <img ng-src="{{photo.thumbnail}}" id='{{$index}}' ng-click='clickCarouselPhoto(photo, $index)' ng-if='!photo.isVideo || (photo.isVideo && photo.orientation === "portrait")'/>
 
-            <img ng-src="{{photo.thumbnail}}" id='{{$index}}' ng-click='clickCarouselPhoto(photo, $index)' ng-if='(photo.isVideo && photo.orientation !== "portrait")' style='height: 100%; width: auto; margin-top: 0'/>
+            <img ng-src="{{photo.thumbnail}}" id='{{$index}}' ng-click='clickCarouselPhoto(photo, $index)' ng-if='(photo.isVideo && photo.orientation !== "portrait")' style='height: 100%; width: auto; margin-top: "0px"'/>
 
           </div>
         </div>
