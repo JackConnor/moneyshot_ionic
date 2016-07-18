@@ -1224,9 +1224,9 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
             $($('.photoCarouselCell')[index]).addClass('carouselSelected');
             // var width = $($('.mainPhotoHolder').children()[0]).width();
             var outerWidth = $('.mainPhotoHolder').width();
-            var marginL = (outerWidth/2)-40;
+            var marginL = (outerWidth/2)-38;
             $('.photoCarouselInner').css({
-              width: ($('.photoCarouselCell').length*70)+marginL+'px'
+              width: ($('.photoCarouselCell').length*70)+marginL+6+'px'
               ,marginLeft: marginL
             });
           }, 50);
