@@ -568,11 +568,8 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         $cordovaCapture.captureVideo({quality : 100})
         .then(function(result){
           console.log(result);
+
           ///////here we fire off video to temp storage on our server to save video in case of app closure
-          $cordovaFileTransfer.upload('http://192.168.0.18:5555/api/temp/video', result[0].fullPath, {params: {userId: $scope.cachedUser._id, orientation: $scope.orientation}}, true)
-          .then(function(updatedUser){
-            //callback
-          })
           ////////////////
           var pathFull = result[0].fullPath;///////this is what we need to add to our cache
           var thumbOpts = {
@@ -595,6 +592,19 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
               ,date: new Date()
               ,orientation: $scope.orientation
             });
+            var img = new Image();
+            $(img).attr('src', thumbnail);
+            console.log(img);
+            console.log($(img));
+            var width = img.width;
+            var height = img.height;
+            console.log(width);
+            console.log(height);
+            $cordovaFileTransfer.upload('http://45.55.24.234:5555/api/temp/video', result[0].fullPath, {params: {userId: $scope.cachedUser._id, orientation: $scope.orientation}}, true)
+            .then(function(updatedUser){
+              //callback
+              console.log(updatedUser);
+            })
            })
            .catch( function(err){
              console.log('Thumbnail Error======================', err)
@@ -735,7 +745,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
             console.log(set[i]);
             $http({
               method: "POST"
-              ,url: "http://192.168.0.18:5555/api/createphotos"
+              ,url: "http://45.55.24.234:5555/api/createphotos"
               ,data: {url: sliced, userId: userFullId, isVid: true, orientation: elOrientation}
             })
             .then(function(newVid){
@@ -746,7 +756,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
               if((parseInt(amalgam) == parseInt(set.length) || parseInt(set.length) === 0) && $scope.submitBar === true){
                 $http({
                   method: "POST"
-                  ,url: "http://192.168.0.18:5555/api/new/submission"
+                  ,url: "http://45.55.24.234:5555/api/new/submission"
                   ,data: submissionData
                 })
                 .then(function(newSubmission){
@@ -792,7 +802,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
           console.log(set[i]);
           $http({
             method: "POST"
-            ,url: "http://192.168.0.18:5555/api/createphotos"
+            ,url: "http://45.55.24.234:5555/api/createphotos"
             ,data: {url: set[i].link, userId: userFullId, isVid: true, orientation: elOrientation}////////PROBLEM   Ned to get that userOd above, it's shooting nulls
           })
           .then(function(newVid){
@@ -1407,7 +1417,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                   if(currentMedia.type === 'videoTemp'){
                     $http({
                       method: "POST"
-                      ,url: 'http://192.168.0.18:5555/api/delete/temp/video'
+                      ,url: 'http://45.55.24.234:5555/api/delete/temp/video'
                       ,data: {userId: $scope.cachedUser._id, videoId: currentMedia.videoId}
                     })
                     .then(function(results){
