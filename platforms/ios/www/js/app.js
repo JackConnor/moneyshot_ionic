@@ -7,24 +7,13 @@
 // 'starter.controllers' is found in controllers.js
 function init($ionicPlatform, $state, cameraFac) {
   // $(document).on('deviceready', function(){
-    navigator.geolocation.getCurrentPosition(function(pos, err){})
-    function pos(){
+  navigator.geolocation.getCurrentPosition(function(pos, err){})
+  function pos(){
 
-    }
-    function err(){
+  }
+  function err(){
 
-    }
-  // })
-  // setTimeout(function(){
-  //   // if(!window.location.needToReload){
-  //     alert('Go to MoPho?')
-  //     $state.reload(true);
-  //   // }
-  // }, 3000);
-  // alert(cameraFac)
-  // cameraFac.pictureHandler();
-  // alert(  cordova.plugins.camerapreview)
-  // cordova.plugins.camerapreview.startCamera(rect, 'back', tapEnabled, dragEnabled, toBack);
+  }
   $ionicPlatform.ready(function() {
     if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
@@ -41,11 +30,7 @@ function init($ionicPlatform, $state, cameraFac) {
 
 angular.module('starter', ['ionic', 'ngCordova', 'ngRoute', 'ngFileUpload', 'starter.services', 'accountController', 'cameraController', 'ngStorage', 'uploadController', 'signupController', 'allPhotosFactory', 'singlePhotoFactory', 'navbarHolderFactory', 'signupFactory', 'signinFactory', 'newTokenFactory', 'userPhotosFactory', 'decodeTokenFactory', 'cameraFactory', 'userInfoFactory', 'ngTouch', 'bankController', 'initLoad', 'persistentPhotosFactory', 'emailVideoFactory'])
 
-.run(function(){
-  setTimeout(function(){
-    init();
-  }, 1500);
-})
+.run(init)
 
 
 

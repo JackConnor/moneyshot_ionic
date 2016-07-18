@@ -585,26 +585,33 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
           var fPath = source.split(result[0].name)[0] + $scope.cntPhoto++ + 'test.jpg'
           window.PKVideoThumbnail.createThumbnail ( source, fPath, thumbOpts )
           .then( function( thumbnail ){
-            $scope.mediaCache.push({
-              type: "video"
-              ,link: pathFull
-              ,thumb: thumbnail
-              ,date: new Date()
-              ,orientation: $scope.orientation
-            });
-            var img = new Image();
-            $(img).attr('src', thumbnail);
-            console.log(img);
-            console.log($(img));
-            var width = img.width;
-            var height = img.height;
-            console.log(width);
-            console.log(height);
-            $cordovaFileTransfer.upload('http://45.55.24.234:5555/api/temp/video', result[0].fullPath, {params: {userId: $scope.cachedUser._id, orientation: $scope.orientation}}, true)
-            .then(function(updatedUser){
-              //callback
-              console.log(updatedUser);
-            })
+
+            var i = new Image();
+
+            i.onload = function(){
+            //  alert( i.width+", "+i.height );
+              if(i.width > i.height){
+                var vidOrientation = 'right'
+              }
+              else if(i.width < i.height){
+                var vidOrientation = 'portrait'
+              }
+              $scope.mediaCache.push({
+                type: "video"
+                ,link: pathFull
+                ,thumb: thumbnail
+                ,date: new Date()
+                ,orientation: vidOrientation
+              });
+              console.log($scope.mediaCache);
+              $cordovaFileTransfer.upload('http://45.55.24.234:5555/api/temp/video', result[0].fullPath, {params: {userId: $scope.cachedUser._id, orientation: vidOrientation}}, true)
+              .then(function(updatedUser){
+                //callback
+                console.log(updatedUser);
+              })
+            }
+            i.src = thumbnail;
+
            })
            .catch( function(err){
              console.log('Thumbnail Error======================', err)
