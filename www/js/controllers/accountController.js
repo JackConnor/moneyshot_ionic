@@ -134,6 +134,7 @@ angular.module('accountController', ['persistentPhotosFactory', 'userInfoFactory
           });
         }, 1000);
       }
+      console.log($scope.userInfo);
     }
 
     var userToken = $localStorage.webToken;

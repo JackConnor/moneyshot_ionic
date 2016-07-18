@@ -714,14 +714,13 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     function submitNameAndPhotos(){
       var submissionData;
       var set = $scope.mediaCache;
+      console.log(set);
       var setLength = set.length;
       var zeroProgress = 0;
       var progressPercentage = 100/setLength;
       var submissionData = {photos: [], videos: [], userId: '', metaData: {}};
       var webToken = $localStorage.webToken;
-      console.log(webToken);
       //////first we need to find the users ID, so we can use it to make the post requests
-      console.log($scope.cachedUser);
       var userFullId = $scope.cachedUser._id;
       navigator.geolocation.getCurrentPosition(function(position){
         submissionData.metaData.latitude = position.coords.latitude;
@@ -734,12 +733,12 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       submissionData.metaData.what = $('.photoNameDesc').val();
       ////now iterate through to submit to backend
       for (var i = 0; i < set.length; i++) {
+        console.log('beginning');
         console.log(set[i]);
-        var elOrientation = set[i].orientation;
-        console.log(elOrientation);
         if(set[i].type === "video"){
           $cordovaFileTransfer.upload('http://45.55.24.234:5555/api/upload/video', set[i].link, {})
           .then(function(callbackImage){
+            console.log(callbackImage);
             var progressElement = $('.submitProgressBar');
             if(zeroProgress <= 100){
               zeroProgress += progressPercentage;
@@ -749,53 +748,67 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
             }
             var splitUrl = callbackImage.response.split('');
             var sliced = splitUrl.slice(1, callbackImage.response.split('').length - 1).join('');
-            console.log(set[i]);
-            $http({
-              method: "POST"
-              ,url: "http://45.55.24.234:5555/api/createphotos"
-              ,data: {url: sliced, userId: userFullId, isVid: true, orientation: elOrientation}
-            })
-            .then(function(newVid){
-              submissionData.videos.push(newVid.data._id);
-              var vids = submissionData.videos.length;
-              var phots = submissionData.photos.length;
-              var amalgam = vids + phots;
-              if((parseInt(amalgam) == parseInt(set.length) || parseInt(set.length) === 0) && $scope.submitBar === true){
-                $http({
-                  method: "POST"
-                  ,url: "http://45.55.24.234:5555/api/new/submission"
-                  ,data: submissionData
-                })
-                .then(function(newSubmission){
-                  $timeout(function(){
-                    localforage.setItem('storedPhotos', [])
-                    .then(function(success){
-                      $scope.cachedUser.tempVideoCache = [];
-                      userInfo.userInfoFunc('blah', false, $scope.cachedUser);
-                      userInfo.userInfoFunc($localStorage.webToken, true);
-                      // $state.reload(true);
-                      $scope.postSubmit = true;
-                      $timeout(function(){
-                        $(".cameraPostBlack").animate({
-                          opacity: 1
-                        }, 400);
-                      }, 250);
-                      $timeout(function(){
-                        $scope.submitModalVar = false;
-                        $scope.cameraModal = false;
-                      }, 650);
-                    })
-                    .catch(function(err){
-                      console.log(err);
-                    })
-                    $scope.cnt = 0;
-                  }, 100);
-                })
+            var thumbUrl = sliced.split('').slice(0, sliced.length-4).join('')+".jpg";
+            console.log(thumbUrl);
+
+            var i = new Image();
+            i.onload = function(){
+              if(i.width > i.height){
+                console.log('landscape');
+                var elOrient = 'right';
               }
-              else if((parseInt(amalgam) == parseInt(set.length) || parseInt(set.length) === 0) && $scope.submitBar === false){
-                $scope.isDisabled = false;
+              else if((i.width < i.height)){
+                console.log('portrait');
+                var elOrient = 'portrait';
               }
-            })
+              $http({
+                method: "POST"
+                ,url: "http://45.55.24.234:5555/api/createphotos"
+                ,data: {url: sliced, userId: userFullId, isVid: true, orientation: elOrient}
+              })
+              .then(function(newVid){
+                submissionData.videos.push(newVid.data._id);
+                var vids = submissionData.videos.length;
+                var phots = submissionData.photos.length;
+                var amalgam = vids + phots;
+                if((parseInt(amalgam) == parseInt(set.length) || parseInt(set.length) === 0) && $scope.submitBar === true){
+                  $http({
+                    method: "POST"
+                    ,url: "http://45.55.24.234:5555/api/new/submission"
+                    ,data: submissionData
+                  })
+                  .then(function(newSubmission){
+                    $timeout(function(){
+                      localforage.setItem('storedPhotos', [])
+                      .then(function(success){
+                        $scope.cachedUser.tempVideoCache = [];
+                        userInfo.userInfoFunc('blah', false, $scope.cachedUser);
+                        userInfo.userInfoFunc($localStorage.webToken, true);
+                        // $state.reload(true);
+                        $scope.postSubmit = true;
+                        $timeout(function(){
+                          $(".cameraPostBlack").animate({
+                            opacity: 1
+                          }, 400);
+                        }, 250);
+                        $timeout(function(){
+                          $scope.submitModalVar = false;
+                          $scope.cameraModal = false;
+                        }, 650);
+                      })
+                      .catch(function(err){
+                        console.log(err);
+                      })
+                      $scope.cnt = 0;
+                    }, 100);
+                  })
+                }
+                else if((parseInt(amalgam) == parseInt(set.length) || parseInt(set.length) === 0) && $scope.submitBar === false){
+                  $scope.isDisabled = false;
+                }
+              })
+            }
+            i.src = thumbUrl
           })
         }
         else if(set[i].type === "videoTemp"){
