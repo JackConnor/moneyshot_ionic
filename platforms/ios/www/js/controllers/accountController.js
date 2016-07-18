@@ -663,17 +663,11 @@ angular.module('accountController', ['persistentPhotosFactory', 'userInfoFactory
         $scope.showSubmitted = false;
         $scope.photoCarouselBool = true;
         $timeout(function(){
-          var width = $($('.mainPhotoHolder').children()[0]).width();
-          var outerWidth = $('.mainPhotoHolder').width();
-          var marginL = (outerWidth - width)/2;
-          $($('.mainPhotoHolder').children()[0]).css({
-            width: width+"px"
-          })
-          $($('.mainPhotoHolder').children()[0]).css({
-            marginLeft: marginL
-          });
+          var outerWidth = $('.mainPhotoHolderAcct').width();
+          var marginL = (outerWidth/2)-40;
           $('.photoCarouselInner').css({
-            width: ($('.photoCarouselCellAcct').length*70)+152.5+'px'
+            width: ($('.photoCarouselCellAcct').length*70)+marginL+'px'
+            ,marginLeft: marginL
           });
           // $ionicScrollDelegate.$getByHandle('carouselScroll').resize();
         }, 50);
