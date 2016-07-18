@@ -666,7 +666,7 @@ angular.module('accountController', ['persistentPhotosFactory', 'userInfoFactory
           var outerWidth = $('.mainPhotoHolderAcct').width();
           var marginL = (outerWidth/2)-40;
           $('.photoCarouselInner').css({
-            width: ($('.photoCarouselCellAcct').length*70)+marginL+'px'
+            width: ($('.photoCarouselCellAcct').length*70)+marginL+6+'px'
             ,marginLeft: marginL
           });
           // $ionicScrollDelegate.$getByHandle('carouselScroll').resize();
