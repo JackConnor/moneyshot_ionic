@@ -1403,63 +1403,60 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
           }
         }, 'Erase All?', ['Cancel', 'Yes'])
         function performErase(){
-          // localforage.getItem('storedPhotos')
-          // .then(function(storedArr){
-            // var stored = storedArr;
-            var eraseCount = 0;
-            $timeout(function(){
-              var allPhotos = $.makeArray(document.getElementsByClassName('submitCellImageHolder'));
-              console.log(allPhotos);
-              var allLength = $scope.mediaCache.length;
-              console.log(allLength);
-              var allTemps = [];
-              for (var i = 0; i < allLength; i++) {
-                console.log("i: " + i);
-                console.log($scope.mediaCache[i]);
-                var child = $(allPhotos[i]).find('img');
+          var eraseCount = 0;
+          $timeout(function(){
+            var allPhotos = $.makeArray(document.getElementsByClassName('submitCellImageHolder'));
+            console.log(allPhotos);
+            var allLength = $scope.mediaCache.length;
+            var allTemps = [];
+            /////begin looping through to erase each properly
+            for (var i = 0; i < allLength; i++) {
+              console.log(i);
+              var child = $(allPhotos[i]).find('img');
+              var isSelected = child.hasClass('selectedP');
+              if(isSelected){
                 $(child).css({
                   opacity: 1
                 });
-                if(child.hasClass('selectedP')){
-                  console.log('selected baby');
-                  $(allPhotos[i]).find('.photoCheckHolder').remove();
-                  ////////////need to check vor tempVideo, so we can send an http call to remove this from the uses temp storage
-                  var currentMedia = $scope.mediaCache[i-eraseCount];
-                  if(currentMedia.type === 'videoTemp'){
-                    allTemps.push(currentMedia);
-                  }
-                  $scope.mediaCache.splice((i-eraseCount), 1);
-                  $scope.mediaCacheTemp.splice((i-eraseCount), 1);
-                  child.removeClass('selectedP');
-                  $scope.$apply();
-                  eraseCount++;
+                console.log(child);
+                $(allPhotos[i]).find('.photoCheckHolder').remove();
+                ////////////need to check vor tempVideo, so we can send an http call to remove this from the uses temp storage
+                var currentMedia = $scope.mediaCache[i];
+                if(currentMedia.type === 'videoTemp'){
+                  allTemps.push(currentMedia);
                 }
-                if(i === allLength-1){
-                  eraseTemps(allTemps);
-                  selectPhotos();
-                  var allPhotos = [];
-                  if($scope.mediaCache.length > 0){
-                    for (var k = 0; k < $scope.mediaCache.length; k++) {
-                      if($scope.mediaCache[k].type === 'photo'){
-                        allPhotos.push($scope.mediaCache[k])
-                      }
-                    }
-                  }
-                  localforage.setItem('storedPhotos', allPhotos)
-                  .then(function(newPhotoArr){
-                    if($scope.mediaCache.length === 0){
-                      $timeout(function(){
-                        backToPhotos();
-                      })
-                    }
-                  })
-                  .catch(function(err){
-                    console.log(err);
-                  })
-                }
+                $scope.mediaCache[i] = null;
+                // $scope.mediaCache.splice((i), 1);
+                // $scope.mediaCacheTemp.splice((i-eraseCount), 1);
+                child.removeClass('selectedP');
+                $scope.$apply();
+                eraseCount++;
               }
-            }, 50);
-          // });
+              if(i === allLength-1){
+                console.log('done');
+                eraseTemps(allTemps);
+                selectPhotos();
+                var allPhotos = [];
+                if($scope.mediaCache.length > 0){
+                  for (var k = 0; k < $scope.mediaCache.length; k++) {
+                    if($scope.mediaCache[k] !== null && $scope.mediaCache[k].type === 'photo'){
+                      allPhotos.push($scope.mediaCache[k])
+                    }
+                  }
+                }
+                localforage.setItem('storedPhotos', allPhotos)
+                .then(function(newPhotoArr){
+                  eraseMediaCaches();
+                  if($scope.mediaCache.length === 0){
+                    backToPhotos();
+                  }
+                })
+                .catch(function(err){
+                  console.log(err);
+                })
+              }
+            }
+          }, 50);
         }
       }
       else {
@@ -1468,20 +1465,34 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     }
     $scope.batchErase = batchErase;
 
+    function eraseMediaCaches(){
+      $scope.mediaCache.push('blahhhhhh');
+      console.log($scope.mediaCache);
+      var cacheLength = $scope.mediaCache.length;
+      var eraseCount = 0;
+      for (var i = 0; i < cacheLength; i++) {
+        console.log($scope.mediaCache);
+        console.log($scope.mediaCache[i-eraseCount]);
+        if($scope.mediaCache[i-eraseCount] === null){
+          console.log('got a null');
+          console.log('erasing number: '+eraseCount);
+          eraseCount++;
+          $scope.mediaCache.splice(i-eraseCount, 1);
+          $scope.mediaCacheTemp.splice(i-eraseCount, 1);
+        }
+      }
+    }
+
     function eraseTemps(tempArr){
       console.log(tempArr);
-      console.log(tempArr.lengths);
-      for (var i = 0; i < tempArr.length; i++) {
-        console.log('erasing');
-        $http({
-          method: "POST"
-          ,url: 'http://192.168.0.10:5555/api/delete/temp/video'
-          ,data: {userId: $scope.cachedUser._id, videoId: tempArr[i]}
-        })
-        .then(function(results){
-          console.log(results);
-        })
-      }
+      $http({
+        method: "POST"
+        ,url: 'http://192.168.0.10:5555/api/delete/batch/video/temp'
+        ,data: {userId: $scope.cachedUser._id, videos: tempArr}
+      })
+      .then(function(results){
+        console.log(results);
+      })
     }
 
     function eraseSinglePhoto(){
