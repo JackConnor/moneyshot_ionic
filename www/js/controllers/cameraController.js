@@ -1419,7 +1419,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
                   opacity: 1
                 });
                 console.log(child);
-                $(allPhotos[i]).find('.photoCheckHolder').remove();
+                $(allPhotos[i]).parent().find('.photoCheckHolder').remove();
                 ////////////need to check vor tempVideo, so we can send an http call to remove this from the uses temp storage
                 var currentMedia = $scope.mediaCache[i];
                 if(currentMedia.type === 'videoTemp'){
@@ -1497,7 +1497,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
     function eraseSinglePhoto(){
       var confirmErase = navigator.notification.confirm('Erase this photo?', function(index){
-        if(index === 1){
+        if(index === 1){ 
           //callback
         }
         else if(index === 2){
