@@ -202,12 +202,12 @@
 
             <div class="submitCellImageHolder" ng-if='photo.orientation==="right"'>
               <img class='submitPhoto submitPhoto{{$index}}' id='submit{{$index}}' ng-src="{{photo.thumbnail}}" ng-click='goToCarousel(photo, $index, $event)' ng-if='!photo.isVideo'/>
-              <img class='submitPhoto submitPhoto{{$index}}' id='submit{{$index}}' ng-src="{{photo.thumbnail}}" ng-click='goToCarousel(photo, $index, $event)' ng-if='photo.isVideo' style='margin-top: 22px;'/>
+              <img class='submitPhoto submitPhoto{{$index}}' id='submit{{$index}}' ng-src="{{photo.thumbnail}}" ng-click='goToCarousel(photo, $index, $event)' ng-if='photo.isVideo' style='height: 100%; width: auto; margin-left: -15px'/>
             </div>
 
             <div class="submitCellImageHolder" ng-if='photo.orientation==="left"'>
               <img class='submitPhoto submitPhoto{{$index}}' id='submit{{$index}}' ng-src="{{photo.thumbnail}}" ng-click='goToCarousel(photo, $index, $event)' ng-if='!photo.isVideo'/>
-              <img class='submitPhoto submitPhoto{{$index}}' id='submit{{$index}}' ng-src="{{photo.thumbnail}}" ng-click='goToCarousel(photo, $index, $event)' ng-if='photo.isVideo' style='margin-top: 22px;'/>
+              <img class='submitPhoto submitPhoto{{$index}}' id='submit{{$index}}' ng-src="{{photo.thumbnail}}" ng-click='goToCarousel(photo, $index, $event)' ng-if='photo.isVideo' style='height: 100%; width: auto; margin-left: -15px;'/>
             </div>
           </div>
         </ion-scroll>
