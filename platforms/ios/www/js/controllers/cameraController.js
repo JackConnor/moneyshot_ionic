@@ -1525,6 +1525,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
               $scope.eraseStopper = false;
               if(mediaLength === 1){
                 $scope.photoCarouselBool = false;
+                backToPhotos();
                 $scope.$apply();
               }
               else if(caughtIt === mediaLength-1){
