@@ -1497,7 +1497,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
 
     function eraseSinglePhoto(){
       var confirmErase = navigator.notification.confirm('Erase this photo?', function(index){
-        if(index === 1){
+        if(index === 1){ 
           //callback
         }
         else if(index === 2){
