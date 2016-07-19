@@ -65,7 +65,7 @@
 
             <img style='-webkit-transform: rotate(90deg); margin-top: -27px' ng-if='media.type==="photo" && media.orientation==="right"' ng-src="{{media.link}}" ng-click='clickCarouselPhoto(media, $index)'/ >
 
-            <img style='-webkit-transform: rotate(-90deg); margin-top: -13px' ng-if='media.type==="photo" && media.orientation==="left"' ng-src="{{media.link}}" ng-click='clickCarouselPhoto(media, $index)'/ >
+            <img style='-webkit-transform: rotate(-90deg); margin-top: -30px' ng-if='media.type==="photo" && media.orientation==="left"' ng-src="{{media.link}}" ng-click='clickCarouselPhoto(media, $index)'/ >
 
             <img ng-if='(media.type==="video" || media.type==="videoTemp") && media.orientation==="portrait"' ng-src="{{media.thumb | trustUrl}}" ng-click='clickCarouselPhoto(media, $index)' style='margin-top: 0'/>
 
