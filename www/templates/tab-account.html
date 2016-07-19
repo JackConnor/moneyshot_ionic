@@ -13,21 +13,22 @@
       </div>
       <div class="mainPhotoHolderAcct">
         <div ng-if="carouselMain.isVideo" class='clickVideo' ng-click="playVid()" on-swipe-right='photoCarouselSwipeRight()' on-swipe-left='photoCarouselSwipeLeft()'>
+          <!-- All Videos -->
           <div class="watermarkCell watermarkPending" ng-if='carouselMain.orientation===portrait'>
             MoPho
           </div>
 
-          <div class="watermarkCell watermarkPending" ng-if='carouselMain.orientation!==portrait && carouselMain.isVideo === false' style='margin-top: 250px; padding-top: 0px;'>
+          <div class="watermarkCell watermarkPending" ng-if='carouselMain.orientation!==portrait && carouselMain.isVideo === false' style='margin-top: 250px;'>
             MoPho
           </div>
 
-          <div class="watermarkCell watermarkPending" ng-if='carouselMain.orientation!==portrait && carouselMain.isVideo === true' style='margin-top: 250px; padding-top: 0px;'>
+          <div class="watermarkCell watermarkPending" ng-if='carouselMain.orientation!==portrait && carouselMain.isVideo === true' style='margin-top: 250px;'>
             MoPho
           </div>
 
         </div>
         <div class="watermarkLayer" ng-if="!carouselMain.isVideo" on-swipe-right='photoCarouselSwipeRight()' on-swipe-left='photoCarouselSwipeLeft()'>
-
+          <!-- All Photos -->
           <div class="watermarkCell watermarkPending" ng-if='carouselMain.orientation===portrait'>
             MoPho
           </div>
@@ -48,7 +49,7 @@
         <video ng-if="carouselMain.isVideo && carouselMain.orientation==='portrait'" ng-src="{{carouselMain.url | trustUrl}}"  poster="{{carouselMain.thumbnail}}" webkit-playsinline id='carouselVideo'>
         </video>
 
-        <video ng-if="carouselMain.isVideo && carouselMain.orientation!=='portrait'" ng-src="{{carouselMain.url | trustUrl}}"  poster="{{carouselMain.thumbnail}}" webkit-playsinline id='carouselVideo' style='margin-top: -100px'>
+        <video ng-if="carouselMain.isVideo && carouselMain.orientation!=='portrait'" ng-src="{{carouselMain.url | trustUrl}}"  poster="{{carouselMain.thumbnail}}" webkit-playsinline id='carouselVideo' style='margin-top: -85px'>
         </video>
 
 
