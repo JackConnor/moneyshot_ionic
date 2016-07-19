@@ -1471,7 +1471,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         navigator.notification.alert('Please select some photos to erase, thank you.')
       }
     }
-    $scope.batchErase = batchErase;
+    $scope.batchErase = batchErase; 
 
     function eraseTemps(tempArr){
       console.log(tempArr);
@@ -1480,7 +1480,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         console.log('erasing');
         $http({
           method: "POST"
-          ,url: 'http://192.168.0.5:5555/api/delete/temp/video'
+          ,url: 'http://192.168.0.10:5555/api/delete/temp/video'
           ,data: {userId: $scope.cachedUser._id, videoId: tempArr[i]}
         })
         .then(function(results){
