@@ -388,19 +388,16 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
       // })
       window.addEventListener("deviceorientation", function(event){
         var gamma = event.gamma;
-        if(gamma < 110 && 70 < gamma){
+        if(gamma < 140 && 50 < gamma){
           $scope.orientation = 'right';
-          $scope.orientationGamma = event.gamma;
           $scope.$apply();
         }
-        else if(gamma < -70 && -110 < gamma){
+        else if(gamma < -50 && -140 < gamma){
           $scope.orientation = 'left';
-          $scope.orientationGamma = event.gamma;
           $scope.$apply();
         }
         else {
           $scope.orientation = 'portrait';
-          $scope.orientationGamma = event.gamma;
           $scope.$apply();
         }
         // console.log($scope.orientation);
@@ -488,9 +485,6 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     }
 
     $scope.takeCordovaPicture = function(){
-      console.log($scope.orientation);
-      console.log($scope.orientationGamma);
-      console.log(typeof $scope.orientationGamma);
       if($scope.mediaCache.length < 20 && $scope.activePhoto === false){
         $scope.activePhoto = true;
         cordova.plugins.camerapreview.takePicture();
