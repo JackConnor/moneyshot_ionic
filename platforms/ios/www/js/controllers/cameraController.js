@@ -1242,6 +1242,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
         }, 300);
       }
       else {
+        ///////if seect mode for batch erasing is on
         selectHighlightPhotos(mediaData, index, evt);
       }
     }
@@ -1332,7 +1333,7 @@ angular.module('cameraController', ['singlePhotoFactory', 'ngFileUpload', 'ngCor
     function selectHighlightPhotos(media, index, evt){
       if(!$(evt.currentTarget).hasClass('selectedP')){
         $(evt.currentTarget).addClass('selectedP');
-        var parent = $(evt.currentTarget).parent();
+        var parent = $($(evt.currentTarget).parent()).parent();
         parent.prepend(
           "<div class='photoCheckHolder'>"+
             "<p class='fa fa-check-circle photoCheck'></p>"+
