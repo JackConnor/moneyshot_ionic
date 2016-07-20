@@ -215,7 +215,7 @@ angular.module('signupController', ['userInfoFactory'])
 
                     $http({
                       method: "POST"
-                      ,url: "http://45.55.24.234:5555/api/signup/email"
+                      ,url: "http://192.168.0.5:5555/api/signup/email"
                       ,data: {userEmail: email}
                     })
                     .then(function(mailCallback){
