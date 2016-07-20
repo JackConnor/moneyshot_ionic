@@ -41,7 +41,7 @@ ion-content {
   padding: 0px;
   position: absolute;
   overflow: hidden;
-  margin-top: 75px;
+  margin-top: 85px;
   height: auto;
   min-height: 714px;
 }
@@ -70,7 +70,7 @@ ion-content {
 .accountTabHolder {
   background-color: black;
   padding: 0px;
-  height: 75px;
+  height: 85px;
   z-index: 10;
   position: absolute;
   display: flex;
@@ -1697,7 +1697,7 @@ ion-content {
   position: absolute;
   right: 15px;
   font-size: 14px;
-  margin-top: 15px;
+  margin-top: 22px;
   color: white;
 }
 
